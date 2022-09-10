@@ -56,9 +56,17 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request,$id)
     {
-        //
+        $student = Student::findOrFail($id);
+       $student->studentNumber = $request->studentNumber;
+       $student->class = $request->class;
+       $student->batch = $request->batch;
+       $student->phone = $request->phone;
+       $student->ngo = $request->ngo;
+       $student->province = $request->province;
+       $student->save();
+       return response()->json(['sms'=>$student]);
     }
 
     /**

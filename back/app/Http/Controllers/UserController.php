@@ -46,7 +46,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return User::with('students')->findOrFail($id);
     }
 
     /**
@@ -58,7 +58,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+       $user->first_name = $request->first_name;
+       $user->last_name = $request->last_name;
+       $user->gender = $request->gender;
+       $user->profile_img = $request->profile_img;
+       $user->role = $request->role;
+       $user->email = $request->email;
+       $user->save();
+    
+    return response()->json(['sms'=> $user],201);
     }
 
     /**
