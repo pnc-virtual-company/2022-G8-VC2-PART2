@@ -14,7 +14,7 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
+        return Teacher::all();
     }
 
     /**
@@ -25,7 +25,11 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $teacher = new Teacher();
+        $teacher->user_id=$request->user_id;
+        $teacher->position=$request->position;
+        $teacher->save();
+        return response()->json(['sms'=>$teacher],201);
     }
 
     /**
