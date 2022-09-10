@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
 use Illuminate\Http\Request;
-
-class StudentController extends Controller
+use App\Models\User;
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +13,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return Student::with('user')->get();
+        return User::with('students')->get();
     }
 
     /**
@@ -25,26 +24,27 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-       $student = new Student();
-       $student->user_id = $request->user_id;
-       $student->studentNumber = $request->studentNumber;
-       $student->class = $request->class;
-       $student->batch = $request->batch;
-       $student->phone = $request->phone;
-       $student->ngo = $request->ngo;
-       $student->province = $request->province;
-       $student->save();
-       return response()->json(['sms'=>$student]);
-
+       $user = new User();
+       $user->first_name = $request->first_name;
+       $user->last_name = $request->last_name;
+       $user->gender = $request->gender;
+       $user->profile_img = $request->profile_img;
+       $user->role = $request->role;
+       $user->password = $request->password;
+       $user->email = $request->email;
+       $user->save();
+    
+    return response()->json(['sms'=> $user],201);
+    
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Student  $student
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show($id)
     {
         //
     }
@@ -53,10 +53,10 @@ class StudentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Student  $student
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -64,10 +64,10 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Student  $student
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Student $student)
+    public function destroy($id)
     {
         //
     }

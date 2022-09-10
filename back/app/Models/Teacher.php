@@ -12,7 +12,12 @@ class Teacher extends Model
         'user_id',
         'position',
     ];
-    public function users(){
+    protected $hidden = [
+        'remember_token',
+        'created_at',
+        'updated_at'
+    ];
+    public function user(){
         return $this->hasOne(User::class,"user_id");
     }
     

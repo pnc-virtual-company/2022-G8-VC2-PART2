@@ -17,7 +17,12 @@ class Student extends Model
         'ngo',
         'province',
     ];
-    public function users(){
-        return $this->hasOne(User::class,"user_id");
+    protected $hidden = [
+        'remember_token',
+        'created_at',
+        'updated_at'
+    ];
+    public function user(){
+        return $this->belongsTo(User::class,"user_id");
     }
 }
