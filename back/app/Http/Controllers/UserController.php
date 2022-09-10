@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+
 class UserController extends Controller
 {
     /**
@@ -24,18 +25,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-       $user = new User();
-       $user->first_name = $request->first_name;
-       $user->last_name = $request->last_name;
-       $user->gender = $request->gender;
-       $user->profile_img = $request->profile_img;
-       $user->role = $request->role;
-       $user->password = $request->password;
-       $user->email = $request->email;
-       $user->save();
-    
-    return response()->json(['sms'=> $user],201);
-    
+        $user = new User();
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->gender = $request->gender;
+        $user->profile_img = $request->profile_img;
+        $user->role = $request->role;
+        $user->password = $request->password;
+        $user->email = $request->email;
+        $user->save();
+
+        return response()->json(['sms' => $user], 201);
     }
 
     /**
@@ -59,15 +59,15 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
-       $user->first_name = $request->first_name;
-       $user->last_name = $request->last_name;
-       $user->gender = $request->gender;
-       $user->profile_img = $request->profile_img;
-       $user->role = $request->role;
-       $user->email = $request->email;
-       $user->save();
-    
-    return response()->json(['sms'=> $user],201);
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->gender = $request->gender;
+        $user->profile_img = $request->profile_img;
+        $user->role = $request->role;
+        $user->email = $request->email;
+        $user->save();
+
+        return response()->json(['sms' => $user], 201);
     }
 
     /**
@@ -78,6 +78,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        if($user){
+            $user->delete();
+            return response()->json(['sms' =>'successful'],201);
+        }else{
+            return  response()->json(['sms' =>'unsuccessful'],404);
+        }
     }
 }
