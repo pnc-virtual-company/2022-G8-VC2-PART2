@@ -25,16 +25,28 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-       $student = new Student();
-       $student->user_id = $request->user_id;
-       $student->studentNumber = $request->studentNumber;
-       $student->class = $request->class;
-       $student->batch = $request->batch;
-       $student->phone = $request->phone;
-       $student->ngo = $request->ngo;
-       $student->province = $request->province;
-       $student->save();
-       return response()->json(['sms'=>$student]);
+        $validateStudent=$request->validate([
+            'user_id'=>'required|numeric',
+            'studentNumber'=>'required',
+            'class'=>'required',
+            'batch'=>'required|String',
+            'phone'=>'nullable|numeric|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'ngo'=>'required|String',
+            'province'=>'required|String',
+        ],
+        [
+            'user_id.required'=>'You have to put your ID',
+            'studentNumber.required'=>'You have to show your Student ID',
+            'class.required'=>'Class is required',
+            'batch.required'=>'Batch is required',
+            'phone.max'=>'You must put your phone number only 9 number',
+            'phone.numeric'=>'You can put only number',
+            'ngo.required'=>'You have to put NGO or school',
+            'province.required'=>'You have to put your place',
+        ]
+    );
+       $student=Student::create($validateStudent);
+       return response()->json(['sms'=>$student],201);
 
     }
 
