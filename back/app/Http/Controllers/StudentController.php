@@ -70,14 +70,31 @@ class StudentController extends Controller
      */
     public function update(Request $request,$id)
     {
-        $student = Student::findOrFail($id);
-       $student->studentNumber = $request->studentNumber;
-       $student->class = $request->class;
-       $student->batch = $request->batch;
-       $student->phone = $request->phone;
-       $student->ngo = $request->ngo;
-       $student->province = $request->province;
-       $student->save();
-       return response()->json(['sms'=>$student]);
+        $validatedData = $request->validate([
+            'studentNumber'=>'String|required',
+            'class'=>'required',
+            'batch'=>'required',
+            'phone'=>'required|nullable|numeric|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'ngo'=>'required',
+            'province'=>'required|String',
+        ],
+        [
+            'studentNumber.required'=>'You have to show your Student ID',
+            'class.required'=>'Class is required',
+            'batch.required'=>'Batch is required',
+            'phone.max'=>'You must put your phone number only 9 number',
+            'phone.numeric'=>'You can put only number',
+            'ngo.required'=>'You have to put NGO or school',
+            'province.required'=>'You have to put your place',
+        ]
+    );
+        $studentUpdate = Student::findOrFail($id);
+        $studentUpdate->update($validatedData);
+        return response()->json([
+            'Message' =>'Update is successfull',
+            'Status'=>true,
+            'Data'=>$studentUpdate,
+        ],200);
     }
+  
 }
