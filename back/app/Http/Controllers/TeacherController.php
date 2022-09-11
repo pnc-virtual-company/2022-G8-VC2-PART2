@@ -25,44 +25,16 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        $teacher = new Teacher();
-        $teacher->user_id=$request->user_id;
-        $teacher->position=$request->position;
-        $teacher->save();
-        return response()->json(['sms'=>$teacher],201);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Teacher  $teacher
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Teacher $teacher)
-    {
-        
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Teacher  $teacher
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Teacher $teacher)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Teacher  $teacher
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Teacher $teacher)
-    {
-        //
+        $validateTeacher=$request->validate([
+            'user_id'=>'required|numeric',
+            'position'=>'required|String',
+        ],
+        [
+            'user_id.required'=>'You have to put your ID',
+            'position.required'=>'You have to put your Position',
+        ]
+    );
+       $teacher=Teacher::create($validateTeacher);
+       return response()->json(['sms'=>$teacher],201);
     }
 }
