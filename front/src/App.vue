@@ -1,11 +1,20 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div class="container flex">
+    <aside_left class="w-1/5"></aside_left>
+    <nav_bar class="w-4/5"></nav_bar>
+  </div>
+  <router-view />
 </template>
-
+<script>
+import NavBar from "@/components/NavBar/NavbarView.vue";
+import AsideLeft from '@/components/Aside/AsideLeft.vue';
+export default {
+  components: {
+    'nav_bar': NavBar,
+    'aside_left':AsideLeft,
+  },
+};
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
