@@ -37,21 +37,4 @@ class TeacherController extends Controller
        $teacher=Teacher::create($validateTeacher);
        return response()->json(['sms'=>$teacher],201);
     }
-    public function update(Request $request,$id)
-    {
-        $validatedData = $request->validate([
-            'position'=>'required|String',
-        ],
-        [
-            'position.required'=>'You have to put your Position',
-        ]
-    );
-        $teacherUpdate = Teacher::findOrFail($id);
-        $teacherUpdate->update($validatedData);
-        return response()->json([
-            'Message' =>'Update is successfull',
-            'Status'=>true,
-            'Data'=>$teacherUpdate,
-        ],200);
-    }
 }
