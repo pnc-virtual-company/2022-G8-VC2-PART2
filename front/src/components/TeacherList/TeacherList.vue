@@ -93,7 +93,7 @@
             class="w-10 rounded-full m-auto mt-5"
             alt=""
           />
-          <h1 class="ml-2">{{teacher.user_id}}</h1>
+          <h1 class="ml-2">{{teacher.user.first_name}} {{teacher.user.last_name}}</h1>
         </div>
         <div class="">
           <h1>{{teacher.position}}</h1>
@@ -133,13 +133,13 @@
         bg-gray-700 bg-opacity-50
       "
     >
-      <form class="bg-white text-center p-5 w-2/5 m-auto rounded">
+      <form @submit="createTeacher()" class="bg-white text-center p-5 w-2/5 m-auto rounded">
         <div class="">
-          <img
-            src="../../assets/male_logo.jpg"
-            class="w-2/6 rounded-full m-auto"
-            alt=""
-          />
+          <label for="image">
+            <img v-if="previewImage != null" :src="previewImage" alt="">
+            <img v-if="previewImage == null" src="../../assets/male_logo.jpg" class="w-2/6 rounded-full m-auto" alt="" />
+          </label>
+          <input type="file" @change="uploadImage" hidden id="image">
         </div>
         <div class="flex mt-3">
           <input
@@ -212,6 +212,7 @@
           />
           <select
             id="gender"
+            v-model="gender"
             class="
               m-1
               bg-gray-50
@@ -230,9 +231,8 @@
               dark:focus:border-blue-500
             "
           >
-            <option selected>Gender</option>
-            <option value="M">Male</option>
-            <option value="F">Female</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
           </select>
         </div>
         <div class="flex mt-3">
@@ -295,7 +295,7 @@
           </div>
         </div>
         <button
-          @click="createTeacer"
+          type="submit"
           class="p-1.5 text-white bg-sky-500 mr-1 rounded w-20 mt-10 ml-5"
         >
           Submit
@@ -317,43 +317,72 @@ export default {
       first_name: "",
       last_name: "",
       position: "",
-      gender: "",
+      gender: "male",
       email: "",
-      phone_number: "",
+      password:12345678,
+      profile_img:"",
+      // phone_number: "",
+      previewImage:null
     };
   },
   methods: {
+    /**
+     * @todo Upload Image
+     * @return show image for preview
+     */
+    uploadImage(e){
+      console.log(e);
+      this.profile_img = e.target.files[0]
+      this.previewImage = URL.createObjectURL(this.profile_img)
+    },
+    
     getTeacher(){
         axios.get('http://127.0.0.1:8000/api/teacher')
         .then((res)=>{
             this.teachers = res.data;
         })
     },
-      createTeacer() {
+      createTeacher() {
       this.isTrue = true;
-      let teacher = {
-        first_name: this.first_name,
-        last_name: this.last_name,
-        position: this.position,
-        gender: this.gender,
-        email: this.email,
-        phone_number: this.phone_number,
-      };
-      if (
-        this.first_name != "" &&
-        this.last_name != "" &&
-        this.position != "" &&
-        this.gender != "" &&
-        this.email != "" &&
-        this.phone_number != ""
-      ) {
-        axios.post("http://127.0.0.1:8000/api/teacher", teacher).then(() => {
-        //   return this.$router.push(teacher);
-          this.teachers.push(teacher)
-        });
+      let teacher = new FormData();
+      teacher.append("first_name", this.first_name);
+      teacher.append("last_name", this.last_name);
+      teacher.append("position",this.position);
+      teacher.append("email", this.email);
+      teacher.append("password", 123456789);
+      teacher.append("gender", this.gender);
+      teacher.append("role", 2);
+      teacher.append("profile_img", this.profile_img);
+      // axios.post("http://127.0.0.1:8000/api/user", teacher)
+      // let teacher = {
+      //   first_name: "sokunbopha",
+      //   last_name: "sovann",
+      //   position: "teacher",
+      //   password:'12345678',
+      //   role:'2',
+      //   gender: "male",
+      //   email: "sokunbopha@gmail.com",
+      //   profile_img:this.profile_img
+      //   // phone_number: 123456789,
+      // };
+      // if (
+      //   this.first_name != "" &&
+      //   this.last_name != "" 
+      //   // this.position != "" &&
+      //   // this.gender != "" &&
+      //   // this.email != "" &&
+      //   // this.phone_number != ""
+      // ) {
+        // setTimeout(() => {
+        // }, 1000);
+        console.log(this.profile_img);
+        axios.post("http://127.0.0.1:8000/api/user", teacher)
+        .then((res)=>{
+          console.log(res.data)
+        })
       }
     },
-  },
+  // },
   computed:{
     
   },
