@@ -1,4 +1,5 @@
 <template>
+  
   <div class="container text-center w-5/5">
     <div class=" w-9/12	m-auto mt-5">
       <h1 class="bg-sky-500 text-white font-bold text-2xl   p-5 m-2 rounded-lg">Manage Student</h1>
@@ -76,6 +77,67 @@
         </form>
       </div>
     </div>
+<<<<<<< HEAD
+    <FormEdit></FormEdit>
+    
+  </template>
+
+<script>
+import FormEdit from "./StudentForm.vue";
+export default {
+    components:{FormEdit},
+    provide(){
+      return {id:4}
+    },
+    data(){
+      return{
+        users:[],
+        isTrue:false,
+        isShow:false,
+        firstName:"",
+        lastName:"",
+        batch:"",
+        gender:"",
+        email:"",
+        phoneNumber:"",
+        ngo:"",
+        province:""
+
+      }
+    },
+    methods:{
+      onCreate(){
+        this.isTrue= true
+        let user={
+          "firsname":this.firstName,
+          "lastname":this.lastName,
+          "batch":this.batch,
+          "gender":this.gender,
+          "email":this.email,
+          "phonenumber":this.phoneNumber,
+          "ngo":this.ngo,
+          "province":this.province,
+        }
+        if(
+          this.firstName!="" && this.lastName!="" && this.batch!="" && 
+          this.gender!="" && this.email!="" && this.phoneNumber!="" && 
+          this.ngo!="" && this.province !=""
+        
+
+        ){
+          this.users.push(user);
+          this.isTrue=true;
+          this.isShow=false
+          console.log(this.users)
+        }
+        
+      },
+
+      
+    }
+    
+}
+=======
     <!-- {{store}} -->
     
   </template>
@@ -83,6 +145,7 @@
 <script >
 // import studentstore from "../../store/index"
 // const store = studentstore().$state.isTrue
+>>>>>>> bdcea38ea50d0c3ba311d2d5b42decf58248f884
 </script>
 
 <style>
