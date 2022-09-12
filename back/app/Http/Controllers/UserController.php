@@ -55,6 +55,7 @@ class UserController extends Controller
         $validatedData['password'] = bcrypt($validatedData['password']);
         $user = User::create($validatedData);
         $token = $user->createToken('myTOken')->plainTextToken;
+        //Student role is number 1
         if ($request->role == 1) {
             $student = new Student();
             $id = User::latest()->first();
@@ -68,7 +69,9 @@ class UserController extends Controller
             $student->province = $request->province;
             $student->save();
             return response()->json(['message' => "Created student successfully"]);
-        } else if ($request->role == 2) {
+        }
+        //Teacher role is number 2
+         else if ($request->role == 2) {
             $student = new Teacher();
             $id = User::latest()->first();
             $student->user_id = $id['id'];
