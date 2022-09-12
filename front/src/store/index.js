@@ -1,24 +1,24 @@
 import { defineStore } from 'pinia'
-import axios from 'axios'
+import axios from "@/axios-http"
 
 export const studentstore = defineStore('student', {
   state: () => ({ 
-    users:[],
+    students: [],
     isTrue:false,
-    isShow:true,
-    
-  }),
-  async getStudent(){
-       await axios.get("http://127.0.0.1:8000/api/student").then(res=>{
-        console.log(res)
-      })
-  },
+    isShow:true
 
-     onCreate(){
-      this.isTrue= true;
-      this.isShow = false;
-      this.getStudent()
+  }),
+
+  actions:{
+    async getStudent(){
+        const data = await axios.get('student') 
+        this.students = data.data
     },
+    onCreate(){
+    this.isTrue= true;
+    this.isShow = false;
+  },
+  }
   
  
 })

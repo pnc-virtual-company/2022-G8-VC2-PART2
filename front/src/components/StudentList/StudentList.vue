@@ -14,13 +14,13 @@
         <button @click="isTrue='true'" class="  mt-2 bg-sky-500 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">Create Student</button>
     </div>
     <div class="card  m-auto bg-gray-100  mt-5 p-4 rounded w-9/12"  >
-      <div  class="flex justify-between items-center shadow p-3 rounded-lg bg-white" >
+      <div v-for="student in students.students" :key="student"  class=" mb-2 flex justify-between items-center shadow p-3 rounded-lg bg-white" >
         <div class="flex items-center ">
           <img src="../../assets/male_logo.jpg" class="w-10 rounded-full m-auto mt-5" alt="">
-          <h1 class="ml-2">Kea Nhor</h1>
+          <h1 class="ml-2">{{student.user.first_name}} {{student.user.last_name}}</h1>
         </div>
         <div class="">
-          <h1>Web 2022 A</h1>
+          <h1>{{student.batch}}</h1>
         </div>
         <div class="">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
@@ -60,19 +60,21 @@
             <input v-model="province"  type="text" class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Province">
           </div>
           <button @click="isTrue = false" class="bg-red-500 p-1.5 text-white mr-1 rounded w-20 mt-10" >Cancel</button>
-          <button @click="students.onCreate(firstname, lastname,batch,gender,email,phonenumber,ngo,province)" class=" p-1.5 text-white bg-sky-500 mr-1 rounded w-20 mt-10 ml-5" >Create</button>
+          <button @click="students.onCreate()" class=" p-1.5 text-white bg-sky-500 mr-1 rounded w-20 mt-10 ml-5" >Create</button>
         </form>
       </div>
     </div>
-    <!-- {{student.users}} -->
   </template>
 <script >
     import {studentstore} from "../../store/index"
     export default {
         setup() {
           const students = studentstore()
-          return students
-    },
+          return {students}
+          },
+        mounted(){
+            this.students.getStudent()
+          },
     data(){
       return{
          firstname:"",
@@ -85,7 +87,7 @@
          province:"",
       }
     }
-    }
+  }
 </script>
 
 <style>
