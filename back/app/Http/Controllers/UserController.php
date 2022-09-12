@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -26,12 +28,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
         $validatedData = $request->validate(
             [
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'gender' => 'required',
-                'profile_img'=>'nullable',
+                'profile_img' => 'nullable',
                 'role' => 'required|digits_between:1,3|numeric',
                 'password' => 'required|min:8',
                 'email' => 'required|email|unique:users|regex:/(.+)@(.+)\.(.+)/i|',
@@ -50,8 +53,32 @@ class UserController extends Controller
             ]
         );
         $validatedData['password'] = bcrypt($validatedData['password']);
-        $user=User::create($validatedData);
-        return response()->json(['sms' => $user], 201);
+        $user = User::create($validatedData);
+        $token = $user->createToken('myTOken')->plainTextToken;
+        //Student role is number 1
+        if ($request->role == 1) {
+            $student = new Student();
+            $id = User::latest()->first();
+            $student->user_id = $id['id'];
+            $student->studentNumber = $request->studentNumber;
+            $student->class = $request->class;
+            $student->province = $request->province;
+            $student->batch = $request->batch;
+            $student->phone = $request->phone;
+            $student->ngo = $request->ngo;
+            $student->province = $request->province;
+            $student->save();
+            return response()->json(['message' => "Created student successfully"]);
+        }
+        //Teacher role is number 2
+         else if ($request->role == 2) {
+            $student = new Teacher();
+            $id = User::latest()->first();
+            $student->user_id = $id['id'];
+            $student->position = $request->position;
+            $student->save();
+            return response()->json(['message' => "Created teacher successfully"]);
+        }
     }
 
     /**
@@ -97,10 +124,10 @@ class UserController extends Controller
         $userUpdate = User::findOrFail($id);
         $userUpdate->update($validatedData);
         return response()->json([
-            'Message' =>'Update is successfull',
-            'Status'=>true,
-            'Data'=>$userUpdate,
-        ],200);
+            'Message' => 'Update is successfull',
+            'Status' => true,
+            'Data' => $userUpdate,
+        ], 200);
     }
 
     /**
