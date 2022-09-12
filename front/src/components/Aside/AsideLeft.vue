@@ -1,6 +1,7 @@
 
 <template>
-    <div class="content bg-sky-500 ">
+
+    <div class="content bg-sky-500 absolute inset-0 transform lg:transform-none lg:opacity-100 duration-200 lg:relative z-10 w-80  text-white  p-3 ">
         <div class="profile_info">
             <img src="@/assets/male_logo.jpg" class="w-2/5 rounded-full m-auto mt-5">
         </div>
@@ -13,5 +14,7 @@
           </ul>
         </aside>
         <!-- <student_card class="w-4/5 m-3"> </student_card> -->
+       
       </div>
+    
 </template>
