@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Cordinator from '@/views/Cordinator/CordinatorView.vue'
 import ManageStudent from '@/views/Cordinator/ManageStudent.vue'
 import ManageTeacher from '@/views/Cordinator/ManageTeacher.vue'
+import StudentFollowUp from '@/views/Cordinator/StudentFollowUp.vue'
 const routes = [
   {
     path: '/',
@@ -18,6 +19,11 @@ const routes = [
     path: '/manageteacher',
     name: 'manageteacher',
     component: ManageTeacher
+  },
+  {
+    path: '/studentFollowUp',
+    name: 'studentFollowUp',
+    component: StudentFollowUp
   }
 ]
 

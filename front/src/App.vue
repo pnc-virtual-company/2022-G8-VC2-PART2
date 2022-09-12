@@ -1,13 +1,17 @@
 <template>
-  <div class="container flex">
-    <aside_left class="w-1/5"></aside_left>
-    <nav_bar class="w-4/5"></nav_bar>
-  </div>
-  <router-view />
+<div>
+    <div class="container flex">
+      <aside_left class="w-1/5"></aside_left>
+      <nav_bar class="w-4/5"></nav_bar>
+    </div>
+    <router-view />
+</div>
+
 </template>
 <script>
 import NavBar from "@/components/NavBar/NavbarView.vue";
 import AsideLeft from '@/components/Aside/AsideLeft.vue';
+import StudentFollowUp from '@/components/views/StudentFollowUp.vue';
 export default {
   components: {
     'nav_bar': NavBar,
