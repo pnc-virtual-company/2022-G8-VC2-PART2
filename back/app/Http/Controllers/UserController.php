@@ -72,8 +72,7 @@ class UserController extends Controller
             $student = new Teacher();
             $id = User::latest()->first();
             $student->user_id = $id['id'];
-            $student->studentNumber = $request->studentNumber;
-
+            $student->position = $request->position;
             $student->save();
             return response()->json(['message' => "Created teacher successfully"]);
         }

@@ -16,39 +16,6 @@ class StudentController extends Controller
     {
         return Student::with('user')->get();
     }
-    
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $validateStudent=$request->validate([
-            'user_id'=>'required|numeric',
-            'studentNumber'=>'required',
-            'class'=>'required',
-            'batch'=>'required|String',
-            'phone'=>'nullable|numeric|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
-            'ngo'=>'required|String',
-            'province'=>'required|String',
-        ],
-        [
-            'user_id.required'=>'You have to put your ID',
-            'studentNumber.required'=>'You have to show your Student ID',
-            'class.required'=>'Class is required',
-            'batch.required'=>'Batch is required',
-            'phone.max'=>'You must put your phone number only 9 number',
-            'phone.numeric'=>'You can put only number',
-            'ngo.required'=>'You have to put NGO or school',
-            'province.required'=>'You have to put your place',
-        ]
-    );
-       $student=Student::create($validateStudent);
-       return response()->json(['sms'=>$student],201);
-
-    }
 
     /**
      * Display the specified resource.
