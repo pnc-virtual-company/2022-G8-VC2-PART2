@@ -16,7 +16,7 @@ class StudentController extends Controller
     {
         return Student::with('user')->get();
     }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -56,9 +56,9 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show($id)
     {
-        //
+        return Student::with('user')->findOrFail($id);
     }
 
     /**
