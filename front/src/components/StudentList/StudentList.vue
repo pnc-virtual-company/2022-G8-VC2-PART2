@@ -76,59 +76,13 @@
         </form>
       </div>
     </div>
-    
+    <!-- {{store}} -->
     
   </template>
 
-<script>
-export default {
-    data(){
-      return{
-        users:[],
-        isTrue:false,
-        isShow:false,
-        firstName:"",
-        lastName:"",
-        batch:"",
-        gender:"",
-        email:"",
-        phoneNumber:"",
-        ngo:"",
-        province:""
-
-      }
-    },
-    methods:{
-      onCreate(){
-        this.isTrue= true
-        let user={
-          "firsname":this.firstName,
-          "lastname":this.lastName,
-          "batch":this.batch,
-          "gender":this.gender,
-          "email":this.email,
-          "phonenumber":this.phoneNumber,
-          "ngo":this.ngo,
-          "province":this.province,
-        }
-        if(
-          this.firstName!="" && this.lastName!="" && this.batch!="" && 
-          this.gender!="" && this.email!="" && this.phoneNumber!="" && 
-          this.ngo!="" && this.province !=""
-        
-
-        ){
-          this.users.push(user);
-          this.isTrue=true;
-          this.isShow=false
-          console.log(this.users)
-        }
-        
-      },
-      
-    }
-    
-}
+<script >
+// import studentstore from "../../store/index"
+// const store = studentstore().$state.isTrue
 </script>
 
 <style>
