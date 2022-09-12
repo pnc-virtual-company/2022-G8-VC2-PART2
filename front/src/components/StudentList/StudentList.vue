@@ -76,14 +76,13 @@
         </form>
       </div>
     </div>
-    
+    <!-- {{store}} -->
     
   </template>
 
-<script setup>
+<script >
 // import studentstore from "../../store/index"
-// const store = studentstore()
-
+// const store = studentstore().$state.isTrue
 </script>
 
 <style>
