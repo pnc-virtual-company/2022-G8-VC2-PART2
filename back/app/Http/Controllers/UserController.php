@@ -28,7 +28,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
+        
         $validatedData = $request->validate(
             [
                 'first_name' => 'required',
@@ -52,33 +52,38 @@ class UserController extends Controller
                 'email.regex' => 'Email field must join with @',
             ]
         );
-        $validatedData['password'] = bcrypt($validatedData['password']);
-        $user = User::create($validatedData);
-        $token = $user->createToken('myTOken')->plainTextToken;
-        //Student role is number 1
-        if ($request->role == 1) {
-            $student = new Student();
-            $id = User::latest()->first();
-            $student->user_id = $id['id'];
-            $student->studentNumber = $request->studentNumber;
-            $student->class = $request->class;
-            $student->province = $request->province;
-            $student->batch = $request->batch;
-            $student->phone = $request->phone;
-            $student->ngo = $request->ngo;
-            $student->province = $request->province;
-            $student->save();
-            return response()->json(['message' => "Created student successfully"]);
+        // role 1 is student and 2 is teacher
+        if($request->role==1 or $request->role==2){
+            $validatedData['password'] = bcrypt($validatedData['password']);
+            $user = User::create($validatedData);
+            $token = $user->createToken('myTOken')->plainTextToken;
+            //Student role is number 1
+            if ($request->role == 1) {
+                $student = new Student();
+                $id = User::latest()->first();
+                $student->user_id = $id['id'];
+                $student->studentNumber = $request->studentNumber;
+                $student->class = $request->class;
+                $student->province = $request->province;
+                $student->batch = $request->batch;
+                $student->phone = $request->phone;
+                $student->ngo = $request->ngo;
+                $student->province = $request->province;
+                $student->save();
+                return response()->json(['message' => "Created student successfully"]);
+            }
+            //Teacher role is number 2
+             else if ($request->role == 2) {
+                $student = new Teacher();
+                $id = User::latest()->first();
+                $student->user_id = $id['id'];
+                $student->position = $request->position;
+                $student->save();
+                return response()->json(['message' => "Created teacher successfully"]);
+            }
         }
-        //Teacher role is number 2
-         else if ($request->role == 2) {
-            $student = new Teacher();
-            $id = User::latest()->first();
-            $student->user_id = $id['id'];
-            $student->position = $request->position;
-            $student->save();
-            return response()->json(['message' => "Created teacher successfully"]);
-        }
+        return response()->json(['message' => "Cannot create without input your role 1 is student and 2 is teacher"]);
+
     }
 
     /**
