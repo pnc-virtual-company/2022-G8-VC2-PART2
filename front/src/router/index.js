@@ -18,7 +18,8 @@ const routes = [
     path: '/manageteacher',
     name: 'manageteacher',
     component: ManageTeacher
-  }
+  },
+
 ]
 
 const router = createRouter({
