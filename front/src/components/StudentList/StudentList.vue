@@ -77,6 +77,7 @@
         </form>
       </div>
     </div>
+<<<<<<< HEAD
     <FormEdit></FormEdit>
     
   </template>
@@ -136,6 +137,15 @@ export default {
     }
     
 }
+=======
+    <!-- {{store}} -->
+    
+  </template>
+
+<script >
+// import studentstore from "../../store/index"
+// const store = studentstore().$state.isTrue
+>>>>>>> bdcea38ea50d0c3ba311d2d5b42decf58248f884
 </script>
 
 <style>
