@@ -350,17 +350,9 @@ export default {
         axios.post("http://127.0.0.1:8000/api/teacher", teacher).then(() => {
         //   return this.$router.push(teacher);
           this.teachers.push(teacher)
-            console.log("hi I am here");
         });
       }
     },
-    // getName(id){
-    //     axios.get('http://127.0.0.1:8000/api/user/' + id)
-    //     .then((res)=>{
-    //         this.first_name = res.data.first_name
-    //         this.last_name = res.data.last_name
-    //     })
-    // }
   },
   computed:{
     
