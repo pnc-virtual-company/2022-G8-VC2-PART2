@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -25,16 +26,31 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new User();
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->gender = $request->gender;
-        $user->profile_img = $request->profile_img;
-        $user->role = $request->role;
-        $user->password = $request->password;
-        $user->email = $request->email;
-        $user->save();
-
+        $validatedData = $request->validate(
+            [
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'gender' => 'required',
+                'profile_img'=>'nullable',
+                'role' => 'required|digits_between:1,3|numeric',
+                'password' => 'required|min:8',
+                'email' => 'required|email|unique:users|regex:/(.+)@(.+)\.(.+)/i|',
+            ],
+            [
+                'first_name.required' => 'First Name field is required.',
+                'last_name.required' => 'Last Name field is required.',
+                'gender.required' => 'You must confirm your gender',
+                'role.digits_between' => 'role 1 role student, 2 role teacher , 3 role coordinator',
+                'role.numeric' => 'Role must only number',
+                'password.required' => 'password field is required.',
+                'password.min' => 'Password length at least 8',
+                'email.email' => 'Email field is required.',
+                'email.unique' => 'Email field must be unique',
+                'email.regex' => 'Email field must join with @',
+            ]
+        );
+        $validatedData['password'] = bcrypt($validatedData['password']);
+        $user=User::create($validatedData);
         return response()->json(['sms' => $user], 201);
     }
 
@@ -58,16 +74,33 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->gender = $request->gender;
-        $user->profile_img = $request->profile_img;
-        $user->role = $request->role;
-        $user->email = $request->email;
-        $user->save();
+        $validatedData = $request->validate(
+            [
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'gender' => 'required',
+                'role' => 'required|digits_between:1,3|numeric',
+                'email' => 'required|email|unique:users|regex:/(.+)@(.+)\.(.+)/i|',
+            ],
+            [
+                'first_name.required' => 'First Name field is required.',
+                'last_name.required' => 'Last Name field is required.',
+                'gender.required' => 'You must confirm your gender',
+                'role.digits_between' => 'role 1 role student, 2 role teacher , 3 role coordinator',
+                'role.numeric' => 'Role must only number',
+                'email.email' => 'Email field is required.',
+                'email.unique' => 'Email field must be unique',
+                'email.regex' => 'Email field must join with @',
+            ]
+        );
 
-        return response()->json(['sms' => $user], 201);
+        $userUpdate = User::findOrFail($id);
+        $userUpdate->update($validatedData);
+        return response()->json([
+            'Message' =>'Update is successfull',
+            'Status'=>true,
+            'Data'=>$userUpdate,
+        ],200);
     }
 
     /**
@@ -79,11 +112,11 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        if($user){
+        if ($user) {
             $user->delete();
-            return response()->json(['sms' =>'successful'],201);
-        }else{
-            return  response()->json(['sms' =>'unsuccessful'],404);
+            return response()->json(['sms' => 'successful'], 201);
+        } else {
+            return  response()->json(['sms' => 'unsuccessful'], 404);
         }
     }
 }
