@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Cordinator from '@/views/Cordinator/CordinatorView.vue'
-import ManageStudent from '@/views/Cordinator/ManageStudent.vue'
-import ManageTeacher from '@/views/Cordinator/ManageTeacher.vue'
+import Cordinator from '@/views/Cordinator/CoordinatorView.vue'
+import ManageStudent from '@/views/Cordinator/ManageStudent/ManageStudent.vue'
+import ManageTeacher from '@/views/Cordinator/ManageTeacher/ManageTeacher.vue'
 const routes = [
   {
     path: '/',
