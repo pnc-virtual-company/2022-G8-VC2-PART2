@@ -1,0 +1,393 @@
+<template>
+  <div class="container text-center w-5/5">
+    <div class="w-9/12 m-auto mt-5">
+      <h1 class="bg-sky-500 text-white font-bold text-2xl p-5 m-2 rounded-lg">
+        Manage Teacher
+      </h1>
+    </div>
+    <div class="m-auto filter flex justify-around w-9/12 mt-5">
+      <input
+        type="text"
+        class="
+          mt-2
+          bg-gray-50
+          border border-gray-300
+          text-gray-900 text-sm
+          rounded
+          focus:ring-blue-500 focus:border-blue-500
+          block
+          w-2/5
+          p-2.5
+          dark:bg-gray-700
+          dark:border-gray-600
+          dark:placeholder-gray-400
+          dark:text-white
+          dark:focus:ring-blue-500
+          dark:focus:border-blue-500
+        "
+        placeholder="Search Name"
+      />
+      <select
+        class="
+          mt-2
+          bg-gray-50
+          border border-gray-300
+          text-gray-900 text-sm
+          rounded
+          focus:ring-blue-500 focus:border-blue-500
+          block
+          w-2/5
+          p-2.5
+          dark:bg-gray-700
+          dark:border-gray-600
+          dark:placeholder-gray-400
+          dark:text-white
+          dark:focus:ring-blue-500
+          dark:focus:border-blue-500
+        "
+      >
+        <option selected>Position</option>
+        <option value="US">WEB Trainer</option>
+        <option value="CA">SNA Trainer</option>
+        <option value="FR">English Trainer</option>
+      </select>
+      <button
+        @click="isTrue = 'true'"
+        class="
+          mt-2
+          bg-sky-500
+          border border-gray-300
+          text-gray-900 text-sm
+          rounded
+          focus:ring-blue-500 focus:border-blue-500
+          block
+          w-1/6
+          p-2.5
+          dark:bg-gray-700
+          dark:border-gray-600
+          dark:placeholder-gray-400
+          dark:text-white
+          dark:focus:ring-blue-500
+          dark:focus:border-blue-500
+        "
+      >
+        Create Teacher
+      </button>
+    </div>
+    <div class="card m-auto bg-gray-100 mt-5 p-4 rounded w-9/12" >
+      <div v-for=" teacher of this.teachers" :key="teacher" 
+        class="
+          flex
+          justify-between
+          items-center
+          shadow
+          p-3
+          mb-2
+          rounded-lg
+          bg-white
+        "
+      >
+        <div class="flex items-center">
+          <img
+            src="../../assets/male_logo.jpg"
+            class="w-10 rounded-full m-auto mt-5"
+            alt=""
+          />
+          <h1 class="ml-2">{{teacher.user.first_name}} {{teacher.user.last_name}}</h1>
+        </div>
+        <div class="">
+          <h1>{{teacher.position}}</h1>
+        </div>
+        <div class="">
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+            ></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- pop up create teacher -->
+  <div v-if="isTrue" class="">
+    <div
+      class="
+        mt-[-12]
+        fixed
+        w-full
+        h-full
+        inset-0
+        flex
+        items-center
+        justify-center
+        bg-gray-700 bg-opacity-50
+      "
+    >
+      <form @submit="createTeacher()" class="bg-white text-center p-5 w-2/5 m-auto rounded">
+        <div class="">
+          <label for="image">
+            <img v-if="previewImage != null" :src="previewImage"  class="w-2/6 rounded-full m-auto" alt="">
+            <img v-if="previewImage == null" src="../../assets/male_logo.jpg" class="w-2/6 rounded-full m-auto" alt="" />
+          </label>
+          <input type="file" @change="uploadImage" hidden id="image">
+        </div>
+        <div class="flex mt-3">
+          <input
+            type="text"
+            class="
+              m-1
+              bg-gray-50
+              border border-gray-300
+              text-gray-900 text-sm
+              rounded
+              focus:ring-blue-500 focus:border-blue-500
+              block
+              w-full
+              p-2.5
+              dark:bg-gray-700
+              dark:border-gray-600
+              dark:placeholder-gray-400
+              dark:text-white
+              dark:focus:ring-blue-500
+              dark:focus:border-blue-500
+            "
+            placeholder="First Name"
+            v-model="first_name"
+          />
+          <input
+            type="text"
+            class="
+              m-1
+              bg-gray-50
+              border border-gray-300
+              text-gray-900 text-sm
+              rounded
+              focus:ring-blue-500 focus:border-blue-500
+              block
+              w-full
+              p-2.5
+              dark:bg-gray-700
+              dark:border-gray-600
+              dark:placeholder-gray-400
+              dark:text-white
+              dark:focus:ring-blue-500
+              dark:focus:border-blue-500
+            "
+            placeholder="Last Name"
+            v-model="last_name"
+          />
+        </div>
+        <div class="flex mt-3">
+          <input
+            type="text"
+            class="
+              m-1
+              bg-gray-50
+              border border-gray-300
+              text-gray-900 text-sm
+              rounded
+              focus:ring-blue-500 focus:border-blue-500
+              block
+              w-full
+              p-2.5
+              dark:bg-gray-700
+              dark:border-gray-600
+              dark:placeholder-gray-400
+              dark:text-white
+              dark:focus:ring-blue-500
+              dark:focus:border-blue-500
+            "
+            placeholder="Position"
+            v-model="position"
+          />
+          <select
+            id="gender"
+            v-model="gender"
+            class="
+              m-1
+              bg-gray-50
+              border border-gray-300
+              text-gray-900 text-sm
+              rounded
+              focus:ring-blue-500 focus:border-blue-500
+              block
+              w-full
+              p-2.5
+              dark:bg-gray-700
+              dark:border-gray-600
+              dark:placeholder-gray-400
+              dark:text-white
+              dark:focus:ring-blue-500
+              dark:focus:border-blue-500
+            "
+          >
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+        <div class="flex mt-3">
+          <input
+            type="text"
+            class="
+              m-1
+              bg-gray-50
+              border border-gray-300
+              text-gray-900 text-sm
+              rounded
+              focus:ring-blue-500 focus:border-blue-500
+              block
+              w-full
+              p-2.5
+              dark:bg-gray-700
+              dark:border-gray-600
+              dark:placeholder-gray-400
+              dark:text-white
+              dark:focus:ring-blue-500
+              dark:focus:border-blue-500
+            "
+            placeholder="Email"
+            v-model="email"
+          />
+          <div class="flex w-full m-1">
+            <span
+              class="
+                inline-flex
+                items-center
+                px-2
+                text-sm text-gray-900
+                rounded-l
+                border
+                bg-sky-500
+              "
+              >+855</span
+            >
+            <input
+              type="text"
+              class="
+                bg-gray-50
+                border border-gray-300
+                rounded-r
+                text-gray-900 text-sm
+                focus:ring-blue-500 focus:border-blue-500
+                block
+                w-full
+                p-2.5
+                dark:bg-gray-700
+                dark:border-gray-600
+                dark:placeholder-gray-400
+                dark:text-white
+                dark:focus:ring-blue-500
+                dark:focus:border-blue-500
+              "
+              placeholder="Phone Numer"
+              v-model="phone_number"
+            />
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="p-1.5 text-white bg-sky-500 mr-1 rounded w-20 mt-10 ml-5"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</template>
+  
+  <script >
+
+import axios from "axios";
+export default {
+  data() {
+    return {
+      teachers: [],
+      isTrue: false,
+      isShow: false,
+      first_name: "",
+      last_name: "",
+      position: "",
+      gender: "male",
+      email: "",
+      password:12345678,
+      profile_img:"",
+      // phone_number: "",
+      previewImage:null
+    };
+  },
+  methods: {
+    /**
+     * @todo Upload Image
+     * @return show image for preview
+     */
+    uploadImage(e){
+      console.log(e);
+      this.profile_img = e.target.files[0]
+      this.previewImage = URL.createObjectURL(this.profile_img)
+    },
+    
+    getTeacher(){
+        axios.get('http://127.0.0.1:8000/api/teacher')
+        .then((res)=>{
+            this.teachers = res.data;
+        })
+    },
+      createTeacher() {
+      this.isTrue = true;
+      let teacher = new FormData();
+      teacher.append("first_name", this.first_name);
+      teacher.append("last_name", this.last_name);
+      teacher.append("position",this.position);
+      teacher.append("email", this.email);
+      teacher.append("password", 123456789);
+      teacher.append("gender", this.gender);
+      teacher.append("role", 2);
+      teacher.append("profile_img", this.profile_img);
+      // axios.post("http://127.0.0.1:8000/api/user", teacher)
+      // let teacher = {
+      //   first_name: "sokunbopha",
+      //   last_name: "sovann",
+      //   position: "teacher",
+      //   password:'12345678',
+      //   role:'2',
+      //   gender: "male",
+      //   email: "sokunbopha@gmail.com",
+      //   profile_img:this.profile_img
+      //   // phone_number: 123456789,
+      // };
+      // if (
+      //   this.first_name != "" &&
+      //   this.last_name != "" 
+      //   // this.position != "" &&
+      //   // this.gender != "" &&
+      //   // this.email != "" &&
+      //   // this.phone_number != ""
+      // ) {
+        // setTimeout(() => {
+        // }, 1000);
+        console.log(this.profile_img);
+        axios.post("http://127.0.0.1:8000/api/user", teacher)
+        .then((res)=>{
+          console.log(res.data)
+        })
+      }
+    },
+  // },
+  computed:{
+    
+  },
+  mounted(){
+    this.getTeacher();
+  }
+};
+</script>
