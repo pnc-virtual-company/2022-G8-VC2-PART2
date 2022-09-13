@@ -140,7 +140,5 @@ const onEdit = computed(() => {
 const isTrue = computed(() => {
   return store.isTrue;
 });
-onMounted(() => {
-  store.fetchStudent(id);
-});
+
 </script>
