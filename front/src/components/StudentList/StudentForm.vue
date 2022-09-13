@@ -116,7 +116,7 @@
 </template>
 <script setup>
 // import { inject } from "vue";
-import { onMounted,computed } from "vue";
+import { computed } from "vue";
 import { useStudentStore } from "../../store/edit";
 // const id = inject("id");
 const store = useStudentStore();
@@ -125,7 +125,5 @@ const onCreate = store.onCreate;
 const isTrue = computed(() => {
   return store.isTrue;
 });
-onMounted(() => {
-  store.fetchStudent(5);
-});
+
 </script>

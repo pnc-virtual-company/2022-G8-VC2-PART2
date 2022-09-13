@@ -99,13 +99,12 @@
         </form>
       </div>
     </div>
-    <FormEdit></FormEdit>
   </template>
-<script >
-  import FormEdit from "./StudentForm.vue"
+<script>
+
     import {studentstore} from "../../store/index"
     export default {
-      components:{FormEdit},
+
     data(){
       return{
         studentStore:studentstore(),
