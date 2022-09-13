@@ -1,9 +1,9 @@
 <template>
   <section class="lg:flex w-5/5">
-    <div class="antialiased h-screen w-1/5" >
+    <div class="" >
       <aside_left></aside_left>
     </div>
-    <div class="w-4/5 ml-12">
+    <div class="w-4/5 ">
       <navbar_view class="w-5/5"></navbar_view>
       <router-view  class="w-5/5"/>
     </div>

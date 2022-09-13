@@ -22,16 +22,16 @@
         </select>
         <!--   Button to create new teacher   -->
         <button
-          @click="isTrue = 'true'"
+          @click="teacherStore.onCreate()"
           class="mt-2 bg-sky-500 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
           Create Teacher
         </button>
       </div>
-      <!--   Each card of teacher's list   -->
+      <!--  display each card of teacher's list   -->
       <div class="card m-auto bg-gray-100 mt-5 p-4 rounded w-9/12">
         <div
-          v-for="teacher of this.teachers"
+          v-for="teacher of teacherStore.teachers"
           :key="teacher"
           class="flex justify-between items-center shadow p-3 mb-2 rounded-lg bg-white"
         >
@@ -90,7 +90,7 @@
       </div>
     </div>
     <!--  show form pop up to  create teacher   -->
-    <div v-if="isTrue" class="">
+    <div v-if="teacherStore.isTrue" class="">
       <div
         class="mt-[-12] fixed w-full h-full inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50"
       >
@@ -100,28 +100,28 @@
         >
           <div class="">
             <label for="image">
-              <img v-if="previewImage != null" :src="previewImage" alt="" />
+              <img v-if="teacherStore.previewImage != null" :src="teacherStore.previewImage" alt="" />
               <img
-                v-if="previewImage == null"
+                v-if="teacherStore.previewImage == null"
                 src="../../assets/male_logo.jpg"
                 class="w-2/6 rounded-full m-auto"
                 alt=""
               />
             </label>
-            <input type="file" @change="uploadImage" hidden id="image" />
+            <input type="file" @change="teacherStore.uploadImage" hidden id="image" />
           </div>
           <div class="flex mt-3">
             <input
               type="text"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="First Name"
-              v-model="first_name"
+              v-model="teacherStore.first_name"
             />
             <input
               type="text"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Last Name"
-              v-model="last_name"
+              v-model="teacherStore.last_name"
             />
           </div>
           <div class="flex mt-3">
@@ -129,11 +129,11 @@
               type="text"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Position"
-              v-model="position"
+              v-model="teacherStore.position"
             />
             <select
               id="gender"
-              v-model="gender"
+              v-model="teacherStore.gender"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option value="male">Male</option>
@@ -145,7 +145,7 @@
               type="text"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Email"
-              v-model="email"
+              v-model="teacherStore.email"
             />
             <div class="flex w-full m-1">
               <span
@@ -156,7 +156,7 @@
                 type="text"
                 class="bg-gray-50 border border-gray-300 rounded-r text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Phone Numer"
-                v-model="phone_number"
+                v-model="teacherStore.phone_number"
               />
             </div>
           </div>
@@ -171,86 +171,31 @@
     </div>
   </div>
 </template>
-<script>
-import axios from "axios";
-export default {
-  data() {
-    return {
+
+<script >
+  import {teacherstore} from "../../store/createTeacher"
+  export default {
+
+  data(){
+    return{
+      teacherStore:teacherstore(),
       id: null,
-      teachers: [],
-      show: false,
-      isTrue: false,
-      isShow: false,
-      first_name: "",
-      last_name: "",
-      position: "",
-      gender: "male",
-      email: "",
-      password: 12345678,
-      profile_img: "",
-      // phone_number: "",
-      previewImage: null,
-    };
+        // teachers: [],
+        // show: false,
+        // isTrue: false,
+        // isShow: false,
+        first_name: "",
+        last_name: "",
+        position: "",
+        gender: "male",
+        email: "",
+        // password: 12345678,
+        // profile_img: "",
+        // previewImage: null,
+    }
   },
-  methods: {
-    /**
-     * @todo Upload Image
-     * @return show image for preview
-     */
-    uploadImage(e) {
-      console.log(e);
-      this.profile_img = e.target.files[0];
-      this.previewImage = URL.createObjectURL(this.profile_img);
-    },
-    /**
-     * @todo to show dropdown delete and edit
-     * @return the menu delete and delete
-     */
-    dropdownEditDelete(id) {
-      if (this.id != null) {
-        this.id = null;
-        this.show = !this.show;
-      } else if (this.id == null) {
-        this.id = id;
-        this.show = !this.show;
-      }
-    },
-    /**
-     * @todo to get all data of teacher
-     * @return all data of teacher
-     */
-    getTeacher() {
-      axios.get("http://127.0.0.1:8000/api/teacher").then((res) => {
-        this.teachers = res.data;
-      });
-    },
-    /**
-     * @todo to create new teacher
-     */
-    createTeacher() {
-      this.isTrue = true;
-      let teacher = new FormData();
-      teacher.append("first_name", this.first_name);
-      teacher.append("last_name", this.last_name);
-      teacher.append("position", this.position);
-      teacher.append("email", this.email);
-      teacher.append("password", 123456789);
-      teacher.append("gender", this.gender);
-      teacher.append("role", 2);
-      teacher.append("profile_img", this.profile_img);
-      axios.post("http://127.0.0.1:8000/api/user", teacher);
-    },
-    /**
-     * @todo to delete teacher by id
-     * @return all data of teacher after delete
-     */
-    deleteTeacher(id) {
-      axios.delete("http://127.0.0.1:8000/api/teacher/" + id);
-      this.teachers.splice(id, 1);
-    },
+  mounted(){
+    this.teacherStore.getTeacher()
   },
-  mounted() {
-    this.getTeacher();
-  },
-};
+}
 </script>
