@@ -115,10 +115,10 @@
 </div>
 </template>
 <script setup>
-import { inject } from "vue";
+// import { inject } from "vue";
 import { onMounted,computed } from "vue";
 import { useStudentStore } from "../../store/edit";
-const id = inject("id");
+// const id = inject("id");
 const store = useStudentStore();
 //onUpate data student
 const onCreate = store.onCreate;
@@ -126,6 +126,6 @@ const isTrue = computed(() => {
   return store.isTrue;
 });
 onMounted(() => {
-  store.fetchStudent(id);
+  store.fetchStudent(5);
 });
 </script>
