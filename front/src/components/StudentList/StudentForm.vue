@@ -10,7 +10,7 @@
     <div
       class="mt-[-12] fixed w-full h-full inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50"
     >
-      <form @submit.prevent="store.onEdit(id)" class="bg-white text-center p-5 w-2/5 m-auto rounded">
+      <form @submit.prevent="store.onEdit(5)" class="bg-white text-center p-5 w-2/5 m-auto rounded">
         <div class="">
           <img
             src="../../assets/male_logo.jpg"
