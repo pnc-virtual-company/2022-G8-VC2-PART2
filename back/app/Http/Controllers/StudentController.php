@@ -17,4 +17,8 @@ class StudentController extends Controller
     {
         return Student::with('user')->get();
     }
+    public function show($id)
+    {
+        return Student::with('user')->findOrFail($id);
+    }
 }

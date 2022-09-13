@@ -110,7 +110,6 @@ class UserController extends Controller
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'gender' => 'required',
-                'profile_img' => 'required',
                 'email' => 'required',
             ]
         );
@@ -129,7 +128,7 @@ class UserController extends Controller
                 return response()->json([
                     'Message' => 'Update is successfull',
                     'Status' => true,
-                    'sms' => $updateStudent['role'],
+                    'sms' => $updateStudent['students']['user_id'],
                 ], 200);
             }
         }
