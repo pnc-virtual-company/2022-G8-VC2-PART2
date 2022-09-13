@@ -378,6 +378,7 @@ export default {
         console.log(this.profile_img);
         axios.post("http://127.0.0.1:8000/api/user", teacher)
         .then((res)=>{
+          alert('teacher create sucess')
           console.log(res.data)
         })
       }

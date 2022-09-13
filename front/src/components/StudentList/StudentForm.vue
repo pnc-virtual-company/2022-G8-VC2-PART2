@@ -125,5 +125,8 @@ const onCreate = store.onCreate;
 const isTrue = computed(() => {
   return store.isTrue;
 });
+<<<<<<< HEAD
 
+=======
+>>>>>>> bc8a48c6c1690badb937e6f7eb899544ac548b2e
 </script>
