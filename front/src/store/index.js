@@ -18,6 +18,11 @@ export const studentstore = defineStore('student', {
     phone:"",
     ngo:"",
     province:"",
+    dialogDelete: false,
+    userid: null,
+    index:null,
+    dialog: false,
+
   }),
   getters: {},
   actions:{
@@ -46,8 +51,10 @@ export const studentstore = defineStore('student', {
       student.append("ngo", this.ngo);
       student.append("province", this.province);
       student.append("password", 123456789);
-      student.append("role", 1);      console.log(this.ngo);
+      student.append("role", 1);      
+      console.log(this.ngo);
       console.log(this.province);
+      console.log(student);
       axios.post(process.env.VUE_APP_API_URL+'user', student).then(()=>{
         this.isTrue= false;
         this.getStudent()
@@ -61,9 +68,18 @@ export const studentstore = defineStore('student', {
       this.profile_img = e.target.files[0]
       this.previewImage = URL.createObjectURL(this.profile_img)
     },
-    onCancel(){
 
-      this.isTrue=false
+    showPopup(index){
+      this.dialog = true;
+      this.index = index;
+
+    },
+    async onDeleteStudent(id){
+         await axios.delete('user/'+id).then(()=>{
+           this.getStudent()
+          console.log('delete successfully');
+         })
+  
     }
   }
 });

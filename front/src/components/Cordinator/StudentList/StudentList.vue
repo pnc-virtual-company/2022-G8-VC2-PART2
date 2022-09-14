@@ -81,7 +81,7 @@
                     ></StudentFormVue
                   ></a>
                 </template>
-                <template #delete> DELETE </template>
+                <template #delete ><span @click=" storeData.onDeleteStudent(student.user.id)">Delete</span> </template>
                 <template #add> Add follow up </template>
               </widget-DropDown>
               <!-- footer drop down -->
@@ -94,6 +94,7 @@
 </template>
 <script setup>
 import StudentFormVue from "./EditStudent.vue"
+import CreateStudent from "./CreateStudent.vue"
 import { studentstore } from "../../../store/index"
 import { onMounted } from "vue";
 const storeData = studentstore();
