@@ -72,6 +72,10 @@ export const useStudentStore = defineStore("user", {
     },
     isOpenDrop(){
       this.isDrop=!this.isDrop
+    },
+    onDeleteTeacher(id){
+      axios.delete('/user'+id)
+      console.log(id);
     }
   },
 });
