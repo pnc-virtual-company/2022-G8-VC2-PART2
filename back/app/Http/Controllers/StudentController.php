@@ -23,7 +23,13 @@ class StudentController extends Controller
     }
     public function destroy($id)
     {
-       
+        $student = Student::findOrFail($id);
+        if ($student) {
+            $student->delete();
+            return response()->json(['sms' => $student], 201);
+        } else {
+            return  response()->json(['sms' => 'unsuccessful'], 404);
+        }
     }
     
 }
