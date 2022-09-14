@@ -1,5 +1,5 @@
 <template>
-  <div class="container text-center ">
+  <div  class="container text-center w-5/5 h-screen overflow-y-scroll">
     <!-- ====================== Title ==================== -->
     <widget-title>
         <template v-slot>
@@ -95,7 +95,7 @@
   </div>
 
   <!-- pop up create student -->
-  <div  v-if="storeData.isTrue" class="">  
+  <div  v-if=" storeData.isTrue " >  
       <div class="mt-[-12] fixed w-full h-full inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50">
         <form @submit.prevent="storeData.createStudent"  class="bg-white text-center p-5 w-2/5 m-auto rounded">
            <div  class="w-1/4  rounded-full m-auto">
