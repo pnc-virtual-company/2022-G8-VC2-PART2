@@ -49,12 +49,21 @@
           <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             <td>
               <div class="py-4 px-6 text-right">
-                <img 
-                  src="../../../assets/logo.png"
-                  class="w-10 rounded-full m-auto mt-5"
-                  alt=""
-                />
-               
+                  <img v-if="student.user.profile_img != null"
+                    :src="'http://127.0.0.1:8000/storage/images/'+student.user.profile_img"
+                    class="w-12 h-12 rounded-full m-auto mt-5"
+                    alt=""
+                  />
+                  <img v-else-if="student.user.gender == 'female'"
+                    src="@/assets/female_logo.jpg"
+                    class="w-12 h-12 rounded-full m-auto mt-5"
+                    alt=""
+                  />
+                  <img v-else-if="student.user.gender == 'male'"
+                    src="@/assets/male_logo.jpg"
+                    class="w-12 h-12 rounded-full m-auto mt-5"
+                    alt=""
+                  />
               </div>
             </td>
             <td class="py-3 px-2">
@@ -91,6 +100,19 @@
         </tbody>
       </table>
     </div>
+    <!-- pop up delete -->
+    <div class="w-1/2 border-t-4 border-l-4 border-r-4 border-b-4">
+      <!-- <div class="flex justify-center">
+        <img 
+        src="../../assets/ques.jpg"
+        class="flex justify-Content object-cover h-32 w-32  ...">
+       </div> -->
+      <p class="text-center font-bold text-xl">Are you sure?</p>
+      <div class="flex justify-around mb-4">
+        <button @click="store.dialogDelete = false" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">cancel</button>
+        <button  @click="storeData.onDeleteStudent" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">DELETE</button>
+      </div>
+  </div>
   </div>
 </template>
 <script setup>

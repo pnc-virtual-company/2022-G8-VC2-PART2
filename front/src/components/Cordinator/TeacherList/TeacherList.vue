@@ -49,9 +49,19 @@
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <td>
                 <div class="py-4 px-6 text-right">
-                  <img
+                  <img v-if="teacher.user.profile_img != null"
+                    :src="'http://127.0.0.1:8000/storage/images/'+teacher.user.profile_img"
+                    class="w-12 h-12 rounded-full m-auto mt-5"
+                    alt=""
+                  />
+                  <img v-else-if="teacher.user.gender == 'female'"
+                    src="@/assets/female_logo.jpg"
+                    class="w-12 h-12 rounded-full m-auto mt-5"
+                    alt=""
+                  />
+                  <img v-else-if="teacher.user.gender == 'male'"
                     src="@/assets/male_logo.jpg"
-                    class="w-10 rounded-full m-auto mt-5"
+                    class="w-12 h-12 rounded-full m-auto mt-5"
                     alt=""
                   />
                 </div>
@@ -159,6 +169,7 @@ export default {
       position: "",
       gender: "male",
       email: "",
+      imgURL: process.env.VUE_APP_IMG_URL
     };
   },
   mounted() {

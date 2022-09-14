@@ -16,7 +16,7 @@ export const teacherstore = defineStore('teacher', {
     email:"",
     gender:"male",
     position:"",
-    phone:"",
+    phone: null,
   }),
   getters: {},
   actions:{
@@ -49,15 +49,21 @@ export const teacherstore = defineStore('teacher', {
       teacher.append("role",2)
       axios.post(process.env.VUE_APP_API_URL+'user', teacher).then(()=>{
         alert('Create new teacher successfully!')
-        this.isShow = true;
-        this.show = true;
+        this.isTrue=false
+        this.previewImage = null
+        this.profile_img = ''
+        this.first_name  = ''
+        this.last_name = ''
+        this.email = ''
+        this.phone = null
+        this.position = ''
         this.getTeacher()
       })
     },
-    // /**
-    //  * @todo to delete teacher by id
-    //  * @return all data of teacher after delete
-    //  */
+    /**
+     * @todo to delete teacher by id
+     * @return all data of teacher after delete
+     */
     deleteTeacher(id) {
       axios.get(process.env.VUE_APP_API_URL+'teacher/' + id).then((res)=>{
         const userId = res.data.user['id']
