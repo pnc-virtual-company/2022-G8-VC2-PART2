@@ -57,7 +57,7 @@
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 ">
               <td >
                 <div class=" py-4 px-6 text-right ">
-                  <img src="../../assets/male_logo.jpg" class="w-10 rounded-full m-auto mt-5" alt="">
+                  <img src="@/assets/female_logo.jpg" class="w-10 rounded-full m-auto mt-5" alt="">
                 </div>
               </td>
                 <td  class="py-3 px-2 ">
@@ -101,7 +101,7 @@
            <div  class="w-1/4  rounded-full m-auto">
             <label for="image">
               <img v-if="storeData.previewImage != null" :src="storeData.previewImage"  class="w-6/6 h-28 rounded-full m-auto" alt="">
-              <img v-if="storeData.previewImage == null" src="../../assets/male_logo.jpg" class="w-6/6 rounded-full m-auto" alt="" />
+              <img v-if="storeData.previewImage == null" src="@/assets/female_logo.jpg" class="w-6/6 rounded-full m-auto" alt="" />
             </label>
             <input type="file" @change="storeData.uploadImage" hidden id="image">
            </div>
@@ -139,7 +139,7 @@
 
   </template>
 <script setup>
-    import {studentstore} from "../../store/index"
+    import {studentstore} from "@/store/index"
     import {onMounted} from "vue"
     const storeData = studentstore()
     onMounted(()=>{
