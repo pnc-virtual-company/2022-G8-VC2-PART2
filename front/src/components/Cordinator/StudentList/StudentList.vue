@@ -94,6 +94,7 @@
 </template>
 <script setup>
 import StudentFormVue from "./EditStudent.vue"
+import CreateStudent from "./CreateStudent.vue"
 import { studentstore } from "../../../store/index"
 import { onMounted } from "vue";
 const storeData = studentstore();
