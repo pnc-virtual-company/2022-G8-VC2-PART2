@@ -81,7 +81,7 @@
                     ></StudentFormVue
                   ></a>
                 </template>
-                <template #delete > <span @click="showPopup(index)">Delete</span> </template>
+                <template #delete ><span @click=" storeData.onDeleteStudent(student.user.id)">Delete</span> </template>
                 <template #add> Add follow up </template>
               </widget-DropDown>
               <!-- footer drop down -->
@@ -90,19 +90,19 @@
         </tbody>
       </table>
     </div>
-    <!-- pop up delete -->
-    <div v-if="storeData.isTrue" class="w-1/2 border-t-4 border-l-4 border-r-4 border-b-4">
+  <!-- pop up delete -->
+    <!-- <div v-if="storeData.isTrue" class="w-1/2 border-t-4 border-l-4 border-r-4 border-b-4"> -->
       <!-- <div class="flex justify-center">
         <img 
         src="../../assets/ques.jpg"
         class="flex justify-Content object-cover h-32 w-32  ...">
        </div> -->
-      <p class="text-center font-bold text-xl">Are you sure?</p>
+      <!-- <p class="text-center font-bold text-xl">Are you sure?</p>
       <div class="flex justify-around mb-4">
-        <button @click="store.onCancel" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">cancel</button>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><span @click="storeData.onDeleteStudent">DELETE</span></button>
-      </div>
-  </div>
+        <button @click="store.dialogDelete = false" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">cancel</button>
+        <button  @click="storeData.onDeleteStudent" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">DELETE</button>
+      </div> -->
+  <!-- </div> -->
   </div>
 </template>
 <script setup>
