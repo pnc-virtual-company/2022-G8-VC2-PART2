@@ -33,7 +33,7 @@ export const useStudentStore = defineStore("user", {
         this.province = data.data.students.province;
         this.gender = data.data.gender;
         this.email = data.data.email;
-        this.class = data.data.students.class;
+        this.class = data.data.students.class; 
         this.studentId = data.data.students.studentNumber;
       } catch (error) {
         // alert(error)
