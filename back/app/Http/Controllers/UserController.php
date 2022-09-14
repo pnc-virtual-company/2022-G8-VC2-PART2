@@ -35,7 +35,7 @@ class UserController extends Controller
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'gender' => 'required',
-                'profile_img' => 'nullable',
+                // 'profile_img' => 'nullable',
                 'role' => 'required|digits_between:1,3|numeric',
                 'password' => 'required|min:8',
                 'email' => 'required|email|unique:users|regex:/(.+)@(.+)\.(.+)/i|',
@@ -57,6 +57,11 @@ class UserController extends Controller
         if ($request->role == 1 or $request->role == 2) {
             $validatedData['password'] = bcrypt($validatedData['password']);
             $user = User::create($validatedData);
+            if($request->profile_img){
+                $user->profile_img = $request->file('profile_img')->hashName();
+                $request->file('profile_img')->store('public/images');
+                $user->save();
+            }
             $token = $user->createToken('myTOken')->plainTextToken;
             //Student role is number 1
             if ($request->role == 1) {
