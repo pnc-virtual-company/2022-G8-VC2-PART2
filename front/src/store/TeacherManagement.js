@@ -54,6 +54,16 @@ export const teacherstore = defineStore('teacher', {
         this.getTeacher()
       })
     },
+    // /**
+    //  * @todo to delete teacher by id
+    //  * @return all data of teacher after delete
+    //  */
+    //  deleteTeacher(id) {
+    //   console.log("this is delete"+id)
+    //   axios.delete(process.env.VUE_APP_API_URL+'teacher/' + id);
+    //   this.teachers.splice(id, 1);
+    //   alert('Delete successfully')
+    // },
     /**
      * @todo Upload Image
      * @return show image for preview

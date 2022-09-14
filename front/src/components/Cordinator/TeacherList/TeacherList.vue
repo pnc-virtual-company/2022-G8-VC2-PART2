@@ -70,42 +70,49 @@
               <td class="py-4 px-5">
                 {{ teacher.user.email }}
               </td>
-              <td @click="dropdownEditDelete(teacher.id)" class="py-3 px-2 flex justify-end">
-                <div >
+              <td class="py-3 px-2 flex justify-end">
+                <div>
                   <div class="relative">
-                    <div
-                      v-show="show && id == teacher.id"
-                      class="absolute right-0 py-2 mt-5 bg-black rounded-md shadow-xl w-44"
+                    <!-- Dropdown toggle button -->
+                    <button
+                      @click.prevent="isOpen(teacher.id)"
+                      class="flex items-center p-2 text-black-100"
                     >
+                      <svg
+                      class="w-6 h-6 mt-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+                      ></path>
+                    </svg>
+                    </button>
+
+                    <!-- Dropdown menu -->
+                    <div
+                      v-show="show & id == teacher.id"
+                      class="absolute right-0 py-2 mt-2 rounded-md shadow-xl w-40"
+                    >
+                      <div
+                        class="block px-4 py-2 text-sm text-black hover:bg-indigo-400 hover:text-indigo-100"
+                      >
+                        Detele
+                      </div>
                       <router-link
                         to="/"
-                        class="block px-4 py-2 text-sm text-indigo-100 hover:bg-indigo-400 hover:text-indigo-100"
+                        class="block px-4 py-2 text-sm text-black hover:bg-indigo-400 hover:text-indigo-100"
                       >
                         Edit
                       </router-link>
-                      <div
-                        @click="deleteTeacher(teacher.id)"
-                        class="block px-4 py-2 text-sm text-indigo-100 hover:bg-indigo-400 hover:text-indigo-100"
-                      >
-                        Delete
-                      </div>
                     </div>
                   </div>
                 </div>
-                <svg
-                  class="w-6 h-6 mt-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                  ></path>
-                </svg>
               </td>
             </tr>
           </tbody>
@@ -117,16 +124,28 @@
   </div>
 </template>
 <script>
-import { teacherstore } from "@/store/createTeacher";
+import { teacherstore } from "@/store/TeacherManagement";
 import CreateTeacher from "@/components/Cordinator/TeacherList/CreateTeacher.vue";
+import { ref } from "vue";
+import axios from "axios";
 export default {
+  setup() {
+    let show = ref(false);
+    let id = ref(0)
+    const isOpen = (user_id) => (
+      show.value = !show.value,
+      id.value = user_id,
+      console.log(id.value)
+    );
+    return { show, isOpen, id };
+  },
   components: {
     create_teacher: CreateTeacher,
   },
   data() {
     return {
       teacherStore: teacherstore(),
-      id: null,
+      // id: null,
       first_name: "",
       last_name: "",
       position: "",
@@ -134,23 +153,31 @@ export default {
       email: "",
     };
   },
-  methods: {
-    /* @todo to show dropdown delete and edit
+  methods:{
+     /**
+     * @todo to delete teacher by id
+     * @return all data of teacher after delete
+     */
+     deleteTeacher(id) {
+      console.log("this is delete"+id)
+      axios.delete(process.env.VUE_APP_API_URL+'teacher/' + id);
+      this.teachers.splice(id, 1);
+      alert('Delete successfully')
+    },
+    /*
+     * @todo to show dropdown delete and edit
      * @return the menu delete and delete
      */
-    dropdownEditDelete(id) {
-      if (this.id != null) {
-        this.id = null;
-        this.show = !this.show;
-        console.log("id != null" + this.id);
-      } else if (this.id == null) {
-        this.id = id;
-        this.show = !this.show;
-        console.log("id == null" + this.id);
-      }
-    },
+    // isOpen(id) {
+    //   if (this.id != null) {
+    //     this.id = null;
+    //     this.show = !this.show;
+    //   } else if (this.id == null) {
+    //     this.id = id;
+    //     this.show = !this.show;
+    //   }
+    // },
   },
-
   mounted() {
     this.teacherStore.getTeacher();
   },
