@@ -49,11 +49,12 @@
           <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             <td>
               <div class="py-4 px-6 text-right">
-                <img
+                <img 
                   src="../../../assets/logo.png"
                   class="w-10 rounded-full m-auto mt-5"
                   alt=""
                 />
+               
               </div>
             </td>
             <td class="py-3 px-2">
@@ -82,7 +83,7 @@
                   ></a>
                 </template>
                 <template #delete ><span @click=" storeData.onDeleteStudent(student.user.id)">Delete</span> </template>
-                <template #add> Add follow up </template>
+                <template #add > <span >Add follow up</span>  </template>
               </widget-DropDown>
               <!-- footer drop down -->
             </td>

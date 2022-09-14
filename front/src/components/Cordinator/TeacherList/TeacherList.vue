@@ -161,35 +161,6 @@ export default {
       email: "",
     };
   },
-  methods:{
-     /**
-     * @todo to delete teacher by id
-     * @return all data of teacher after delete
-     */
-    //  deleteTeacher(id) {
-    //   console.log("this is delete"+id)
-    //   axios.get(process.env.VUE_APP_API_URL+'teacher/' + id).then((res)=>{
-    //     const userId = res.data.user['id']
-    //     axios.delete(process.env.VUE_APP_API_URL+'user/' + userId).then((res)=>{
-    //     console.log(res.data);
-    //   });
-    //   });
-      // this.teachers.splice(id, 1);
-      // alert('Delete successfully')
-    },
-    /*
-     * @todo to show dropdown delete and edit
-     * @return the menu delete and delete
-     */
-    // isOpen(id) {
-    //   if (this.id != null) {
-    //     this.id = null;
-    //     this.show = !this.show;
-    //   } else if (this.id == null) {
-    //     this.id = id;
-    //     this.show = !this.show;
-    //   }
-    // },
   mounted() {
     this.teacherStore.getTeacher();
   },
