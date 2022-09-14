@@ -91,11 +91,12 @@
     return{
       teacherStore:teacherstore(),
       id: null,
-        first_name: "",
-        last_name: "",
-        position: "",
-        gender: "male",
-        email: "",
+      first_name: "",
+      last_name: "",
+      position: "",
+      gender: "male",
+      email: "",
+
     }
   },
   mounted(){

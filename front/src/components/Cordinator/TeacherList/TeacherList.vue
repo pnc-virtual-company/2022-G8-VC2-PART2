@@ -50,7 +50,7 @@
               <td>
                 <div class="py-4 px-6 text-right">
                   <img
-                    src="@/assets/male_logo.jpg"
+                    :src="'http://127.0.0.1:8000/storage/images/'+teacher.user.profile_img"
                     class="w-10 rounded-full m-auto mt-5"
                     alt=""
                   />
@@ -152,6 +152,7 @@ export default {
       position: "",
       gender: "male",
       email: "",
+      imgURL: process.env.VUE_APP_IMG_URL
     };
   },
   methods:{
