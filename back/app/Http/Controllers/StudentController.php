@@ -23,6 +23,7 @@ class StudentController extends Controller
     }
     public function destroy($id)
     {
+        //remove student
         $student = Student::findOrFail($id);
         if ($student) {
             $student->delete();
