@@ -21,4 +21,9 @@ class StudentController extends Controller
     {
         return Student::with('user')->findOrFail($id);
     }
+    public function destroy($id)
+    {
+       
+    }
+    
 }
