@@ -24,7 +24,7 @@
         <template #default> Create Student </template>
       </widget-button>
       <!-- pop up create students -->
-      <CreateStudentVue></CreateStudentVue>
+      <CreateStudent></CreateStudent>
     </div>
     <!-- ============================ display list all student ========================== -->
     <div
@@ -94,7 +94,7 @@
 </template>
 <script setup>
 import StudentFormVue from "./EditStudent.vue"
-import CreateStudentVue from "./CreateStudent.vue";
+import CreateStudent from "./CreateStudent.vue"
 import { studentstore } from "../../../store/index"
 import { onMounted } from "vue";
 const storeData = studentstore();
