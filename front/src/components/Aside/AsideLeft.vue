@@ -1,11 +1,10 @@
 
 <template>
-
-    <div class="content bg-sky-500 absolute inset-0 transform lg:transform-none lg:opacity-100 duration-200 lg:relative z-10 w-80  text-white  p-3 ">
+    <div class=" bg-sky-500 lg:relative z-10 w-60 text-white  p-3 sticky top-0 h-screen ">
         <div class="profile_info">
             <img src="@/assets/male_logo.jpg" class="w-2/5 rounded-full m-auto mt-5">
         </div>
-        <aside class=" h-screen p-5 m-auto">
+        <aside class="p-5 m-auto">
           <ul class="font-bold text-white">
             <li class="p-4"><router-link to="/managestudent">  Manage Student</router-link></li>
             <li class="p-4"><router-link to="/manageteacher">  Manage Teacher</router-link></li>
@@ -14,7 +13,5 @@
           </ul>
         </aside>
         <!-- <student_card class="w-4/5 m-3"> </student_card> -->
-       
       </div>
-    
 </template>
