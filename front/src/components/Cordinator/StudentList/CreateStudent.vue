@@ -7,7 +7,7 @@
            <div  class="w-1/4  rounded-full m-auto">
             <label for="image">
               <img v-if="storeData.previewImage != null" :src="storeData.previewImage"  class="w-6/6 h-28 rounded-full m-auto" alt="">
-              <img v-if="storeData.previewImage == null" src="../../../assets/male_logo.jpg" class="w-6/6 rounded-full m-auto" alt="" />
+              <img v-if="storeData.previewImage == null" src="../../../assets/male_logo.jpg" class="w-auto rounded-full m-auto" alt="" />
             </label>
             <input type="file" @change="storeData.uploadImage" hidden id="image">
            </div>
