@@ -1,5 +1,6 @@
 <template>
     <!-- pop up create student -->
+    
     <div  v-if="storeData.isTrue" class="z-10">  
       <div class="mt-[-12] fixed w-full h-full inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50">
         <form @submit.prevent="storeData.createStudent"  class="bg-white text-center p-5 w-2/5 m-auto rounded">
@@ -44,6 +45,6 @@
 </template>
 
 <script setup>
-    import {studentstore} from "../../store/index"
+    import {studentstore} from "../../../store/index"
     const storeData = studentstore()
 </script>

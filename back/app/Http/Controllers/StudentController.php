@@ -21,4 +21,16 @@ class StudentController extends Controller
     {
         return Student::with('user')->findOrFail($id);
     }
+    public function destroy($id)
+    {
+        //remove student
+        $student = Student::findOrFail($id);
+        if ($student) {
+            $student->delete();
+            return response()->json(['sms' => $student], 201);
+        } else {
+            return  response()->json(['sms' => 'unsuccessful'], 404);
+        }
+    }
+    
 }
