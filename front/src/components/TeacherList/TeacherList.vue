@@ -186,18 +186,11 @@
     return{
       teacherStore:teacherstore(),
       id: null,
-        // teachers: [],
-        // show: false,
-        // isTrue: false,
-        // isShow: false,
         first_name: "",
         last_name: "",
         position: "",
         gender: "male",
         email: "",
-        // password: 12345678,
-        // profile_img: "",
-        // previewImage: null,
     }
   },
   mounted(){

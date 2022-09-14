@@ -105,7 +105,6 @@
           Cancel
         </button>
         <button
-      
           class="p-1.5 text-white bg-sky-500 mr-1 rounded w-20 mt-10 ml-5"
         >
         UPDATE
@@ -115,18 +114,11 @@
 </div>
 </template>
 <script setup>
-// import { inject } from "vue";
 import { computed } from "vue";
 import { useStudentStore } from "../../store/edit";
-// const id = inject("id");
 const store = useStudentStore();
-//onUpate data student
 const onCreate = store.onCreate;
 const isTrue = computed(() => {
   return store.isTrue;
 });
-<<<<<<< HEAD
-
-=======
->>>>>>> bc8a48c6c1690badb937e6f7eb899544ac548b2e
 </script>
