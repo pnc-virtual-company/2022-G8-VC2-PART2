@@ -81,7 +81,7 @@
                     ></StudentFormVue
                   ></a>
                 </template>
-                <template #delete> DELETE </template>
+                <template #delete ><span @click=" storeData.onDeleteStudent(student.user.id)">Delete</span> </template>
                 <template #add> Add follow up </template>
               </widget-DropDown>
               <!-- footer drop down -->

@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 //-------------users routes-------------/
 Route::apiResource('/user',UserController::class);
+// Route::put('/updateteacher/{id}',[UserController::class,'updateTeacher']);
 //-------------students routes-------------/
 Route::apiResource('/student',StudentController::class);
 //-------------teacher routes-------------/

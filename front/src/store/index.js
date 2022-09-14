@@ -18,6 +18,11 @@ export const studentstore = defineStore('student', {
     phone:"",
     ngo:"",
     province:"",
+    dialogDelete: false,
+    userid: null,
+    index:null,
+    dialog: false,
+
   }),
   getters: {},
   actions:{
@@ -63,9 +68,18 @@ export const studentstore = defineStore('student', {
       this.profile_img = e.target.files[0]
       this.previewImage = URL.createObjectURL(this.profile_img)
     },
-    onCancel(){
 
-      this.isTrue=false
+    showPopup(index){
+      this.dialog = true;
+      this.index = index;
+
+    },
+    async onDeleteStudent(id){
+         await axios.delete('user/'+id).then(()=>{
+           this.getStudent()
+          console.log('delete successfully');
+         })
+  
     }
   }
 });
