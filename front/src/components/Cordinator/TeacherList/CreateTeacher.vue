@@ -85,7 +85,7 @@
     
 </template>
 <script >
-  import {teacherstore} from "@/store/createTeacher"
+  import {teacherstore} from "@/store/TeacherManagement"
   export default {
   data(){
     return{
