@@ -130,15 +130,6 @@
         </div>
         <!-- buton click update -->
         <button
-<<<<<<< HEAD:front/src/components/StudentList/StudentForm.vue
-          @click="store.onCancel"
-          class="bg-red-500 p-1.5 text-white mr-1 rounded w-20 mt-10"
-        >
-          Cancel
-        </button>
-        <button
-=======
->>>>>>> a8277ee0d9b36654b7499d055081712d05c5c511:front/src/components/Cordinator/StudentList/EditStudent.vue
           class="p-1.5 text-white bg-sky-500 mr-1 rounded w-20 mt-10 ml-5"
         >
           UPDATE
@@ -148,14 +139,6 @@
   </div>
 </template>
 <script setup>
-<<<<<<< HEAD:front/src/components/StudentList/StudentForm.vue
-import { computed } from "vue";
-import { useStudentStore } from "../../store/edit";
-const store = useStudentStore();
-const onCreate = store.onCreate;
-const isTrue = computed(() => {
-  return store.isTrue;
-=======
 import { onMounted, defineProps } from "vue";
 // import get data from EditStudent file js of pinia
 import { useStudentStore } from "../../../store/coordinatorStore/students/EditStudent"
@@ -165,7 +148,6 @@ defineProps({
 });
 onMounted(() => {
   store.fetchStudent();
->>>>>>> a8277ee0d9b36654b7499d055081712d05c5c511:front/src/components/Cordinator/StudentList/EditStudent.vue
 });
 </script>
  
