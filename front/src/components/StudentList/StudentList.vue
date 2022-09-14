@@ -6,7 +6,6 @@
             Manage Student
         </template>
     </widget-title>
-    
     <!-- ====================== filter on student list ==================== -->
     <div class="m-auto filter flex justify-around w-11/12 mt-5">
       <input
