@@ -133,6 +133,31 @@ class UserController extends Controller
             }
         }
     }
+    public function updateTeacher(Request $request, $id)
+    {
+        $validatedData = $request->validate(
+            [
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'gender' => 'required',
+                'email' => 'required',
+            ]
+        );
+        $updateTeacher=User::with('teachers')->findOrFail($id);
+        if($updateTeacher['role']==2){
+            if($updateTeacher['teachers']['user_id']==$id){
+                $updateTeacher->update($validatedData);
+                $updateTeacherID=Teacher::findOrFail($updateTeacher['teachers']['id']);
+                $updateTeacherID->position = $request->position;
+                $updateTeacherID->save();
+                return response()->json([
+                    'Message' => 'Update Teacher is successfull',
+                    'Status' => true,
+                    'sms' => $updateTeacher['teachers']['user_id'],
+                ], 200);
+            }
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
