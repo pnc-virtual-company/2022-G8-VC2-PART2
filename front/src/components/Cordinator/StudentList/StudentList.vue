@@ -100,6 +100,19 @@
         </tbody>
       </table>
     </div>
+    <!-- pop up delete -->
+    <div class="w-1/2 border-t-4 border-l-4 border-r-4 border-b-4">
+      <!-- <div class="flex justify-center">
+        <img 
+        src="../../assets/ques.jpg"
+        class="flex justify-Content object-cover h-32 w-32  ...">
+       </div> -->
+      <p class="text-center font-bold text-xl">Are you sure?</p>
+      <div class="flex justify-around mb-4">
+        <button @click="store.dialogDelete = false" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">cancel</button>
+        <button  @click="storeData.onDeleteStudent" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">DELETE</button>
+      </div>
+  </div>
   </div>
 </template>
 <script setup>
