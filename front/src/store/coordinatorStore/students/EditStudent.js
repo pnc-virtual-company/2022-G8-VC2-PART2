@@ -1,24 +1,30 @@
 import { defineStore } from "pinia";
-import axios from "../axios-http";
-export const useStudentStore = defineStore("student", {
+import axios from "../../../axios-http";
+export const useStudentStore = defineStore("user", {
   state: () => ({
     isTrue: false,
-    isShow: false,
-    first_name: null,
-    last_name: null,
-    gender: null,
-    batch: null,
-    class: null,
-    ngo: null,
-    province: null,
-    phone: null,
-    email: null,
-    studentId: null,
+    first_name: '',
+    last_name: '',
+    gender: '',
+    batch: '',
+    class: '',
+    ngo: '',
+    province: '',
+    phone: '',
+    email: '',
+    studentId: '',
+    student_id:null,
+    isDrop:false
   }),
+  getters:{
+    getData(state){
+      return state.user
+    }
+  },
   actions: {
-    async fetchStudent(id) {
+    async fetchStudent() {
       try {
-        const data = await axios.get("/user/" + id);
+        const data = await axios.get("/user/"+this.student_id);
         this.first_name = data.data.first_name;
         this.last_name = data.data.last_name;
         this.batch = data.data.students.batch;
@@ -33,9 +39,9 @@ export const useStudentStore = defineStore("student", {
         // alert(error)
       }
     },
-    async onEdit(id) {
+    async onEditStudent() {
       let object = {};
-      object.id = id;
+      object.id =this.student_id;
       object.first_name = this.first_name;
       object.last_name = this.last_name;
       object.gender = this.gender;
@@ -47,18 +53,25 @@ export const useStudentStore = defineStore("student", {
       object.province = this.province;
       object.phone = this.phone;
       try {
-      axios.put("/user/" + id, object);
+      axios.put("/user/" + this.student_id, object);
         this.isTrue=false
+        this.isEdit=true
+        this.fetchStudent()
+
       } catch (error) {
-        // alert(error)
+        alert(error)
       }
- 
     },
-    onCreate() {
+    onCreate(id) {
       this.isTrue = true;
+      this.student_id=id
+      this.fetchStudent()
     },
     onCancel(){
       this.isTrue=false
+    },
+    isOpenDrop(){
+      this.isDrop=!this.isDrop
     }
   },
 });
