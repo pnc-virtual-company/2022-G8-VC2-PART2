@@ -136,33 +136,6 @@
         </form>
       </div>
     </div>
-<<<<<<< HEAD
-  </template>
-<script>
-
-    import {studentstore} from "../../store/index"
-    export default {
-
-    data(){
-      return{
-        studentStore:studentstore(),
-         firstname:"",
-         lastname:"",
-         batch:"",
-         gender:"male",
-         email:"",
-         phone:"",
-         ngo:"",
-         province:"",
-      }
-    },
-    mounted(){
-      this.studentStore.getStudent()
-    },
-  }
-</script>
-=======
->>>>>>> bc8a48c6c1690badb937e6f7eb899544ac548b2e
 
   </template>
 <script setup>
