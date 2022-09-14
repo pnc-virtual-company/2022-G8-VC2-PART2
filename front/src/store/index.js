@@ -62,14 +62,6 @@ export const studentstore = defineStore("student", {
         this.getStudent();
       });
     },
-    /**
-     * @todo Upload Image
-     * @return show image for preview
-     */
-    uploadImage(e) {
-      this.profile_img = e.target.files[0];
-      this.previewImage = URL.createObjectURL(this.profile_img);
-    },
     showPopup(index) {
       this.dialog = true;
       this.index = index;
@@ -84,6 +76,10 @@ export const studentstore = defineStore("student", {
       this.isTrue = false;
       this.isEdit = false;
     },
+
+    /**
+     * @todo get student by id
+     */
     async getDAta(id) {
       const data = await axios.get("/user/" + id);
       this.isEdit = true;
@@ -99,6 +95,9 @@ export const studentstore = defineStore("student", {
       this.ngo = data.data.students.ngo;
       this.user_id = id
     },
+    /**
+     * @todo edit student 
+     */
     async onEditStudent(){
       let object = {};
       object.id =this.student_id;
@@ -113,9 +112,32 @@ export const studentstore = defineStore("student", {
       object.province = this.province;
       object.phone = this.phone;
        await axios.put("/user/"+this.user_id,object);
+       //alert successful
        toast.success("Update is successfull",{position: POSITION.TOP_CENTER, timeout: 500})
        this.isEdit = false;
        this.getStudent()
+    },
+
+    uploadImage(e){
+      this.profile_img = e.target.files[0]
+      this.previewImage = URL.createObjectURL(this.profile_img)
+    },
+    /**
+     * @todo clea form create student
+     */
+    clearForm(){
+      this.first_name = ''
+      this.last_name = ''
+      this.email = ''
+      this.batch = ''
+      this.phone = ''
+      this.ngo = ''
+      this.province = ''
+      this.class = ''
+      this.studentNumber = ''
+      this.profile_img = ''
+      this.previewImage = ''
     }
+  
   },
 });

@@ -26,6 +26,7 @@
     <div
       class="mt-[-12] fixed w-full h-full inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 "
     >
+    <!-- on edit form -->
       <form
         @submit.prevent="store.onEditStudent"
         class="bg-white text-center pl-5 pr-5 pt-4 pb-3 w-2/5  rounded m-5"
@@ -145,6 +146,5 @@ const store = studentstore();
 defineProps({
   id: null,
 });
-
 </script>
  
