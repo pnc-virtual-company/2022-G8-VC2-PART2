@@ -1,5 +1,5 @@
 <template>
-    <div class=" bg-sky-500 lg:relative z-10 w-60 text-white  p-3 sticky top-0">
+    <div class=" bg-sky-500 lg:relative z-10 w-60 text-white  p-3 top-0 ">
         <div class="profile_info">
             <img src="@/assets/male_logo.jpg" class="w-2/5 rounded-full m-auto mt-5">
         </div>

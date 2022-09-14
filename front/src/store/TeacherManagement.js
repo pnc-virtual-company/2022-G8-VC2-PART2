@@ -54,20 +54,19 @@ export const teacherstore = defineStore('teacher', {
         this.getTeacher()
       })
     },
-    // createTeacher() {
-    //   this.isTrue = true;
-    //   let teacher = new FormData();
-    //   teacher.append("first_name", this.first_name);
-    //   teacher.append("last_name", this.last_name);
-    //   teacher.append("position", this.position);
-    //   teacher.append("email", this.email);
-    //   teacher.append("password", 123456789);
-    //   teacher.append("gender", this.gender);
-    //   teacher.append("role", 2);
-    //   teacher.append("profile_img", this.profile_img);
-    //   axios.post("http://127.0.0.1:8000/api/user", teacher);
-    //   console.log("create teacher successfully")
-    // },
+    // /**
+    //  * @todo to delete teacher by id
+    //  * @return all data of teacher after delete
+    //  */
+    deleteTeacher(id) {
+      console.log("this is delete"+id)
+      axios.get(process.env.VUE_APP_API_URL+'teacher/' + id).then((res)=>{
+        const userId = res.data.user['id']
+        axios.delete(process.env.VUE_APP_API_URL+'user/' + userId).then(()=>{
+        this.getTeacher()
+      });
+      })
+    },
     /**
      * @todo Upload Image
      * @return show image for preview
@@ -76,10 +75,5 @@ export const teacherstore = defineStore('teacher', {
       this.profile_img = e.target.files[0]
       this.previewImage = URL.createObjectURL(this.profile_img)
     },
-    // uploadImage(e) {
-    //   console.log(e);
-    //   this.profile_img = e.target.files[0];
-    //   this.previewImage = URL.createObjectURL(this.profile_img);
-    // },
   }
 });

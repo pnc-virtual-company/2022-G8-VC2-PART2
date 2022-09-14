@@ -101,7 +101,7 @@
     import {onMounted} from "vue"
     const storeData = studentstore()
     onMounted(()=>{
-      storeData.getStudent()
+      storeData.getStudent();
     })
 
 </script>

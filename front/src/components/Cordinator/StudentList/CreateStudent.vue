@@ -1,12 +1,13 @@
 <template>
     <!-- pop up create student -->
+    
     <div  v-if="storeData.isTrue" class="z-10">  
       <div class="mt-[-12] fixed w-full h-full inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50">
         <form @submit.prevent="storeData.createStudent"  class="bg-white text-center p-5 w-2/5 m-auto rounded">
            <div  class="w-1/4  rounded-full m-auto">
             <label for="image">
               <img v-if="storeData.previewImage != null" :src="storeData.previewImage"  class="w-6/6 h-28 rounded-full m-auto" alt="">
-              <img v-if="storeData.previewImage == null" src="../../assets/male_logo.jpg" class="w-6/6 rounded-full m-auto" alt="" />
+              <img v-if="storeData.previewImage == null" src="../../../assets/male_logo.jpg" class="w-6/6 rounded-full m-auto" alt="" />
             </label>
             <input type="file" @change="storeData.uploadImage" hidden id="image">
            </div>
@@ -44,6 +45,6 @@
 </template>
 
 <script setup>
-    import {studentstore} from "../../store/index"
+    import {studentstore} from "../../../store/index"
     const storeData = studentstore()
 </script>
