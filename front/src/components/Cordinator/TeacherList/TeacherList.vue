@@ -100,6 +100,7 @@
                       class="absolute right-0 py-2 mt-2 rounded-md shadow-xl w-40"
                     >
                       <div
+                      @click="teacherStore.deleteTeacher(teacher.id)"
                         class="block px-4 py-2 text-sm text-black hover:bg-indigo-400 hover:text-indigo-100"
                       >
                         Detele
@@ -127,7 +128,7 @@
 import { teacherstore } from "@/store/TeacherManagement";
 import CreateTeacher from "@/components/Cordinator/TeacherList/CreateTeacher.vue";
 import { ref } from "vue";
-import axios from "axios";
+// import axios from "@/axios-http"
 export default {
   setup() {
     let show = ref(false);
@@ -158,11 +159,16 @@ export default {
      * @todo to delete teacher by id
      * @return all data of teacher after delete
      */
-     deleteTeacher(id) {
-      console.log("this is delete"+id)
-      axios.delete(process.env.VUE_APP_API_URL+'teacher/' + id);
-      this.teachers.splice(id, 1);
-      alert('Delete successfully')
+    //  deleteTeacher(id) {
+    //   console.log("this is delete"+id)
+    //   axios.get(process.env.VUE_APP_API_URL+'teacher/' + id).then((res)=>{
+    //     const userId = res.data.user['id']
+    //     axios.delete(process.env.VUE_APP_API_URL+'user/' + userId).then((res)=>{
+    //     console.log(res.data);
+    //   });
+    //   });
+      // this.teachers.splice(id, 1);
+      // alert('Delete successfully')
     },
     /*
      * @todo to show dropdown delete and edit
@@ -177,7 +183,6 @@ export default {
     //     this.show = !this.show;
     //   }
     // },
-  },
   mounted() {
     this.teacherStore.getTeacher();
   },

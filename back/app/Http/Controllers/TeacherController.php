@@ -17,6 +17,10 @@ class TeacherController extends Controller
     {
         return Teacher::with('user')->get();
     }
+    public function show($id)
+    {
+        return Teacher::with('user')->findOrFail($id);
+    }
     public function destroy($id)
     {
         $teacher = Teacher::findOrFail($id);

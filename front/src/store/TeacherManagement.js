@@ -58,12 +58,15 @@ export const teacherstore = defineStore('teacher', {
     //  * @todo to delete teacher by id
     //  * @return all data of teacher after delete
     //  */
-    //  deleteTeacher(id) {
-    //   console.log("this is delete"+id)
-    //   axios.delete(process.env.VUE_APP_API_URL+'teacher/' + id);
-    //   this.teachers.splice(id, 1);
-    //   alert('Delete successfully')
-    // },
+    deleteTeacher(id) {
+      console.log("this is delete"+id)
+      axios.get(process.env.VUE_APP_API_URL+'teacher/' + id).then((res)=>{
+        const userId = res.data.user['id']
+        axios.delete(process.env.VUE_APP_API_URL+'user/' + userId).then(()=>{
+        this.getTeacher()
+      });
+      })
+    },
     /**
      * @todo Upload Image
      * @return show image for preview
