@@ -1,5 +1,5 @@
 <template>
-  <div class="container text-center ">
+  <div  class="container text-center w-5/5 h-screen overflow-y-scroll">
     <!-- ====================== Title ==================== -->
     <widget-title>
         <template v-slot>
