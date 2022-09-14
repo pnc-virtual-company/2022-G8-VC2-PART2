@@ -49,11 +49,21 @@
           <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             <td>
               <div class="py-4 px-6 text-right">
-                <img
-                  src="../../../assets/logo.png"
-                  class="w-10 rounded-full m-auto mt-5"
-                  alt=""
-                />
+                  <img v-if="student.user.profile_img != null"
+                    :src="'http://127.0.0.1:8000/storage/images/'+student.user.profile_img"
+                    class="w-12 h-12 rounded-full m-auto mt-5"
+                    alt=""
+                  />
+                  <img v-else-if="student.user.gender == 'female'"
+                    src="@/assets/female_logo.jpg"
+                    class="w-12 h-12 rounded-full m-auto mt-5"
+                    alt=""
+                  />
+                  <img v-else-if="student.user.gender == 'male'"
+                    src="@/assets/male_logo.jpg"
+                    class="w-12 h-12 rounded-full m-auto mt-5"
+                    alt=""
+                  />
               </div>
             </td>
             <td class="py-3 px-2">
