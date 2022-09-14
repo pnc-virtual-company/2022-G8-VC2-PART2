@@ -6,7 +6,7 @@
         class="mt-[-12] fixed w-full h-full inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50"
       >
         <form
-          @submit="teacherStore.createTeacher()"
+          @submit.prevent="teacherStore.createTeacher()"
           class="bg-white text-center p-5 w-2/5 m-auto rounded"
         >
           <div class="">
