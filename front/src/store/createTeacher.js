@@ -1,30 +1,3 @@
-// import { defineStore } from "pinia";
-// // import axios from "axios";
-// export const teacherList = defineStore( {
-//   id: "counter",
-//   state: () => ({
-//     count: 0,
-//     teachers: [],
-//   }),
-//   getters: {
-//     getTeacher: (state) => state.teachers,
-//   },
-//   actions: {
-//     getTeacher() {
-//     //   axios.get("http://127.0.0.1:8000/api/student").then((res) => {
-//     //     this.teachers = res.data;
-//         console.log('hello world');
-//     //   });
-//     },
-//   },
-// });
-
-
-
-
-
-
-
 
 import { defineStore } from 'pinia'
 import axios from "@/axios-http"
@@ -56,6 +29,9 @@ export const teacherstore = defineStore('teacher', {
     this.isShow = false;
     console.log('clicked on onCreate Button')
     },
+    onCancel(){
+      this.isTrue=false
+    },
     /**
      * @todo create new teacher
      * @return new data teacher
@@ -70,6 +46,7 @@ export const teacherstore = defineStore('teacher', {
       teacher.append("phone", this.phone);
       teacher.append("position", this.position)
       teacher.append("password", 123456789);
+      teacher.append("role",2)
       axios.post(process.env.VUE_APP_API_URL+'user', teacher).then(()=>{
         alert('Create new teacher successfully!')
         this.isShow = true;
