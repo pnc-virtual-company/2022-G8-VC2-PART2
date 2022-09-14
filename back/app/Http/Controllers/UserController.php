@@ -144,7 +144,8 @@ class UserController extends Controller
             ]
         );
         $updateTeacher=User::with('teachers')->findOrFail($id);
-        if($updateTeacher['role']==2){
+        if($updateTeacher['role'] == 2){
+            // return response()->json(['sms'=>$updateTeacher['teachers']['user_id']]);
             if($updateTeacher['teachers']['user_id']==$id){
                 $updateTeacher->update($validatedData);
                 $updateTeacherID=Teacher::findOrFail($updateTeacher['teachers']['id']);
@@ -157,6 +158,7 @@ class UserController extends Controller
                 ], 200);
             }
         }
+        
     }
 
     /**
