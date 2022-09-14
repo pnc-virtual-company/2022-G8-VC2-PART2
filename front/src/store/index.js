@@ -19,7 +19,7 @@ export const studentstore = defineStore('student', {
     ngo:"",
     province:"",
   }),
-
+  getters: {},
   actions:{
     async getStudent(){
         const data = await axios.get('student') 
@@ -46,9 +46,7 @@ export const studentstore = defineStore('student', {
       student.append("ngo", this.ngo);
       student.append("province", this.province);
       student.append("password", 123456789);
-      student.append("role", 1);
-      // alert(student)
-      console.log(this.ngo);
+      student.append("role", 1);      console.log(this.ngo);
       console.log(this.province);
       axios.post(process.env.VUE_APP_API_URL+'user', student).then(()=>{
         this.isTrue= false;
@@ -68,6 +66,4 @@ export const studentstore = defineStore('student', {
       this.isTrue=false
     }
   }
-  
- 
-})
+});
