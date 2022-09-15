@@ -31,8 +31,9 @@
       <CreateStudent></CreateStudent>
     </div>
     <!-- ============================ display list all student ========================== -->
-    <div
-      class="z-0 m-auto relative bg-gray-100 p-5 shadow-md w-11/12 sm:rounded-lg mt-3 h-screen overflow-y-scroll"
+    <div 
+      v-if="storeData.isClcik"
+      class=" m-auto relative bg-gray-100 p-5 shadow-md w-11/12 sm:rounded-lg mt-3 h-screen overflow-y-scroll"
     >
       <table
         class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
@@ -49,8 +50,8 @@
             <th class="py-3 px-6">Actions</th>
           </tr>
         </thead>
-        <tbody v-for="student in storeData.students" :key="student">
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        <tbody v-for="student in storeData.students" :key="student.id">
+          <tr @click="storeData.studentDetail(student.id)" class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:border-gray-700">
             <td>
               <div class="py-4 px-6 text-right">
                   <img v-if="student.user.profile_img != null"
@@ -96,7 +97,7 @@
                   ></a>
                 </template>
                 <template #delete ><span @click=" storeData.onDeleteStudent(student.user.id)">Delete</span> </template>
-                <template #add> Add follow up </template>
+                <template #add > <span >Add follow up</span>  </template>
               </widget-DropDown>
               <!-- footer drop down -->
             </td>
@@ -118,8 +119,10 @@
       </div>
   </div>
   </div>
+  <StudentDetail></StudentDetail>
 </template>
 <script setup>
+import StudentDetail from "./StudentDetail.vue"
 import StudentFormVue from "./EditStudent.vue"
 import CreateStudent from "./CreateStudent.vue"
 import { studentstore } from "@/store/coordinatorStore/StudentStore/StudentManagement"
