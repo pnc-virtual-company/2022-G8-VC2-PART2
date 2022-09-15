@@ -17,8 +17,13 @@ export const teacherstore = defineStore('teacher', {
     gender: "male",
     position: "",
     phone: null,
+    // ====================data for filter ========================
+    search_value: 'all',
+    search_option: ''
   }),
-  getters: {},
+  getters: {
+
+  },
   actions: {
     async getTeacher() {
       const data = await axios.get('teacher')
