@@ -140,7 +140,7 @@
 <script setup>
 import { onMounted, defineProps } from "vue";
 // import get data from EditStudent file js of pinia
-import { useStudentStore } from "../../../store/coordinatorStore/students/EditStudent"
+import { useStudentStore } from "@/store/coordinatorStore/studentStore/EditStudent"
 const store = useStudentStore();
 defineProps({
   id: null,
