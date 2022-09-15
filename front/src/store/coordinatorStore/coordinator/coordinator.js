@@ -7,6 +7,7 @@ export const userStore = defineStore("user", {
     last_name: "",
     email: "",
     gender: "male",
+
   }),
   getters: {},
   actions: {
@@ -17,6 +18,7 @@ export const userStore = defineStore("user", {
                 this.last_name = data.data.last_name
                 this.email = data.data.email
                 this.gender = data.data.gender
+
         },
     },
 });

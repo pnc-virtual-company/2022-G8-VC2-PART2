@@ -118,7 +118,7 @@
 <script setup>
 import StudentEditFormVue from "./EditStudent.vue"
 import CreateStudent from "./CreateStudent.vue"
-import { studentstore } from "../../../store/index"
+import { studentstore } from "../../../store/coordinatorStore/StudentStore/StudentManagement"
 import { onMounted } from "vue";
 const storeData = studentstore();
 onMounted(() => {

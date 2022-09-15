@@ -1,7 +1,6 @@
 
 import { defineStore } from 'pinia'
 import axios from "@/axios-http"
-
 export const teacherstore = defineStore('teacher', {
   state: () => ({
     teachers: [],
@@ -17,12 +16,14 @@ export const teacherstore = defineStore('teacher', {
     gender: "male",
     position: "",
     phone: null,
+    created_at:null,
   }),
   getters: {},
   actions: {
     async getTeacher() {
       const data = await axios.get('teacher')
       this.teachers = data.data
+      // this.getData()
     },
     onCreate() {
       this.isTrue = true;
@@ -81,5 +82,17 @@ export const teacherstore = defineStore('teacher', {
       this.profile_img = e.target.files[0]
       this.previewImage = URL.createObjectURL(this.profile_img)
     },
+    async getData(id){
+        const data = await axios.get('teacher/'+id)
+        // check only role 2 that represent to teacher
+        if(data.data.user.role==2){
+          this.profile_img = data.data.user.profile_img
+          this.first_name = data.data.user.first_name
+          this.last_name = data.data.user.last_name
+          this.email = data.data.user.email
+          this.position = data.data.position
+          this.created_at = data.data.created_at
+        }
+    }
   }
 });

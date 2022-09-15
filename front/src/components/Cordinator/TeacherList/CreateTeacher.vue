@@ -97,7 +97,7 @@
     </div>
 </template>
 <script>
-import { teacherstore } from "@/store/TeacherManagement";
+import { teacherstore } from "@/store/coordinatorStore/TeacherStore/TeacherManagement";
 export default {
   data() {
     return {

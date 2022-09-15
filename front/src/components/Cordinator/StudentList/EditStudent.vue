@@ -141,7 +141,7 @@
 </template>
 <script setup>
 import {  defineProps } from "vue";
-import {studentstore} from "../../../store/index"
+import {studentstore} from "../../../store/coordinatorStore/StudentStore/StudentManagement"
 const store = studentstore();
 defineProps({
   id: null,
