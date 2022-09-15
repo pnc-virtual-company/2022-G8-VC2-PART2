@@ -52,8 +52,8 @@ class UserController extends Controller
                 'email.regex' => 'Email field must join with @',
             ]
         );
-        // role 1 is student and 2 is teacher
-        if ($request->role == 1 or $request->role == 2) {
+        // role 1 is student and 2 is teacher and 3 is coordinator
+        if ($request->role == 1 or $request->role == 2 or $request->role == 3) {
             $validatedData['password'] = bcrypt($validatedData['password']);
             $user = User::create($validatedData);
             if($request->profile_img){
@@ -84,6 +84,9 @@ class UserController extends Controller
                 $teahcer->position = $request->position;
                 $teahcer->save();
                 return response()->json(['message' => "Created teacher successfully"]);
+            }else if ($request->role==3){
+                $user = User::create($validatedData);
+                return response()->json(['message' => "Created Coordinator is  successfully"]);
             }
         }
         return response()->json(['message' => "Cannot create without input your role 1 is student and 2 is teacher"]);
