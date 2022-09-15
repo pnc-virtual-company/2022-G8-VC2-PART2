@@ -21,14 +21,14 @@
       </select>
       <!-- button -->
       <widget-button @click="storeData.onCreate()">
-        <template v-slot> Create Student </template>
+        <template #default> Create Student </template>
       </widget-button>
       <!-- pop up create students -->
       <CreateStudent></CreateStudent>
     </div>
     <!-- ============================ display list all student ========================== -->
     <div
-      class="z-0 m-auto relative bg-gray-100 p-5 shadow-md w-11/12 sm:rounded-lg mt-3 h-screen overflow-y-scroll"
+      class=" m-auto relative bg-gray-100 p-5 shadow-md w-11/12 sm:rounded-lg mt-3 h-screen overflow-y-scroll"
     >
       <table
         class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
@@ -92,7 +92,7 @@
                   ></a>
                 </template>
                 <template #delete ><span @click=" storeData.onDeleteStudent(student.user.id)">Delete</span> </template>
-                <template #add> Add follow up </template>
+                <template #add > <span >Add follow up</span>  </template>
               </widget-DropDown>
               <!-- footer drop down -->
             </td>

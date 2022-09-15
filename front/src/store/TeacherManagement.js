@@ -65,7 +65,7 @@ export const teacherstore = defineStore('teacher', {
      * @return all data of teacher after delete
      */
     deleteTeacher(id) {
-      axios.get(process.env.VUE_APP_API_URL + 'teacher/' + id).then((res) => {
+      axios.get(process.env.VUE_APP_API_URL+'teacher/' + id).then((res)=>{
         const userId = res.data.user['id']
         axios.delete(process.env.VUE_APP_API_URL + 'user/' + userId).then(() => {
           this.getTeacher()

@@ -1,6 +1,6 @@
 <template>
   <!-- button click on update student -->
-  <button @click="store.onCreate(id)" class="flex">
+  <button @click="store.getDAta(id)" class="flex">
     <span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -22,10 +22,11 @@
   </button>
 
   <!-- form pop up create student -->
-  <div v-if="store.isTrue" class="">
+  <div v-if="store.isEdit" class="">
     <div
       class="mt-[-12] fixed w-full h-full inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 "
     >
+    <!-- on edit form -->
       <form
         @submit.prevent="store.onEditStudent"
         class="bg-white text-center pl-5 pr-5 pt-4 pb-3 w-2/5  rounded m-5"
@@ -139,15 +140,11 @@
   </div>
 </template>
 <script setup>
-import { onMounted, defineProps } from "vue";
-// import get data from EditStudent file js of pinia
-import { useStudentStore } from "../../../store/coordinatorStore/students/EditStudent"
-const store = useStudentStore();
+import {  defineProps } from "vue";
+import {studentstore} from "../../../store/index"
+const store = studentstore();
 defineProps({
   id: null,
-});
-onMounted(() => {
-  store.fetchStudent();
 });
 </script>
  

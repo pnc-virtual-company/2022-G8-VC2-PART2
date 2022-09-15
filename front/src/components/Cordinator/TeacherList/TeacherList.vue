@@ -155,6 +155,13 @@
                       >
                         Edit
                       </router-link>
+                      <div
+                        @click="deleteTeacher(teacher.id)"
+                        class="block px-4 py-2 text-sm text-indigo-100 hover:bg-indigo-400 hover:text-indigo-100"
+                      >
+                        Delete
+                       
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -198,8 +205,6 @@ export default {
       imgURL: process.env.VUE_APP_IMG_URL,
     };
   },
-  methods: {},
-
   mounted() {
     this.teacherStore.getTeacher();
   },

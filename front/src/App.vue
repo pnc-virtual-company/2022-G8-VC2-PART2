@@ -1,6 +1,6 @@
 <template>
   <section class="lg:flex w-5/5">
-    <div class="" >
+    <div  >
       <aside_left></aside_left>
     </div>
     <div class="w-4/5 ">
