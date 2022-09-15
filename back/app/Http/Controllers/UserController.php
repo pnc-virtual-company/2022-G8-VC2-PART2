@@ -61,6 +61,9 @@ class UserController extends Controller
                 $user->profile_img = $request->file('profile_img')->hashName();
                 $request->file('profile_img')->store('public/images');
                 $user->save();
+            }else{
+                $user->profile_img = null;
+                $user->save();
             }
             $token = $user->createToken('myTOken')->plainTextToken;
             //Student role is number 1

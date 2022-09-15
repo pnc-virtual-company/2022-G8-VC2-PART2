@@ -1,7 +1,6 @@
 <template>
-    <div class="">
     <!--  show form pop up to  create teacher   -->
-    <div v-if="teacherStore.isTrue" class="">
+    <div v-if="teacherStore.isTrue" class="z-10">
       <div
         class="mt-[-12] fixed w-full h-full inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50"
       >
@@ -9,17 +8,28 @@
           @submit.prevent="teacherStore.createTeacher()"
           class="bg-white text-center p-5 w-2/5 m-auto rounded"
         >
-          <div class="">
+          <div class="w-2/4 h-28 rounded-full m-auto">
             <label for="image">
-              <img v-if="teacherStore.previewImage != null" :src="teacherStore.previewImage" alt="" />
+              <img
+                v-if="teacherStore.previewImage != null"
+                :src="teacherStore.previewImage"
+                alt=""
+                class="w-6/6 h-28 rounded-full m-auto"
+              />
               <img
                 v-if="teacherStore.previewImage == null"
                 src="@/assets/male_logo.jpg"
-                class="w-2/6 rounded-full m-auto"
+                class="w-2/6 h-20 rounded-full m-auto"
                 alt=""
               />
             </label>
-            <input type="file" @change="teacherStore.uploadImage" hidden id="image" />
+            <input
+              type="file"
+              @change="teacherStore.uploadImage"
+              hidden
+              id="image"
+              class="w-4/6 h-28 rounded-full m-auto"
+            />
           </div>
           <div class="flex mt-3">
             <input
@@ -64,16 +74,20 @@
                 >+855</span
               >
               <input
-                type="text"
+                type="number"
                 class="bg-gray-50 border border-gray-300 rounded-r text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Phone Numer"
                 v-model="teacherStore.phone_number"
               />
             </div>
           </div>
-          <button @click="teacherStore.onCancel" class="bg-red-500 p-1.5 text-white mr-1 rounded w-20 mt-10" >Cancel</button>
           <button
-            type="submit"
+            @click="teacherStore.onCancel"
+            class="bg-red-500 p-1.5 text-white mr-1 rounded w-20 mt-10"
+          >
+            Cancel
+          </button>
+          <button
             class="p-1.5 text-white bg-sky-500 mr-1 rounded w-20 mt-10 ml-5"
           >
             Submit
@@ -81,25 +95,23 @@
         </form>
       </div>
     </div>
-    </div>
-    
 </template>
-<script >
-  import {teacherstore} from "@/store/TeacherManagement"
-  export default {
-  data(){
-    return{
-      teacherStore:teacherstore(),
+<script>
+import { teacherstore } from "@/store/TeacherManagement";
+export default {
+  data() {
+    return {
+      teacherStore: teacherstore(),
       id: null,
-        first_name: "",
-        last_name: "",
-        position: "",
-        gender: "male",
-        email: "",
-    }
+      first_name: "",
+      last_name: "",
+      position: "",
+      gender: "male",
+      email: "",
+    };
   },
-  mounted(){
-    this.teacherStore.getTeacher()
+  mounted() {
+    this.teacherStore.getTeacher();
   },
-}
+};
 </script>

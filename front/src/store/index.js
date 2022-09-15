@@ -26,12 +26,23 @@ export const studentstore = defineStore('student', {
   }),
   getters: {},
   actions:{
+    /**
+     * @todo get student data
+     * @return display student data
+     */
     async getStudent(){
         const data = await axios.get('student') 
         this.students = data.data
     },
     onCreate(){
     this.isTrue= true;
+    },
+    /**
+     * @todo cancel create student
+     */
+    onCancel(){
+
+      this.isTrue = false;
     },
     /**
      * @todo create new student
@@ -52,12 +63,10 @@ export const studentstore = defineStore('student', {
       student.append("province", this.province);
       student.append("password", 123456789);
       student.append("role", 1);      
-      console.log(this.ngo);
-      console.log(this.province);
-      console.log(student);
       axios.post(process.env.VUE_APP_API_URL+'user', student).then(()=>{
         this.isTrue= false;
         this.getStudent()
+        this.clearForm()
       })
     },
     /**
@@ -68,18 +77,37 @@ export const studentstore = defineStore('student', {
       this.profile_img = e.target.files[0]
       this.previewImage = URL.createObjectURL(this.profile_img)
     },
-
+    /**
+     * @todo show form for create student
+     * @return form create student
+     */
     showPopup(index){
       this.dialog = true;
       this.index = index;
-
     },
+    /**
+     * @todo delete student account
+     */
     async onDeleteStudent(id){
-         await axios.delete('user/'+id).then(()=>{
-           this.getStudent()
-          console.log('delete successfully');
-         })
-  
+      await axios.delete('user/'+id).then(()=>{
+        this.getStudent()
+      })
+    },
+    /**
+     * @todo clea form create student
+     */
+    clearForm(){
+      this.first_name = ''
+      this.last_name = ''
+      this.email = ''
+      this.batch = ''
+      this.phone = ''
+      this.ngo = ''
+      this.province = ''
+      this.class = ''
+      this.studentNumber = ''
+      this.profile_img = ''
+      this.previewImage = ''
     }
   }
 });
