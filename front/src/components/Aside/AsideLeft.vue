@@ -64,3 +64,31 @@
     </aside>
   </div>
 </template>
+<script>
+  export default{
+      data(){
+        return{
+          onPage:1,
+        }
+    },
+    methods:{
+      checkOnPage(data){
+        let myOnPage = sessionStorage.getItem('onPage')
+        if(myOnPage > 0){
+          sessionStorage.setItem("onPage", data)
+          this.onPage = sessionStorage.getItem("onPage")
+        }else{
+          sessionStorage.setItem('onPage', data)
+        }
+      }
+    },
+    mounted(){
+      let myOnPage = sessionStorage.getItem('onPage')
+      if(myOnPage){
+        this.checkOnPage(myOnPage)
+      }else{
+        this.checkOnPage(1)
+      }
+    }
+  }
+</script>
