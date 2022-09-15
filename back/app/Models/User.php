@@ -37,7 +37,6 @@ class User extends Authenticatable
         'remember_token',
         'updated_at'
     ];
-
     /**
      * The attributes that should be cast.
      *
@@ -45,6 +44,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'created_at' => "datetime:Y-m-d",
     ];
     public function teachers(){
         return $this->hasOne(Teacher::class,"user_id");

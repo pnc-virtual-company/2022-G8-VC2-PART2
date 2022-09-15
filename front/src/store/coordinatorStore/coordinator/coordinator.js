@@ -6,7 +6,8 @@ export const userStore = defineStore("user", {
     first_name: "",
     last_name: "",
     email: "",
-    gender: "male",
+    gender: "",
+    created_at:null,
 
   }),
   getters: {},
@@ -18,6 +19,7 @@ export const userStore = defineStore("user", {
                 this.last_name = data.data.last_name
                 this.email = data.data.email
                 this.gender = data.data.gender
+                this.created_at = data.data.created_at
 
         },
     },

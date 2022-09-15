@@ -5,7 +5,7 @@
     {{ storeTeacherData.getData(this.$route.params.id) }}
   </div>
   <!-- profile teacher -->
-  <widget-profileDetail>
+  <widget-ViewProfileDetail>
     <template #img>
       <img
         class="h-auto w-full mx-auto"
@@ -25,7 +25,7 @@
     <template #join>
       {{ storeTeacherData.created_at }}
     </template>
-  </widget-profileDetail>
+  </widget-ViewProfileDetail>
 </template>
 <script setup>
 import { teacherstore } from "@/store/coordinatorStore/TeacherStore/TeacherManagement";
