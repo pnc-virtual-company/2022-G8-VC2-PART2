@@ -77,27 +77,29 @@
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <td>
                 <div class="py-4 px-6 text-right">
-                  <img
-                    v-if="teacher.user.profile_img != null"
-                    :src="
-                      'http://127.0.0.1:8000/storage/images/' +
-                      teacher.user.profile_img
-                    "
-                    class="w-12 h-12 rounded-full m-auto mt-5"
-                    alt=""
-                  />
-                  <img
-                    v-else-if="teacher.user.gender == 'female'"
-                    src="@/assets/female_logo.jpg"
-                    class="w-12 h-12 rounded-full m-auto mt-5"
-                    alt=""
-                  />
-                  <img
-                    v-else-if="teacher.user.gender == 'male'"
-                    src="@/assets/male_logo.jpg"
-                    class="w-12 h-12 rounded-full m-auto mt-5"
-                    alt=""
-                  />
+                  <router-link class="flex" :to="{name:'profileTeacher',path:'profileTeacher',params:{id:teacher.id}}">
+                    <img
+                      v-if="teacher.user.profile_img != null"
+                      :src="
+                        'http://127.0.0.1:8000/storage/images/' +
+                        teacher.user.profile_img
+                      "
+                      class="w-12 h-12 rounded-full m-auto mt-5"
+                      alt=""
+                    />
+                    <img
+                      v-else-if="teacher.user.gender == 'female'"
+                      src="@/assets/female_logo.jpg"
+                      class="w-12 h-12 rounded-full m-auto mt-5"
+                      alt=""
+                    />
+                    <img
+                      v-else-if="teacher.user.gender == 'male'"
+                      src="@/assets/male_logo.jpg"
+                      class="w-12 h-12 rounded-full m-auto mt-5"
+                      alt=""
+                    />
+                  </router-link>
                 </div>
               </td>
               <!-- <td class="py-3 px-2">
@@ -175,7 +177,7 @@
   </div>
 </template>
 <script>
-import { teacherstore } from "@/store/TeacherManagement";
+import { teacherstore } from "@/store/coordinatorStore/TeacherStore/TeacherManagement";
 import CreateTeacher from "@/components/Cordinator/TeacherList/CreateTeacher.vue";
 import { ref } from "vue";
 // import axios from "@/axios-http"

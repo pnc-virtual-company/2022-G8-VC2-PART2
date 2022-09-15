@@ -85,10 +85,10 @@
               <widget-DropDown>
                 <template #edit>
                   <a class="" href="#"
-                    ><StudentFormVue
+                    ><StudentEditFormVue
                       :id="student.user.id"
                       class="z-10"
-                    ></StudentFormVue
+                    ></StudentEditFormVue
                   ></a>
                 </template>
                 <template #delete ><span @click=" storeData.onDeleteStudent(student.user.id)">Delete</span> </template>
@@ -116,9 +116,9 @@
   </div>
 </template>
 <script setup>
-import StudentFormVue from "./EditStudent.vue"
+import StudentEditFormVue from "./EditStudent.vue"
 import CreateStudent from "./CreateStudent.vue"
-import { studentstore } from "../../../store/index"
+import { studentstore } from "../../../store/coordinatorStore/StudentStore/StudentManagement"
 import { onMounted } from "vue";
 const storeData = studentstore();
 onMounted(() => {
