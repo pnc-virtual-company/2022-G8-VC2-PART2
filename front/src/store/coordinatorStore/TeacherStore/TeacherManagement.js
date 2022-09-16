@@ -26,9 +26,6 @@ export const teacherstore = defineStore('teacher', {
     dataEdit: {}
   }),
   getters: {
-<<<<<<< HEAD
-
-=======
     //
      /* search by name and position */
     //  
@@ -53,7 +50,6 @@ export const teacherstore = defineStore('teacher', {
       }
     },
     // -----------------------------
->>>>>>> 9cc23ed5a4ed4219b745574d5bf5490993853b89
   },
   actions: {
     async getTeacher() {
