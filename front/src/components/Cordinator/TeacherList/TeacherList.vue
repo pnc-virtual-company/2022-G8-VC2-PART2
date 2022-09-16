@@ -37,16 +37,29 @@
         </h1>
       </div>
       <div class="m-auto filter flex justify-around w-11/12 mt-5">
+        <!-- search by name and position -->
         <input
           v-model="search_value"
           type="text"
           class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Search Name"
+          v-model="teacherStore.search"
         />
+<<<<<<< HEAD
         <select v-model="search_option" class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option selected value="all">All</option>
           <option value="position">Position</option>
           <option value="name">Name</option>
+=======
+        <!-- set label to search -->
+        <select
+          v-model="teacherStore.searchLabel"
+          class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option selected value="position">Position</option>
+          <option value="all">All</option>
+          <option  value="name">Name</option>
+>>>>>>> 9cc23ed5a4ed4219b745574d5bf5490993853b89
         </select>
         <!--   Button to create new teacher   -->
         <button
@@ -73,7 +86,8 @@
               <th class="py-3 px-6">Actions</th>
             </tr>
           </thead>
-          <tbody v-for="teacher of teacherStore.teachers" :key="teacher">
+          <!-- place search here -->
+          <tbody v-for="teacher of teacherStore.searchDataTeacher" :key="teacher">
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <td>
                 <div class="py-4 px-6 text-right">

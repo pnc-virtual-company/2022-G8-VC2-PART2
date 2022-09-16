@@ -17,9 +17,38 @@ export const teacherstore = defineStore('teacher', {
     position: "",
     phone: null,
     created_at:null,
+    searchLabel: null,
+    search: null,
   }),
   getters: {
+<<<<<<< HEAD
 
+=======
+    //
+     /* search by name and position */
+    //  
+     searchDataTeacher() {
+      let result = "";
+      if (!this.search || this.searchLabel == "all") {
+        return this.teachers;
+      } else if (this.searchLabel) {
+        //search by position 
+        if (this.searchLabel == "position") {
+          result = this.teachers.filter(({ position }) =>
+            position.toLowerCase().includes(this.search.toLowerCase())
+          );
+        } 
+        // search by name
+        else if (this.searchLabel == "name") {
+          result = this.teachers.filter(
+            (student) => student.user.first_name == this.search
+          );
+        }
+        return result;
+      }
+    },
+    // -----------------------------
+>>>>>>> 9cc23ed5a4ed4219b745574d5bf5490993853b89
   },
   actions: {
     async getTeacher() {
