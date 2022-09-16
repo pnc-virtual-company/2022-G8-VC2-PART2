@@ -127,6 +127,11 @@ class UserController extends Controller
         $updateStudent=User::with('students')->findOrFail($id);
         if($updateStudent['role']==1){
             if($updateStudent['students']['user_id']==$id){
+                if($request->profile_img){
+                    $updateStudent->profile_img = $request->file('profile_img')->hashName();
+                    $request->file('profile_img')->store('public/images');
+                    $updateStudent->save();
+                }
                 $updateStudent->update($validatedData);
                 $updateStudentID=Student::findOrFail($updateStudent['students']['id']);
                 $updateStudentID->studentNumber = $request->studentNumber;

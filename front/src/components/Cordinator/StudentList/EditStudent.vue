@@ -44,11 +44,51 @@
       </span>
       </div>
         <div class="">
-          <img
-            src="../../../assets/male_logo.jpg"
-            class="w-2/6 rounded-full m-auto"
-            alt=""
-          />
+            <label for="image">
+              <img
+                v-if="
+                  store.user_profile !== null &&
+                  store.previewImage == null
+                "
+                :src="
+                  'http://127.0.0.1:8000/storage/images/' +
+                  store.user_profile
+                "
+                class="w-12 h-12 rounded-full m-auto mt-5"
+                alt=""
+              />
+              <img
+                v-else-if="
+                  store.gender == 'female' &&
+                  store.previewImage == null
+                "
+                src="@/assets/female_logo.jpg"
+                class="w-12 h-12 rounded-full m-auto mt-5"
+                alt=""
+              />
+              <img
+                v-else-if="
+                  store.gender == 'male' &&
+                  store.previewImage == null
+                "
+                src="@/assets/male_logo.jpg"
+                class="w-12 h-12 rounded-full m-auto mt-5"
+                alt=""
+              />
+              <img
+                v-else-if="store.previewImage !== null"
+                :src="store.previewImage"
+                alt=""
+                class="w-6/6 h-28 rounded-full m-auto"
+              />
+            </label>
+            <input
+              type="file"
+              @change="store.uploadImage"
+              hidden
+              id="image"
+              class="w-4/6 h-28 rounded-full m-auto"
+            />
         </div>
         <div class="flex mt-3">
           <input
