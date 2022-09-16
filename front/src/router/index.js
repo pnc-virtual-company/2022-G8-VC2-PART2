@@ -1,11 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ManageStudent from '@/views/Cordinator/ManageStudent/ManageStudent.vue'
 import ManageTeacher from '@/views/Cordinator/ManageTeacher/ManageTeacher.vue'
+import StudentDetail from "@/components/Cordinator/StudentList/StudentDetail.vue"
 import ProfileCoordinator from "@/components/Cordinator/ProfileCoordinator.vue"
 import ProfileTeacher from "@/components/Cordinator/TeacherList/ProfileTeacher.vue"
 import TeacherViewVue from '@/views/Teacher/TeacherView.vue'
 import CoordinatorViewVue from '@/views/Cordinator/CoordinatorView.vue'
 import StudentViewVue from '@/views/Student/StudentView.vue'
+
 const routes = [
   {
     path: '/teacherViewVue',
@@ -52,6 +54,12 @@ const routes = [
         path: '/managestudent',
         name: 'managestudent',
         component: ManageStudent
+      }
+      ,
+      {
+        path: '/studentdetail/:id',
+        name: 'studentdetail',
+        component: StudentDetail
       }
       ,
     ]

@@ -4,7 +4,7 @@
         <form @submit.prevent="storeData.createStudent"  class="bg-white text-center p-5 w-2/5 m-auto rounded">
            <div  class="w-1/4  rounded-full m-auto">
             <label for="image">
-              <img v-if="storeData.previewImage != null" :src="storeData.previewImage"  class="w-6/6 h-28 rounded-full m-auto" alt="">
+              <img v-if="storeData.previewImage != null" :src="storeData.previewImage"  class="w-6/6 h-28 rounded-full m-auto object" alt="">
               <img v-if="storeData.previewImage == null" src="../../../assets/male_logo.jpg" class="w-6/6 rounded-full m-auto" alt="" />
             </label>
             <input type="file" @change="storeData.uploadImage" hidden id="image">
@@ -43,6 +43,6 @@
 </template>
 
 <script setup>
-    import {studentstore} from "../../../store/coordinatorStore/StudentStore/StudentManagement"
+    import { studentstore } from "@/store/coordinatorStore/StudentStore/StudentManagement"
     const storeData = studentstore()
 </script>

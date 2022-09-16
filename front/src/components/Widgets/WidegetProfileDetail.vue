@@ -63,7 +63,7 @@
               </div>
               <div class="grid grid-cols-6">
                 <!-- email of user -->
-                <div class="px-4 py-2 font-semibold">Email.</div>
+                <div class="px-4 py-2 font-semibold">Email</div>
                 <div class="px-4 py-2">
                   <a class="text-blue-800" href="mailto:jane@example.com"
                     ><slot name="email"></slot
@@ -77,6 +77,11 @@
                   <a class="text-blue-800" href=""><slot name="join"></slot></a>
                 </div>
               </div>
+             <slot name="class"></slot>
+             <slot name="phone"></slot>
+             <slot name="province"></slot>
+             <slot name="ngo"></slot>
+             <slot name="tutor"></slot>
             </div>
           </div>
         </div>

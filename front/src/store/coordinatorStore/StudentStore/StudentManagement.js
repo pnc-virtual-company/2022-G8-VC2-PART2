@@ -25,6 +25,8 @@ export const studentstore = defineStore("student", {
     user_id: null,
     index: null,
     dialog: false,
+    detail:{},
+    isClick:false
   }),
   getters: {},
   actions: {
@@ -93,7 +95,7 @@ export const studentstore = defineStore("student", {
       this.gender = data.data.gender;
       this.phone = data.data.students.phone;
       this.ngo = data.data.students.ngo;
-      this.user_id = id
+      this.user_id = id;
     },
     /**
      * @todo edit student 
@@ -115,7 +117,7 @@ export const studentstore = defineStore("student", {
        //alert successful
        toast.success("Update is successfull",{position: POSITION.TOP_CENTER, timeout: 500})
        this.isEdit = false;
-       this.getStudent()
+       this.getStudent();
     },
 
     uploadImage(e){
@@ -136,8 +138,26 @@ export const studentstore = defineStore("student", {
       this.class = ''
       this.studentNumber = ''
       this.profile_img = ''
-      this.previewImage = ''
-    }
-  
+      this.previewImage = null
+    },
+    /**
+       * @todo  create student detail
+       */
+      studentDetail(id){
+      axios.get("student/"+id).then((res) =>{
+          this.first_name=res.data.user.first_name;
+          this.last_name=res.data.user.last_name;
+          this.gender=res.data.user.gender;
+          this.email=res.data.user.email;
+          this.class=res.data.class;
+          this.phone = res.data.phone;
+          this.ngo=res.data.ngo;
+          this.province = res.data.province;
+          this.profile_img = res.data.user.profile_img;
+          console.log(res.data.user.profile_img);
+        });
+      }
   },
 });
+
+
