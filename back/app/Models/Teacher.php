@@ -11,6 +11,7 @@ class Teacher extends Model
     protected $fillable = [
         'user_id',
         'position',
+        'phone',
     ];
     protected $hidden = [
         'remember_token',

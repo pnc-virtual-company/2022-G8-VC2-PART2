@@ -85,6 +85,7 @@ class UserController extends Controller
                 $id = User::latest()->first();
                 $teahcer->user_id = $id['id'];
                 $teahcer->position = $request->position;
+                $teahcer->phone = $request->phone;
                 $teahcer->save();
                 return response()->json(['message' => "Created teacher successfully"]);
             }
@@ -147,16 +148,26 @@ class UserController extends Controller
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'gender' => 'required',
-                'email' => 'required',
+                // 'email' => 'required',
             ]
         );
         $updateTeacher=User::with('teachers')->findOrFail($id);
         if($updateTeacher['role'] == 2){
-            // return response()->json(['sms'=>$updateTeacher['teachers']['user_id']]);
             if($updateTeacher['teachers']['user_id']==$id){
+                if($request->profile_img){
+                    $updateTeacher->profile_img = $request->file('profile_img')->hashName();
+                    $request->file('profile_img')->store('public/images');
+                    $updateTeacher->save();
+                }
+                if($updateTeacher['email'] != $request['email']){
+                    $updateTeacher->email = $request->email;
+                    $updateTeacher->save();
+                }
                 $updateTeacher->update($validatedData);
                 $updateTeacherID=Teacher::findOrFail($updateTeacher['teachers']['id']);
                 $updateTeacherID->position = $request->position;
+                $updateTeacherID->phone = $request->phone;
+            
                 $updateTeacherID->save();
                 return response()->json([
                     'Message' => 'Update Teacher is successfull',
