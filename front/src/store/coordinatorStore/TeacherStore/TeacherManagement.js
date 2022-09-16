@@ -17,8 +17,35 @@ export const teacherstore = defineStore('teacher', {
     position: "",
     phone: null,
     created_at:null,
+    searchLabel: null,
+    search: null,
   }),
-  getters: {},
+  getters: {
+    //
+     /* search by name and position */
+    //  
+     searchDataTeacher() {
+      let result = "";
+      if (!this.search || this.searchLabel == "all") {
+        return this.teachers;
+      } else if (this.searchLabel) {
+        //search by position 
+        if (this.searchLabel == "position") {
+          result = this.teachers.filter(({ position }) =>
+            position.toLowerCase().includes(this.search.toLowerCase())
+          );
+        } 
+        // search by name
+        else if (this.searchLabel == "name") {
+          result = this.teachers.filter(
+            (student) => student.user.first_name == this.search
+          );
+        }
+        return result;
+      }
+    },
+    // -----------------------------
+  },
   actions: {
     async getTeacher() {
       const data = await axios.get('teacher')
