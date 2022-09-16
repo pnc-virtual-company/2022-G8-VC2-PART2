@@ -11,7 +11,7 @@
             <div class="flex items-center justify-between">
               <h3 class="text-2xl">Are you sure to delete?</h3>
             </div>
-            <div class=" mt-10 flex justify-evenly">
+            <div class="mt-10 flex justify-evenly">
               <button
                 @click="isDelete = false"
                 class="px-6 py-2 text-blue-800 border border-blue-600 rounded"
@@ -19,7 +19,10 @@
                 No
               </button>
               <button
-                @click="teacherStore.deleteTeacher(id), (isDelete = false)"
+                @click="
+                  teacherStore.deleteTeacher(teacherStore.id),
+                    (isDelete = false)
+                "
                 class="px-6 py-2 ml-2 text-blue-100 bg-sky-500 rounded"
               >
                 Yes
@@ -36,18 +39,21 @@
         </h1>
       </div>
       <div class="m-auto filter flex justify-around w-11/12 mt-5">
+        <!-- search by name and position -->
         <input
           type="text"
           class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Search Name"
+          v-model="teacherStore.search"
         />
+        <!-- set label to search -->
         <select
+          v-model="teacherStore.searchLabel"
           class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
-          <option selected>Position</option>
-          <option value="US">WEB Trainer</option>
-          <option value="CA">SNA Trainer</option>
-          <option value="FR">English Trainer</option>
+          <option selected value="position">Position</option>
+          <option value="all">All</option>
+          <option  value="name">Name</option>
         </select>
         <!--   Button to create new teacher   -->
         <button
@@ -74,7 +80,8 @@
               <th class="py-3 px-6">Actions</th>
             </tr>
           </thead>
-          <tbody v-for="teacher of teacherStore.teachers" :key="teacher">
+          <!-- place search here -->
+          <tbody v-for="teacher of teacherStore.searchDataTeacher" :key="teacher">
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <td>
                 <div class="py-4 px-6 text-right">
@@ -122,7 +129,7 @@
                   <div class="relative">
                     <!-- Dropdown toggle button -->
                     <button
-                      @click.prevent="isOpen(teacher.id)"
+                      @click.prevent="teacherStore.isOpen(teacher.id)"
                       class="flex items-center p-2 text-black-100"
                     >
                       <svg
@@ -142,27 +149,22 @@
                     </button>
                     <!-- Dropdown menu -->
                     <div
-                      v-show="show && id == teacher.id"
-                      class="absolute right-0 py-2 mt-2 rounded-md shadow-xl w-40"
+                      v-show="
+                        teacherStore.show && teacherStore.id == teacher.id
+                      "
+                      class="border-2 bg-white-500 absolute right-0 border-zinc-400 rounded-md shadow-xl w-40"
                     >
                       <div
-                        @click="isDelete = 'true'"
-                        class="block px-4 py-2 text-sm text-black hover:bg-indigo-400 hover:text-indigo-100"
+                        @click="isDelete = true"
+                        class="cursor-pointer block px-4 py-2 text-sm text-black hover:bg-slate-300 hover:text-black"
                       >
                         Detele
                       </div>
-                      <router-link
-                        to="/"
-                        class="block px-4 py-2 text-sm text-black hover:bg-indigo-400 hover:text-indigo-100"
+                      <div
+                        @click="teacherStore.openEdit(teacher.id)"
+                        class="cursor-pointer block px-4 py-2 text-sm text-black hover:bg-slate-300 hover:text-black"
                       >
                         Edit
-                      </router-link>
-                      <div
-                        @click="deleteTeacher(teacher.id)"
-                        class="block px-4 py-2 text-sm text-indigo-100 hover:bg-indigo-400 hover:text-indigo-100"
-                      >
-                        Delete
-                       
                       </div>
                     </div>
                   </div>
@@ -175,29 +177,22 @@
     </div>
     <!--  show form pop up to  create teacher   -->
     <create_teacher></create_teacher>
+    <!--  show form pop up to update teacher     -->
+    <update_teacher></update_teacher>
   </div>
 </template>
 <script>
 import { teacherstore } from "@/store/coordinatorStore/TeacherStore/TeacherManagement";
 import CreateTeacher from "@/components/Cordinator/TeacherList/CreateTeacher.vue";
-import { ref } from "vue";
-// import axios from "@/axios-http"
+import UpdateTeacher from "@/components/Cordinator/TeacherList/UpdateTeacher.vue";
 export default {
-  setup() {
-    let show = ref(false);
-    let id = ref(0);
-    const isOpen = (user_id) => (
-      (show.value = !show.value), (id.value = user_id), console.log(id.value)
-    );
-    return { show, isOpen, id };
-  },
   components: {
     create_teacher: CreateTeacher,
+    update_teacher: UpdateTeacher,
   },
   data() {
     return {
       teacherStore: teacherstore(),
-      // id: null,
       isDelete: false,
       first_name: "",
       last_name: "",
