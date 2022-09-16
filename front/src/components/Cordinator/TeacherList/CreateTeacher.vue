@@ -108,7 +108,7 @@ export default {
       position: "",
       gender: "male",
       email: "",
-    };
+    }
   },
   mounted() {
     this.teacherStore.getTeacher();

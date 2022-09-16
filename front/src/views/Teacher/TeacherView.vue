@@ -1,7 +1,7 @@
 <template>
-  <!-- import from aside Left for coordinator -->
+  <!-- import from aside left bar  -->
   <widget-navigation>
-    <!-- slot for profile_img of coordinaot and also we can link to account profile of coordinator-->
+    <!-- slot for image also we can link to account profile of teacher -->
     <template #img>
       <router-link class="flex" to="/profilecoordinator">
         <img
@@ -10,27 +10,23 @@
         />
       </router-link>
     </template>
-    <!-- route of Coordinator for manage student -->
+    <!-- route that Teacher can manage student  -->
     <template #manageStudent>
       <li class="m-3">
-        <router-link to="/managestudent"> Manage Student</router-link>
+        <router-link to="/teacherManageStusent"> Manage Student</router-link>
       </li>
     </template>
-    <!-- router of Coordinator for manage Teacher  -->
-    <template #manageTeacher>
-      <li class="m-3">
-        <router-link to="/manageteacher"> Manage Teacher</router-link>
-      </li>
-    </template>
-       <!-- router of Coordinator for manage Student Follow Up  -->
+    <!-- router that teacher can manage student follow up -->
     <template #manageStudentFollowUp>
-      <li class="m-3"><router-link to="">Student Follow up</router-link></li>
-    </template>
-       <!-- router of Coordinator for manage Follow Up Histories  -->
+      <li class="m-3">
+        <router-link to="">Student Follow up </router-link>
+      </li></template
+    >
+    <!-- route that teacher can manage student follow up histories -->
     <template #studentFollowUpHistory>
       <li class="m-3"><router-link to="">Follow up Histories</router-link></li>
     </template>
-       <!-- router of Coordinator for manage View profile of coordinator  -->
+    <!-- route link to account profile teacher -->
     <template #viewProfile
       ><router-link class="flex" to="/profilecoordinator">
         <svg
@@ -53,5 +49,5 @@
   </widget-navigation>
 </template>
 <script>
-export default {};
+
 </script>
