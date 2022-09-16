@@ -16,13 +16,7 @@ export const teacherstore = defineStore('teacher', {
     gender: "male",
     position: "",
     phone: null,
-<<<<<<< HEAD:front/src/store/TeacherManagement.js
-    // ====================data for filter ========================
-    search_value: 'all',
-    search_option: ''
-=======
     created_at:null,
->>>>>>> f83c78dac73a5da31203449a6a9d965900130d46:front/src/store/coordinatorStore/TeacherStore/TeacherManagement.js
   }),
   getters: {
 
