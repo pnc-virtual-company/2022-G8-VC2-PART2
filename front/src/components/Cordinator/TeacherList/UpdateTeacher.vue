@@ -161,8 +161,7 @@
 </template>
 <script>
 import { defineProps } from "vue";
-import { teacherstore } from "@/store/TeacherManagement";
-// const teacherStore = teacherstore();
+import { teacherstore } from "@/store/coordinatorStore/TeacherStore/TeacherManagement";
 
 export default {
   data() {

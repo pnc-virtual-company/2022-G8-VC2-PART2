@@ -39,18 +39,21 @@
         </h1>
       </div>
       <div class="m-auto filter flex justify-around w-11/12 mt-5">
+        <!-- search by name and position -->
         <input
           type="text"
           class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Search Name"
+          v-model="teacherStore.search"
         />
+        <!-- set label to search -->
         <select
+          v-model="teacherStore.searchLabel"
           class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
-          <option selected>Position</option>
-          <option value="US">WEB Trainer</option>
-          <option value="CA">SNA Trainer</option>
-          <option value="FR">English Trainer</option>
+          <option selected value="position">Position</option>
+          <option value="all">All</option>
+          <option  value="name">Name</option>
         </select>
         <!--   Button to create new teacher   -->
         <button
@@ -77,31 +80,34 @@
               <th class="py-3 px-6">Actions</th>
             </tr>
           </thead>
-          <tbody v-for="teacher of teacherStore.teachers" :key="teacher">
+          <!-- place search here -->
+          <tbody v-for="teacher of teacherStore.searchDataTeacher" :key="teacher">
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <td>
                 <div class="py-4 px-6 text-right">
-                  <img
-                    v-if="teacher.user.profile_img != null"
-                    :src="
-                      'http://127.0.0.1:8000/storage/images/' +
-                      teacher.user.profile_img
-                    "
-                    class="w-12 h-12 rounded-full m-auto mt-5"
-                    alt=""
-                  />
-                  <img
-                    v-else-if="teacher.user.gender == 'female'"
-                    src="@/assets/female_logo.jpg"
-                    class="w-12 h-12 rounded-full m-auto mt-5"
-                    alt=""
-                  />
-                  <img
-                    v-else-if="teacher.user.gender == 'male'"
-                    src="@/assets/male_logo.jpg"
-                    class="w-12 h-12 rounded-full m-auto mt-5"
-                    alt=""
-                  />
+                  <router-link class="flex" :to="{name:'profileTeacher',path:'profileTeacher',params:{id:teacher.id}}">
+                    <img
+                      v-if="teacher.user.profile_img != null"
+                      :src="
+                        'http://127.0.0.1:8000/storage/images/' +
+                        teacher.user.profile_img
+                      "
+                      class="w-12 h-12 rounded-full m-auto mt-5"
+                      alt=""
+                    />
+                    <img
+                      v-else-if="teacher.user.gender == 'female'"
+                      src="@/assets/female_logo.jpg"
+                      class="w-12 h-12 rounded-full m-auto mt-5"
+                      alt=""
+                    />
+                    <img
+                      v-else-if="teacher.user.gender == 'male'"
+                      src="@/assets/male_logo.jpg"
+                      class="w-12 h-12 rounded-full m-auto mt-5"
+                      alt=""
+                    />
+                  </router-link>
                 </div>
               </td>
               <td class="py-3 px-2">
@@ -176,7 +182,7 @@
   </div>
 </template>
 <script>
-import { teacherstore } from "@/store/TeacherManagement";
+import { teacherstore } from "@/store/coordinatorStore/TeacherStore/TeacherManagement";
 import CreateTeacher from "@/components/Cordinator/TeacherList/CreateTeacher.vue";
 import UpdateTeacher from "@/components/Cordinator/TeacherList/UpdateTeacher.vue";
 export default {

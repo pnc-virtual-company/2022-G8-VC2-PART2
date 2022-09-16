@@ -8,6 +8,7 @@ import WidgetButton from "@/components/Widgets/WidgetButton"
 import WidgetInput from "@/components/Widgets/WidgetInput"
 import WidgetTable from "@/components/Widgets/WidgetTable"
 import WidegetDropDown from './components/Widgets/WidegetDropDown.vue'
+import WidegetViewProfileDetail from "@/components/Widgets/WidegetProfileDetail.vue"
 import Toast from "vue-toastification";
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
@@ -21,5 +22,6 @@ app.component("widget-button", WidgetButton)
 app.component("widget-input", WidgetInput)
 app.component("widget-table", WidgetTable)
 app.component("widget-DropDown", WidegetDropDown)
+app.component("widget-ViewProfileDetail", WidegetViewProfileDetail)
 app.use(Toast)
 

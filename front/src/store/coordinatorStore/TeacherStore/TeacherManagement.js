@@ -19,14 +19,43 @@ export const teacherstore = defineStore('teacher', {
     gender: "male",
     position: "",
     phone: null,
+    created_at:null,
+    searchLabel: null,
+    search: null,
     user_id: null,
     dataEdit: {}
   }),
-  getters: {},
+  getters: {
+    //
+     /* search by name and position */
+    //  
+     searchDataTeacher() {
+      let result = "";
+      if (!this.search || this.searchLabel == "all") {
+        return this.teachers;
+      } else if (this.searchLabel) {
+        //search by position 
+        if (this.searchLabel == "position") {
+          result = this.teachers.filter(({ position }) =>
+            position.toLowerCase().includes(this.search.toLowerCase())
+          );
+        } 
+        // search by name
+        else if (this.searchLabel == "name") {
+          result = this.teachers.filter(
+            (student) => student.user.first_name == this.search
+          );
+        }
+        return result;
+      }
+    },
+    // -----------------------------
+  },
   actions: {
     async getTeacher() {
       const data = await axios.get('teacher')
       this.teachers = data.data
+      // this.getData()
     },
     onCreate() {
       this.isTrue = true;
@@ -80,7 +109,6 @@ export const teacherstore = defineStore('teacher', {
      * @return all data of teacher after delete
      */
     deleteTeacher(id) {
-      alert('on delete')
       axios.get(process.env.VUE_APP_API_URL + 'teacher/' + id).then((res) => {
         const userId = res.data.user['id']
         axios.delete(process.env.VUE_APP_API_URL + 'user/' + userId).then(() => {
@@ -154,5 +182,17 @@ export const teacherstore = defineStore('teacher', {
       this.profile_img = e.target.files[0]
       this.previewImage = URL.createObjectURL(this.profile_img)
     },
+    async getData(id){
+        const data = await axios.get('teacher/'+id)
+        // check only role 2 that represent to teacher
+        if(data.data.user.role==2){
+          this.profile_img = data.data.user.profile_img
+          this.first_name = data.data.user.first_name
+          this.last_name = data.data.user.last_name
+          this.email = data.data.user.email
+          this.position = data.data.position
+          this.created_at = data.data.created_at
+        }
+    }
   }
 });
