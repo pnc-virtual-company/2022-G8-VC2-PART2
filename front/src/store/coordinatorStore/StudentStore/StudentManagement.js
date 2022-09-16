@@ -117,7 +117,7 @@ export const studentstore = defineStore("student", {
        //alert successful
        toast.success("Update is successfull",{position: POSITION.TOP_CENTER, timeout: 500})
        this.isEdit = false;
-       this.getStudent()
+       this.getStudent();
     },
 
     uploadImage(e){
@@ -144,9 +144,17 @@ export const studentstore = defineStore("student", {
        * @todo  create student detail
        */
       studentDetail(id){
-      this.isClick=true
-       axios.get("student/"+id).then((res) => {
-           this.detail = res.data
+      axios.get("student/"+id).then((res) =>{
+          this.first_name=res.data.user.first_name;
+          this.last_name=res.data.user.last_name;
+          this.gender=res.data.user.gender;
+          this.email=res.data.user.email;
+          this.class=res.data.class;
+          this.phone = res.data.phone;
+          this.ngo=res.data.ngo;
+          this.province = res.data.province;
+          this.profile_img = res.data.user.profile_img;
+          console.log(res.data.user.profile_img);
         });
       }
   },
