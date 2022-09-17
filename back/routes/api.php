@@ -16,15 +16,20 @@ use App\Http\Controllers\TeacherController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-//-------------users routes-------------/
-Route::apiResource('/user',UserController::class);
-Route::put('/updateteacher/{id}',[UserController::class,'updateTeacher']);
-//-------------students routes-------------/
-Route::apiResource('/student',StudentController::class);
-//-------------teacher routes-------------/
-Route::apiResource('/teacher',TeacherController::class);
-// ------------login---------------------------
-Route::post("login",[UserController::class,'login']);
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+Route::post('login', [UserController::class,"login"]);
+
+    
+    Route::apiResource('/user',UserController::class);
+    //-------------users routes-------------/
+    Route::put('/updateteacher/{id}',[UserController::class,'updateTeacher']);
+    //-------------students routes-------------/
+    Route::apiResource('/student',StudentController::class);
+    //-------------teacher routes-------------/
+    Route::apiResource('/teacher',TeacherController::class);
+
+
+
+

@@ -20,6 +20,7 @@ const routes = [
     name: "login",
     component: LoginAuthenticationVue,
   },
+  // teacher route 
   {
     path: "/teacherViewVue",
     name: "teacherViewVue",
@@ -44,6 +45,7 @@ const routes = [
     
     ],
   },
+  // student route
   {
     path: "/studentViewVue",
     name: "studentViewVue",
@@ -56,6 +58,7 @@ const routes = [
       },
     ],
   },
+  // coordinator route
   {
     path: "/coordinatorViewVue",
     name: "coordinatorViewVue",

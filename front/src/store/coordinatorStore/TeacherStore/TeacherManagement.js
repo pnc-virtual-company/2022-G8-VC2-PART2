@@ -1,6 +1,8 @@
-
 import { defineStore } from 'pinia'
 import axios from "@/axios-http"
+import { useToast,POSITION  } from "vue-toastification";
+
+const toast = useToast();
 export const teacherstore = defineStore('teacher', {
   state: () => ({
     teachers: [],
@@ -26,9 +28,9 @@ export const teacherstore = defineStore('teacher', {
     dataEdit: {}
   }),
   getters: {
-    //
-     /* search by name and position */
-    //  
+    /**
+     * @todo search by name and position
+    */  
      searchDataTeacher() {
       let result = "";
       if (!this.search || this.searchLabel == "all") {
@@ -49,23 +51,36 @@ export const teacherstore = defineStore('teacher', {
         return result;
       }
     },
-    // -----------------------------
   },
+
   actions: {
+    /**
+     * @todo get all data of teachers
+     */
     async getTeacher() {
       const data = await axios.get('teacher')
       this.teachers = data.data
-      // this.getData()
     },
+
+    /**
+     * @todo show form create teacher
+     */
     onCreate() {
       this.isTrue = true;
       this.isShow = false;
       console.log('clicked on onCreate Button')
     },
+
+    /**
+     * @todo cancel on user action edit and delete
+     */
     onCancel() {
+      this.clearForm()
       this.isTrue = false
       this.isEditOpen = false
+      this.show = false
     },
+
     /**
      * @todo to open edit or delete dropdown
      */
@@ -74,6 +89,7 @@ export const teacherstore = defineStore('teacher', {
       this.id = id
       console.log('isOpen id = ' + id)
     },
+
     /**
      * @todo create new teacher
      * @return new data teacher
@@ -90,20 +106,13 @@ export const teacherstore = defineStore('teacher', {
       teacher.append("password", 123456789);
       teacher.append("role", 2)
       axios.post(process.env.VUE_APP_API_URL + 'user', teacher).then(() => {
-        console.log(this.profile_img);
-        alert('Create new teacher successfully!')
         this.isTrue = false
-        this.previewImage = null
-        this.profile_img = ''
-        this.first_name = ''
-        this.last_name = ''
-        this.email = ''
-        this.phone = null
-        this.position = ''
-        this.gender = ''
+        this.clearForm()
         this.getTeacher()
+        toast.success("Create teacher successfull",{position: POSITION.TOP_CENTER, timeout: 2500})
       })
     },
+
     /**
      * @todo to delete teacher by id
      * @return all data of teacher after delete
@@ -113,17 +122,16 @@ export const teacherstore = defineStore('teacher', {
         const userId = res.data.user['id']
         axios.delete(process.env.VUE_APP_API_URL + 'user/' + userId).then(() => {
           this.getTeacher()
-          alert('Delete Successfully on id : ' + id)
         });
       })
     },
+
     /**
      * @todo get data user for edit
      */
     getTeacherData(id) {
       axios.get(process.env.VUE_APP_API_URL + 'teacher/' + id).then((res) => {
         this.dataEdit = res.data
-        console.log(res.data);
         this.first_name = this.dataEdit.user.first_name;
         this.last_name = this.dataEdit.user.last_name;
         this.email = this.dataEdit.user.email;
@@ -133,6 +141,7 @@ export const teacherstore = defineStore('teacher', {
         this.user_profile = this.dataEdit.user.profile_img
       })
     },
+
     /**
      * @todo to open form to edit teacher 
      * @return form of teacher's data
@@ -141,6 +150,7 @@ export const teacherstore = defineStore('teacher', {
       this.isEditOpen = true;
       this.getTeacherData(id)
     },
+
     /**
      * @todo update teacher
      */
@@ -155,21 +165,14 @@ export const teacherstore = defineStore('teacher', {
       teacher.append("_method", 'PUT');
       teacher.append("position", this.position)
       teacher.append("role", 2)
-      console.log(teacher);
       axios.post('updateteacher/' + id, teacher).then(() => {
-        console.log('update success');
         this.isTrue = false
-        this.profile_img = ''
-        this.first_name = ''
-        this.last_name = ''
-        this.email = ''
-        this.phone = null
-        this.position = ''
-        this.previewImage = null
         this.isEditOpen = false
         this.show = false
+        this.clearForm()
         this.getTeacher()
         this.onCancel()
+        toast.success("Update teacher successfull",{position: POSITION.TOP_CENTER, timeout: 2000})
       })
     },
 
@@ -178,13 +181,16 @@ export const teacherstore = defineStore('teacher', {
      * @return show image for preview
      */
     uploadImage(e) {
-      alert('hello world')
       this.profile_img = e.target.files[0]
       this.previewImage = URL.createObjectURL(this.profile_img)
     },
+
+    /**
+     * 
+     * @todo get data from teacher 
+     */
     async getData(id){
         const data = await axios.get('teacher/'+id)
-        // check only role 2 that represent to teacher
         if(data.data.user.role==2){
           this.profile_img = data.data.user.profile_img
           this.first_name = data.data.user.first_name
@@ -193,6 +199,19 @@ export const teacherstore = defineStore('teacher', {
           this.position = data.data.position
           this.created_at = data.data.created_at
         }
+    },
+
+    /**
+     * @todo clear form input
+     */
+    clearForm(){
+      this.profile_img = ''
+      this.first_name = ''
+      this.last_name = ''
+      this.email = ''
+      this.position = ''
+      this.phone = null
+      this.previewImage = null
     }
   }
 });
