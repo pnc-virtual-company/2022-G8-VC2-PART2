@@ -18,7 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::with('students')->get();
+
+        return User::with(['students','teachers'])->get();
     }
 
     /**
@@ -34,7 +35,7 @@ class UserController extends Controller
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'gender' => 'required',
-                'profile_img' => 'nullable',
+                // 'profile_img' => 'nullable',
                 'role' => 'required|digits_between:1,3|numeric',
                 'password' => 'required|min:8',
                 'email' => 'required|email|unique:users|regex:/(.+)@(.+)\.(.+)/i|',
@@ -64,7 +65,7 @@ class UserController extends Controller
                 $user->profile_img = null;
                 $user->save();
             }
-            $token = $user->createToken('myTOken')->plainTextToken;
+            // $token = $user->createToken('myTOken')->plainTextToken;
             //Student role is number 1
             if ($request->role == 1) {
                 $student = new Student();
@@ -127,6 +128,11 @@ class UserController extends Controller
         $updateStudent=User::with('students')->findOrFail($id);
         if($updateStudent['role']==1){
             if($updateStudent['students']['user_id']==$id){
+                if($request->profile_img){
+                    $updateStudent->profile_img = $request->file('profile_img')->hashName();
+                    $request->file('profile_img')->store('public/images');
+                    $updateStudent->save();
+                }
                 $updateStudent->update($validatedData);
                 $updateStudentID=Student::findOrFail($updateStudent['students']['id']);
                 $updateStudentID->studentNumber = $request->studentNumber;

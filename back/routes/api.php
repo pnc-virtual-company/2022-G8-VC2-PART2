@@ -26,3 +26,5 @@ Route::put('/updateteacher/{id}',[UserController::class,'updateTeacher']);
 Route::apiResource('/student',StudentController::class);
 //-------------teacher routes-------------/
 Route::apiResource('/teacher',TeacherController::class);
+// ------------login---------------------------
+Route::post("login",[UserController::class,'login']);
