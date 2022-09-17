@@ -7,8 +7,14 @@ import ProfileTeacher from "@/components/Cordinator/TeacherList/ProfileTeacher.v
 import TeacherViewVue from '@/views/Teacher/TeacherView.vue'
 import CoordinatorViewVue from '@/views/Cordinator/CoordinatorView.vue'
 import StudentViewVue from '@/views/Student/StudentView.vue'
+import LoginAuthenticationVue from '@/components/authentication/LoginAuthentication.vue'
 
 const routes = [
+  {
+    path:'/',
+    name:'login',
+    component:LoginAuthenticationVue,
+  },
   {
     path: '/teacherViewVue',
     name: 'teacherViewVue',
@@ -36,6 +42,11 @@ const routes = [
     component: CoordinatorViewVue,
     children:[
       {
+        path: '/managestudent',
+        name: 'managestudent',
+        component: ManageStudent
+      },
+      {
         path: '/manageteacher',
         name: 'manageteacher',
         component: ManageTeacher
@@ -50,12 +61,6 @@ const routes = [
         name: 'profileTeacher',
         component: ProfileTeacher
       },
-      {
-        path: '/managestudent',
-        name: 'managestudent',
-        component: ManageStudent
-      }
-      ,
       {
         path: '/studentdetail/:id',
         name: 'studentdetail',

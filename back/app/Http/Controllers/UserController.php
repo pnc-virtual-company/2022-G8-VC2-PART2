@@ -18,7 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::with('students')->get();
+
+        return User::with(['students','teachers'])->get();
     }
 
     /**
