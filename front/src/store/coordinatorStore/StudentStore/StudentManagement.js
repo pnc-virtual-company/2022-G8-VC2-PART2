@@ -62,6 +62,7 @@ export const studentstore = defineStore("student", {
       console.log(student);
       axios.post(process.env.VUE_APP_API_URL + "user", student).then(() => {
         this.isTrue = false;
+        this.isTrue=false
         this.getStudent();
       });
     },
@@ -104,18 +105,7 @@ export const studentstore = defineStore("student", {
      * @todo edit student 
      */
     async onEditStudent(){
-      // let object = {};
-      // object.id =this.student_id;
-      // object.first_name = this.first_name;
-      // object.last_name = this.last_name;
-      // object.gender = this.gender;
-      // object.email = this.email;
-      // object.studentNumber = this.studentId;
-      // object.batch = this.batch;
-      // object.class = this.class;
-      // object.ngo = this.ngo;
-      // object.province = this.province;
-      // object.phone = this.phone;
+
       let student = new FormData();
       student.append("profile_img", this.profile_img);
       student.append("first_name", this.first_name);
