@@ -13,6 +13,7 @@
       <div class="bg-white p-3 border-2 border-black-600 rounded-lg">
         <div v-if="storeData.profile_img !=null" class="image overflow-hidden">
           <img class="h-auto w-full mx-auto" :src="storeData.profile_img" alt="" />
+          {{storeData.profile_img}}
         </div>
         <div v-else class="image overflow-hidden">
           <img class="h-auto w-full mx-auto" src="@/assets/male_logo.jpg" alt="" />
@@ -112,15 +113,6 @@
                     </div>
                   </div>
               </div>
-              
-              <div class="flex text-center">
-                    <!-- First Name -->
-                    <div class="px-4 py-2 font-semibold">Tutor</div>
-                    <div class="px-4 py-2">
-                     Him Hey
-                    </div>
-              </div>
-
             </div>
         </div>
       </div>
