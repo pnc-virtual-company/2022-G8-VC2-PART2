@@ -51,8 +51,10 @@
               </svg>
             </span>
           </div>
-          <div class="">
-            <label for="image">
+
+          <!-- ======================= User Profile Image ======================== -->
+          <div class="w-28 h-28 rounded-full m-auto">
+            <label for="image" class="w-28 h-28 rounded-full m-auto bg-blue-500">
               <img
                 v-if="
                   teacherStore.user_profile !== null &&
@@ -62,7 +64,7 @@
                   'http://127.0.0.1:8000/storage/images/' +
                   teacherStore.user_profile
                 "
-                class="w-12 h-12 rounded-full m-auto mt-5"
+                class="w-28 h-28 rounded-full m-auto"
                 alt=""
               />
               <img
@@ -71,7 +73,7 @@
                   teacherStore.previewImage == null
                 "
                 src="@/assets/female_logo.jpg"
-                class="w-12 h-12 rounded-full m-auto mt-5"
+                class="w-28 h-28 rounded-full m-auto"
                 alt=""
               />
               <img
@@ -80,14 +82,14 @@
                   teacherStore.previewImage == null
                 "
                 src="@/assets/male_logo.jpg"
-                class="w-12 h-12 rounded-full m-auto mt-5"
+                class="w-28 h-28 rounded-full m-auto"
                 alt=""
               />
               <img
                 v-else-if="teacherStore.previewImage !== null"
                 :src="teacherStore.previewImage"
                 alt=""
-                class="w-6/6 h-28 rounded-full m-auto"
+                class="w-28 h-28 rounded-full m-auto"
               />
             </label>
             <input
@@ -95,16 +97,20 @@
               @change="teacherStore.uploadImage"
               hidden
               id="image"
-              class="w-4/6 h-28 rounded-full m-auto"
+              class="w-28 h-28 rounded-full m-auto bg-green-200"
             />
           </div>
+
+          <!-- ======================= User information ========================= -->
           <div class="flex mt-3">
+            <!-- User first name -->
             <input
               type="text"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="First Name"
               v-model="teacherStore.first_name"
             />
+            <!-- User last name -->
             <input
               type="text"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -113,12 +119,14 @@
             />
           </div>
           <div class="flex mt-3">
+            <!-- user position -->
             <input
               type="text"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Position"
               v-model="teacherStore.position"
             />
+            <!-- user gender -->
             <select
               v-model="teacherStore.gender"
               id="countries"
@@ -129,19 +137,21 @@
             </select>
           </div>
           <div class="flex mt-3">
+            <!-- user's email -->
             <input
               type="text"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Email"
               v-model="teacherStore.email"
             />
+            <!-- user phone number -->
             <div class="flex w-full m-1">
               <span
                 class="inline-flex items-center px-2 text-sm text-gray-900 rounded-l border bg-sky-500"
                 >+855</span
               >
               <input
-                type="text"
+                type="number"
                 class="bg-gray-50 border border-gray-300 rounded-r text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Phone Numer"
                 v-model="teacherStore.phone"
@@ -149,9 +159,7 @@
             </div>
           </div>
           <!-- buton click update -->
-          <button
-            class="p-1.5 text-white bg-sky-500 mr-1 rounded w-20 mt-10 ml-5"
-          >
+          <button class="p-1.5 text-white bg-sky-500 mr-1 rounded w-20 mt-10 ml-5">
             UPDATE
           </button>
         </form>
