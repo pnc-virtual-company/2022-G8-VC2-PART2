@@ -10,6 +10,7 @@ export const studentstore = defineStore("student", {
     isEdit: false,
     isShow: true,
     previewImage: null,
+    user_profile: null,
     profile_img: "",
     first_name: "",
     last_name: "",
@@ -84,15 +85,17 @@ export const studentstore = defineStore("student", {
      */
     async getDAta(id) {
       const data = await axios.get("/user/" + id);
+      console.log(data.data);
       this.isEdit = true;
       this.first_name = data.data.first_name;
       this.last_name = data.data.last_name;
       this.email = data.data.email;
+      this.gender = data.data.gender;
+      this.user_profile = data.data.profile_img
       this.studentId = data.data.students.studentNumber;
       this.province = data.data.students.province;
       this.class = data.data.students.class;
       this.batch = data.data.students.batch;
-      this.gender = data.data.gender;
       this.phone = data.data.students.phone;
       this.ngo = data.data.students.ngo;
       this.user_id = id;
@@ -101,21 +104,34 @@ export const studentstore = defineStore("student", {
      * @todo edit student 
      */
     async onEditStudent(){
-      let object = {};
-      object.id =this.student_id;
-      object.first_name = this.first_name;
-      object.last_name = this.last_name;
-      object.gender = this.gender;
-      object.email = this.email;
-      object.studentNumber = this.studentId;
-      object.batch = this.batch;
-      object.class = this.class;
-      object.ngo = this.ngo;
-      object.province = this.province;
-      object.phone = this.phone;
-       await axios.put("/user/"+this.user_id,object);
+      // let object = {};
+      // object.id =this.student_id;
+      // object.first_name = this.first_name;
+      // object.last_name = this.last_name;
+      // object.gender = this.gender;
+      // object.email = this.email;
+      // object.studentNumber = this.studentId;
+      // object.batch = this.batch;
+      // object.class = this.class;
+      // object.ngo = this.ngo;
+      // object.province = this.province;
+      // object.phone = this.phone;
+      let student = new FormData();
+      student.append("profile_img", this.profile_img);
+      student.append("first_name", this.first_name);
+      student.append("last_name", this.last_name);
+      student.append("studentNumber", this.studentNumber);
+      student.append("email", this.email);
+      student.append("class", this.class);
+      student.append("batch", this.batch);
+      student.append("gender", this.gender);
+      student.append("phone", this.phone);
+      student.append("ngo", this.ngo);
+      student.append("province", this.province);
+      student.append("_method", 'PUT');
+       await axios.post("/user/"+this.user_id,student);
        //alert successful
-       toast.success("Update is successfull",{position: POSITION.TOP_CENTER, timeout: 500})
+       toast.success("Update is successfull",{position: POSITION.TOP_CENTER, timeout: 1000})
        this.isEdit = false;
        this.getStudent();
     },

@@ -32,6 +32,7 @@
         </div>
       </div>
     </div>
+    <!-- Show list all student -->
     <div class="container text-center w-5/5 h-screen overflow-y-scroll">
       <div class="w-11/12 m-auto mt-5">
         <h1 class="bg-sky-500 text-white font-bold text-2xl p-5 m-2 rounded-lg">
@@ -73,7 +74,7 @@
           >
             <tr>
               <th class="py-3 px-6">Profile</th>
-              <th class="py-3 px-6">ID</th>
+              <!-- <th class="py-3 px-6">ID</th> -->
               <th class="py-3 px-6">Name</th>
               <th class="py-3 px-2">Position</th>
               <th class="py-3 px-3">Email</th>
@@ -110,9 +111,9 @@
                   </router-link>
                 </div>
               </td>
-              <td class="py-3 px-2">
+              <!-- <td class="py-3 px-2">
                 <h1 class="">{{ teacher.id }}</h1>
-              </td>
+              </td> -->
               <td class="py-3 px-6">
                 <h1 class="">
                   {{ teacher.user.first_name }} {{ teacher.user.last_name }}
@@ -200,10 +201,29 @@ export default {
       gender: "male",
       email: "",
       imgURL: process.env.VUE_APP_IMG_URL,
+      // ====================data for filter ========================
+      search_value: '',
+      search_option: '',
+      // teacherDatas:[]
     };
   },
   mounted() {
     this.teacherStore.getTeacher();
   },
+  // computed:{
+  //   searchresult(){
+  //     // let teacherData = this.teacherStore.teachers
+  //     // if (this.search_value.trim().length > 0){
+  //       this.teacherStore.teachers.filter((teacher)=>
+  //         // teacher.first_name.includes(this.search_value)
+  //         console.log(teacher)
+  //       );
+  //       if(this.teacherStore.teachers.first_name.includes(this.search_value)){
+  //         return this.teacherStore.teachers.includes(this.search_value)
+  //       }
+  //       return this.teacherStore.teachers
+  //     // }
+  //   }
+  // }
 };
 </script>

@@ -7,11 +7,13 @@
   <!-- profile teacher -->
   <widget-ViewProfileDetail>
     <template #img>
-      <img
-        class="h-auto w-full mx-auto"
-        src="../../../assets/female_logo.jpg"
-        alt=""
-    /></template>
+      <div v-if="storeTeacherData.profile_img !=null" class="image overflow-hidden">
+          <img class="h-auto w-full mx-auto" :src="'http://127.0.0.1:8000/storage/images/'+storeTeacherData.profile_img" alt="" />
+      </div>
+      <div v-else class="image overflow-hidden">
+        <img class="h-auto w-full mx-auto" src="../../../assets/male_logo.jpg" alt="" />
+      </div>
+    </template>
     <template #fullName>
       {{ storeTeacherData.first_name }}
       {{ storeTeacherData.last_name }}
