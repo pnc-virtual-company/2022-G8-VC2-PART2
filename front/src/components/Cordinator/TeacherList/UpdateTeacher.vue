@@ -53,8 +53,8 @@
           </div>
 
           <!-- ======================= User Profile Image ======================== -->
-          <div class="w-28 h-28 rounded-full m-auto">
-            <label for="image" class="w-28 h-28 rounded-full m-auto bg-blue-500">
+          <div class="w-28 h-28 rounded-full m-auto cursor-pointer">
+            <label for="image" class="w-28 h-28 rounded-full m-auto cursor-pointer">
               <img
                 v-if="
                   teacherStore.user_profile !== null &&
