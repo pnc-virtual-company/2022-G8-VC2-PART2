@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\Teacher;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 
 class UserController extends Controller
 {
@@ -64,7 +67,8 @@ class UserController extends Controller
                 $user->profile_img = null;
                 $user->save();
             }
-            $token = $user->createToken('myTOken')->plainTextToken;
+            $token = $user->createToken('myToken')->plainTextToken;
+            return response()->json(['token'=> $mytoken]);
             //Student role is number 1
             if ($request->role == 1) {
                 $student = new Student();
@@ -196,6 +200,44 @@ class UserController extends Controller
             return response()->json(['sms' => 'successful'], 201);
         } else {
             return  response()->json(['sms' => 'unsuccessful'], 404);
+        }
+    }
+     //.. LOG IN FOR ADMIN.............//
+    //  public function adminLogin(Request $request)
+    //  {
+    //      $user = User::where('email', $request->email)->first();
+ 
+    //      if (!$user || !Hash::check($request->password, $user->password)) {
+    //          return response()->json(['message' => 'Fail'], 401);
+    //      }
+    //      $token = $user->createToken('mytoken')->plainTextToken;
+    //      return response()->json([
+    //          'user' => $user,
+    //          'token' => $token,
+    //      ]);      
+    //  }
+    public function login(Request $request){
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return response()->json(['sms' => "Invalid Email"]);
+        }
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json(['sms' => "Invalid Password"]);
+        }
+        if($user['role']==1){
+            $token = $user->createToken('my-token')->plainTextToken;
+            return response()->json(['sms' => 'studentViewVue', 'token' => $token,'role'=>$user['role'],'id'=>$user['id']]);
+        }
+        else if($user['role']==2){
+            $token = $user->createToken('my-token')->plainTextToken;
+            return response()->json(['sms' => 'teacherViewVue', 'token' => $token,'role'=>$user['role'],'id'=>$user['id']]);
+        }
+        else if($user['role']==3){
+            $token = $user->createToken('my-token')->plainTextToken;
+            return response()->json(['sms' => 'coordinatorViewVue', 'token' => $token,'role'=>$user['role'],'id'=>$user['id']]);
+        }
+        else{
+            return response()->json(['sms' => 'Invalid role',]);
         }
     }
 }
