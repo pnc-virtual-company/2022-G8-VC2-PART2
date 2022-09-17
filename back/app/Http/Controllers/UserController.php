@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\Teacher;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 
 class UserController extends Controller
 {
@@ -19,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
 
-        return User::with(['students','teachers'])->get();
+        return User::with(['students', 'teachers'])->get();
     }
 
     /**
@@ -57,11 +60,11 @@ class UserController extends Controller
         if ($request->role == 1 or $request->role == 2 or $request->role == 3) {
             $validatedData['password'] = bcrypt($validatedData['password']);
             $user = User::create($validatedData);
-            if($request->profile_img){
+            if ($request->profile_img) {
                 $user->profile_img = $request->file('profile_img')->hashName();
                 $request->file('profile_img')->store('public/images');
                 $user->save();
-            }else{
+            } else {
                 $user->profile_img = null;
                 $user->save();
             }
@@ -89,7 +92,7 @@ class UserController extends Controller
                 $teahcer->phone = $request->phone;
                 $teahcer->save();
                 return response()->json(['message' => "Created teacher successfully"]);
-            }else if ($request->role==3){
+            } else if ($request->role == 3) {
                 $user = User::create($validatedData);
                 return response()->json(['message' => "Created Coordinator is  successfully"]);
             }
@@ -125,16 +128,16 @@ class UserController extends Controller
                 'email' => 'required',
             ]
         );
-        $updateStudent=User::with('students')->findOrFail($id);
-        if($updateStudent['role']==1){
-            if($updateStudent['students']['user_id']==$id){
-                if($request->profile_img){
+        $updateStudent = User::with('students')->findOrFail($id);
+        if ($updateStudent['role'] == 1) {
+            if ($updateStudent['students']['user_id'] == $id) {
+                if ($request->profile_img) {
                     $updateStudent->profile_img = $request->file('profile_img')->hashName();
                     $request->file('profile_img')->store('public/images');
                     $updateStudent->save();
                 }
                 $updateStudent->update($validatedData);
-                $updateStudentID=Student::findOrFail($updateStudent['students']['id']);
+                $updateStudentID = Student::findOrFail($updateStudent['students']['id']);
                 $updateStudentID->studentNumber = $request->studentNumber;
                 $updateStudentID->class = $request->class;
                 $updateStudentID->batch = $request->batch;
@@ -160,23 +163,23 @@ class UserController extends Controller
                 // 'email' => 'required',
             ]
         );
-        $updateTeacher=User::with('teachers')->findOrFail($id);
-        if($updateTeacher['role'] == 2){
-            if($updateTeacher['teachers']['user_id']==$id){
-                if($request->profile_img){
+        $updateTeacher = User::with('teachers')->findOrFail($id);
+        if ($updateTeacher['role'] == 2) {
+            if ($updateTeacher['teachers']['user_id'] == $id) {
+                if ($request->profile_img) {
                     $updateTeacher->profile_img = $request->file('profile_img')->hashName();
                     $request->file('profile_img')->store('public/images');
                     $updateTeacher->save();
                 }
-                if($updateTeacher['email'] != $request['email']){
+                if ($updateTeacher['email'] != $request['email']) {
                     $updateTeacher->email = $request->email;
                     $updateTeacher->save();
                 }
                 $updateTeacher->update($validatedData);
-                $updateTeacherID=Teacher::findOrFail($updateTeacher['teachers']['id']);
+                $updateTeacherID = Teacher::findOrFail($updateTeacher['teachers']['id']);
                 $updateTeacherID->position = $request->position;
                 $updateTeacherID->phone = $request->phone;
-            
+
                 $updateTeacherID->save();
                 return response()->json([
                     'Message' => 'Update Teacher is successfull',
@@ -185,9 +188,8 @@ class UserController extends Controller
                 ], 200);
             }
         }
-        
     }
-
+  
     /**
      * Remove the specified resource from storage.
      *
@@ -202,6 +204,44 @@ class UserController extends Controller
             return response()->json(['sms' => 'successful'], 201);
         } else {
             return  response()->json(['sms' => 'unsuccessful'], 404);
+        }
+    }
+     //.. LOG IN FOR ADMIN.............//
+    //  public function adminLogin(Request $request)
+    //  {
+    //      $user = User::where('email', $request->email)->first();
+ 
+    //      if (!$user || !Hash::check($request->password, $user->password)) {
+    //          return response()->json(['message' => 'Fail'], 401);
+    //      }
+    //      $token = $user->createToken('mytoken')->plainTextToken;
+    //      return response()->json([
+    //          'user' => $user,
+    //          'token' => $token,
+    //      ]);      
+    //  }
+    public function login(Request $request){
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return response()->json(['sms' => "Invalid Email"]);
+        }
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json(['sms' => "Invalid Password"]);
+        }
+        if($user['role']==1){
+            $token = $user->createToken('my-token')->plainTextToken;
+            return response()->json(['sms' => 'studentViewVue', 'token' => $token,'role'=>$user['role'],'id'=>$user['id']]);
+        }
+        else if($user['role']==2){
+            $token = $user->createToken('my-token')->plainTextToken;
+            return response()->json(['sms' => 'teacherViewVue', 'token' => $token,'role'=>$user['role'],'id'=>$user['id']]);
+        }
+        else if($user['role']==3){
+            $token = $user->createToken('my-token')->plainTextToken;
+            return response()->json(['sms' => 'coordinatorViewVue', 'token' => $token,'role'=>$user['role'],'id'=>$user['id']]);
+        }
+        else{
+            return response()->json(['sms' => 'Invalid role',]);
         }
     }
 }

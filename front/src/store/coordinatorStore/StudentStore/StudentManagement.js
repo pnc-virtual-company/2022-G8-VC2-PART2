@@ -57,8 +57,8 @@ export const studentstore = defineStore("student", {
      */
     createStudent() {
       if((this.first_name!="" && this.last_name!="" && this.batch!="" && this.gender!="" &&
-          this.email!="" &&  this.phone!="" && this.ngo!="" && this.class!="" && this.id!="")&&
-          this.uniqueEmail==true
+          this.email!="" &&  this.phone!="" && this.ngo!="" && this.class!="" && this.id!="")
+          
       ){
         let student = new FormData();
         student.append("profile_img", this.profile_img);
@@ -137,6 +137,7 @@ export const studentstore = defineStore("student", {
           this.no_id=false
         }
       }
+      for(let email of )
     },
     showPopup(index) {
       this.dialog = true;
@@ -177,18 +178,7 @@ export const studentstore = defineStore("student", {
      * @todo edit student 
      */
     async onEditStudent(){
-      // let object = {};
-      // object.id =this.student_id;
-      // object.first_name = this.first_name;
-      // object.last_name = this.last_name;
-      // object.gender = this.gender;
-      // object.email = this.email;
-      // object.studentNumber = this.studentId;
-      // object.batch = this.batch;
-      // object.class = this.class;
-      // object.ngo = this.ngo;
-      // object.province = this.province;
-      // object.phone = this.phone;
+
       let student = new FormData();
       student.append("profile_img", this.profile_img);
       student.append("first_name", this.first_name);

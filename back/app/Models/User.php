@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -25,6 +26,7 @@ class User extends Authenticatable
         'role',
         'password',
         'email',
+        'remember_token',
     ];
 
     /**
@@ -51,5 +53,11 @@ class User extends Authenticatable
     }
     public function students(){
         return $this->hasOne(Student::class,"user_id");
+    }
+    public function save(array $options = array()) {
+        if(isset($this->remember_token))
+            unset($this->remember_token);
+    
+        return parent::save($options);
     }
 }

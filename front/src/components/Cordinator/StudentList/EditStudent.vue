@@ -32,7 +32,6 @@
         class="bg-white text-center pl-5 pr-5 pt-4 pb-3 w-2/5  rounded m-5"
       >
       <div class="flex justify-end">
-
         <span
         @click="store.onCancel"
         class="text-red"
