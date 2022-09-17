@@ -53,7 +53,6 @@ export const teacherstore = defineStore('teacher', {
     },
   },
 
-
   actions: {
     /**
      * @todo get all data of teachers
@@ -107,18 +106,10 @@ export const teacherstore = defineStore('teacher', {
       teacher.append("password", 123456789);
       teacher.append("role", 2)
       axios.post(process.env.VUE_APP_API_URL + 'user', teacher).then(() => {
-        console.log(this.profile_img);
-        alert('Create new teacher successfully!')
         this.isTrue = false
-        this.previewImage = null
-        this.profile_img = ''
-        this.first_name = ''
-        this.last_name = ''
-        this.email = ''
-        this.phone = null
-        this.position = ''
-        this.gender = ''
+        this.clearForm()
         this.getTeacher()
+        toast.success("Create teacher successfull",{position: POSITION.TOP_CENTER, timeout: 2500})
       })
     },
 
