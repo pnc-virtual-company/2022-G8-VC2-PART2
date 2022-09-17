@@ -53,7 +53,6 @@
           class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
           <option selected value="position">Position</option>
-          <option value="all">All</option>
           <option  value="name">Name</option>
         </select>
         <!--   Button to create new teacher   -->
@@ -204,26 +203,10 @@ export default {
       // ====================data for filter ========================
       search_value: '',
       search_option: '',
-      // teacherDatas:[]
     };
   },
   mounted() {
     this.teacherStore.getTeacher();
   },
-  // computed:{
-  //   searchresult(){
-  //     // let teacherData = this.teacherStore.teachers
-  //     // if (this.search_value.trim().length > 0){
-  //       this.teacherStore.teachers.filter((teacher)=>
-  //         // teacher.first_name.includes(this.search_value)
-  //         console.log(teacher)
-  //       );
-  //       if(this.teacherStore.teachers.first_name.includes(this.search_value)){
-  //         return this.teacherStore.teachers.includes(this.search_value)
-  //       }
-  //       return this.teacherStore.teachers
-  //     // }
-  //   }
-  // }
 };
 </script>
