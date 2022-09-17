@@ -16,7 +16,7 @@
           {{storeData.profile_img}}
         </div>
         <div v-else class="image overflow-hidden">
-          <img class="h-auto w-full mx-auto" src="@/assets/male_logo.jpg" alt="" />
+          <img class="h-auto w-full mx-auto" src="../../../assets/male_logo.jpg" alt="" />
         </div>
         <h1
           class="text-gray-900 font-bold text-xl leading-8 flex justify-center"
