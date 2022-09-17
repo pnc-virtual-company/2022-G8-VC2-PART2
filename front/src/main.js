@@ -15,7 +15,7 @@ import Toast from "vue-toastification";
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
 
-const app = createApp(App)
+const app = createApp(App).use(createPinia())
 
 
 app.use(createPinia()).use(router).mount('#app')
