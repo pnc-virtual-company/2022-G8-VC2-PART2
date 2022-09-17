@@ -25,8 +25,8 @@ export const studentstore = defineStore("student", {
     user_id: null,
     index: null,
     dialog: false,
-    detail:{},
-    isClick:false
+    isClick:false.valueOf,
+    
   }),
   getters: {},
   actions: {
@@ -156,7 +156,11 @@ export const studentstore = defineStore("student", {
           this.profile_img = res.data.user.profile_img;
           console.log(res.data.user.profile_img);
         });
-      }
+      },
+      /**
+       * @todo  validation create student.
+       * 
+       */
   },
 });
 
