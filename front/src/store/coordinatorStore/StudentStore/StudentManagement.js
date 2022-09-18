@@ -26,10 +26,36 @@ export const studentstore = defineStore("student", {
     user_id: null,
     index: null,
     dialog: false,
-    detail:{},
-    isClick:false
+    isClick:false.valueOf,
+    // *******validation create student*******//
+    no_firstname:false,
+    no_lastname:false,
+    no_batch:false,
+    no_gender:false,
+    no_email:false,
+    no_phone:false,
+    no_province:false,
+    no_class:false,
+    no_id:false,
+    no_ngo:false,
+    uniqueEmail:false,
+    
   }),
-  getters: {},
+  
+  getters: {
+    // search name and studentNumber in students-----
+    filterByName() {
+      let result = "";
+      if (!this.searchByName  ) {
+        return this.students;
+      } else if (this.searchByName) {
+        result = this.students.filter((student) =>
+        (student.user.first_name+student.user.last_name).toLowerCase().includes(this.searchByName.toLowerCase()) || (student.studentNumber).includes(this.searchByName))
+        console.log(result)
+      } 
+      return result;
+    }
+  },
   actions: {
     async getStudent() {
       const data = await axios.get("student");
@@ -38,34 +64,113 @@ export const studentstore = defineStore("student", {
     },
     onCreate() {
       this.isTrue = true;
+      
     },
     /**
      * @todo create new student
      * @return new data student
      */
     createStudent() {
-      let student = new FormData();
-      student.append("profile_img", this.profile_img);
-      student.append("first_name", this.first_name);
-      student.append("last_name", this.last_name);
-      student.append("studentNumber", this.studentNumber);
-      student.append("email", this.email);
-      student.append("class", this.class);
-      student.append("batch", this.batch);
-      student.append("gender", this.gender);
-      student.append("phone", this.phone);
-      student.append("ngo", this.ngo);
-      student.append("province", this.province);
-      student.append("password", 123456789);
-      student.append("role", 1);
-      console.log(this.ngo);
-      console.log(this.province);
-      console.log(student);
-      axios.post(process.env.VUE_APP_API_URL + "user", student).then(() => {
-        this.isTrue = false;
-        this.isTrue=false
-        this.getStudent();
-      });
+
+       /**
+     * @todo  unique Email.
+     * 
+     */
+      for(let email of this.students){
+        console.log(email.user.email==this.email)
+        if(email.user.email!=this.email){
+           this.uniqueEmail=true
+        }else{
+          this.uniqueEmail=false
+          toast.error("this email already created!",{position: POSITION.TOP_CENTER, timeout: 2500})
+        }
+      }
+      
+      /**
+     * @todo  validation create student.
+     * 
+     */
+      if((this.first_name!="" && this.last_name!="" && this.batch!="" && this.gender!="" &&
+          this.email!="" &&  this.phone!="" && this.ngo!="" && this.class!="" && this.id!="")
+          && this.uniqueEmail== true
+      ){
+        let student = new FormData();
+        student.append("profile_img", this.profile_img);
+        student.append("first_name", this.first_name);
+        student.append("last_name", this.last_name);
+        student.append("studentNumber", this.studentNumber);
+        student.append("email", this.email);
+        student.append("class", this.class);
+        student.append("batch", this.batch);
+        student.append("gender", this.gender);
+        student.append("phone", this.phone);
+        student.append("ngo", this.ngo);
+        student.append("province", this.province);
+        student.append("password", 123456789);
+        student.append("role", 1);
+        console.log(this.ngo);
+        console.log(this.province);
+        console.log(student);
+        axios.post(process.env.VUE_APP_API_URL + "user", student).then(() => {
+          this.isTrue = false;
+          this.getStudent();
+          toast.success("Created successfully!",{position: POSITION.TOP_CENTER, timeout: 1000})
+        });
+      }else{
+        toast.error("Please enter in field!",{position: POSITION.TOP_CENTER, timeout: 2000})
+        if(this.first_name==""){
+          this.no_firstname=true
+        }else{
+          this.no_firstname=false
+        }
+        if(this.last_name==""){
+          this.no_lastname=true
+        }else{
+          this.no_lastname=false
+        }
+        if(this.batch==""){
+          this.no_batch=true
+        }else{
+          this.no_batch=false
+        }
+        if(this.gender==""){
+          this.no_gender=true
+        }else{
+          this.no_gender=false
+        }
+        if(this.email==""){
+          this.no_email=true
+        }else{
+          this.no_email=false
+        }
+        if(this.phone==""){
+          this.no_phone=true
+        }else{
+          this.no_phone=false
+        }
+        if(this.ngo==""){
+          this.no_ngo=true
+        }else{
+          this.no_ngo=false
+        }
+        if(this.province==""){
+          this.no_province=true
+        }else{
+          this.no_province=false
+        }
+        if(this.class==""){
+          this.no_class=true
+        }else{
+          this.no_class=false
+        }
+        if(this.studentNumber==""){
+          this.no_id=true
+        }else{
+          this.no_id=false
+        }
+        
+      }
+      
     },
     showPopup(index) {
       this.dialog = true;
@@ -123,7 +228,7 @@ export const studentstore = defineStore("student", {
       student.append("_method", 'PUT');
        await axios.post("/user/"+this.user_id,student);
        //alert successful
-       toast.success("Update is successfull",{position: POSITION.TOP_CENTER, timeout: 1000})
+       toast.success("Update is successfull",{position: POSITION.TOP_CENTER, timeout: 2000})
        this.isEdit = false;
        this.getStudent();
     },
@@ -163,7 +268,8 @@ export const studentstore = defineStore("student", {
           this.province = res.data.province;
           this.profile_img = res.data.user.profile_img;
         });
-      }
+      },
+      
   },
 });
 

@@ -120,7 +120,6 @@
 </div>
 
 </template>
-
 <script setup>
   import { studentstore } from "@/store/coordinatorStore/StudentStore/StudentManagement"
   const storeData = studentstore()

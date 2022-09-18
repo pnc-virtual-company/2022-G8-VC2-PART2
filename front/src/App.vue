@@ -4,5 +4,4 @@
       <router-view  />
     </div>
   </section>
-<div></div>
 </template>

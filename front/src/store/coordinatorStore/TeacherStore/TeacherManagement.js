@@ -22,7 +22,7 @@ export const teacherstore = defineStore('teacher', {
     position: null,
     phone: null,
     created_at:null,
-    searchLabel: null,
+    searchLabel: 'name',
     search: null,
     user_id: null,
     dataEdit: {}
@@ -45,7 +45,7 @@ export const teacherstore = defineStore('teacher', {
         // search by name
         else if (this.searchLabel == "name") {
           result = this.teachers.filter(
-            (student) => student.user.first_name == this.search
+            (student) => (student.user.first_name+' '+student.user.last_name).toLowerCase().includes(this.search.toLowerCase())
           );
         }
         return result;
@@ -85,7 +85,7 @@ export const teacherstore = defineStore('teacher', {
      * @todo to open edit or delete dropdown
      */
     isOpen(id) {
-      this.show = true
+      this.show = !this.show
       this.id = id
       console.log('isOpen id = ' + id)
     },
@@ -124,6 +124,7 @@ export const teacherstore = defineStore('teacher', {
           this.getTeacher()
         });
       })
+      this.show = false
     },
     /**
      * @todo get data user for edit
