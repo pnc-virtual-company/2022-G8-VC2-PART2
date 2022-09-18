@@ -19,7 +19,7 @@ export const teacherstore = defineStore('teacher', {
     last_name: "",
     email: "",
     gender: "male",
-    position: "",
+    position: null,
     phone: null,
     created_at:null,
     searchLabel: null,
@@ -52,7 +52,6 @@ export const teacherstore = defineStore('teacher', {
       }
     },
   },
-
   actions: {
     /**
      * @todo get all data of teachers
@@ -60,8 +59,10 @@ export const teacherstore = defineStore('teacher', {
     async getTeacher() {
       const data = await axios.get('teacher')
       this.teachers = data.data
+      this.getDatTeacherToPRofile()
+      this.getData()
+      
     },
-
     /**
      * @todo show form create teacher
      */
@@ -80,7 +81,6 @@ export const teacherstore = defineStore('teacher', {
       this.isEditOpen = false
       this.show = false
     },
-
     /**
      * @todo to open edit or delete dropdown
      */
@@ -125,7 +125,6 @@ export const teacherstore = defineStore('teacher', {
         });
       })
     },
-
     /**
      * @todo get data user for edit
      */
@@ -141,7 +140,6 @@ export const teacherstore = defineStore('teacher', {
         this.user_profile = this.dataEdit.user.profile_img
       })
     },
-
     /**
      * @todo to open form to edit teacher 
      * @return form of teacher's data
@@ -175,7 +173,6 @@ export const teacherstore = defineStore('teacher', {
         toast.success("Update teacher successfull",{position: POSITION.TOP_CENTER, timeout: 2000})
       })
     },
-
     /**
      * @todo Upload Image
      * @return show image for preview
@@ -184,7 +181,6 @@ export const teacherstore = defineStore('teacher', {
       this.profile_img = e.target.files[0]
       this.previewImage = URL.createObjectURL(this.profile_img)
     },
-
     /**
      * 
      * @todo get data from teacher 
@@ -200,7 +196,20 @@ export const teacherstore = defineStore('teacher', {
           this.created_at = data.data.created_at
         }
     },
-
+    /** 
+    // get this data to TeacherProfile in Folder Teacher to get only one data
+    */
+    async getDatTeacherToPRofile(){
+        const data = await axios.get('user/'+sessionStorage.getItem('teacher_id'))
+        if(data.data.role==2){
+          this.profile_img = data.data.profile_img
+          this.first_name = data.data.first_name
+          this.last_name = data.data.last_name
+          this.email = data.data.email
+          this.position = data.data.position
+          this.created_at = data.data.created_at
+        }
+    },
     /**
      * @todo clear form input
      */

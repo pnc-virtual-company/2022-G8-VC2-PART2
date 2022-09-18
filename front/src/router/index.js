@@ -10,8 +10,10 @@ import StudentDetail from "@/components/Cordinator/StudentList/StudentDetail.vue
 import TeacherViewVue from "@/views/Teacher/TeacherView.vue";
 import ManageStudentVue from "@/views/Teacher/ManageStudent/ManageStudentView.vue"
 import ProfileTeacher from "@/components/Cordinator/TeacherList/ProfileTeacher.vue";
+import ManageTeacherProfile from "@/components/Teacher/TeacherProfile.vue"
 // -------------------------Student Route------------------------------------
 import StudentViewVue from "@/views/Student/StudentView.vue";
+import ManageStudentProfile from "@/components/Teacher/ManageStudentProfile.vue"
 // -------------------------login--------------------------------------------
 import LoginAuthenticationVue from "@/components/authentication/LoginAuthentication.vue";
 const routes = [
@@ -27,9 +29,9 @@ const routes = [
     component: TeacherViewVue,
     children: [
       {
-        path: "/manageTeacherProfile/:id",
+        path: "/manageTeacherProfile",
         name: "manageTeacherProfile",
-        component: ProfileTeacher,
+        component: ManageTeacherProfile,
       },
       {
         path: "/teacherManageStudent",
@@ -52,9 +54,9 @@ const routes = [
     component: StudentViewVue,
     children: [
       {
-        path: "/studentProfileDetail/:id",
-        name: "studentProfileDetail",
-        component: StudentDetail,
+        path: "/ManageStudentProfile",
+        name: "ManageStudentProfile",
+        component: ManageStudentProfile,
       },
     ],
   },

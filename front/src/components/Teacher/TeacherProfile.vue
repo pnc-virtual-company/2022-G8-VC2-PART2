@@ -1,9 +1,5 @@
 <template>
-  <!-- getId -->
-  <!-- send id to pinia -->
-  <div class="hidden">
-    {{ storeTeacherData.getData(this.$route.params.id)}}
-  </div>
+
   <!-- profile teacher -->
   <widget-ViewProfileDetail>
     <template #img>
@@ -11,7 +7,7 @@
           <img class="h-auto w-full mx-auto" :src="'http://127.0.0.1:8000/storage/images/'+storeTeacherData.profile_img" alt="" />
       </div>
       <div v-else class="image overflow-hidden">
-        <img class="h-auto w-full mx-auto" src="../../../assets/male_logo.jpg" alt="" />
+        <img class="h-auto w-full mx-auto" src="../../assets/male_logo.jpg" alt="" />
       </div>
     </template>
     <template #fullName>
@@ -39,7 +35,7 @@
 import { teacherstore } from "@/store/coordinatorStore/TeacherStore/TeacherManagement";
 import { onMounted } from "vue";
 const storeTeacherData = teacherstore();
- onMounted(()=>{
-  storeTeacherData.getData()
- })
+onMounted(()=>{
+  storeTeacherData.getDatTeacherToPRofile()
+})
 </script>

@@ -34,6 +34,7 @@ export const studentstore = defineStore("student", {
     async getStudent() {
       const data = await axios.get("student");
       this.students = data.data;
+      this.studentDetail()
     },
     onCreate() {
       this.isTrue = true;
@@ -100,6 +101,7 @@ export const studentstore = defineStore("student", {
       this.phone = data.data.students.phone;
       this.ngo = data.data.students.ngo;
       this.user_id = id;
+      
     },
     /**
      * @todo edit student 
@@ -160,7 +162,6 @@ export const studentstore = defineStore("student", {
           this.ngo=res.data.ngo;
           this.province = res.data.province;
           this.profile_img = res.data.user.profile_img;
-          console.log(res.data.user.profile_img);
         });
       }
   },
