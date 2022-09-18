@@ -8,8 +8,9 @@
         <slot name="img"></slot>
       </div>
       <!-- aside for group slot of router -->
-      <aside class="p-5 m-auto">
+      <aside class="p-4 m-auto">
         <ul class="font-bold text-white">
+          <slot name="manageCoordinator"></slot>
           <slot name="manageStudent"></slot>
           <slot name="manageTeacher"></slot>
           <slot name="manageStudentFollowUp"></slot>

@@ -21,8 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-
-        return User::with(['students', 'teachers'])->get();
+        return User::where('role', 3)->orderBy('id', 'DESC')->get();
     }
 
     /**
@@ -93,7 +92,7 @@ class UserController extends Controller
                 $teahcer->save();
                 return response()->json(['message' => "Created teacher successfully"]);
             } else if ($request->role == 3) {
-                $user = User::create($validatedData);
+                // $user = User::create($validatedData);
                 return response()->json(['message' => "Created Coordinator is  successfully"]);
             }
         }
