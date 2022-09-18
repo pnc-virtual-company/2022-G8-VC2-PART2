@@ -41,8 +41,20 @@ export const studentstore = defineStore("student", {
     uniqueEmail:false,
     
   }),
+  
   getters: {
-    
+    // search name and studentNumber in students-----
+    filterByName() {
+      let result = "";
+      if (!this.searchByName  ) {
+        return this.students;
+      } else if (this.searchByName) {
+        result = this.students.filter((student) =>
+        (student.user.first_name+student.user.last_name).toLowerCase().includes(this.searchByName.toLowerCase()) || (student.studentNumber).includes(this.searchByName))
+        console.log(result)
+      } 
+      return result;
+    }
   },
   actions: {
     async getStudent() {

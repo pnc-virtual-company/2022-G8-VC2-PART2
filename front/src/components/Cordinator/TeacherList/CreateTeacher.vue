@@ -29,8 +29,8 @@
           </div>
 
         <!-- ==================== User profile image ======================= -->
-          <div  class="w-28 h-28 rounded-full m-auto">
-            <label for="image">
+          <div  class="w-28 h-28 rounded-full m-auto cursor-pointer">
+            <label for="image" class="w-28 h-28 rounded-full m-auto cursor-pointer">
               <img
                 v-if="teacherStore.previewImage != null"
                 :src="teacherStore.previewImage"
