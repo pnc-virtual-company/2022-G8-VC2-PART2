@@ -95,6 +95,7 @@ export const teacherstore = defineStore('teacher', {
      * @return new data teacher
      */
     createTeacher() {
+      
       let teacher = new FormData();
       teacher.append("profile_img", this.profile_img);
       teacher.append("first_name", this.first_name);

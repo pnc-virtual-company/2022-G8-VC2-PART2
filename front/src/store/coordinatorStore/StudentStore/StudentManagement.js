@@ -74,16 +74,12 @@ export const studentstore = defineStore("student", {
        /**
      * @todo  unique Email.
      * 
-     */
-      for(let email of this.students){
-        console.log(email.user.email==this.email)
-        if(email.user.email!=this.email){
-           this.uniqueEmail=true
-        }else{
-          this.uniqueEmail=false
-          toast.error("this email already created!",{position: POSITION.TOP_CENTER, timeout: 2500})
-        }
+     */if(this.students.filter((student) => student.user.email === this.email)){
+          this.uniqueEmail=true
+          console.log(this.uniqueEmail)
+          
       }
+    
       
       /**
      * @todo  validation create student.
@@ -91,7 +87,7 @@ export const studentstore = defineStore("student", {
      */
       if((this.first_name!="" && this.last_name!="" && this.batch!="" && this.gender!="" &&
           this.email!="" &&  this.phone!="" && this.ngo!="" && this.class!="" && this.id!="")
-          && this.uniqueEmail== true
+          
       ){
         let student = new FormData();
         student.append("profile_img", this.profile_img);
