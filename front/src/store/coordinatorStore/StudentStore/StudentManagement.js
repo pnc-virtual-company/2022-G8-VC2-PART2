@@ -37,6 +37,7 @@ export const studentstore = defineStore("student", {
     no_province:false,
     no_class:false,
     no_id:false,
+    no_ngo:false,
     uniqueEmail:false,
     
   }),
@@ -50,15 +51,35 @@ export const studentstore = defineStore("student", {
     },
     onCreate() {
       this.isTrue = true;
+      
     },
     /**
      * @todo create new student
      * @return new data student
      */
     createStudent() {
+
+       /**
+     * @todo  unique Email.
+     * 
+     */
+      for(let email of this.students){
+        console.log(email.user.email==this.email)
+        if(email.user.email!=this.email){
+           this.uniqueEmail=true
+        }else{
+          this.uniqueEmail=false
+          toast.error("this email already created!",{position: POSITION.TOP_CENTER, timeout: 2500})
+        }
+      }
+      
+      /**
+     * @todo  validation create student.
+     * 
+     */
       if((this.first_name!="" && this.last_name!="" && this.batch!="" && this.gender!="" &&
           this.email!="" &&  this.phone!="" && this.ngo!="" && this.class!="" && this.id!="")
-          
+          && this.uniqueEmail== true
       ){
         let student = new FormData();
         student.append("profile_img", this.profile_img);
@@ -80,12 +101,10 @@ export const studentstore = defineStore("student", {
         axios.post(process.env.VUE_APP_API_URL + "user", student).then(() => {
           this.isTrue = false;
           this.getStudent();
+          toast.success("Created successfully!",{position: POSITION.TOP_CENTER, timeout: 1000})
         });
-        /**
-       * @todo  validation create student.
-       * 
-       */
       }else{
+        toast.error("Please enter in field!",{position: POSITION.TOP_CENTER, timeout: 2000})
         if(this.first_name==""){
           this.no_firstname=true
         }else{
@@ -136,8 +155,9 @@ export const studentstore = defineStore("student", {
         }else{
           this.no_id=false
         }
+        
       }
-      for(let email of )
+      
     },
     showPopup(index) {
       this.dialog = true;
@@ -194,7 +214,7 @@ export const studentstore = defineStore("student", {
       student.append("_method", 'PUT');
        await axios.post("/user/"+this.user_id,student);
        //alert successful
-       toast.success("Update is successfull",{position: POSITION.TOP_CENTER, timeout: 1000})
+       toast.success("Update is successfull",{position: POSITION.TOP_CENTER, timeout: 2000})
        this.isEdit = false;
        this.getStudent();
     },
