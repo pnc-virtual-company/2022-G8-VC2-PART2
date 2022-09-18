@@ -60,6 +60,7 @@ export const studentstore = defineStore("student", {
     async getStudent() {
       const data = await axios.get("student");
       this.students = data.data;
+      this.studentDetail()
     },
     onCreate() {
       this.isTrue = true;
@@ -71,23 +72,25 @@ export const studentstore = defineStore("student", {
      */
     createStudent() {
 
-       /**
+    /**
      * @todo  unique Email.
      * 
-     */if(this.students.filter((student) => student.user.email === this.email)){
-          this.uniqueEmail=true
-          console.log(this.uniqueEmail)
-          
+     */
+      for(let email of this.students){
+        if(email.user.email===this.email){
+           this.uniqueEmail=true
+        }
       }
-    
+      if(this.uniqueEmail){
+        toast.error("this email already created!",{position: POSITION.TOP_CENTER, timeout: 2500})
+      }
       
       /**
      * @todo  validation create student.
      * 
      */
       if((this.first_name!="" && this.last_name!="" && this.batch!="" && this.gender!="" &&
-          this.email!="" &&  this.phone!="" && this.ngo!="" && this.class!="" && this.id!="")
-          
+          this.email!="" &&  this.phone!="" && this.ngo!="" && this.class!="" && this.id!="") && !this.uniqueEmail
       ){
         let student = new FormData();
         student.append("profile_img", this.profile_img);
@@ -103,16 +106,17 @@ export const studentstore = defineStore("student", {
         student.append("province", this.province);
         student.append("password", 123456789);
         student.append("role", 1);
-        console.log(this.ngo);
-        console.log(this.province);
-        console.log(student);
         axios.post(process.env.VUE_APP_API_URL + "user", student).then(() => {
           this.isTrue = false;
           this.getStudent();
           toast.success("Created successfully!",{position: POSITION.TOP_CENTER, timeout: 1000})
         });
-      }else{
-        toast.error("Please enter in field!",{position: POSITION.TOP_CENTER, timeout: 2000})
+      }else {
+        if(this.uniqueEmail){
+          this.uniqueEmail = false
+        }else{
+          toast.error("Please enter in field!",{position: POSITION.TOP_CENTER, timeout: 2000})
+        }
         if(this.first_name==""){
           this.no_firstname=true
         }else{
@@ -165,7 +169,6 @@ export const studentstore = defineStore("student", {
         }
         
       }
-      
     },
     showPopup(index) {
       this.dialog = true;
@@ -201,6 +204,7 @@ export const studentstore = defineStore("student", {
       this.phone = data.data.students.phone;
       this.ngo = data.data.students.ngo;
       this.user_id = id;
+      
     },
     /**
      * @todo edit student 
@@ -261,7 +265,6 @@ export const studentstore = defineStore("student", {
           this.ngo=res.data.ngo;
           this.province = res.data.province;
           this.profile_img = res.data.user.profile_img;
-          console.log(res.data.user.profile_img);
         });
       },
       

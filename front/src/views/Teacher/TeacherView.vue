@@ -3,7 +3,7 @@
   <widget-navigation>
     <!-- slot for image also we can link to account profile of teacher -->
     <template #img>
-      <router-link class="flex" :to="{name:'manageTeacherProfile',path:'manageTeacherProfile',params:{id:2}}">
+      <router-link class="flex" to="/manageTeacherProfile">
         <img
           src="@/assets/male_logo.jpg"
           class="w-2/5 rounded-full m-auto mt-5"
@@ -28,7 +28,7 @@
     </template>
     <!-- route link to account profile teacher -->
     <template #viewProfile
-      > <router-link class="flex" :to="{name:'manageTeacherProfile',path:'manageTeacherProfile',params:{id:2}}">
+      > <router-link class="flex" to="/manageTeacherProfile">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

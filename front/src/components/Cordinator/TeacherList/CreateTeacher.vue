@@ -56,14 +56,18 @@
         <!-- ==================== Form input user Info ===================== -->
           <div class="flex mt-3">
             <!-- User first name -->
+            <input v-if="teacherStore.no_firstname" v-model="teacherStore.first_name" type="text" class="  m-1 bg-red-50 border border-red-500 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="First Name">
             <input
+              v-else
               type="text"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="First Name"
               v-model="teacherStore.first_name"
             />
             <!-- User last name -->
+            <input v-if="teacherStore.no_lastname" v-model="teacherStore.last_name"  type="text" class="m-1 bg-red-50 border border-red-500 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Last Name">
             <input
+              v-else
               type="text"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Last Name"
@@ -72,7 +76,9 @@
           </div>
           <div class="flex mt-3">
             <!-- user position -->
+            <input v-if="teacherStore.no_position" v-model="teacherStore.position"  type="text" class="m-1 bg-red-50 border border-red-500 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Position">
             <input
+              v-else
               type="text"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Position"
@@ -90,7 +96,9 @@
           </div>
           <div class="flex mt-3">
             <!-- User email -->
+            <input v-if="teacherStore.no_email || teacherStore.uniqueEmail" v-model="teacherStore.email"  type="text" class="m-1 bg-red-50 border border-red-500 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Email">
             <input
+              v-else
               type="text"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Email"
@@ -102,7 +110,9 @@
                 class="inline-flex items-center px-2 text-sm text-gray-900 rounded-l border bg-sky-500"
                 >+855</span
               >
+            <input v-if="teacherStore.no_phone" v-model="teacherStore.phone"  type="number"  class="bg-red-50  border border-red-500 rounded-r text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               <input
+                v-else
                 type="number"
                 class="bg-gray-50 border border-gray-300 rounded-r text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Phone Numer"

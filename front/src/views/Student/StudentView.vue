@@ -2,7 +2,7 @@
   <!-- asideleft bar  -->
   <widget-navigation>
     <template #img>
-      <router-link class="flex" :to="{name:'studentProfileDetail',path:'studentProfileDetail',params:{id:6}}">
+      <router-link class="flex" to="/ManageStudentProfile">
         <img
           src="@/assets/male_logo.jpg"
           class="w-2/5 rounded-full m-auto mt-5"
@@ -12,10 +12,17 @@
    
     <template #manageStudentFollowUp>
       <li class="m-3">
-        <router-link class="flex" :to="{name:'studentProfileDetail',path:'studentProfileDetail',params:{id:1}}">Follow Up Board</router-link>
-      </li></template
-    >
-    >
+        <router-link class="flex" to="/ManageStudentProfile">Follow Up Board</router-link>
+      </li>
+      </template>
   </widget-navigation>
+  {{studentStore.studentId}}
 </template>
-<script></script>
+<script setup>
+  import {userStore} from "@/store/coordinatorStore/coordinator/coordinator"
+import { onMounted } from "vue";
+  const studentStore = userStore()
+  onMounted(()=>{
+    studentStore.getStudentToken()
+  })
+  </script>

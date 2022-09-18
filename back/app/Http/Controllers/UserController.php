@@ -108,7 +108,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return User::with('students')->findOrFail($id);
+        return User::with(['students','teachers'])->findOrFail($id);
     }
 
     /**
@@ -229,19 +229,20 @@ class UserController extends Controller
             return response()->json(['sms' => "Invalid Password"]);
         }
         if($user['role']==1){
-            $token = $user->createToken('my-token')->plainTextToken;
-            return response()->json(['sms' => 'studentViewVue', 'token' => $token,'role'=>$user['role'],'id'=>$user['id']]);
+            $token = $user->createToken('student-token')->plainTextToken;
+                return response()->json(['sms' => 'studentViewVue','student-token' => $token,'role'=>$user['role'],'data'=>$user]);
         }
         else if($user['role']==2){
-            $token = $user->createToken('my-token')->plainTextToken;
-            return response()->json(['sms' => 'teacherViewVue', 'token' => $token,'role'=>$user['role'],'id'=>$user['id']]);
+            $token = $user->createToken('teacher-token')->plainTextToken;
+                return response()->json(['sms' => 'teacherViewVue', 'teacher-token' => $token,'role'=>$user['role'],'data'=>$user]);
         }
         else if($user['role']==3){
-            $token = $user->createToken('my-token')->plainTextToken;
-            return response()->json(['sms' => 'coordinatorViewVue', 'token' => $token,'role'=>$user['role'],'id'=>$user['id']]);
+            $token = $user->createToken('coordinator-token')->plainTextToken;
+            return response()->json(['sms' => 'coordinatorViewVue', 'coordinator-token' => $token,'role'=>$user['role'],'data'=>$user]);
         }
         else{
             return response()->json(['sms' => 'Invalid role',]);
         }
     }
+    
 }
