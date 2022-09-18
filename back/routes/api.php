@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
@@ -20,9 +21,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 //-------------users routes-------------/
+Route::group(['middleware'=>['auth:sanctum']],function(){
+    Route::post('signout',[UserController::class,'signOut']);
+});
 Route::apiResource('/user',UserController::class);
 Route::put('/updateteacher/{id}',[UserController::class,'updateTeacher']);
 //-------------students routes-------------/
 Route::apiResource('/student',StudentController::class);
 //-------------teacher routes-------------/
 Route::apiResource('/teacher',TeacherController::class);
+Route::apiResource('/comment',CommentController::class);

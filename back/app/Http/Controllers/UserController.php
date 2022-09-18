@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::with('students')->get();
+        return User::with(['teachers','students','comment'])->get();
     }
 
     /**
@@ -29,12 +29,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
         $validatedData = $request->validate(
             [
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'gender' => 'required',
-                'profile_img' => 'nullable',
+                // 'profile_img' => 'nullable',
                 'role' => 'required|digits_between:1,3|numeric',
                 'password' => 'required|min:8',
                 'email' => 'required|email|unique:users|regex:/(.+)@(.+)\.(.+)/i|',
@@ -52,16 +53,13 @@ class UserController extends Controller
                 'email.regex' => 'Email field must join with @',
             ]
         );
-        // role 1 is student and 2 is teacher and 3 is coordinator
-        if ($request->role == 1 or $request->role == 2 or $request->role == 3) {
+        // role 1 is student and 2 is teacher
+        if ($request->role == 1 or $request->role == 2) {
             $validatedData['password'] = bcrypt($validatedData['password']);
             $user = User::create($validatedData);
             if($request->profile_img){
                 $user->profile_img = $request->file('profile_img')->hashName();
                 $request->file('profile_img')->store('public/images');
-                $user->save();
-            }else{
-                $user->profile_img = null;
                 $user->save();
             }
             $token = $user->createToken('myTOken')->plainTextToken;
@@ -87,9 +85,6 @@ class UserController extends Controller
                 $teahcer->position = $request->position;
                 $teahcer->save();
                 return response()->json(['message' => "Created teacher successfully"]);
-            }else if ($request->role==3){
-                $user = User::create($validatedData);
-                return response()->json(['message' => "Created Coordinator is  successfully"]);
             }
         }
         return response()->json(['message' => "Cannot create without input your role 1 is student and 2 is teacher"]);
@@ -187,4 +182,10 @@ class UserController extends Controller
             return  response()->json(['sms' => 'unsuccessful'], 404);
         }
     }
+  
+    //  signOut
+     public function signOut(Request $request){
+         auth()->user()->tokens()->delete();
+         return response()->json(['Message'=>'Successfully logged out']);
+     }
 }

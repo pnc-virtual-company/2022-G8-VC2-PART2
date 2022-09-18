@@ -46,12 +46,17 @@
             />
           </div>
           <div class="flex mt-3">
-            <input
-              type="text"
-              class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Position"
+             <select
               v-model="teacherStore.position"
-            />
+              class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option value="web trainer" >WEB Trainer</option>
+              <option value="sna trainer">SNA Trainer</option>
+              <option value="english trainer">English Trainer</option>
+              <option value="pl trainer">PL Trainer</option>
+              <option value="social affair">Social Affair</option>
+              <option value="other">Other</option>
+            </select>
             <select
               id="gender"
               v-model="teacherStore.gender"
@@ -102,12 +107,12 @@ export default {
   data() {
     return {
       teacherStore: teacherstore(),
-      id: null,
-      first_name: "",
-      last_name: "",
-      position: "",
-      gender: "male",
-      email: "",
+      // id: null,
+      // first_name: "",
+      // last_name: "",
+      // position: "",
+      // gender: "male",
+      // email: "",
     };
   },
   mounted() {

@@ -1,5 +1,5 @@
 <template>
-    <div  v-if="storeData.isTrue" class="z-10">  
+  <div  v-if="storeData.isTrue" class="z-10">  
       <div class="mt-[-12] fixed w-full h-full inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50">
         <form @submit.prevent="storeData.createStudent"  class="bg-white text-center p-5 w-2/5 m-auto rounded">
            <div  class="w-1/4  rounded-full m-auto">
@@ -32,7 +32,11 @@
             <input v-model="storeData.province"  type="text" class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Province">
           </div>
           <div class="flex mt-3">
-            <input v-model="storeData.class"  type="text" class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="class">
+          <select v-model="storeData.class" class=" m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ">
+              <option selected value="web a"> WEB {{storeData.batch}} A</option>
+              <option value="web b">WEB B</option>
+              <option value="sna">SNA</option>
+            </select>
             <input v-model="storeData.studentNumber"  type="text" class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="student ID">
           </div>
           <button @click="storeData.onCancel" class="bg-red-500 p-1.5 text-white mr-1 rounded w-20 mt-10" >Cancel</button>
@@ -40,9 +44,52 @@
         </form>
       </div>
     </div>
+
+
+
+
+  <!--  Pop up of confirm to delete  -->
+  <div v-if="storeData.deleteStudent" class="container mx-auto z-20">
+    <div class="flex justify-center">
+      <div
+        class="
+          absolute
+          inset-0
+          flex
+          items-center
+          justify-center
+          bg-gray-700 bg-opacity-50
+        "
+      >
+        <div class="max-w-2xl p-6 bg-white rounded-md shadow-xl">
+          <div class="flex items-center justify-between">
+            <h3 class="text-2xl">Are you sure to delete?</h3>
+          </div>
+          <div class="mt-10 flex justify-evenly">
+            <button
+              @click="storeData.deleteStudent = false"
+              class="px-6 py-2 text-blue-800 border border-blue-600 rounded"
+            >
+              No
+            </button>
+            <button
+              @click="
+                storeData.onDeleteStudent(storeData.deleteStudentId),
+                  (storeData.deleteStudent = false)
+              "
+              class="px-6 py-2 ml-2 text-blue-100 bg-sky-500 rounded"
+            >
+              Yes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end pop up -->
 </template>
 
 <script setup>
-    import {studentstore} from "../../../store/index"
-    const storeData = studentstore()
+import { studentstore } from "../../../store/index";
+const storeData = studentstore();
 </script>

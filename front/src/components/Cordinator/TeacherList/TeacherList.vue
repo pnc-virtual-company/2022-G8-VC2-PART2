@@ -44,10 +44,13 @@
         <select
           class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
-          <option selected>Position</option>
-          <option value="US">WEB Trainer</option>
-          <option value="CA">SNA Trainer</option>
-          <option value="FR">English Trainer</option>
+          <option selected  value="" >Position</option>
+          <option value="web trainer" >WEB Trainer</option>
+          <option value="sna trainer">SNA Trainer</option>
+          <option value="english trainer">English Trainer</option>
+          <option value="pl trainer">PL Trainer</option>
+          <option value="social affair">Social Affair</option>
+          <option value="other">Other</option>
         </select>
         <!--   Button to create new teacher   -->
         <button
