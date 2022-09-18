@@ -7,9 +7,12 @@
     <!-- ====================== filter on student list ==================== -->
     <div class="m-auto filter flex justify-around w-11/12 mt-5">
       <input
+        v-model="storeData.searchByName"
+        @keydown.enter="storeData.filterByName()"
+    
         type="text"
         class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Search Name"
+        placeholder="Search Student"
       />
       <select
         class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -50,7 +53,7 @@
           </tr>
         </thead>
 
-        <tbody v-for="student in storeData.students" :key="student.id">
+        <tbody v-for="student in storeData.filterByName" :key="student.id">
           <tr class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:border-gray-700">
             <td>
               <div class="py-4 px-6 text-right" >
@@ -107,19 +110,6 @@
         </tbody>
       </table>
     </div>
-    <!-- pop up delete -->
-    <div class="w-1/2 border-t-4 border-l-4 border-r-4 border-b-4">
-      <!-- <div class="flex justify-center">
-        <img 
-        src="../../assets/ques.jpg"
-        class="flex justify-Content object-cover h-32 w-32  ...">
-       </div> -->
-      <p class="text-center font-bold text-xl">Are you sure?</p>
-      <div class="flex justify-around mb-4">
-        <button @click="store.dialogDelete = false" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">cancel</button>
-        <button  @click="storeData.onDeleteStudent" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">DELETE</button>
-      </div>
-  </div>
   </div>
 </template>
 <script setup>
