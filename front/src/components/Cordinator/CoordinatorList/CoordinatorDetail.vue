@@ -14,8 +14,11 @@
                 <div v-if="coordinatorData.profile_img !=null" class="image overflow-hidden">
                     <img class="h-48 w-full mx-auto" :src="'http://127.0.0.1:8000/storage/images/'+coordinatorData.profile_img" alt="" />
                 </div>
-                <div v-else class="image overflow-hidden">
+                <div v-else-if="coordinatorData.gender == 'male'" class="image overflow-hidden">
                     <img class="h-48 w-full mx-auto" src="../../../assets/male_logo.jpg" alt="" />
+                </div>
+                <div v-else-if="coordinatorData.gender == 'female'" class="image overflow-hidden">
+                    <img class="h-48 w-full mx-auto" src="../../../assets/female_logo.jpg" alt="" />
                 </div>
                 <h1
                     class="text-gray-900 font-bold text-xl leading-8 flex justify-center"
