@@ -8,7 +8,7 @@ export const studentstore = defineStore("student", {
     students: [],
     isTrue: false,
     isEdit: false,
-    isShow: true,
+    isShow: false,
     previewImage: null,
     user_profile: null,
     profile_img: "",
@@ -61,8 +61,8 @@ export const studentstore = defineStore("student", {
       this.studentDetail()
     },
     onCreate() {
+      this.clearForm()
       this.isTrue = true;
-      
     },
     /**
      * @todo create new student
@@ -177,11 +177,13 @@ export const studentstore = defineStore("student", {
 
     async onDeleteStudent(id) {
       await axios.delete("user/" + id).then(() => {
+        this.isShow = false
         this.getStudent();
-        console.log("delete successfully");
       });
     },
     onCancel() {
+      this.clearForm()
+      this.isShow = false;
       this.isTrue = false;
       this.isEdit = false;
     },
@@ -198,11 +200,11 @@ export const studentstore = defineStore("student", {
       this.email = data.data.email;
       this.gender = data.data.gender;
       this.user_profile = data.data.profile_img
-      this.studentId = data.data.students.studentNumber;
+      this.studentNumber = data.data.students.studentNumber;
       this.province = data.data.students.province;
       this.class = data.data.students.class;
       this.batch = data.data.students.batch;
-      this.phone = data.data.students.phone;
+      this.phone = data.data.phone;
       this.ngo = data.data.students.ngo;
       this.user_id = id;
   
@@ -211,7 +213,6 @@ export const studentstore = defineStore("student", {
      * @todo edit student 
      */
     async onEditStudent(){
-
       let student = new FormData();
       student.append("profile_img", this.profile_img);
       student.append("first_name", this.first_name);
@@ -229,6 +230,7 @@ export const studentstore = defineStore("student", {
        //alert successful
        toast.success("Update is successfull",{position: POSITION.TOP_CENTER, timeout: 2000})
        this.isEdit = false;
+       this.clearForm()
        this.getStudent();
     },
 
@@ -251,6 +253,17 @@ export const studentstore = defineStore("student", {
       this.studentNumber = ''
       this.profile_img = ''
       this.previewImage = null
+      this.no_firstname = false
+      this.no_lastname = false
+      this.no_batch = false
+      this.no_gender = false
+      this.no_email = false
+      this.no_phone = false
+      this.no_province = false
+      this.no_class = false
+      this.no_id = false
+      this.no_ngo = false
+      this.uniqueEmail = false
     },
     /**
        * @todo  create student detail
