@@ -23,6 +23,7 @@
         </select>
         <!--   Button to create new teacher   -->
         <button
+          @click="coordinatorData.onCreate()"
           class="mt-2 bg-sky-500 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
           Create Coordinator
@@ -136,13 +137,18 @@
         </table>
       </div>
     </div>
+    <!-- show form create coordinator -->
+    <create_coordinator></create_coordinator>
   </div>
 </template>
 
 <script>
 import { coordinatorstore } from "@/store/coordinatorStore/MyCoordinatorStore/CoordinatorManagement.js";
-
+import CreateCoordinator from "@/components/Cordinator/CoordinatorList/CreateCoordinator.vue";
 export default {
+  components:{
+    create_coordinator:CreateCoordinator
+  },
   data() {
     return{
       coordinatorData: coordinatorstore()
