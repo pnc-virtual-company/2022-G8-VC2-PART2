@@ -5,6 +5,7 @@
 </div>
 <!-- // view coordinator detail -->
 <div class="p-5 container mx-auto flex justify-center">
+    <button></button>
     <div class="md:flex w-full no-wrap md:-mx-2">
     <!-- Left Side -->
         <div class="w-full md:w-3/12 m-4">

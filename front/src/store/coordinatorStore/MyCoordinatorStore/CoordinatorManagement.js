@@ -16,10 +16,25 @@ export const coordinatorstore = defineStore("coordinator", {
     phone:null,
     gender:'male',
     coordinatorId:null,
-    isDelete:false
+    isDelete:false,
+    searchData:''
   }),
   
   getters: {
+    /**
+     * @todo search by name and position
+    */  
+    filterDataCoordinator() {
+      let result = "";
+      if (this.searchData !== '') {
+          result = this.coordinators.filter(
+            (coordinator) => (coordinator.first_name+' '+coordinator.last_name).toLowerCase().includes(this.searchData.toLowerCase())
+          );
+      }else{
+        return this.coordinators;
+      }
+      return result;
+    }
   },
   actions: {
     /**
@@ -35,6 +50,7 @@ export const coordinatorstore = defineStore("coordinator", {
      * @todo show form for create new coordinator
      */
     onCreate() {
+      this.clearForm()
       this.isCreate = true;
     },
 

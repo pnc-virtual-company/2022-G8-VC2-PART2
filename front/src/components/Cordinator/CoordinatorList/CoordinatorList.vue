@@ -39,20 +39,14 @@
             Manage Coordinator
           </h1>
         </div>
-        <div class="m-auto filter flex justify-around w-11/12 mt-5">
+        <div class="m-auto filter flex justify-end w-11/12 mt-5">
           <!-- search by name and position -->
           <input
+            v-model="coordinatorData.searchData"
             type="text"
-            class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="mt-2 mr-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search Name"
           />
-          <!-- set label to search -->
-          <select
-            class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option selected value="position">Position</option>
-            <option  value="name">Name</option>
-          </select>
           <!--   Button to create new teacher   -->
           <button
             @click="coordinatorData.onCreate()"
@@ -73,14 +67,15 @@
                 <th class="py-3 px-6">Profile</th>
                 <th class="py-3 px-6">Name</th>
                 <th class="py-3 px-3">Email</th>
+                <th class="py-3 px-3">phone</th>
                 <th class="py-3 px-6">Actions</th>
               </tr>
             </thead>
             <!-- place search here -->
-            <tbody v-for="coordinator of coordinatorData.coordinators" :key="coordinator">
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-if="coordinator.id != userID">
+            <tbody v-for="coordinator of coordinatorData.filterDataCoordinator" :key="coordinator">
+              <tr class="w-full bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-if="coordinator.id != userID">
                 <!-- coordinator profile image -->
-                <td>
+                <td class="py-4 px-2">
                   <router-link class="flex" :to="{name:'coordinatordetail',path:'coordinatordetail',params:{id:coordinator.id}}">
                     <div class="py-4 px-6 text-right">
                       <!-- <router-link class="flex" :to="{name:'coordinator',path:'coordinator',params:{id:coordinator.id}}"> -->
@@ -110,17 +105,21 @@
                   </router-link>
                 </td>
                 <!-- coordinator first name and last name -->
-                <td class="py-3 px-6">
+                <td class="py-4 px-2">
                   <h1 class="">
                     {{ coordinator.first_name }} {{ coordinator.last_name }}
                   </h1>
                 </td>
                 <!-- coordinator email -->
-                <td class="py-4 px-5">
+                <td class="py-4 px-2">
                   {{ coordinator.email }}
                 </td>
+                <!-- coordinator phone -->
+                <td class="py-4 px-2">
+                  +885 {{ coordinator.phone }}
+                </td>
                 <!-- dropdown user action -->
-                <td class="py-3 px-2 flex justify-end">
+                <td class="py-4 px-2 flex justify-end">
                   <div>
                     <div class="relative">
                       <!-- Dropdown toggle button -->
