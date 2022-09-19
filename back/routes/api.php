@@ -20,19 +20,20 @@ use App\Http\Controllers\PostController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::post('login', [UserController::class,"login"]);
 
-    
-    Route::apiResource('/user',UserController::class);
-    //-------------users routes-------------/
-    Route::put('/updateteacher/{id}',[UserController::class,'updateTeacher']);
-    Route::put('/sendTokenToDatabase/{id}',[PostController::class,'update']);
-    Route::post('/sendTokenToDatabase',[PostController::class,'store']);
-    Route::get('/getToken',[PostController::class,'index']);
-    //-------------students routes-------------/
-    Route::apiResource('/student',StudentController::class);
-    //-------------teacher routes-------------/
-    Route::apiResource('/teacher',TeacherController::class);
+
+Route::put('/sendTokenToDatabase/{id}',[PostController::class,'update']);
+Route::post('/sendTokenToDatabase',[PostController::class,'store']);
+
+Route::post('login', [UserController::class,"login"]);
+//-------------users routes-------------/
+Route::put('/updateteacher/{id}',[UserController::class,'updateTeacher']);
+Route::apiResource('/user',UserController::class);
+Route::get('/getToken',[PostController::class,'index']);
+//-------------students routes-------------/
+Route::apiResource('/student',StudentController::class);
+//-------------teacher routes-------------/
+Route::apiResource('/teacher',TeacherController::class);
 
 
 

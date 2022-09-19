@@ -1,6 +1,8 @@
 import { defineStore } from "pinia";
 import axios from "@/axios-http";
 import router from "@/router";
+import { useToast,POSITION  } from "vue-toastification";
+const toast = useToast();
 export const userStore = defineStore("user", {
   state: () => ({
     profile_img: "",
@@ -17,9 +19,6 @@ export const userStore = defineStore("user", {
     password: null,
     token:null,
     tokenId:null,
-    getStudentId:sessionStorage.getItem('student_id'),
-    getTeacherId:sessionStorage.getItem('teacher_id'),
-    getCoordinatorId:sessionStorage.getItem('coordintor_id'),
   }),
   getters: {},
   actions: {
@@ -63,23 +62,44 @@ export const userStore = defineStore("user", {
       stoer token on database
       +Put id of student ,coordinator or teacher to sessionStorage
     */
+   checkMail(sms){
+    if(sms=='Invalid Email'){
+       toast.error("Your Email Incorrect !",{position: POSITION.TOP_CENTER, timeout: 2000})
+    }
+   },
+   checkPassword(sms){
+    if(sms=='Invalid Password'){
+       toast.error("Your Password Incorrect !",{position: POSITION.TOP_CENTER, timeout: 2000})
+      }
+    },
+    checkLoginSuccessul(){
+     toast.success("successful !",{position: POSITION.TOP_CENTER, timeout: 2000})
+   },
     async login() {
       if (this.email != "" && this.password != "") {
         let loginInfo = { email: this.email, password: this.password };
         await axios.post("/login", loginInfo).then((res) => {
           // student
           // login to coordinator
+          if(res.data.sms=='Invalid Email'){
+            this.checkMail(res.data.sms)
+          }
+          if(res.data.sms=='Invalid Password'){
+            this.checkPassword(res.data.sms)
+          }
           if (res.data.role == 3) {
             if (res.data.sms == "coordinatorViewVue") {
               this.token = res.data["coordinator-token"];
               this.tokenId = res.data.data.id;
               sessionStorage.setItem('coordintor_id',this.tokenId)
+              sessionStorage.setItem('coordintor_token',this.token)
                 axios.post("/sendTokenToDatabase", {
                   role: 3,
                   token_id: this.token,
                   token: this.tokenId,
                 });
                 this.clearText()
+                this.checkLoginSuccessul()
               router.push({ name: "managestudent", path: "/managestudent" });
             }
           }
@@ -89,24 +109,26 @@ export const userStore = defineStore("user", {
               this.token = res.data["teacher-token"];
               this.tokenId = res.data.data.id;
               sessionStorage.setItem('teacher_id',this.tokenId)
+              sessionStorage.setItem('teacher_token',this.token)
                 axios.post("/sendTokenToDatabase", {
                   role: 2,
                   token_id: this.token,
                   token: this.tokenId,
                 });
                 this.clearText()
+                this.checkLoginSuccessul()
               router.push({ name: "teacherManageStudent", path: "/teacherManageStudent" });
             }
           }
           /*
           // Login to Student
-          
           */
           if (res.data.role == 1) {
             if (res.data.sms == "studentViewVue") {
               this.token = res.data["student-token"];
               this.tokenId = res.data.data.id;
               sessionStorage.setItem('student_id',this.tokenId)
+              sessionStorage.setItem('student_token',this.token)
                 axios.post("/sendTokenToDatabase", {
                   role: 1,
                   token_id: this.tokenId,
@@ -115,7 +137,7 @@ export const userStore = defineStore("user", {
                 this.clearText()
                 this.getStudentToken();
               router.push("/ManageStudentProfile");
-             
+              this.checkLoginSuccessul()
             }
           }
         });
