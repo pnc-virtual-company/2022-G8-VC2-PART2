@@ -39,7 +39,6 @@ export const studentstore = defineStore("student", {
     no_id:false,
     no_ngo:false,
     uniqueEmail:false,
-    
   }),
   
   getters: {
@@ -51,7 +50,6 @@ export const studentstore = defineStore("student", {
       } else if (this.searchByName) {
         result = this.students.filter((student) =>
         (student.user.first_name+student.user.last_name).toLowerCase().includes(this.searchByName.toLowerCase()) || (student.studentNumber).includes(this.searchByName))
-        console.log(result)
       } 
       return result;
     }
