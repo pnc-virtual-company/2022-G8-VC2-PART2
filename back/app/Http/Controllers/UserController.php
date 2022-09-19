@@ -23,7 +23,7 @@ class UserController extends Controller
     {
         return User::with(['teachers','students'])->get();
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -90,6 +90,7 @@ class UserController extends Controller
                 $student->studentNumber = $request->studentNumber;
                 $student->class = $request->class;
                 $student->batch = $request->batch;
+                $student->status = $request->status;
                 $student->ngo = $request->ngo;
                 $student->province = $request->province;
                 $student->save();

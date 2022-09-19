@@ -104,6 +104,7 @@ export const studentstore = defineStore("student", {
         student.append("province", this.province);
         student.append("password", 123456789);
         student.append("role", 1);
+        student.append("status", 0);
         axios.post(process.env.VUE_APP_API_URL + "user", student).then(() => {
           this.isTrue = false;
           this.getStudent();
