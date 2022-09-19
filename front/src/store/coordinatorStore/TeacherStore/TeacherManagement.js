@@ -25,7 +25,15 @@ export const teacherstore = defineStore('teacher', {
     searchLabel: 'name',
     search: null,
     user_id: null,
-    dataEdit: {}
+    dataEdit: {},
+
+    // ===============teacher validation==============
+    no_firstname:false,
+    no_lastname:false,
+    no_position:false,
+    no_email:false,
+    no_phone:false,
+    uniqueEmail:false,
   }),
   getters: {
     /**
@@ -62,6 +70,7 @@ export const teacherstore = defineStore('teacher', {
       this.getDatTeacherToPRofile()
       this.getData()
       
+    
     },
     /**
      * @todo show form create teacher
@@ -95,22 +104,72 @@ export const teacherstore = defineStore('teacher', {
      * @return new data teacher
      */
     createTeacher() {
-      let teacher = new FormData();
-      teacher.append("profile_img", this.profile_img);
-      teacher.append("first_name", this.first_name);
-      teacher.append("last_name", this.last_name);
-      teacher.append("email", this.email);
-      teacher.append("gender", this.gender);
-      teacher.append("phone", this.phone);
-      teacher.append("position", this.position)
-      teacher.append("password", 123456789);
-      teacher.append("role", 2)
-      axios.post(process.env.VUE_APP_API_URL + 'user', teacher).then(() => {
-        this.isTrue = false
-        this.clearForm()
-        this.getTeacher()
-        toast.success("Create teacher successfull",{position: POSITION.TOP_CENTER, timeout: 2500})
-      })
+    /**
+     * @todo  unique Email.
+     * 
+     */
+     for(let email of this.teachers){
+      if(email.user.email===this.email){
+         this.uniqueEmail=true
+      }
+    }
+    if(this.uniqueEmail){
+      toast.error("this email already created!",{position: POSITION.TOP_CENTER, timeout: 2500})
+    }
+
+    /**
+     * @todo  validation create student.
+     * 
+     */
+      if((this.first_name!="" && this.last_name!="" && this.email && this.position!=null && this.phone !=null) && !this.uniqueEmail){
+          let teacher = new FormData();
+          teacher.append("profile_img", this.profile_img);
+          teacher.append("first_name", this.first_name);
+          teacher.append("last_name", this.last_name);
+          teacher.append("email", this.email);
+          teacher.append("gender", this.gender);
+          teacher.append("phone", this.phone);
+          teacher.append("position", this.position)
+          teacher.append("password", 123456789);
+          teacher.append("role", 2)
+          axios.post(process.env.VUE_APP_API_URL + 'user', teacher).then(() => {
+            this.isTrue = false
+            this.clearForm()
+            this.getTeacher()
+            toast.success("Create teacher successfull",{position: POSITION.TOP_CENTER, timeout: 2500})
+          })
+      }else{
+        if(this.uniqueEmail){
+          this.uniqueEmail = false
+        }else{
+          toast.error("Please enter in field!",{position: POSITION.TOP_CENTER, timeout: 2000})
+        }
+        if(this.first_name==""){
+           this.no_firstname=true;
+        }else{
+          this.no_firstname=false
+        }
+        if(this.last_name==""){
+          this.no_lastname=true;
+        }else{
+         this.no_lastname=false
+        }
+        if(this.email==""){
+          this.no_email=true;
+        }else{
+          this.no_email=false
+        }
+        if(this.position==null){
+          this.no_position=true;
+        }else{
+          this.no_position=false
+        }
+        if(this.phone==null){
+          this.no_phone=true;
+        }else{
+          this.no_phone=false
+        }
+      }
     },
 
     /**

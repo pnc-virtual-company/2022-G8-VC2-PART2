@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 // -------------------------Coordinator Route-------------------------------
 import CoordinatorViewVue from "@/views/Cordinator/CoordinatorView.vue";
 import ProfileCoordinator from "@/components/Cordinator/ProfileCoordinator.vue";
+import ManageCoordinator from "@/views/Cordinator/ManageCoordinator/ManageCoordinator.vue";
 import ManageStudent from "@/views/Cordinator/ManageStudent/ManageStudent.vue";
 import ManageTeacher from "@/views/Cordinator/ManageTeacher/ManageTeacher.vue";
 import StudentDetail from "@/components/Cordinator/StudentList/StudentDetail.vue";
@@ -82,6 +83,11 @@ const routes = [
     name: "coordinatorViewVue",
     component: CoordinatorViewVue,
     children: [
+      {
+        path: "/managecoordinator",
+        name: "managecoordinator",
+        component: ManageCoordinator,
+      },
       {
         path: "/managestudent",
         name: "managestudent",

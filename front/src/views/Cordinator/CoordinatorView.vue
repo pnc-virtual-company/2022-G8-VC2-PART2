@@ -10,6 +10,12 @@
         />
       </router-link>
     </template>
+    <!-- route of Coordinator for manage coordinator -->
+    <template #manageCoordinator>
+      <li class="m-3">
+        <router-link to="/managecoordinator"> Manage Coordinator</router-link>
+      </li>
+    </template>
     <!-- route of Coordinator for manage student -->
     <template #manageStudent>
       <li class="m-3">

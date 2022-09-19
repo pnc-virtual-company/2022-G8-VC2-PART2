@@ -70,18 +70,17 @@ export const studentstore = defineStore("student", {
      */
     createStudent() {
 
-       /**
+    /**
      * @todo  unique Email.
      * 
      */
       for(let email of this.students){
-        console.log(email.user.email==this.email)
-        if(email.user.email!=this.email){
+        if(email.user.email===this.email){
            this.uniqueEmail=true
-        }else{
-          this.uniqueEmail=false
-          toast.error("this email already created!",{position: POSITION.TOP_CENTER, timeout: 2500})
         }
+      }
+      if(this.uniqueEmail){
+        toast.error("this email already created!",{position: POSITION.TOP_CENTER, timeout: 2500})
       }
       
       /**
@@ -89,8 +88,7 @@ export const studentstore = defineStore("student", {
      * 
      */
       if((this.first_name!="" && this.last_name!="" && this.batch!="" && this.gender!="" &&
-          this.email!="" &&  this.phone!="" && this.ngo!="" && this.class!="" && this.id!="")
-          && this.uniqueEmail== true
+          this.email!="" &&  this.phone!="" && this.ngo!="" && this.class!="" && this.id!="") && !this.uniqueEmail
       ){
         let student = new FormData();
         student.append("profile_img", this.profile_img);
@@ -106,16 +104,17 @@ export const studentstore = defineStore("student", {
         student.append("province", this.province);
         student.append("password", 123456789);
         student.append("role", 1);
-        console.log(this.ngo);
-        console.log(this.province);
-        console.log(student);
         axios.post(process.env.VUE_APP_API_URL + "user", student).then(() => {
           this.isTrue = false;
           this.getStudent();
           toast.success("Created successfully!",{position: POSITION.TOP_CENTER, timeout: 1000})
         });
-      }else{
-        toast.error("Please enter in field!",{position: POSITION.TOP_CENTER, timeout: 2000})
+      }else {
+        if(this.uniqueEmail){
+          this.uniqueEmail = false
+        }else{
+          toast.error("Please enter in field!",{position: POSITION.TOP_CENTER, timeout: 2000})
+        }
         if(this.first_name==""){
           this.no_firstname=true
         }else{
@@ -168,7 +167,6 @@ export const studentstore = defineStore("student", {
         }
         
       }
-      
     },
     showPopup(index) {
       this.dialog = true;

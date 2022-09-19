@@ -21,8 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-
-        return User::with(['students', 'teachers'])->get();
+        return User::where('role', 3)->orderBy('id', 'DESC')->get();
     }
 
     /**
@@ -38,7 +37,7 @@ class UserController extends Controller
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'gender' => 'required',
-                // 'profile_img' => 'nullable',
+                'phone' => 'nullable',
                 'role' => 'required|digits_between:1,3|numeric',
                 'password' => 'required|min:8',
                 'email' => 'required|email|unique:users|regex:/(.+)@(.+)\.(.+)/i|',
@@ -77,7 +76,6 @@ class UserController extends Controller
                 $student->studentNumber = $request->studentNumber;
                 $student->class = $request->class;
                 $student->batch = $request->batch;
-                $student->phone = $request->phone;
                 $student->ngo = $request->ngo;
                 $student->province = $request->province;
                 $student->save();
@@ -89,11 +87,9 @@ class UserController extends Controller
                 $id = User::latest()->first();
                 $teahcer->user_id = $id['id'];
                 $teahcer->position = $request->position;
-                $teahcer->phone = $request->phone;
                 $teahcer->save();
                 return response()->json(['message' => "Created teacher successfully"]);
             } else if ($request->role == 3) {
-                $user = User::create($validatedData);
                 return response()->json(['message' => "Created Coordinator is  successfully"]);
             }
         }
