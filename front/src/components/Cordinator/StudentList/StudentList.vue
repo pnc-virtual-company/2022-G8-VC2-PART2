@@ -111,6 +111,7 @@
       </table>
     </div>
   </div>
+
 </template>
 <script setup>
 import CreateStudent from "./CreateStudent.vue"
