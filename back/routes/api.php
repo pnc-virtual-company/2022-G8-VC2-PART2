@@ -27,8 +27,9 @@ Route::post('/sendTokenToDatabase',[PostController::class,'store']);
 
 Route::post('login', [UserController::class,"login"]);
 //-------------users routes-------------/
-Route::put('/updateteacher/{id}',[UserController::class,'updateTeacher']);
 Route::apiResource('/user',UserController::class);
+Route::get('/coordinator',[UserController::class,'getCoordinators']);
+Route::put('/updateteacher/{id}',[UserController::class,'updateTeacher']);
 Route::get('/getToken',[PostController::class,'index']);
 //-------------students routes-------------/
 Route::apiResource('/student',StudentController::class);

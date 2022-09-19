@@ -21,6 +21,16 @@ class UserController extends Controller
      */
     public function index()
     {
+        return User::with(['teachers','students'])->get();
+    }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCoordinators()
+    {
         return User::where('role', 3)->orderBy('id', 'DESC')->get();
     }
 
@@ -65,6 +75,10 @@ class UserController extends Controller
                 $user->save();
             } else {
                 $user->profile_img = null;
+                $user->save();
+            }
+            if($request->phone){
+                $user->phone = $request->phone;
                 $user->save();
             }
             // $token = $user->createToken('myTOken')->plainTextToken;
