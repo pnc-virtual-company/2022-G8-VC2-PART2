@@ -1,29 +1,99 @@
 <template>
-  <button
-    @click="onCreate"
-    class="mt-2 bg-sky-500 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-  >
-    Create Student
+  <!-- button click on update student -->
+  <button @click="store.getDAta(id)" class="flex">
+    <span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-5 h-5 "
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          color="blue"
+          d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+        />
+      </svg>
+    </span>
+    EDIT
   </button>
-  <!-- pop up create student -->
-  <div v-if="isTrue" class="">
+
+  <!-- form pop up create student -->
+  <div v-if="store.isEdit" class="">
     <div
-      class="mt-[-12] fixed w-full h-full inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50"
+      class="mt-[-12] fixed w-full h-full inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 "
     >
-      <form @submit.prevent="store.onEdit(5)" class="bg-white text-center p-5 w-2/5 m-auto rounded">
+    <!-- on edit form -->
+      <form
+        @submit.prevent="store.onEditStudent"
+        class="bg-white text-center pl-5 pr-5 pt-4 pb-3 w-2/5  rounded m-5"
+      >
+      <div class="flex justify-end">
+        <span
+        @click="store.onCancel"
+        class="text-red"
+      >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+      </span>
+      </div>
         <div class="">
-          <img
-            src="../../assets/male_logo.jpg"
-            class="w-2/6 rounded-full m-auto"
-            alt=""
-          />
+            <label for="image">
+              <img
+                v-if="
+                  store.user_profile !== null &&
+                  store.previewImage == null
+                "
+                :src="
+                  'http://127.0.0.1:8000/storage/images/' +
+                  store.user_profile
+                "
+                class="w-12 h-12 rounded-full m-auto mt-5"
+                alt=""
+              />
+              <img
+                v-else-if="
+                  store.gender == 'female' &&
+                  store.previewImage == null
+                "
+                src="@/assets/female_logo.jpg"
+                class="w-12 h-12 rounded-full m-auto mt-5"
+                alt=""
+              />
+              <img
+                v-else-if="
+                  store.gender == 'male' &&
+                  store.previewImage == null
+                "
+                src="@/assets/male_logo.jpg"
+                class="w-12 h-12 rounded-full m-auto mt-5"
+                alt=""
+              />
+              <img
+                v-else-if="store.previewImage !== null"
+                :src="store.previewImage"
+                alt=""
+                class="w-6/6 h-28 rounded-full m-auto"
+              />
+            </label>
+            <input
+              type="file"
+              @change="store.uploadImage"
+              hidden
+              id="image"
+              class="w-4/6 h-28 rounded-full m-auto"
+            />
         </div>
         <div class="flex mt-3">
           <input
             type="text"
             class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="First Name"
-           v-model="store.first_name"
+            v-model="store.first_name"
           />
           <input
             type="text"
@@ -40,7 +110,7 @@
             v-model="store.batch"
           />
           <select
-          v-model="store.gender"
+            v-model="store.gender"
             id="countries"
             class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
@@ -97,28 +167,22 @@
             v-model="store.studentId"
           />
         </div>
-       
-        <button
-          @click="store.onCancel"
-          class="bg-red-500 p-1.5 text-white mr-1 rounded w-20 mt-10"
-        >
-          Cancel
-        </button>
+        <!-- buton click update -->
         <button
           class="p-1.5 text-white bg-sky-500 mr-1 rounded w-20 mt-10 ml-5"
         >
-        UPDATE
-      </button>
-    </form>
+          UPDATE
+        </button>
+      </form>
+    </div>
   </div>
-</div>
 </template>
 <script setup>
-import { computed } from "vue";
-import { useStudentStore } from "../../store/edit";
-const store = useStudentStore();
-const onCreate = store.onCreate;
-const isTrue = computed(() => {
-  return store.isTrue;
+import {  defineProps } from "vue";
+import { studentstore } from "@/store/coordinatorStore/StudentStore/StudentManagement"
+const store = studentstore();
+defineProps({
+  id: null,
 });
 </script>
+ 
