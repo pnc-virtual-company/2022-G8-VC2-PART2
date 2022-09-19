@@ -9,12 +9,14 @@ export const coordinatorstore = defineStore("coordinator", {
     profile_img:'',
     previewImage:null,
     isCreate:false,
-    showCreate:false,
+    isDropdown:false,
     first_name:'',
     last_name:'',
     email:'',
     phone:null,
     gender:'male',
+    coordinatorId:null,
+    isDelete:false
   }),
   
   getters: {
@@ -28,6 +30,11 @@ export const coordinatorstore = defineStore("coordinator", {
     
     onCreate() {
       this.isCreate = true;
+    },
+
+    isOpen(id) {
+      this.isDropdown = !this.isDropdown
+      this.coordinatorId = id
     },
     
     /**
@@ -57,6 +64,18 @@ export const coordinatorstore = defineStore("coordinator", {
             this.getCoordinators()
             toast.success("Create coordinator successfull",{position: POSITION.TOP_CENTER, timeout: 2000})
           })
+    },
+
+    /**
+     * @todo to delete teacher by id
+     * @return all data of teacher after delete
+     */
+    deleteCoordinator() {
+            axios.delete(process.env.VUE_APP_API_URL + 'user/' + this.coordinatorId).then(() => {
+              toast.success("Delete coordinator successfull",{position: POSITION.TOP_CENTER, timeout: 2000})
+              this.getCoordinators()
+            });
+          this.isDelete = false
     },
     
     /**
