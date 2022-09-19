@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -25,6 +26,8 @@ class User extends Authenticatable
         'role',
         'password',
         'email',
+        'rememberToken',
+        'remember_token',
     ];
 
     /**
@@ -34,11 +37,8 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
-        'created_at',
         'updated_at'
     ];
-
     /**
      * The attributes that should be cast.
      *
@@ -46,11 +46,29 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'created_at' => "datetime:Y-m-d",
     ];
+    public function comments(){
+        $commenter = $this->hasMany(Comment::class,"commenter_id");
+        $student = $this->hasMany(Comment::class,"student_id");
+        return [$commenter, $students];
+    }
+    public function histories(){
+        $tutor = $this->hasMany(History::class,"tutor_id");
+        $student = $this->hasMany(History::class,"student_id");
+        return [$tutor, $student];
+    }
     public function teachers(){
         return $this->hasOne(Teacher::class,"user_id");
     }
     public function students(){
         return $this->hasOne(Student::class,"user_id");
     }
+    public function save(array $options = array()) {
+        if(isset($this->remember_token))
+            unset($this->remember_token);
+        return parent::save($options);
+    }
+  
+    
 }

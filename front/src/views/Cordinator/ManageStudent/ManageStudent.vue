@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import StudentList from '@/components/StudentList/StudentList.vue'
+  import StudentList from '@/components/Cordinator/StudentList/StudentList.vue'
 export default {
     components:{
       "student_list": StudentList,

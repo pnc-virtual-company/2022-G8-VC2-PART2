@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('studentNumber');
             $table->string('class');
             $table->string('batch');
-            $table->string('phone');
             $table->string('ngo');
             $table->string('province');
+            $table->boolean('status');
             $table->timestamps();
         });
     }

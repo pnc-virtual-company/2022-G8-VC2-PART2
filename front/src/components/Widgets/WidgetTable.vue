@@ -23,7 +23,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody v-for="student in storeData.students" :key="student" >
+        <tbody >
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 ">
                 <td  class="py-3 px-2 ">
                     <slot name="row1"></slot>
@@ -50,12 +50,6 @@
       </table>
     </div>
 </template>
-<script>
-export default {
-
-}
-</script>
-
 <style>
 
 </style>
