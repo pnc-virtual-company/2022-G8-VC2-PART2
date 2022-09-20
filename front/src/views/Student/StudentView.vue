@@ -29,7 +29,10 @@
       </li>
     </template>
   </widget-navigation>
+<<<<<<< HEAD
   {{ studentStore.studentId }}
+=======
+>>>>>>> df112db9bea4b93410af515588908432cd89608e
 </template>
 <script setup>
 import { studentstore } from "@/store/coordinatorStore/StudentStore/StudentManagement";

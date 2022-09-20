@@ -6,6 +6,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\VerifyMailController;
 use App\Http\Controllers\DigitnumberController;
 use App\Http\Controllers\PhotoController;
 /*
@@ -37,7 +38,12 @@ Route::get('/getToken',[PostController::class,'index']);
 //-------------students routes-------------/
 Route::apiResource('/student', StudentController::class);
 //-------------teacher routes-------------/
-Route::apiResource('/teacher', TeacherController::class);
+Route::apiResource('/teacher',TeacherController::class);
+
+
+// send mail
+Route::post('/sendmail', [VerifyMailController::class, 'mailNotifyAction']);
+
 
 //forget password
 Route::put('/newPassword/{id}', [UserController::class, 'forgetPassword']);
