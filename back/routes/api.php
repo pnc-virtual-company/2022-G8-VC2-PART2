@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\VerifyMailController;
+use App\Http\Controllers\DigitnumberController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,22 +24,37 @@ use App\Http\Controllers\VerifyMailController;
 // });
 
 
-Route::put('/sendTokenToDatabase/{id}',[PostController::class,'update']);
-Route::post('/sendTokenToDatabase',[PostController::class,'store']);
+Route::put('/sendTokenToDatabase/{id}', [PostController::class, 'update']);
+Route::post('/sendTokenToDatabase', [PostController::class, 'store']);
 
-Route::post('login', [UserController::class,"login"]);
+Route::post('login', [UserController::class, "login"]);
 //-------------users routes-------------/
-Route::apiResource('/user',UserController::class);
+Route::put('/updateteacher/{id}', [UserController::class, 'updateTeacher']);
+Route::apiResource('/user', UserController::class);
+Route::put('/update-coordinator/{id}',[UserController::class,'updateCoordinator']);
 Route::get('/coordinator',[UserController::class,'getCoordinators']);
-Route::put('/updateteacher/{id}',[UserController::class,'updateTeacher']);
 Route::get('/getToken',[PostController::class,'index']);
 //-------------students routes-------------/
-Route::apiResource('/student',StudentController::class);
+Route::apiResource('/student', StudentController::class);
 //-------------teacher routes-------------/
 Route::apiResource('/teacher',TeacherController::class);
 
 
 // send mail
 Route::post('/sendmail', [VerifyMailController::class, 'mailNotifyAction']);
+
+
+//forget password
+Route::put('/newPassword/{id}', [UserController::class, 'forgetPassword']);
+// send mail when forget password
+Route::post('/forgetPassword', [UserController::class,'changePassword']);
+// reset coordinator password
+Route::put('/resetPaswordCoordinator/{id}', [UserController::class, 'ressePasswordCoordinator']);
+Route::post('/resetPaswordCoordinator/{id}', [UserController::class, 'compareOldPassword']);
+
+// ---------set digit number to compare ---------
+Route::post('/digit',[DigitnumberController::class,'store']);
+Route::put('/digit/{id}',[DigitnumberController::class,'update']);
+Route::get('/digit',[DigitnumberController::class,'index']);
 
 

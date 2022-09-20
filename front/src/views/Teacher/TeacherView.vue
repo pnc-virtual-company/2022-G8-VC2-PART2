@@ -26,7 +26,7 @@
     <!-- router that teacher can manage student follow up -->
     <template #manageStudentFollowUp>
       <li class="m-3">
-        <router-link to="">Student Follow up </router-link>
+        <router-link to="/teacherManageStudent">Student Follow up </router-link>
       </li></template
     >
     <!-- route that teacher can manage student follow up histories -->
