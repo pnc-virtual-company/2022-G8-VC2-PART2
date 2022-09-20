@@ -84,7 +84,7 @@
                           >
                             <strong>Login</strong>
                           </button>
-                          <a class="text-gray-500" href="#!">Forgot password?</a>
+                          <router-link to="/forgetPassword"><a class="text-gray-500" href="#!">Forgot password?</a></router-link>
                         </div>
                       </form>
                     </div>

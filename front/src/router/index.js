@@ -15,13 +15,22 @@ import ManageTeacherProfile from "@/components/Teacher/TeacherProfile.vue";
 // -------------------------Student Route------------------------------------
 import StudentViewVue from "@/views/Student/StudentView.vue";
 import ManageStudentProfile from "@/components/Teacher/ManageStudentProfile.vue";
-// -------------------------login--------------------------------------------
+// -------------------------Authentication--------------------------------------------
 import LoginAuthenticationVue from "@/components/authentication/LoginAuthentication.vue";
+import ForgetPasswordVue from "@/components/authentication/ForgetPassword.vue";
+
+// Route
 const routes = [
+  /*----------------------------Authentication------------------- */
   {
     path: "/",
     name: "login",
     component: LoginAuthenticationVue,
+  },
+  {
+    path: "/forgetPassword",
+    name: "forgetPassword",
+    component: ForgetPasswordVue,
   },
   /*teacher route*/
   {
