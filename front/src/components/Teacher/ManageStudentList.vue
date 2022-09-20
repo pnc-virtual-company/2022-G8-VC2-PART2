@@ -1,4 +1,5 @@
 <template>
+
     <div class="container text-center w-5/5 h-screen overflow-y-scroll">
       <!-- ====================== Title ==================== -->
       <widget-title>
@@ -23,7 +24,7 @@
       </div>
       <!-- ============================ display list all student ========================== -->
       <div 
-        class=" m-auto relative bg-gray-100 p-5 shadow-md w-11/12 sm:rounded-lg mt-3 h-screen overflow-y-scroll"
+        class="m-auto relative bg-gray-100 p-5 shadow-md w-11/12 sm:rounded-lg mt-3 h-screen overflow-y-scroll"
       >
         <table
           class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
@@ -91,17 +92,18 @@
                       ></StudentEditFormVue
                     ></a>
                   </template>
-                  <template #delete ><span @click=" storeData.onDeleteStudent(student.user.id)">Delete</span> </template>
+                  <template #delete ><span>ViewDetail</span> </template>
                   <template #add > <span class="text-black">Add follow up</span>  </template>
                 </widget-DropDown>
                 <!-- footer drop down -->
               </td>
             </tr>
-          </tbody>
+          </tbody> 
         </table>
       </div>
 
     </div>
+ 
   </template>
   <script setup>
   import { studentstore } from "@/store/teacherStore/StudentStore/StudentManagement"
