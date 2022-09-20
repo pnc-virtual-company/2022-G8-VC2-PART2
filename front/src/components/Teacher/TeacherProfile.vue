@@ -1,27 +1,42 @@
 <template>
-
   <!-- profile teacher -->
   <widget-ViewProfileDetail>
     <template #img>
-      <div v-if="storeTeacherData.profile_img !=null" class="image overflow-hidden">
-          <img class="h-auto w-full mx-auto" :src="'http://127.0.0.1:8000/storage/images/'+storeTeacherData.profile_img" alt="" />
-      </div>
-      <div v-else class="image overflow-hidden">
-        <img class="h-auto w-full mx-auto" src="../../assets/male_logo.jpg" alt="" />
+      <img
+        :src="
+          'http://127.0.0.1:8000/storage/images/' + storeTeacherData.profile_img
+        "
+        class="m-auto"
+        alt=""
+      />
+      <div class="flex justify-center"> 
+        <label for="profile_img">
+          <img 
+          src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/camera-512.png" 
+          alt="" width="30" height="30" >
+        </label>
+         <input 
+         type="file" 
+         hidden="true"
+         id="profile_img"
+         @change="storeTeacherData.changeProfileTeacherImage">
       </div>
     </template>
     <template #fullName>
+      {{ storeTeacherData.first_name }}  {{ storeTeacherData.last_name }}
+    </template>
+    <template #firstName>
       {{ storeTeacherData.first_name }}
+    </template>
+    <template #lastName>
       {{ storeTeacherData.last_name }}
     </template>
     <template #gender>
       {{ storeTeacherData.gender }}
     </template>
-    <template #rename>
-      Position
-    </template>
+    <template #rename> Position </template>
     <template #information>
-      {{storeTeacherData.position}}
+      {{ storeTeacherData.position }}
     </template>
     <template #email>
       {{ storeTeacherData.email }}
@@ -35,7 +50,7 @@
 import { teacherstore } from "@/store/coordinatorStore/TeacherStore/TeacherManagement";
 import { onMounted } from "vue";
 const storeTeacherData = teacherstore();
-onMounted(()=>{
-  storeTeacherData.getDatTeacherToPRofile()
-})
+onMounted(() => {
+  storeTeacherData.getDatTeacherToPRofile();
+});
 </script>

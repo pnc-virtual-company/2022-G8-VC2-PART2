@@ -1,6 +1,6 @@
 <template>
   <!-- button click on update student -->
-  <button @click="store.getDAta(id)" class="flex">
+  <button @click="store.getDAta(id), show=false" class="flex cursor-pointer">
     <span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -24,12 +24,12 @@
   <!-- form pop up create student -->
   <div v-if="store.isEdit" class="">
     <div
-      class="mt-[-12] fixed w-full h-full inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 "
+      class=" mt-[-12] fixed w-full h-full inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 "
     >
     <!-- on edit form -->
       <form
         @submit.prevent="store.onEditStudent"
-        class="bg-white text-center pl-5 pr-5 pt-4 pb-3 w-2/5  rounded m-5"
+        class="cursor-default bg-white text-center pl-5 pr-5 pt-4 pb-3 w-2/5  rounded m-5"
       >
       <div class="flex justify-end">
         <span
@@ -41,8 +41,8 @@
       </svg>
       </span>
       </div>
-        <div class="">
-            <label for="image">
+        <div class="w-28 h-28 rounded-full m-auto">
+            <label for="image" class="w-28 h-28 rounded-full m-auto cursor-pointer">
               <img
                 v-if="
                   store.user_profile !== null &&
@@ -50,9 +50,9 @@
                 "
                 :src="
                   'http://127.0.0.1:8000/storage/images/' +
-                  store.user_profile
+                  store.profile_img
                 "
-                class="w-12 h-12 rounded-full m-auto mt-5"
+                class="w-28 h-28 rounded-full m-auto mt-5"
                 alt=""
               />
               <img
@@ -61,7 +61,7 @@
                   store.previewImage == null
                 "
                 src="@/assets/female_logo.jpg"
-                class="w-12 h-12 rounded-full m-auto mt-5"
+                class="w-28 h-28 rounded-full m-auto mt-5"
                 alt=""
               />
               <img
@@ -70,14 +70,14 @@
                   store.previewImage == null
                 "
                 src="@/assets/male_logo.jpg"
-                class="w-12 h-12 rounded-full m-auto mt-5"
+                class="w-28 h-28 rounded-full m-auto mt-5"
                 alt=""
               />
               <img
                 v-else-if="store.previewImage !== null"
                 :src="store.previewImage"
                 alt=""
-                class="w-6/6 h-28 rounded-full m-auto"
+                class="w-28 h-28 rounded-full m-auto"
               />
             </label>
             <input
@@ -85,7 +85,7 @@
               @change="store.uploadImage"
               hidden
               id="image"
-              class="w-4/6 h-28 rounded-full m-auto"
+              class="w-28 h-28 rounded-full m-auto"
             />
         </div>
         <div class="flex mt-3">
@@ -114,9 +114,8 @@
             id="countries"
             class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
-            <option selected>Gender</option>
-            <option value="M">Male</option>
-            <option value="F">Female</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
           </select>
         </div>
         <div class="flex mt-3">
@@ -164,7 +163,7 @@
             type="text"
             class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Student ID"
-            v-model="store.studentId"
+            v-model="store.studentNumber"
           />
         </div>
         <!-- buton click update -->

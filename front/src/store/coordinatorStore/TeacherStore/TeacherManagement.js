@@ -26,6 +26,8 @@ export const teacherstore = defineStore('teacher', {
     search: null,
     user_id: null,
     dataEdit: {},
+    displayTeachers:[],
+    adminId:sessionStorage.getItem("teacher_id"),
 
     // ===============teacher validation==============
     no_firstname:false,
@@ -59,6 +61,10 @@ export const teacherstore = defineStore('teacher', {
         return result;
       }
     },
+    
+
+    
+
   },
   actions: {
     /**
@@ -69,8 +75,7 @@ export const teacherstore = defineStore('teacher', {
       this.teachers = data.data
       this.getDatTeacherToPRofile()
       this.getData()
-      
-    
+
     },
     /**
      * @todo show form create teacher
@@ -266,9 +271,21 @@ export const teacherstore = defineStore('teacher', {
           this.first_name = data.data.first_name
           this.last_name = data.data.last_name
           this.email = data.data.email
-          this.position = data.data.position
+          this.position = data.data.teachers.position
           this.created_at = data.data.created_at
         }
+    },
+    async changeProfileTeacherImage(event) {
+      this.onUploadTeacherImage(event.target.files[0]);
+      this.getTeacher();
+    },
+    // uplaod image
+    onUploadTeacherImage(profile_img) {
+      const profileImage = new FormData();
+      profileImage.append("profile_img", profile_img);
+      profileImage.append("_method", "PUT");
+      axios.post("/updateTeacherImage/" + sessionStorage.getItem("teacher_id"), profileImage)
+          this.getTeacher();
     },
     /**
      * @todo clear form input
@@ -281,6 +298,20 @@ export const teacherstore = defineStore('teacher', {
       this.position = ''
       this.phone = null
       this.previewImage = null
+    },
+
+    /**
+     * @todo Display all teacher list
+     * @return see other teachers
+     */
+    async displayTeachersList(){
+      const data = await axios.get('teacher')
+      this.displayTeachers=data.data
     }
+    
+
+      
+   
+
   }
 });
