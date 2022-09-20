@@ -12,7 +12,7 @@ import WidegetViewProfileDetail from "@/components/Widgets/WidegetProfileDetail.
 import WidgetLogout from "@/components/Widgets/WidgetLogout"
 
 import WidgetNav from "@/components/Aside/AsideLeft.vue"
-
+import WidgetResetPasswordVue from './components/Widgets/WidgetResetPassword.vue'
 import Toast from "vue-toastification";
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
@@ -29,4 +29,6 @@ app.component("widget-DropDown", WidegetDropDown)
 app.component("widget-ViewProfileDetail", WidegetViewProfileDetail)
 app.component("widget-navigation", WidgetNav)
 app.component("widget-logout", WidgetLogout)
+app.use(Toast)
+app.component("widget-ResetPasswordVue", WidgetResetPasswordVue)
 app.use(Toast)

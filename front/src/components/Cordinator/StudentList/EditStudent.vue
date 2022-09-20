@@ -50,7 +50,7 @@
                 "
                 :src="
                   'http://127.0.0.1:8000/storage/images/' +
-                  store.user_profile
+                  store.profile_img
                 "
                 class="w-12 h-12 rounded-full m-auto mt-5"
                 alt=""
@@ -164,7 +164,7 @@
             type="text"
             class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Student ID"
-            v-model="store.studentId"
+            v-model="store.studentNumber"
           />
         </div>
         <!-- buton click update -->

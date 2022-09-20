@@ -8,6 +8,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\DigitnumberController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -38,4 +39,18 @@ Route::put('/updateteacher/{id}', [UserController::class, 'updateTeacher']);
 Route::apiResource('/student', StudentController::class);
 //-------------teacher routes-------------/
 Route::apiResource('/teacher', TeacherController::class);
-Route::apiResource('/personalToken', Personal_access_tokenController::class);
+
+//forget password
+Route::put('/newPassword/{id}', [UserController::class, 'forgetPassword']);
+// send mail when forget password
+Route::post('/forgetPassword', [UserController::class,'changePassword']);
+// reset coordinator password
+Route::put('/resetPaswordCoordinator/{id}', [UserController::class, 'ressePasswordCoordinator']);
+Route::post('/resetPaswordCoordinator/{id}', [UserController::class, 'compareOldPassword']);
+
+// ---------set digit number to compare ---------
+Route::post('/digit',[DigitnumberController::class,'store']);
+Route::put('/digit/{id}',[DigitnumberController::class,'update']);
+Route::get('/digit',[DigitnumberController::class,'index']);
+
+

@@ -8,6 +8,9 @@
         alt=""
       />
     </template>
+    <template #edit>
+      <EditCoordinatorVue ></EditCoordinatorVue>
+    </template>
     <template #fullName>
       {{ storeData.first_name }} {{ storeData.last_name }}
     </template>
@@ -21,10 +24,16 @@
     <template #join>
       {{ storeData.created_at }}
     </template>
+    <template #resetPassword>
+      <ResetCoordinatorPasswordVue></ResetCoordinatorPasswordVue>
+    </template>
   </widget-ViewProfileDetail>
+
 </template>
 
 <script setup>
+  import EditCoordinatorVue from "./CoordinatorList/EditCoordinator.vue";
+  import ResetCoordinatorPasswordVue from "./CoordinatorList/ResetCoordinatorPassword.vue";
 import { userStore } from "@/store/coordinatorStore/coordinator/coordinator";
 import { onMounted } from "vue";
 const storeData = userStore();

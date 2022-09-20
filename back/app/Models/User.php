@@ -48,6 +48,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'created_at' => "datetime:Y-m-d",
     ];
+    public function comments(){
+        $commenter = $this->hasMany(Comment::class,"commenter_id");
+        $student = $this->hasMany(Comment::class,"student_id");
+        return [$commenter, $students];
+    }
+    public function histories(){
+        $tutor = $this->hasMany(History::class,"tutor_id");
+        $student = $this->hasMany(History::class,"student_id");
+        return [$tutor, $student];
+    }
     public function teachers(){
         return $this->hasOne(Teacher::class,"user_id");
     }

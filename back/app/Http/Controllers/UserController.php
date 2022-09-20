@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 
+use Mail;
+use App\Mail\forgetMail;
+
 class UserController extends Controller
 {
     /**
@@ -38,7 +41,7 @@ class UserController extends Controller
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'gender' => 'required',
-                // 'profile_img' => 'nullable',
+                'phone' => 'nullable',
                 'role' => 'required|digits_between:1,3|numeric',
                 'password' => 'required|min:8',
                 'email' => 'required|email|unique:users|regex:/(.+)@(.+)\.(.+)/i|',
@@ -68,6 +71,10 @@ class UserController extends Controller
                 $user->profile_img = null;
                 $user->save();
             }
+            if($request->phone){
+                $user->phone = $request->phone;
+                $user->save();
+            }
             // $token = $user->createToken('myTOken')->plainTextToken;
             //Student role is number 1
             if ($request->role == 1) {
@@ -77,7 +84,7 @@ class UserController extends Controller
                 $student->studentNumber = $request->studentNumber;
                 $student->class = $request->class;
                 $student->batch = $request->batch;
-                $student->phone = $request->phone;
+                $student->status = $request->status;
                 $student->ngo = $request->ngo;
                 $student->province = $request->province;
                 $student->save();
@@ -89,11 +96,9 @@ class UserController extends Controller
                 $id = User::latest()->first();
                 $teahcer->user_id = $id['id'];
                 $teahcer->position = $request->position;
-                $teahcer->phone = $request->phone;
                 $teahcer->save();
                 return response()->json(['message' => "Created teacher successfully"]);
             } else if ($request->role == 3) {
-                $user = User::create($validatedData);
                 return response()->json(['message' => "Created Coordinator is  successfully"]);
             }
         }
@@ -108,7 +113,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return User::with(['students','teachers'])->findOrFail($id);
+        return User::with(['students', 'teachers'])->findOrFail($id);
     }
 
     /**
@@ -189,7 +194,18 @@ class UserController extends Controller
             }
         }
     }
-  
+    public function updateCoordinator(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->gender = $request->gender;
+        $user->phone = $request->phone;
+        $user->email = $request->email;
+        $user->save();
+        return response()->json(['sms' => 'successful']);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -234,21 +250,71 @@ class UserController extends Controller
         if (!Hash::check($request->password, $user->password)) {
             return response()->json(['sms' => "Invalid Password"]);
         }
-        if($user['role']==1){
+        if ($user['role'] == 1) {
             $token = $user->createToken('student-token')->plainTextToken;
-                return response()->json(['sms' => 'studentViewVue','student-token' => $token,'role'=>$user['role'],'data'=>$user]);
-        }
-        else if($user['role']==2){
+            return response()->json(['sms' => 'studentViewVue', 'student-token' => $token, 'role' => $user['role'], 'data' => $user]);
+        } else if ($user['role'] == 2) {
             $token = $user->createToken('teacher-token')->plainTextToken;
-                return response()->json(['sms' => 'teacherViewVue', 'teacher-token' => $token,'role'=>$user['role'],'data'=>$user]);
-        }
-        else if($user['role']==3){
+            return response()->json(['sms' => 'teacherViewVue', 'teacher-token' => $token, 'role' => $user['role'], 'data' => $user]);
+        } else if ($user['role'] == 3) {
             $token = $user->createToken('coordinator-token')->plainTextToken;
-            return response()->json(['sms' => 'coordinatorViewVue', 'coordinator-token' => $token,'role'=>$user['role'],'data'=>$user]);
-        }
-        else{
+           
+  
+            return response()->json(['sms' => 'coordinatorViewVue','coordinator-token' => $token, 'role' => $user['role'], 'data' => $user]);
+        } else {
             return response()->json(['sms' => 'Invalid role',]);
         }
     }
-    
+    // --------------ForgetPassword to new password----------------------------------
+    public function forgetPassword(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return response()->json(['sms' => 'Password updated!'], 201);
+    }
+    // comfirm password
+    public function confirmedPassword(Request $request, $id)
+    {
+        $user =  User::findOrFail($id);
+        if (Hash::check($request->password, $user['password'])) {
+            $user->password = bcrypt($request->new_password);
+            $user->save();
+            return response()->json(['sms' => 'Password updated!', "id", $user], 201);
+        }
+        return response()->json(['sms' => 'Password incorrect!'], 404);
+    }
+    public function changePassword(Request $request)
+    {
+        $fourDigit = random_int(1000, 9999);
+        // dd($randomNumber);
+        $details = [
+            'title' => 'Dear sir',
+            'body' => 'Place code to login',
+            'digit' => $fourDigit,
+        ];
+        Mail::to($request->email)->send(new forgetMail($details));
+
+        return response()->json(['sms' => "Email is sent successfully.", "digit" => $fourDigit]);
+    }
+    //------------------resset coordinator password
+    public function ressePasswordCoordinator(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->password = Hash::make($request->password);
+        $user->save();
+        return response()->json(['sms' => 'Password updated!'], 201);
+    }
+    // Reset Password 
+    public function compareOldPassword(Request $request, $id)
+    {
+        $user =  User::findOrFail($id);
+        if (Hash::check($request->password, $user['password'])) {
+            $user->password = bcrypt($request->new_password);
+            $user->save();
+            return response()->json(['sms' => 'Password updated!'], 201);
+        }
+        return response()->json(['sms' => 'Password incorrect!'], 404);
+    }
+   
 }

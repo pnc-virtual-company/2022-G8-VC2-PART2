@@ -115,9 +115,6 @@
                   </router-link>
                 </div>
               </td>
-              <!-- <td class="py-3 px-2">
-                <h1 class="">{{ teacher.id }}</h1>
-              </td> -->
               <td class="py-3 px-6">
                 <h1 class="">
                   {{ teacher.user.first_name }} {{ teacher.user.last_name }}
