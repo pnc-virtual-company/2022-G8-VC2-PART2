@@ -28,6 +28,16 @@ class UserController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCoordinators()
+    {
+        return User::where('role', 3)->orderBy('id', 'DESC')->get();
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -70,6 +80,10 @@ class UserController extends Controller
                 $user->profile_img = null;
                 $user->save();
             }
+            if($request->phone){
+                $user->phone = $request->phone;
+                $user->save();
+            }
             // $token = $user->createToken('myTOken')->plainTextToken;
             //Student role is number 1
             if ($request->role == 1) {
@@ -79,6 +93,7 @@ class UserController extends Controller
                 $student->studentNumber = $request->studentNumber;
                 $student->class = $request->class;
                 $student->batch = $request->batch;
+                $student->status = $request->status;
                 $student->ngo = $request->ngo;
                 $student->province = $request->province;
                 $student->save();

@@ -104,6 +104,7 @@ export const studentstore = defineStore("student", {
         student.append("province", this.province);
         student.append("password", 123456789);
         student.append("role", 1);
+        student.append("status", 0);
         axios.post(process.env.VUE_APP_API_URL + "user", student).then(() => {
           this.isTrue = false;
           this.getStudent();
@@ -168,10 +169,12 @@ export const studentstore = defineStore("student", {
         
       }
     },
+
     showPopup(index) {
       this.dialog = true;
       this.index = index;
     },
+
     async onDeleteStudent(id) {
       await axios.delete("user/" + id).then(() => {
         this.getStudent();
@@ -202,7 +205,7 @@ export const studentstore = defineStore("student", {
       this.phone = data.data.students.phone;
       this.ngo = data.data.students.ngo;
       this.user_id = id;
-      
+  
     },
     /**
      * @todo edit student 
@@ -259,10 +262,11 @@ export const studentstore = defineStore("student", {
           this.gender=res.data.user.gender;
           this.email=res.data.user.email;
           this.class=res.data.class;
-          this.phone = res.data.phone;
+          this.phone = res.data.user.phone;
           this.ngo=res.data.ngo;
           this.province = res.data.province;
           this.profile_img = res.data.user.profile_img;
+          this.getStudent()
         });
       },
       

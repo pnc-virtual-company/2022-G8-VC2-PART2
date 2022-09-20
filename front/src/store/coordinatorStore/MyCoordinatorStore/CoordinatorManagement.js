@@ -22,16 +22,25 @@ export const coordinatorstore = defineStore("coordinator", {
   getters: {
   },
   actions: {
+    /**
+     * @todo get all data of coordinator
+     */
     getCoordinators() {
-      axios.get("user").then((res)=>{
+      axios.get("coordinator").then((res)=>{
         this.coordinators = res.data
       });
     },
     
+    /**
+     * @todo show form for create new coordinator
+     */
     onCreate() {
       this.isCreate = true;
     },
 
+    /**
+     * @todo show dropdown user action
+     */
     isOpen(id) {
       this.isDropdown = !this.isDropdown
       this.coordinatorId = id
@@ -96,7 +105,23 @@ export const coordinatorstore = defineStore("coordinator", {
       this.email = ''
       this.phone = null
       this.previewImage = null
-    }
+    },
+
+    /**
+      * @todo  create student detail
+     */
+    coordinatorDetail(id){
+      axios.get("user/"+id).then((res) =>{
+        console.log(res.data);
+        this.first_name=res.data.first_name;
+        this.last_name=res.data.last_name;
+        this.gender=res.data.gender;
+        this.email=res.data.email;
+        this.phone = res.data.phone;
+        this.profile_img = res.data.profile_img;
+        this.getCoordinators()
+      });
+    },
   },
 });
 

@@ -30,8 +30,9 @@ Route::post('login', [UserController::class, "login"]);
 //-------------users routes-------------/
 Route::put('/updateteacher/{id}', [UserController::class, 'updateTeacher']);
 Route::apiResource('/user', UserController::class);
-Route::get('/getToken', [PostController::class, 'index']);
 Route::put('/update-coordinator/{id}',[UserController::class,'updateCoordinator']);
+Route::get('/coordinator',[UserController::class,'getCoordinators']);
+Route::get('/getToken',[PostController::class,'index']);
 //-------------students routes-------------/
 Route::apiResource('/student', StudentController::class);
 //-------------teacher routes-------------/

@@ -78,34 +78,36 @@
             </thead>
             <!-- place search here -->
             <tbody v-for="coordinator of coordinatorData.coordinators" :key="coordinator">
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-if="coordinator.id != userID">
                 <!-- coordinator profile image -->
                 <td>
-                  <div class="py-4 px-6 text-right">
-                    <!-- <router-link class="flex" :to="{name:'coordinator',path:'coordinator',params:{id:coordinator.id}}"> -->
-                      <img
-                        v-if="coordinator.profile_img != null"
-                        :src="
-                          'http://127.0.0.1:8000/storage/images/' +
-                          coordinator.profile_img
-                        "
-                        class="w-12 h-12 rounded-full m-auto mt-5"
-                        alt=""
-                      />
-                      <img
-                        v-else-if="coordinator.gender == 'female'"
-                        src="@/assets/female_logo.jpg"
-                        class="w-12 h-12 rounded-full m-auto mt-5"
-                        alt=""
-                      />
-                      <img
-                        v-else-if="coordinator.gender == 'male'"
-                        src="@/assets/male_logo.jpg"
-                        class="w-12 h-12 rounded-full m-auto mt-5"
-                        alt=""
-                      />
-                    <!-- </router-link> -->
-                  </div>
+                  <router-link class="flex" :to="{name:'coordinatordetail',path:'coordinatordetail',params:{id:coordinator.id}}">
+                    <div class="py-4 px-6 text-right">
+                      <!-- <router-link class="flex" :to="{name:'coordinator',path:'coordinator',params:{id:coordinator.id}}"> -->
+                        <img
+                          v-if="coordinator.profile_img != null"
+                          :src="
+                            'http://127.0.0.1:8000/storage/images/' +
+                            coordinator.profile_img
+                          "
+                          class="w-12 h-12 rounded-full m-auto mt-5"
+                          alt=""
+                        />
+                        <img
+                          v-else-if="coordinator.gender == 'female'"
+                          src="@/assets/female_logo.jpg"
+                          class="w-12 h-12 rounded-full m-auto mt-5"
+                          alt=""
+                        />
+                        <img
+                          v-else-if="coordinator.gender == 'male'"
+                          src="@/assets/male_logo.jpg"
+                          class="w-12 h-12 rounded-full m-auto mt-5"
+                          alt=""
+                        />
+                      <!-- </router-link> -->
+                    </div>
+                  </router-link>
                 </td>
                 <!-- coordinator first name and last name -->
                 <td class="py-3 px-6">
@@ -177,7 +179,8 @@ export default {
   },
   data() {
     return{
-      coordinatorData: coordinatorstore()
+      coordinatorData: coordinatorstore(),
+      userID:sessionStorage.getItem('coordintor_id')
     }
   },
   mounted(){
