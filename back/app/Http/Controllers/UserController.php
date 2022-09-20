@@ -147,12 +147,16 @@ class UserController extends Controller
                     $request->file('profile_img')->store('public/images');
                     $updateStudent->save();
                 }
+
+                // $updateStudent->save();
+                
+                $updateStudent->phone = $request->phone;
                 $updateStudent->update($validatedData);
                 $updateStudentID = Student::findOrFail($updateStudent['students']['id']);
                 $updateStudentID->studentNumber = $request->studentNumber;
+                $updateStudentID->status = $request->status;
                 $updateStudentID->class = $request->class;
                 $updateStudentID->batch = $request->batch;
-                $updateStudentID->phone = $request->phone;
                 $updateStudentID->ngo = $request->ngo;
                 $updateStudentID->province = $request->province;
                 $updateStudentID->save();
