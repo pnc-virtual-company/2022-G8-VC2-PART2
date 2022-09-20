@@ -13,16 +13,27 @@ import TeacherViewVue from "@/views/Teacher/TeacherView.vue";
 import ManageStudentVue from "@/views/Teacher/ManageStudent/ManageStudentView.vue";
 import ProfileTeacher from "@/components/Cordinator/TeacherList/ProfileTeacher.vue";
 import ManageTeacherProfile from "@/components/Teacher/TeacherProfile.vue";
+import DisplayListTeacher from "@/components/Teacher/DisplayListTeacher.vue";
+import TeacherDetail from "@/components/Teacher/TeacherDetail.vue";
 // -------------------------Student Route------------------------------------
 import StudentViewVue from "@/views/Student/StudentView.vue";
 import ManageStudentProfile from "@/components/Teacher/ManageStudentProfile.vue";
-// -------------------------login--------------------------------------------
+// -------------------------Authentication--------------------------------------------
 import LoginAuthenticationVue from "@/components/authentication/LoginAuthentication.vue";
+import ForgetPasswordVue from "@/components/authentication/ForgetPassword.vue";
+
+// Route
 const routes = [
+  /*----------------------------Authentication------------------- */
   {
     path: "/",
     name: "login",
     component: LoginAuthenticationVue,
+  },
+  {
+    path: "/forgetPassword",
+    name: "forgetPassword",
+    component: ForgetPasswordVue,
   },
   /*teacher route*/
   {
@@ -50,6 +61,22 @@ const routes = [
         path: "/teacherViewStudentDetail/:id",
         name: "teacherViewStudentDetail",
         component: StudentDetail,
+        meta: {
+          isTeacher: true,
+        },
+      },
+      {
+        path: "/displaylistteacher",
+        name: "displaylistteacher",
+        component: DisplayListTeacher,
+        meta: {
+          isTeacher: true,
+        },
+      },
+      {
+        path: "/teacherdetail/:id",
+        name: "teacherdetail",
+        component: TeacherDetail,
         meta: {
           isTeacher: true,
         },

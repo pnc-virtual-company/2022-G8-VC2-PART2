@@ -12,7 +12,7 @@
     </template>
     <!-- route of Coordinator for manage coordinator -->
     <template #manageCoordinator>
-      <li class="m-3">
+      <li class="m-3 ">
         <router-link to="/managecoordinator"> Manage Coordinator</router-link>
       </li>
     </template>
@@ -65,3 +65,4 @@
 <script>
 export default {};
 </script>
+
