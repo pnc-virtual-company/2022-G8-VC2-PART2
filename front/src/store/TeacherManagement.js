@@ -14,7 +14,7 @@ export const teacherstore = defineStore('teacher', {
         last_name: "",
         email: "",
         gender: "male",
-        position: "web trainer",
+        position: "WEB Trainer",
         phone: null,
     }),
     getters: {},
@@ -57,7 +57,7 @@ export const teacherstore = defineStore('teacher', {
                 this.last_name = ''
                 this.email = ''
                 this.phone = null
-                this.position = ''
+                this.position = 'WEB Trainer'
                 this.getTeacher()
             })
         },
