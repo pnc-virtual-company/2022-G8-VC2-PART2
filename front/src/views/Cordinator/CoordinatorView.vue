@@ -3,16 +3,27 @@
   <widget-navigation>
     <!-- slot for profile_img of coordinaot and also we can link to account profile of coordinator-->
     <template #img>
-      <router-link class="flex" to="/profilecoordinator">
-        <img
-          src="@/assets/male_logo.jpg"
-          class="w-2/5 rounded-full m-auto mt-5"
-        />
-      </router-link>
+      <div class="flex justify-center">
+        <router-link class="flex" to="/profilecoordinator">
+          <div>
+            <img
+              v-if="store.profile_img != ''"
+              :src="'http://127.0.0.1:8000/storage/images/' + store.profile_img"
+              class="image--cover"
+              alt=""
+            />
+            <img
+              v-else
+              src="@/assets/male_logo.jpg"
+              class="w-2/5 rounded-full m-auto mt-5"
+            />
+          </div>
+        </router-link>
+      </div>
     </template>
     <!-- route of Coordinator for manage coordinator -->
     <template #manageCoordinator>
-      <li class="m-3 ">
+      <li class="m-3">
         <router-link to="/managecoordinator"> Manage Coordinator</router-link>
       </li>
     </template>
@@ -28,19 +39,18 @@
         <router-link to="/manageteacher"> Manage Teacher</router-link>
       </li>
     </template>
-       <!-- router of Coordinator for manage Student Follow Up  -->
+    <!-- router of Coordinator for manage Student Follow Up  -->
     <template #manageStudentFollowUp>
       <li class="m-3"><router-link to="">Student Follow up</router-link></li>
     </template>
-       <!-- router of Coordinator for manage Follow Up Histories  -->
+    <!-- router of Coordinator for manage Follow Up Histories  -->
     <template #studentFollowUpHistory>
       <li class="m-3"><router-link to="">Follow up Histories</router-link></li>
     </template>
-       <!-- router of Coordinator for manage View profile of coordinator  -->
-    <template #viewProfile
-    >
-    <router-link  to="/profilecoordinator">
-        <li class="m-3 flex" >
+    <!-- router of Coordinator for manage View profile of coordinator  -->
+    <template #viewProfile>
+      <router-link to="/profilecoordinator">
+        <li class="m-3 flex">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -57,12 +67,28 @@
           </svg>
           <span> View Profile</span>
         </li>
-        </router-link>
-          
-      </template>
+      </router-link>
+    </template>
   </widget-navigation>
 </template>
-<script>
-export default {};
+<script setup>
+import { userStore } from "@/store/coordinatorStore/coordinator/coordinator";
+import { onMounted } from "vue";
+const store = userStore();
+onMounted(()=>{
+  store.getUserData()
+})
 </script>
+<style scoped>
+.wrapper {
+  padding: 100px;
+}
+.image--cover {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
 
+  object-fit: cover;
+  object-position: center;
+}
+</style>

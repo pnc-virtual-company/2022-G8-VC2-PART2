@@ -282,6 +282,43 @@ export const studentstore = defineStore("student", {
           this.getStudent()
         });
       },
+       // get Data of student to put on Student Profile of Folder Teacher
+    async getStudentToken() {
+      await axios
+        .get("user/" + sessionStorage.getItem("student_id"))
+        .then((res) => {
+          if (res.data.id == res.data.students["user_id"]) {
+            this.profile_img = res.data.profile_img;
+            this.first_name = res.data.first_name;
+            this.last_name = res.data.last_name;
+            this.gender = res.data.gender;
+            this.email = res.data.email;
+            this.phone = res.data.students.phone;
+            this.province = res.data.students.province;
+            this.class = res.data.students.class;
+            this.batch = res.data.students.batch;
+            this.ngo = res.data.students.ngo;
+          }
+        });
+    },
+      async changeProfileImageStudent(event) {
+        this.onUploadImageStudent(event.target.files[0]);
+        this.getStudent()
+        this.getStudentToken()
+      },
+      // uplaod image
+      onUploadImageStudent(profile_img) {
+        const profileImage = new FormData();
+        profileImage.append("profile_img", profile_img);
+        profileImage.append("_method", "PUT");
+        axios
+          .post("/updateStudentImage/" + sessionStorage.getItem("student_id"), profileImage)
+          .then((response) => {
+            console.log(response);
+            this.getStudent();
+            this.getStudentToken()
+          });
+      },
       
   },
 });
