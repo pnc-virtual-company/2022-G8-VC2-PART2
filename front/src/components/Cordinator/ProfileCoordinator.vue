@@ -2,8 +2,20 @@
   <widget-ViewProfileDetail>
     <template #img>
       <img
-        v-if="storeData.profile_img != ''"
-        class="h-auto w-full mx-auto"
+        v-if="storeData.profile_img != null"
+        class="h-52 w-full mx-auto"
+        :src="'http://127.0.0.1:8000/storage/images/'+storeData.profile_img"
+        alt=""
+      />
+      <img
+        v-else-if="storeData.gender == 'male'"
+        class="h-52 w-full mx-auto"
+        src="../../assets/male_logo.jpg"
+        alt=""
+      />
+      <img
+        v-if="storeData.gender == 'female'"
+        class="h-52 w-full mx-auto"
         src="../../assets/female_logo.jpg"
         alt=""
       />

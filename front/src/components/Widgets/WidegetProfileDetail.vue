@@ -44,10 +44,10 @@
           </div>
           <div class="text-gray-700">
             <div class="grid md:grid-cols-1 text-sm">
-              <div class="grid grid-cols-6">
+              <div class="justify-around flex  gap-4 w-full">
                 <!-- fullname -->
-                <div class="px-4 py-2 font-semibold">Full Name</div>
-                <div class="px-4 py-2"><slot name="fullName"></slot></div>
+                <div class="px-4 py-2 font-semibold w-full">Full Name</div>
+                <div class="px-4 py-2 w-full"><slot name="fullName"></slot></div>
               </div>
               <div class="grid grid-cols-6">
                 <!-- gender -->
