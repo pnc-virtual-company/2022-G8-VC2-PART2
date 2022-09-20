@@ -6,16 +6,19 @@
 <!-- // view Student detail -->
 
 <div class="container mx-auto p-5 md:flex md:justify-center">
-  <div class="md:flex no-wrap md:-mx-2">
+  <div class="md:flex no-wrap md:-mx-2 w-full">
     <!-- Left Side -->
     <div class="w-full md:w-3/12 m-4">
       <!-- Profile Card -->
       <div class="bg-white p-3 border-2 border-black-600 rounded-lg">
         <div v-if="storeData.profile_img !=null" class="image overflow-hidden">
-          <img class="h-auto w-full mx-auto" :src="'http://127.0.0.1:8000/storage/images/'+storeData.profile_img" alt="" />
+          <img class="h-48 w-full mx-auto" :src="'http://127.0.0.1:8000/storage/images/'+storeData.profile_img" alt="" />
         </div>
-        <div v-else class="image overflow-hidden">
-          <img class="h-auto w-full mx-auto" src="../../../assets/male_logo.jpg" alt="" />
+        <div v-else-if="storeData.gender == 'male'" class="image overflow-hidden">
+          <img class="h-48 w-full mx-auto" src="../../../assets/male_logo.jpg" alt="" />
+        </div>
+        <div v-else-if="storeData.gender == 'female'" class="image overflow-hidden">
+          <img class="h-48 w-full mx-auto" src="../../../assets/female_logo.jpg" alt="" />
         </div>
         <h1
         class="text-gray-900 font-bold text-xl leading-8 flex justify-center"

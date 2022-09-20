@@ -27,10 +27,10 @@
     <div
       class=" flex justify-center px-4 py-2 text-sm text-black hover:bg-indigo-400 hover:text-indigo-100"
     >
-      <slot name="edit"></slot>
+      <slot name="edit" ></slot>
     </div>
     <div
-      class="block px-4 py-2 text-sm text-black hover:bg-indigo-400 hover:text-indigo-100"
+      class="block px-4 py-2 text-sm text-black hover:bg-indigo-400 hover:text-indigo-100 cursor-pointer"
     >
       <slot name="delete"></slot>
     </div>
