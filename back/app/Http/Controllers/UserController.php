@@ -136,7 +136,8 @@ class UserController extends Controller
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'gender' => 'required',
-                'email' => 'required',
+                // 'email' => 'required',
+                'phone' => 'required'
             ]
         );
         $updateStudent = User::with('students')->findOrFail($id);
@@ -147,12 +148,15 @@ class UserController extends Controller
                     $request->file('profile_img')->store('public/images');
                     $updateStudent->save();
                 }
+                if ($updateStudent['email'] != $request['email']) {
+                    $updateStudent->email = $request->email;
+                    $updateStudent->save();
+                }
                 $updateStudent->update($validatedData);
                 $updateStudentID = Student::findOrFail($updateStudent['students']['id']);
                 $updateStudentID->studentNumber = $request->studentNumber;
                 $updateStudentID->class = $request->class;
                 $updateStudentID->batch = $request->batch;
-                $updateStudentID->phone = $request->phone;
                 $updateStudentID->ngo = $request->ngo;
                 $updateStudentID->province = $request->province;
                 $updateStudentID->save();
@@ -171,6 +175,7 @@ class UserController extends Controller
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'gender' => 'required',
+                'phone' => 'required'
                 // 'email' => 'required',
             ]
         );
@@ -189,7 +194,6 @@ class UserController extends Controller
                 $updateTeacher->update($validatedData);
                 $updateTeacherID = Teacher::findOrFail($updateTeacher['teachers']['id']);
                 $updateTeacherID->position = $request->position;
-                $updateTeacherID->phone = $request->phone;
 
                 $updateTeacherID->save();
                 return response()->json([
