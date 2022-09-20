@@ -50,7 +50,7 @@
                 "
                 :src="
                   'http://127.0.0.1:8000/storage/images/' +
-                  store.user_profile
+                  store.profile_img
                 "
                 class="w-28 h-28 rounded-full m-auto mt-5"
                 alt=""
