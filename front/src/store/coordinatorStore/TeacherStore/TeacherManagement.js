@@ -26,6 +26,8 @@ export const teacherstore = defineStore('teacher', {
     search: null,
     user_id: null,
     dataEdit: {},
+    displayTeachers:[],
+    adminId:sessionStorage.getItem("teacher_id"),
 
     // ===============teacher validation==============
     no_firstname:false,
@@ -59,6 +61,10 @@ export const teacherstore = defineStore('teacher', {
         return result;
       }
     },
+    
+
+    
+
   },
   actions: {
     /**
@@ -69,8 +75,7 @@ export const teacherstore = defineStore('teacher', {
       this.teachers = data.data
       this.getDatTeacherToPRofile()
       this.getData()
-      
-    
+
     },
     /**
      * @todo show form create teacher
@@ -281,6 +286,20 @@ export const teacherstore = defineStore('teacher', {
       this.position = ''
       this.phone = null
       this.previewImage = null
+    },
+
+    /**
+     * @todo Display all teacher list
+     * @return see other teachers
+     */
+    async displayTeachersList(){
+      const data = await axios.get('teacher')
+      this.displayTeachers=data.data
     }
+    
+
+      
+   
+
   }
 });

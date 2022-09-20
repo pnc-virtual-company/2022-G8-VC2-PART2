@@ -16,7 +16,6 @@
       </li>
       </template>
   </widget-navigation>
-  {{studentStore.studentId}}
 </template>
 <script setup>
   import {userStore} from "@/store/coordinatorStore/coordinator/coordinator"
