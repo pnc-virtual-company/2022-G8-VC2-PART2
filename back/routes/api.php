@@ -6,6 +6,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\VerifyMailController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,6 +38,7 @@ Route::apiResource('/student',StudentController::class);
 Route::apiResource('/teacher',TeacherController::class);
 
 
-
+// send mail
+Route::post('/sendmail', [VerifyMailController::class, 'mailNotifyAction']);
 
 

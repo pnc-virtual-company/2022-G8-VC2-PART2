@@ -10,6 +10,13 @@
         />
       </router-link>
     </template>
+    <!-- route that  Teacher can see all list teachers  -->
+    <template #displayListTeacher>
+      <li class="m-3">
+        <router-link to="/displaylistteacher">All Teacher List</router-link>
+      </li>
+    </template>
+
     <!-- route that Teacher can manage student  -->
     <template #manageStudent>
       <li class="m-3">
