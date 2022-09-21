@@ -1,8 +1,8 @@
 <template>
   <!-- profile teacher -->
   <div class="hidden">
-  {{ storeData.studentDetail(this.$route.params.id) }}
-</div>
+    {{ storeData.studentDetail(this.$route.params.id) }}
+  </div>
 <!-- // view Student detail -->
 
 <div class="container mx-auto p-5 md:flex md:justify-center">

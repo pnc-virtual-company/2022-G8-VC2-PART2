@@ -88,8 +88,8 @@
                 <router-link
                   class="flex"
                   :to="{
-                    name: 'teacherViewStudentDetail',
-                    path: 'teacherViewStudentDetail',
+                    name: 'StudentFollowupDetail',
+                    path: 'StudentFollowupDetail',
                     params: { id: student.id },
                   }"
                 >
