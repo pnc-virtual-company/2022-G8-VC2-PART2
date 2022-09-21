@@ -50,7 +50,7 @@ export const studentstore = defineStore("student", {
         return this.students;
       } else if (this.searchData && this.searchOption == 'name') {
         result = this.students.filter((student) =>
-        (student.user.first_name+student.user.last_name).toLowerCase().includes(this.searchData.toLowerCase()))
+        (student.user.first_name+" "+student.user.last_name).toLowerCase().includes(this.searchData.toLowerCase()))
       } else if (this.searchData && this.searchOption == 'id'){
         result = this.students.filter((student) =>
         (student.studentNumber).includes(this.searchData))

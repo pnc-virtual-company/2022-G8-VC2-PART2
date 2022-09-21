@@ -89,7 +89,7 @@
                             'http://127.0.0.1:8000/storage/images/' +
                             coordinator.profile_img
                           "
-                          class="w-14 h-14 rounded-full m-auto mt-5"
+                          class="image--cover w-14 h-14 rounded-full m-auto mt-5"
                           alt=""
                         />
                         <img
@@ -192,3 +192,10 @@ export default {
   
 }
 </script>
+<style scoped>
+.image--cover {
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+</style>
