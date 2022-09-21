@@ -7,9 +7,11 @@
     <!-- ====================== filter on student list ==================== -->
     <div class="m-auto filter flex justify-around w-11/12 mt-5">
       <input
+        v-model="studentfollowupStore.searchByName"
+        @keydown.enter="studentfollowupStore.filterByName()"
         type="text"
         class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Search Name"
+        placeholder="Search Student"
       />
       <select
         class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -38,7 +40,7 @@
           </tr>
         </thead>
 
-        <tbody v-for="student in studentfollowupStore.students" :key="student.id">
+        <tbody v-for="student in studentfollowupStore.filterByName" :key="student.id">
           <tr
             v-if="student.status == 1 "
             class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:border-gray-700"

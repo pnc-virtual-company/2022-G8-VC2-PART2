@@ -1,51 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "@/axios-http";
-<<<<<<< HEAD
-
-export const studentstore = defineStore("student",{
-    state: () =>({
-        students :[],
-        first_name:"",
-        last_name:"",
-        studentNumber:"",
-        searchByName:"",
-        isTrue:false,
-
-
-    }),
-    getters:{
-    // search name and studentNumber in teacher task 
-      filterByName() {
-        let result = "";
-        if (!this.searchByName  ) {
-          return this.students;
-        } else if (this.searchByName) {
-          result = this.students.filter((student) =>
-          (student.user.first_name+student.user.last_name).toLowerCase().includes(this.searchByName.toLowerCase()) || (student.studentNumber).includes(this.searchByName))
-        } 
-          return result;
-      }
-    },
-    actions:{
-      // -------get data from student------
-      async getStudent() {
-        const data = await axios.get("student");
-        this.students = data.data;
-        this.studentDetail()
-      },
-    },
-    // ------cancel button------
-
-    
-    
-
-
-
-
-})
-=======
 // import { useToast,POSITION  } from "vue-toastification";
-
 // const toast = useToast();
 export const studentfollowupstore = defineStore("student", {
     state: () => ({
@@ -74,7 +29,21 @@ export const studentfollowupstore = defineStore("student", {
         user_id: null,
         index: null,
         dialog: false,
+        searchByName:"",
     }),
+    getters:{
+      // search name and studentNumber in teacher task 
+      filterByName() {
+        let result = "";
+        if (!this.searchByName  ) {
+          return this.students;
+        } else if (this.searchByName) {
+          result = this.students.filter((student) =>
+          (student.user.first_name+student.user.last_name).toLowerCase().includes(this.searchByName.toLowerCase()) || (student.studentNumber).includes(this.searchByName))
+        } 
+        return result;
+      },
+  },
     actions: {
         /**
          * @todo get data of students
@@ -90,7 +59,6 @@ export const studentfollowupstore = defineStore("student", {
         //     this.index = index;
         // },
         isOpenDetail(){
-            
         },
         onCancel() {
             this.isAddFollowup = false,
@@ -141,11 +109,8 @@ export const studentfollowupstore = defineStore("student", {
                 console.log(student);
                 axios.post("user/"+this.idStudentFollowup,student);
                 alert('add to follow up student successfully')
-                this.onCancel();
-               
+                this.onCancel(); 
             })
-           
-        
         },
         isAddStudentFollowup(id){
             this.isAddFollowup = true
@@ -173,4 +138,3 @@ export const studentfollowupstore = defineStore("student", {
 });
 
 
->>>>>>> e0112a9c9569ef68bc76f2936238e371d1244bc5
