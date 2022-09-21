@@ -34,7 +34,6 @@
             <th class="py-3 px-6">ID</th>
             <th class="py-3 px-6">Name</th>
             <th class="py-3 px-2">Class</th>
-            <th class="py-3 px-6">Actions</th>
           </tr>
         </thead>
 
@@ -89,50 +88,9 @@
             <td class="py-3 px-6">
               {{ student.class }}
             </td>
-           
-            <td class="py-3 px-6 ">
-              <!--widget drop down menu  -->
-              <button
-                @click.prevent="isOpenDetail()"
-                class="flex m-auto text-black-100"
-              >
-                <svg
-                  class="w-6 h-6 mt-4 "
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                  ></path>
-                </svg>
-              </button>
-            </td>
           </tr>
         </tbody>
       </table>
-    </div>
-    <!-- pop up delete -->
-    <div class="w-1/2 border-t-4 border-l-4 border-r-4 border-b-4">
-      <p class="text-center font-bold text-xl">Are you sure?</p>
-      <div class="flex justify-around mb-4">
-        <button
-          @click="store.dialogDelete = false"
-          class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-        >
-          cancel
-        </button>
-        <button
-          @click="studentfollowupStore.onDeleteStudent"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          DELETE
-        </button>
-      </div>
     </div>
   </div>
 </template>

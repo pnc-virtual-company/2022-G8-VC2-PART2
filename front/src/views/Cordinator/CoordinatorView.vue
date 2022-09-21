@@ -41,7 +41,7 @@
     </template>
     <!-- router of Coordinator for manage Student Follow Up  -->
     <template #manageStudentFollowUp>
-      <li class="m-3"><router-link to="">Student Follow up</router-link></li>
+      <li class="m-3"><router-link to="/studentfollowup">Student Follow up</router-link></li>
     </template>
     <!-- router of Coordinator for manage Follow Up Histories  -->
     <template #studentFollowUpHistory>

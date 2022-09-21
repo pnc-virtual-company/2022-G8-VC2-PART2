@@ -30,6 +30,7 @@ export const studentfollowupstore = defineStore("student", {
         user_id: null,
         index: null,
         dialog: false,
+        showDetail: false,
     }),
     actions: {
         /**
@@ -40,13 +41,6 @@ export const studentfollowupstore = defineStore("student", {
                  this.students = res.data;
                  console.log(this.students)
              });
-        },
-        // showPopup(index) {
-        //     this.dialog = true;
-        //     this.index = index;
-        // },
-        isOpenDetail(){
-            
         },
         onCancel() {
             this.isAddFollowup = false,
@@ -107,23 +101,6 @@ export const studentfollowupstore = defineStore("student", {
             this.isAddFollowup = true
             this.idStudentFollowup = id
         }
-        /**
-           * @todo  create student detail
-           */
-        // studentDetail(id) {
-        //     axios.get("student/" + id).then((res) => {
-        //         this.first_name = res.data.user.first_name;
-        //         this.last_name = res.data.user.last_name;
-        //         this.gender = res.data.user.gender;
-        //         this.email = res.data.user.email;
-        //         this.class = res.data.class;
-        //         this.phone = res.data.user.phone;
-        //         this.ngo = res.data.ngo;
-        //         this.province = res.data.province;
-        //         this.profile_img = res.data.user.profile_img;
-        //         this.getStudent()
-        //     });
-        // },
     },
 
 });
