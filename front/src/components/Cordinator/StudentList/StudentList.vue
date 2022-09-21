@@ -41,13 +41,13 @@
       </div>
     </div>
     <!-- ====================== Title ==================== -->
-    <widget-title>
+    <!-- <widget-title>
       <template v-slot> Manage Student </template>
-    </widget-title>
+    </widget-title> -->
     <!-- ====================== filter on student list ==================== -->
     <div class="m-auto filter flex justify-around w-11/12 mt-5">
       <input
-        v-model="storeData.searchByName"
+        v-model="storeData.searchData"
         @keydown.enter="storeData.filterByName()"
     
         type="text"
@@ -55,11 +55,12 @@
         placeholder="Search Student"
       />
       <select
+        v-model="storeData.searchOption"
         class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       >
-        <option selected value="WEBA">WEB 2022 A</option>
-        <option value="WEBB">WEB 2022 B</option>
-        <option value="SNA">SNA 2022</option>
+        <option selected value="name">USER NAME</option>
+        <option value="id">STUDENT ID</option>
+        <option value="class">CLASS ROOM</option>
       </select>
       <!-- button -->
       <widget-button @click="storeData.onCreate()">

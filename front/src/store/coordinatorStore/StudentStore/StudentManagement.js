@@ -28,6 +28,7 @@ export const studentstore = defineStore("student", {
     phone: "",
     ngo: "",
     province: "",
+    searchOption:'name',
     dialogDelete: false,
     user_id: null,
     index: null,
@@ -51,11 +52,17 @@ export const studentstore = defineStore("student", {
     // search name and studentNumber in students-----
     filterByName() {
       let result = "";
-      if (!this.searchByName) {
+      if (!this.searchData  ) {
         return this.students;
-      } else if (this.searchByName) {
+      } else if (this.searchData && this.searchOption == 'name') {
         result = this.students.filter((student) =>
-          (student.user.first_name + student.user.last_name).toLowerCase().includes(this.searchByName.toLowerCase()) || (student.studentNumber).includes(this.searchByName))
+        (student.user.first_name+student.user.last_name).toLowerCase().includes(this.searchData.toLowerCase()))
+      } else if (this.searchData && this.searchOption == 'id'){
+        result = this.students.filter((student) =>
+        (student.studentNumber).includes(this.searchData))
+      }else if (this.searchData && this.searchOption == 'class'){
+        result = this.students.filter((student) =>
+        (student.class).toLowerCase().includes(this.searchData.toLowerCase()))
       }
       return result;
     }
