@@ -6,7 +6,10 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\VerifyMailController;
+use App\Http\Controllers\StudentMailController;
+use App\Http\Controllers\TeacherMailController;
+use App\Http\Controllers\StudentFollowupMailController;
+use App\Http\Controllers\CoordinatorMailController;
 use App\Http\Controllers\DigitnumberController;
 /*
 |--------------------------------------------------------------------------
@@ -40,8 +43,11 @@ Route::apiResource('/student', StudentController::class);
 Route::apiResource('/teacher',TeacherController::class);
 
 
-// send mail
-Route::post('/sendmail', [VerifyMailController::class, 'mailNotifyAction']);
+// send mail to create
+Route::post('/sendstudentmail', [StudentMailController::class, 'studentMail']);
+Route::post('/sendteachermail', [TeacherMailController::class, 'teacherMail']);
+Route::post('/sendfollowupstudentmail', [StudentFollowupMailController::class, 'studentFollowupMail']);
+Route::post('/sendcoordinatormail', [CoordinatorMailController::class, 'coordinatorMail']);
 
 
 //forget password

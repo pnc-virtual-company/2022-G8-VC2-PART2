@@ -70,6 +70,9 @@ export const studentstore = defineStore("student", {
      */
     createStudent() {
 
+    
+       
+
     /**
      * @todo  unique Email.
      * 
@@ -105,9 +108,15 @@ export const studentstore = defineStore("student", {
         student.append("password", 123456789);
         student.append("role", 1);
         student.append("status", 0);
+        /**
+         * @todo  equest email when created students
+         * 
+         */
+         axios.post('/sendstudentmail',{email:this.email,first_name:this.first_name})
         axios.post(process.env.VUE_APP_API_URL + "user", student).then(() => {
           this.isTrue = false;
           this.getStudent();
+
           toast.success("Created successfully!",{position: POSITION.TOP_CENTER, timeout: 1000})
         });
       }else {

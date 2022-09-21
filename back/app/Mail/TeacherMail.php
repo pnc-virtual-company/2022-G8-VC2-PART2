@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
   
-class MailNotify extends Mailable 
+class TeacherMail extends Mailable 
 {
     use Queueable, SerializesModels;
   
@@ -30,7 +30,7 @@ class MailNotify extends Mailable
      */
     public function build()
     {
-        return $this->from("admin.pnc@passerellesnmeriques.org")->subject("This your email")
-        ->view('emails.mail');
+        return $this->subject("Create teachers Team")
+        ->view('emails.teacherMail');
     }
 }

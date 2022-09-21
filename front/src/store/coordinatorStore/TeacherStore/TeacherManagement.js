@@ -136,16 +136,24 @@ export const teacherstore = defineStore('teacher', {
           teacher.append("phone", this.phone);
           teacher.append("position", this.position)
           teacher.append("password", 123456789);
-          teacher.append("role", 2)
+          teacher.append("role",2)
+
+          /**
+           * @todo  equest email when created students 
+           */
+          axios.post('/sendteachermail',{email:this.email,first_name:this.first_name}).then(res=>{
+            console.log(res.data)
+          })
+          
           axios.post(process.env.VUE_APP_API_URL + 'user', teacher).then(() => {
             this.isTrue = false
             this.clearForm()
             this.getTeacher()
             toast.success("Create teacher successfull",{position: POSITION.TOP_CENTER, timeout: 2500})
           })
-      }else{
-        if(this.uniqueEmail){
-          this.uniqueEmail = false
+        }else{
+          if(this.uniqueEmail){
+            this.uniqueEmail = false
         }else{
           toast.error("Please enter in field!",{position: POSITION.TOP_CENTER, timeout: 2000})
         }
