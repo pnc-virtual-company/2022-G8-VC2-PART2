@@ -34,11 +34,11 @@
     </div>
     <!-- Show list all student -->
     <div class="container text-center w-5/5 h-screen overflow-y-scroll">
-      <div class="w-11/12 m-auto mt-5">
+      <!-- <div class="w-11/12 m-auto mt-5">
         <h1 class="bg-sky-500 text-white font-bold text-2xl p-5 m-2 rounded-lg">
           Manage Teacher
         </h1>
-      </div>
+      </div> -->
       <div class="m-auto filter flex justify-around w-11/12 mt-5">
         <!-- search by name and position -->
         <input
