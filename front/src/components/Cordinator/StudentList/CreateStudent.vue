@@ -5,7 +5,7 @@
         <form @submit.prevent="storeData.createStudent"  class="bg-white text-center p-5 w-2/5 m-auto rounded">
           <!-- ==================== User on action cancel ==================== -->
           <div class="flex justify-end">
-            <span @click="storeData.onCancel" class="text-red cursor-pointer">
+            <span @click="storeData.onCancel" class="text-red cursor-pointer hover:bg-red-500 hover:text-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
