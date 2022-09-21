@@ -6,7 +6,7 @@
         :src="
           'http://127.0.0.1:8000/storage/images/' + storeTeacherData.profile_img
         "
-        class="m-auto"
+        class="m-auto image--cover"
         alt=""
       />
       <div class="flex justify-center"> 
@@ -54,3 +54,13 @@ onMounted(() => {
   storeTeacherData.getDatTeacherToPRofile();
 });
 </script>
+<style scoped>
+  .image--cover {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  
+    object-fit: cover;
+    object-position: center;
+  }
+</style>

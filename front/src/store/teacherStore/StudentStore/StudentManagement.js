@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "@/axios-http";
 // import { useToast,POSITION  } from "vue-toastification";
-
 // const toast = useToast();
 export const studentfollowupstore = defineStore("student", {
     state: () => ({
@@ -30,8 +29,22 @@ export const studentfollowupstore = defineStore("student", {
         user_id: null,
         index: null,
         dialog: false,
+        searchByName:"",
         showDetail: false,
     }),
+    getters:{
+      // search name and studentNumber in teacher task 
+      filterByName() {
+        let result = "";
+        if (!this.searchByName  ) {
+          return this.students;
+        } else if (this.searchByName) {
+          result = this.students.filter((student) =>
+          (student.user.first_name+student.user.last_name).toLowerCase().includes(this.searchByName.toLowerCase()) || (student.studentNumber).includes(this.searchByName))
+        } 
+        return result;
+      },
+  },
     actions: {
         /**
          * @todo get data of students
@@ -41,6 +54,12 @@ export const studentfollowupstore = defineStore("student", {
                  this.students = res.data;
                  console.log(this.students)
              });
+        },
+        // showPopup(index) {
+        //     this.dialog = true;
+        //     this.index = index;
+        // },
+        isOpenDetail(){
         },
         onCancel() {
             this.isAddFollowup = false,
@@ -91,18 +110,14 @@ export const studentfollowupstore = defineStore("student", {
                 console.log(student);
                 axios.post("user/"+this.idStudentFollowup,student);
                 alert('add to follow up student successfully')
-                this.onCancel();
-               
+                this.onCancel(); 
             })
-           
-        
         },
         isAddStudentFollowup(id){
             this.isAddFollowup = true
             this.idStudentFollowup = id
         }
     },
-
 });
 
 

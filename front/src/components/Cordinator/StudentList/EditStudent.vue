@@ -1,4 +1,5 @@
 <template>
+<div>
   <!-- button click on update student -->
   <button @click="store.getDAta(id), show=false" class="flex cursor-pointer">
     <span>
@@ -36,7 +37,7 @@
         @click="store.onCancel"
         class="text-red"
       >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hover:bg-red-500 hover:text-white">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
       </svg>
       </span>
@@ -175,6 +176,7 @@
       </form>
     </div>
   </div>
+</div>
 </template>
 <script setup>
 import {  defineProps } from "vue";

@@ -5,23 +5,23 @@
   </div>
 <!-- // view Student detail -->
 
-<div class="container mx-auto p-5 md:flex md:justify-center">
-  <div class="md:flex no-wrap md:-mx-2 w-full">
+<div class="container mx-auto p-5 md:flex md:justify-center ">
+  <div class="md:flex no-wrap md:-mx-2 w-full ">
     <!-- Left Side -->
-    <div class="w-full md:w-3/12 m-4">
+    <div class="w-full md:w-3/12 m-4 border-2 border-black-600  shadow-md">
       <!-- Profile Card -->
-      <div class="bg-white p-3 border-2 border-black-600 rounded-lg">
+      <div class="bg-white p-3  ">
         <div v-if="storeData.profile_img !=null" class="image overflow-hidden">
-          <img class="h-48 w-48 mx-auto image--cover" :src="'http://127.0.0.1:8000/storage/images/'+storeData.profile_img" alt="" />
+          <img class="h-48 w-full mx-auto image--cover" :src="'http://127.0.0.1:8000/storage/images/'+storeData.profile_img" alt="" />
         </div>
         <div v-else-if="storeData.gender == 'male'" class="image overflow-hidden">
-          <img class="h-48 w-48 mx-auto image--cover" src="../../../assets/male_logo.jpg" alt="" />
+          <img class="h-48 w-full image--cover mx-auto" src="../../../assets/male_logo.jpg" alt="" />
         </div>
         <div v-else-if="storeData.gender == 'female'" class="image overflow-hidden">
-          <img class="h-48 w-48 mx-auto image--cover" src="../../../assets/female_logo.jpg" alt="" />
+          <img class="h-48 w-full mx-auto image--cover" src="../../../assets/female_logo.jpg" alt="" />
         </div>
         <h1
-        class="text-gray-900 font-bold text-xl leading-8 flex justify-center"
+        class="text-gray-900 mt-5 mb-5 block text-3lx font-medium  leading-8 flex justify-center"
         >
         {{storeData.first_name}} {{storeData.last_name}}
       </h1>
@@ -30,7 +30,7 @@
   <!-- End of profile card -->
   
   <!-- Right Side -->
-  <div class="w-full md:w-9/12 m-4 border-2 border-black-600 rounded-lg">
+  <div class="w-full md:w-9/12 m-4 rounded-lg border-2 border-black-600  shadow-md">
     <div class="bg-white rounded-sm p-5">
       <div
       class="flex items-center space-x-2 font-semibold text-gray-900 leading-8"
@@ -135,7 +135,15 @@
 }
 </style>
 
-
+<style scoped>
+  .image--cover {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+  }
+</style>
 
 
 
