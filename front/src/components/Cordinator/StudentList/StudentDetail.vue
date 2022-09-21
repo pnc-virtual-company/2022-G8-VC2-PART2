@@ -12,7 +12,6 @@
       <!-- Profile Card -->
       <div class="bg-white p-3  ">
         <div v-if="storeData.profile_img !=null" class="image overflow-hidden">
-<<<<<<< HEAD
           <img class="h-48 w-full mx-auto image--cover" :src="'http://127.0.0.1:8000/storage/images/'+storeData.profile_img" alt="" />
         </div>
         <div v-else-if="storeData.gender == 'male'" class="image overflow-hidden">
@@ -20,15 +19,6 @@
         </div>
         <div v-else-if="storeData.gender == 'female'" class="image overflow-hidden">
           <img class="h-48 w-full mx-auto image--cover" src="../../../assets/female_logo.jpg" alt="" />
-=======
-          <img class="h-48 w-48 mx-auto image--cover" :src="'http://127.0.0.1:8000/storage/images/'+storeData.profile_img" alt="" />
-        </div>
-        <div v-else-if="storeData.gender == 'male'" class="image overflow-hidden">
-          <img class="h-48 w-48 mx-auto image--cover" src="../../../assets/male_logo.jpg" alt="" />
-        </div>
-        <div v-else-if="storeData.gender == 'female'" class="image overflow-hidden">
-          <img class="h-48 w-48 mx-auto image--cover" src="../../../assets/female_logo.jpg" alt="" />
->>>>>>> e8646a7a85fa52f26397dc183e0f15dca053f25d
         </div>
         <h1
         class="text-gray-900 mt-5 mb-5 block text-3lx font-medium  leading-8 flex justify-center"
