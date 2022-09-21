@@ -41,7 +41,7 @@
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="w-6 h-6 hover:bg-red-500 hover:text-white"
+                class="w-6 h-6 cursor-pointer"
               >
                 <path
                   stroke-linecap="round"
@@ -64,7 +64,7 @@
                   'http://127.0.0.1:8000/storage/images/' +
                   teacherStore.user_profile
                 "
-                class="w-28 h-28 rounded-full m-auto"
+                class="w-28 h-28 rounded-full m-auto image--cover"
                 alt=""
               />
               <img
@@ -89,7 +89,7 @@
                 v-else-if="teacherStore.previewImage !== null"
                 :src="teacherStore.previewImage"
                 alt=""
-                class="w-28 h-28 rounded-full m-auto"
+                class="w-28 h-28 rounded-full m-auto image--cover"
               />
             </label>
             <input
@@ -194,3 +194,10 @@ defineProps({
   id: null,
 });
 </script>
+<style scoped>
+.image--cover {
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+</style>

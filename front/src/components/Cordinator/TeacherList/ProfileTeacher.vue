@@ -7,14 +7,11 @@
   <!-- profile teacher -->
   <widget-ViewProfileDetail>
     <template #img>
-      <div v-if="storeTeacherData.profile_img !=null" class="image overflow-hidden">
-        <img class="h-auto w-full mx-auto" :src="'http://127.0.0.1:8000/storage/images/'+storeTeacherData.profile_img" alt="" />
+      <div v-if="storeTeacherData.profile_img !=null" class="flex justify-center">
+          <img class="image--cover " :src="'http://127.0.0.1:8000/storage/images/'+storeTeacherData.profile_img" alt="" />
       </div>
-      <div v-else-if="storeTeacherData.gender == 'male'" class="image overflow-hidden">
-        <img class="h-auto w-full mx-auto" src="../../../assets/male_logo.jpg" alt="" />
-      </div>
-      <div v-else class="image overflow-hidden">
-        <img class="h-auto w-full mx-auto" src="../../../assets/female_logo.jpg" alt="" />
+      <div v-else class="flex justify-center">
+        <img class="image--cover " src="../../../assets/male_logo.jpg" alt="" />
       </div>
     </template>
     <template #fullName>
@@ -46,3 +43,13 @@ const storeTeacherData = teacherstore();
   storeTeacherData.getData()
  })
 </script>
+<style scoped>
+  .image--cover {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  
+    object-fit: cover;
+    object-position: center;
+  }
+</style>

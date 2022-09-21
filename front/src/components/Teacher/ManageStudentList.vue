@@ -132,10 +132,10 @@
             <td class="py-3 px-6">
               {{ student.class }}
             </td>
-            <td class="py-4 px-5">
-              <div v-if="student.status ==1" class="followup text-red-600 font-bold">
-                  follow up
-              </div>
+            <td class="px-6">
+              <div v-if="student.status ==1" class="text-white bg-yellow-500 cursor-default font-medium rounded-lg text-sm px-2 py-1 w-20 ">follow up</div>
+              <div v-if="student.status==0"   class="text-white bg-sky-500 cursor-default font-medium rounded-lg text-sm px-2 py-1 w-32">None Follow Up</div>
+
             </td>
             <td class="py-3 px-2">
               <!--widget drop down menu  -->

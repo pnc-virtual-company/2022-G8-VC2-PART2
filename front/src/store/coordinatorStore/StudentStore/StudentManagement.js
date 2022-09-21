@@ -56,7 +56,7 @@ export const studentstore = defineStore("student", {
         return this.students;
       } else if (this.searchData && this.searchOption == 'name') {
         result = this.students.filter((student) =>
-        (student.user.first_name+student.user.last_name).toLowerCase().includes(this.searchData.toLowerCase()))
+        (student.user.first_name+" "+student.user.last_name).toLowerCase().includes(this.searchData.toLowerCase()))
       } else if (this.searchData && this.searchOption == 'id'){
         result = this.students.filter((student) =>
         (student.studentNumber).includes(this.searchData))
@@ -65,14 +65,13 @@ export const studentstore = defineStore("student", {
         (student.class).toLowerCase().includes(this.searchData.toLowerCase()))
       }
       return result;
-    }
+    },
   },
   actions: {
     async getStudent() {
-      axios.get("student").then((res) => {
-        this.students = res.data;
-        console.log(this.students)
-      });
+      const data = await axios.get("student");
+      this.students = data.data;
+      this.studentDetail();
     },
     /**
         * @todo add student to follow up list
@@ -105,7 +104,7 @@ export const studentstore = defineStore("student", {
       this.idStudentFollowup = id
     },
     onCreate() {
-      this.clearForm()
+      this.clearForm();
       this.isTrue = true;
     },
     isOpen(id) {
@@ -250,7 +249,7 @@ export const studentstore = defineStore("student", {
     },
     async onDeleteStudent(id) {
       await axios.delete("user/" + id).then(() => {
-        this.isShow = false
+        this.isShow = false;
         this.getStudent();
       });
     },
@@ -272,7 +271,7 @@ export const studentstore = defineStore("student", {
       this.last_name = data.data.last_name;
       this.email = data.data.email;
       this.gender = data.data.gender;
-      this.user_profile = data.data.profile_img
+      this.user_profile = data.data.profile_img;
       this.studentNumber = data.data.students.studentNumber;
       this.province = data.data.students.province;
       this.class = data.data.students.class;
@@ -280,10 +279,9 @@ export const studentstore = defineStore("student", {
       this.phone = data.data.phone;
       this.ngo = data.data.students.ngo;
       this.user_id = id;
-
     },
     /**
-     * @todo edit student 
+     * @todo edit student
      */
     async onEditStudent() {
       let student = new FormData();
@@ -384,14 +382,26 @@ export const studentstore = defineStore("student", {
       profileImage.append("profile_img", profile_img);
       profileImage.append("_method", "PUT");
       axios
-        .post("/updateStudentImage/" + sessionStorage.getItem("student_id"), profileImage)
+        .post(
+          "/updateStudentImage/" + sessionStorage.getItem("student_id"),
+          profileImage
+        )
         .then((response) => {
           console.log(response);
           this.getStudent();
-          this.getStudentToken()
+          this.getStudentToken();
+        });
+    },
+    onDownloadAllStudentAsPDF(){
+      axios.get('getAllStudentToPDF').then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        var fileLink = document.createElement('a');
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download', 'myPDF.pdf');
+        document.body.appendChild(fileLink);
+        fileLink.click();
+        console.log(response.data);
         });
     },
   },
 });
-
-

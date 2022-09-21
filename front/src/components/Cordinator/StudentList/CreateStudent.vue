@@ -25,7 +25,7 @@
 
           <div  class="w-28 h-28 rounded-full m-auto object cursor-pointer">
             <label for="image" class="w-28 h-28 rounded-full m-auto object cursor-pointer">
-              <img v-if="storeData.previewImage != null" :src="storeData.previewImage"  class="w-28 h-28 rounded-full m-auto object" alt="">
+              <img v-if="storeData.previewImage != null" :src="storeData.previewImage"  class="w-28 h-28 rounded-full m-auto object image--cover" alt="">
               <img v-if="storeData.previewImage == null" src="../../../assets/male_logo.jpg" class="w-28 h-28 rounded-full m-auto" alt="" />
             </label>
             <input type="file" @change="storeData.uploadImage" hidden id="image">
@@ -84,3 +84,12 @@
     import { studentstore } from "@/store/coordinatorStore/StudentStore/StudentManagement"
     const storeData = studentstore()
 </script>
+<style scoped>
+.image--cover {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+</style>

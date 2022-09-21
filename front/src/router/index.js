@@ -23,6 +23,8 @@ import ManageStudentProfile from "@/components/Teacher/ManageStudentProfile.vue"
 // -------------------------Authentication--------------------------------------------
 import LoginAuthenticationVue from "@/components/authentication/LoginAuthentication.vue";
 import ForgetPasswordVue from "@/components/authentication/ForgetPassword.vue";
+import ResetCoordinatorPasswordVue from "@/components/Cordinator/CoordinatorList/ResetCoordinatorPassword.vue";
+import EditCoordinatorVue from "@/components/Cordinator/CoordinatorList/EditCoordinator.vue";
 
 // Route
 const routes = [
@@ -121,6 +123,16 @@ const routes = [
     name: "coordinatorViewVue",
     component: CoordinatorViewVue,
     children: [
+      {
+        path: "/resetCoordinatorPasswordVue",
+        name: "resetCoordinatorPasswordVue",
+        component: ResetCoordinatorPasswordVue,
+      },
+      {
+        path: "/editCoordinatorVue",
+        name: "editCoordinatorVue",
+        component: EditCoordinatorVue,
+      },
       {
         path: "/managecoordinator",
         name: "managecoordinator",
