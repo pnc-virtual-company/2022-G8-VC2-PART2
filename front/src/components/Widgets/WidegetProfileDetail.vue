@@ -17,7 +17,6 @@
         </div>
       </div>
       <!-- End of profile card -->
-
       <!-- Right Side -->
       <div class="w-full md:w-9/12 m-4 border-2 border-black-600 rounded-lg">
         <div class="bg-white rounded-sm p-5">

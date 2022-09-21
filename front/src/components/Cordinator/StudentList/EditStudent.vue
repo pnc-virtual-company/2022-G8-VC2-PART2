@@ -1,4 +1,5 @@
 <template>
+<div>
   <!-- button click on update student -->
   <button @click="store.getDAta(id), show=false" class="flex cursor-pointer">
     <span>
@@ -175,6 +176,7 @@
       </form>
     </div>
   </div>
+</div>
 </template>
 <script setup>
 import {  defineProps } from "vue";

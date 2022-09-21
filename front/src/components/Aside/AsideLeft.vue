@@ -33,7 +33,6 @@
               </svg>
             </label>
           </div>
-
           <span class="text-2xl font-extrabold whitespace-nowrap truncate"
             ><div class="profile_info">
               <slot name="img"></slot></div
