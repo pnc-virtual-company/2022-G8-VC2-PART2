@@ -94,12 +94,16 @@ export const studentfollowupstore = defineStore("student", {
                 this.onCancel();
                
             })
-           
-        
         },
         isAddStudentFollowup(id){
             this.isAddFollowup = true
             this.idStudentFollowup = id
+        },
+        /**
+         * @todo assign tutor for student follow up
+         */
+        assignTutor(){
+            
         }
     },
 

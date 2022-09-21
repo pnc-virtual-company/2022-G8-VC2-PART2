@@ -7,6 +7,7 @@ import ManageStudent from "@/views/Cordinator/ManageStudent/ManageStudent.vue";
 import StudentDetail from "@/components/Cordinator/StudentList/StudentDetail.vue";
 import ManageTeacher from "@/views/Cordinator/ManageTeacher/ManageTeacher.vue";
 import StudentFollowup from '@/views/Cordinator/StudentFollowup/StudentFollowupView.vue'
+import FollowupHistory from '@/views/Cordinator/FollowupHistory/FollowupHistoryView.vue'
 import CoordinatorDetail from "@/components/Cordinator/CoordinatorList/CoordinatorDetail.vue";
 // --------------------------------------------------------------------------
 // --------------------------Teacher Route-------------------------//
@@ -144,6 +145,12 @@ const routes = [
         path: "/studentfollowup",
         name: "studentfollowup",
         component: StudentFollowup,
+        meta: { isCoordinator: true },
+      },
+      {
+        path: "/followuphistory",
+        name: "followuphistory",
+        component: FollowupHistory,
         meta: { isCoordinator: true },
       },
       {

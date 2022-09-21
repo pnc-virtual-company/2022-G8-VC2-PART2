@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tutor_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('tutor_id')->constrained('users')->onDelete('cascade')->nullable();
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

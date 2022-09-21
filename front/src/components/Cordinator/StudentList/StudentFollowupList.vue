@@ -166,10 +166,9 @@
                       Remove from follow up
                     </div>
                     <div
-                      class="cursor-pointer block px-4 py-2 text-sm text-black hover:bg-slate-300 hover:text-black"
+                      class=" cursor-pointer block px-4 py-2 text-sm text-black hover:bg-slate-300 hover:text-black"
                     >
                       <router-link
-                        class="flex"
                         :to="{
                           name: 'studentdetail',
                           path: 'studentdetail',

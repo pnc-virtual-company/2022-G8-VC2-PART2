@@ -97,7 +97,6 @@ export const studentstore = defineStore("student", {
         axios.post("user/" + this.idStudentFollowup, student);
         alert('Added to follow up student successfully')
         this.onCancel();
-
       })
     },
     isAddStudentFollowup(id) {
@@ -132,9 +131,9 @@ export const studentstore = defineStore("student", {
         student.append("province", res.data.students.province);
         student.append("_method", 'PUT');
         student.append("status", 0);
-        console.log(student);
         axios.post("user/" + this.idStudentFollowup, student);
         alert('Remove from  follow up student successfully')
+        console.log(student);
         this.onCancel();
 
       })
