@@ -5,6 +5,7 @@
       <template v-slot> Manage Student </template>
     </widget-title>
     <!-- ====================== filter on student list ==================== -->
+    <button @click="storeData.onDownloadAllStudentAsPDF">Import as pdf</button>
     <div class="m-auto filter flex justify-around w-11/12 mt-5">
       <input
         v-model="storeData.searchByName"

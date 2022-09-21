@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Student;
@@ -11,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
-
+use PDF;
 use Mail;
 use App\Mail\forgetMail;
 
@@ -26,7 +25,7 @@ class UserController extends Controller
     {
         return User::with(['teachers', 'students'])->get();
     }
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -252,8 +251,6 @@ class UserController extends Controller
             return response()->json(['sms' => 'teacherViewVue', 'teacher-token' => $token, 'role' => $user['role'], 'data' => $user]);
         } else if ($user['role'] == 3) {
             $token = $user->createToken('coordinator-token')->plainTextToken;
-           
-  
             return response()->json(['sms' => 'coordinatorViewVue','coordinator-token' => $token, 'role' => $user['role'], 'data' => $user]);
         } else {
             return response()->json(['sms' => 'Invalid role',]);
@@ -281,7 +278,6 @@ class UserController extends Controller
     public function changePassword(Request $request)
     {
         $fourDigit = random_int(1000, 9999);
-        // dd($randomNumber);
         $details = [
             'title' => 'Dear sir',
             'body' => 'Place code to login',
@@ -310,6 +306,4 @@ class UserController extends Controller
         }
         return response()->json(['sms' => 'Password incorrect!'], 404);
     }
-   
-   
 }

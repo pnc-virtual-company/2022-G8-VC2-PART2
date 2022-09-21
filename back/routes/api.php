@@ -9,6 +9,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\VerifyMailController;
 use App\Http\Controllers\DigitnumberController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\PDFController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -62,4 +63,4 @@ Route::put('/changeProfileImage/{id}',[PhotoController::class,'update']);
 Route::put('/updateStudentImage/{id}',[PhotoController::class,'updateStudentImage']);
 Route::put('/updateTeacherImage/{id}',[PhotoController::class,'updateTeacherImage']);
 
-
+Route::get('/getAllStudentToPDF', [PDFController::class, 'getAllStudent']);

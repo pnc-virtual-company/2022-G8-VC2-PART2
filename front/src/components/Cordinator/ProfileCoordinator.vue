@@ -7,7 +7,7 @@
         'http://127.0.0.1:8000/storage/images/' +
         storeData.profile_img
       "
-      class=" m-auto"
+      class=" m-auto image--cover"
       alt=""
     />
       <div class="flex justify-center"> 
@@ -22,9 +22,6 @@
          id="profile_img"
          @change="storeData.changeProfile">
       </div>
-    </template>
-    <template #edit>
-      <EditCoordinatorVue ></EditCoordinatorVue>
     </template>
     <template #fullName>
       {{ storeData.first_name }}  {{ storeData.last_name }}
@@ -45,15 +42,9 @@
     <template #join>
       {{ storeData.created_at }}
     </template>
-    <template #resetPassword>
-      <ResetCoordinatorPasswordVue></ResetCoordinatorPasswordVue>
-    </template>
   </widget-ViewProfileDetail>
-
 </template>
 <script setup>
-  import EditCoordinatorVue from "./CoordinatorList/EditCoordinator.vue";
-  import ResetCoordinatorPasswordVue from "./CoordinatorList/ResetCoordinatorPassword.vue";
 import { userStore } from "@/store/coordinatorStore/coordinator/coordinator";
 import { onMounted } from "vue";
 const storeData = userStore();
@@ -61,3 +52,12 @@ onMounted(() => {
   storeData.getUserData();
 });
 </script>
+<style scoped>
+  .image--cover {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+  }
+</style>

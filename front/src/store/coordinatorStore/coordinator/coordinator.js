@@ -47,6 +47,7 @@ export const userStore = defineStore("user", {
       this.last_name = data.data.last_name;
       this.email = data.data.email;
       this.gender = data.data.gender;
+      this.phone = data.data.phone;
       this.created_at = data.data.created_at;
     },
     // show and hide password
@@ -181,8 +182,8 @@ export const userStore = defineStore("user", {
           } else {
             this.isNotMath = true;
           }
-        } else {
-          this.notExist = true;
+        }else if(this.email!=value.email){
+          this.notExist = false;
         }
       }
     },
@@ -268,7 +269,10 @@ export const userStore = defineStore("user", {
           coordinator
         )
         .then(() => {
-          this.isCoordinator = false;
+          toast.success("successful !", {
+            position: POSITION.TOP_CENTER,
+            timeout: 2000,
+          });
           this.getUserData();
         });
     },
