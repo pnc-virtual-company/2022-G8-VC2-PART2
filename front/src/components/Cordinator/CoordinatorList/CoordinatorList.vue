@@ -34,33 +34,30 @@
       </div>
       <!-- Show list all coordinator -->
       <div class="container text-center w-full max-h-screen">
-        <!-- <div class="w-11/12 m-auto mt-5">
-          <h1 class="bg-sky-500 text-white font-bold text-2xl p-5 m-2 rounded-lg">
-            Manage Coordinator
-          </h1>
-        </div> -->
-        <div class="m-auto filter flex justify-between px-3 w-12/12  mt-5">
-          <div class="items-center ml-10 flex  w-3/6">
+        <div class="m-auto filter items-center flex justify-between px-5 w-12/12 mt-5">
+          <div class="items-center ml-1 flex  w-3/6">
             <!-- count number of coordinator -->
-            <h3>Coordinator Number: <strong>{{coordinatorData.coordinators.length}}</strong></h3>
+            <span><strong>Coordinator Number: {{coordinatorData.coordinators.length}}</strong></span>
             <!-- search by name and position -->
             <input
               v-model="coordinatorData.searchData"
               type="text"
-              class="ml-14 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              class="ml-14 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/4 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search Name"
             />
           </div>
           <!--   Button to create new teacher   -->
-          <button
-            @click="coordinatorData.onCreate()"
-            class="flex items-center bg-sky-500 border border-gray-300 text-gray-900  rounded focus:ring-blue-500 focus:border-blue-500 block w-1/12 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-gray-50"
-          >
-            <strong class="text-2xl items-center mx-2">+</strong> ADD
-          </button>
+          <widget-button @click="coordinatorData.onCreate()">
+            <template v-slot> 
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-gray-200 font-bold w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v2.25A2.25 2.25 0 006 10.5zm0 9.75h2.25A2.25 2.25 0 0010.5 18v-2.25a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25V18A2.25 2.25 0 006 20.25zm9.75-9.75H18a2.25 2.25 0 002.25-2.25V6A2.25 2.25 0 0018 3.75h-2.25A2.25 2.25 0 0013.5 6v2.25a2.25 2.25 0 002.25 2.25z" />
+              </svg>
+              <h1 class="text-base text-gray-200"><strong>Create</strong></h1>
+            </template>
+          </widget-button>
         </div>
         <!--  display each card of teacher's list   -->
-        <div class="card m-auto bg-gray-100 mt-5 rounded w-12/12  overflow-y-scroll" style="height: 448px;">
+        <div class="card m-auto bg-gray-100 mt-4 rounded w-12/12  overflow-y-scroll" style="height: 448px;">
           <table
             class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
           >

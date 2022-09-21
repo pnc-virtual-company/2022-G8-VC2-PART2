@@ -35,7 +35,7 @@
                 v-if="coordinatorData.previewImage != null"
                 :src="coordinatorData.previewImage"
                 alt=""
-                 class="w-28 h-28 rounded-full m-auto"
+                 class="w-28 h-28 rounded-full m-auto image--cover"
               />
               <img
                 v-if="coordinatorData.previewImage == null"
@@ -160,3 +160,10 @@ export default {
   },
 };
 </script>
+<style scoped>
+.image--cover {
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+</style>
