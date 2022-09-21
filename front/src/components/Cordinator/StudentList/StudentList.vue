@@ -1,9 +1,9 @@
 <template>
   <div class="container text-center w-5/5 h-screen overflow-y-scroll">
     <!-- ====================== Title ==================== -->
-    <widget-title>
+    <!-- <widget-title>
       <template v-slot> Manage Student </template>
-    </widget-title>
+    </widget-title> -->
     <!-- ====================== filter on student list ==================== -->
     <div class="m-auto filter flex justify-around w-11/12 mt-5">
       <input
