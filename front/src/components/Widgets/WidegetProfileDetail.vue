@@ -5,7 +5,7 @@
       <div class="w-full md:w-3/12 m-4">
         <!-- Profile Card -->
         <div class="bg-white p-3 border-2 border-black-600 rounded-lg">
-          <div class="image overflow-hidden">
+          <div class="image  overflow-hidden">
             <slot name="img"></slot>
             <img class="h-auto w-full mx-auto" src="" alt="" />
           </div>
@@ -48,25 +48,30 @@
             </div>
           </div>
           <div class="text-gray-700">
-            <div class="grid md:grid-cols-1 text-sm">
-              <div class="justify-around flex  gap-4 w-full">
+            <div class="grid md:grid-cols-2 text-sm">
+              <div class="grid grid-cols-3">
                 <!-- fullname -->
-                <div class="px-4 py-2 font-semibold w-full">Full Name</div>
-                <div class="px-4 py-2 w-full"><slot name="fullName"></slot></div>
+                <div class="px-4 py-2 font-semibold">First Name</div>
+                <div class="px-4 py-2"><slot name="firstName"></slot></div>
               </div>
-              <div class="grid grid-cols-6">
+              <div class="grid grid-cols-3">
+                <!-- fullname -->
+                <div class="px-4 py-2 font-semibold">Last Name</div>
+                <div class="px-4 py-2"><slot name="lastName"></slot></div>
+              </div>
+              <div class="grid grid-cols-3">
                 <!-- gender -->
                 <div class="px-4 py-2 font-semibold">Gender</div>
                 <div class="px-4 py-2"><slot name="gender"></slot></div>
               </div>
-              <div class="grid grid-cols-6">
+              <div class="grid grid-cols-3">
                 <!-- you can rename your style such position or role , or student -->
                 <div class="px-4 py-2 font-semibold">
                   <slot name="rename"></slot>
                 </div>
                 <div class="px-4 py-2"><slot name="information"></slot></div>
               </div>
-              <div class="grid grid-cols-6">
+              <div class="grid grid-cols-3">
                 <!-- email of user -->
                 <div class="px-4 py-2 font-semibold">Email</div>
                 <div class="px-4 py-2">
@@ -75,10 +80,10 @@
                   ></a>
                 </div>
               </div>
-              <div class="grid grid-cols-6">
+              <div class="grid grid-cols-3">
                 <!-- data that create account -->
                 <div class="px-4 py-2 font-semibold">Join</div>
-                <div class="px-4 py-2">
+                <div class="px-2 py-2">
                   <a class="text-blue-800" href=""><slot name="join"></slot></a>
                 </div>
               </div>

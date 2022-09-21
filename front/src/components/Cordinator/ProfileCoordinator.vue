@@ -2,29 +2,38 @@
   <widget-ViewProfileDetail>
     <template #img>
       <img
-        v-if="storeData.profile_img != null"
-        class="h-52 w-full mx-auto"
-        :src="'http://127.0.0.1:8000/storage/images/'+storeData.profile_img"
-        alt=""
-      />
-      <img
-        v-else-if="storeData.gender == 'male'"
-        class="h-52 w-full mx-auto"
-        src="../../assets/male_logo.jpg"
-        alt=""
-      />
-      <img
-        v-if="storeData.gender == 'female'"
-        class="h-52 w-full mx-auto"
-        src="../../assets/female_logo.jpg"
-        alt=""
-      />
+     
+      :src="
+        'http://127.0.0.1:8000/storage/images/' +
+        storeData.profile_img
+      "
+      class=" m-auto"
+      alt=""
+    />
+      <div class="flex justify-center"> 
+        <label for="profile_img">
+          <img 
+          src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/camera-512.png" 
+          alt="" width="30" height="30" >
+        </label>
+         <input 
+         type="file" 
+         hidden="true"
+         id="profile_img"
+         @change="storeData.changeProfile">
+      </div>
     </template>
     <template #edit>
       <EditCoordinatorVue ></EditCoordinatorVue>
     </template>
     <template #fullName>
-      {{ storeData.first_name }} {{ storeData.last_name }}
+      {{ storeData.first_name }}  {{ storeData.last_name }}
+    </template>
+    <template #firstName>
+      {{ storeData.first_name }} 
+    </template>
+    <template #lastName>
+      {{ storeData.last_name }}
     </template>
     <template #gender>  {{ storeData.gender }}  </template>
     <template #rename> Role </template>

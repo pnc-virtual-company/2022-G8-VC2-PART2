@@ -271,9 +271,21 @@ export const teacherstore = defineStore('teacher', {
           this.first_name = data.data.first_name
           this.last_name = data.data.last_name
           this.email = data.data.email
-          this.position = data.data.position
+          this.position = data.data.teachers.position
           this.created_at = data.data.created_at
         }
+    },
+    async changeProfileTeacherImage(event) {
+      this.onUploadTeacherImage(event.target.files[0]);
+      this.getTeacher();
+    },
+    // uplaod image
+    onUploadTeacherImage(profile_img) {
+      const profileImage = new FormData();
+      profileImage.append("profile_img", profile_img);
+      profileImage.append("_method", "PUT");
+      axios.post("/updateTeacherImage/" + sessionStorage.getItem("teacher_id"), profileImage)
+          this.getTeacher();
     },
     /**
      * @todo clear form input

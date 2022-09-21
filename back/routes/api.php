@@ -8,6 +8,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\VerifyMailController;
 use App\Http\Controllers\DigitnumberController;
+use App\Http\Controllers\PhotoController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -56,5 +57,9 @@ Route::post('/resetPaswordCoordinator/{id}', [UserController::class, 'compareOld
 Route::post('/digit',[DigitnumberController::class,'store']);
 Route::put('/digit/{id}',[DigitnumberController::class,'update']);
 Route::get('/digit',[DigitnumberController::class,'index']);
+// -------------------------------update only picture profile-----------------------------------
+Route::put('/changeProfileImage/{id}',[PhotoController::class,'update']);
+Route::put('/updateStudentImage/{id}',[PhotoController::class,'updateStudentImage']);
+Route::put('/updateTeacherImage/{id}',[PhotoController::class,'updateTeacherImage']);
 
 
