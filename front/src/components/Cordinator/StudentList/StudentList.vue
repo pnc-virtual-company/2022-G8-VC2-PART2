@@ -1,5 +1,5 @@
 <template>
-  <div class="container text-center w-5/5 h-screen overflow-y-scroll">
+  <div class="container text-center w-5/5 h-full mt-5">
     <!--  Pop up of confirm to add student into follow up list  -->
     <div class="container mx-auto">
       <div class="flex justify-center">
@@ -133,8 +133,8 @@
             </td>
             <td class="px-6">
               <!-- <strong><p v-if="student.status==0" class="text-sky-500">OUT FOLLOW UP</p></strong> -->
-              <button v-if="student.status==0" type="button" class="text-white bg-yellow-500 cursor-default font-medium rounded-lg text-sm px-2 py-1">Follow Up</button>
-              <button v-if="student.status==1" type="button" class="text-white bg-sky-500 cursor-default font-medium rounded-lg text-sm px-2 py-1">None Follow Up</button>
+              <button v-if="student.status==1" type="button" class="text-white bg-yellow-500 cursor-default font-medium rounded-lg text-sm px-2 py-1">Follow Up</button>
+              <button v-if="student.status==0" type="button" class="text-white bg-sky-500 cursor-default font-medium rounded-lg text-sm px-2 py-1">None Follow Up</button>
               <!-- <strong><p v-if="student.status==1" style="color:#FFAD5C;">IN FOLLOW UP</p>   </strong> -->
                          
             </td>
