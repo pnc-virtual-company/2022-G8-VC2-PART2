@@ -27,8 +27,8 @@ export const userStore = defineStore("user", {
     isTrue: false,
     isDigit: false,
     digit_id: null,
-    isNotMath:false,
-    notExist:false,
+    isNotMath: false,
+    notExist: false,
   }),
   getters: {},
   actions: {
@@ -52,25 +52,6 @@ export const userStore = defineStore("user", {
     // show and hide password
     hideShowPassword() {
       this.showPassword = !this.showPassword;
-    },
-    // get Data of student to put on Student Profile of Folder Teacher
-    async getStudentToken() {
-      await axios
-        .get("user/" + sessionStorage.getItem("student_id"))
-        .then((res) => {
-          if (res.data.id == res.data.students["user_id"]) {
-            this.profile_img = res.data.profile_img;
-            this.first_name = res.data.first_name;
-            this.last_name = res.data.last_name;
-            this.gender = res.data.gender;
-            this.email = res.data.email;
-            this.phone = res.data.students.phone;
-            this.province = res.data.students.province;
-            this.class = res.data.students.class;
-            this.batch = res.data.students.batch;
-            this.ngo = res.data.students.ngo;
-          }
-        });
     },
     /*login to user and student or teacher
       stoer token on database
@@ -197,11 +178,11 @@ export const userStore = defineStore("user", {
               }
               this.getUserData();
             });
-          }else{
-            this.isNotMath=true
+          } else {
+            this.isNotMath = true;
           }
-        }else{
-          this.notExist=true
+        } else {
+          this.notExist = true;
         }
       }
     },
@@ -288,6 +269,21 @@ export const userStore = defineStore("user", {
         )
         .then(() => {
           this.isCoordinator = false;
+          this.getUserData();
+        });
+    },
+    async changeProfile(event) {
+      this.onUpload(event.target.files[0]);
+    },
+    // uplaod image
+    onUpload(profile_img) {
+      const profileImage = new FormData();
+      profileImage.append("profile_img", profile_img);
+      profileImage.append("_method", "PUT");
+      axios
+        .post("/changeProfileImage/" + sessionStorage.getItem("coordintor_id"), profileImage)
+        .then((response) => {
+          console.log(response);
           this.getUserData();
         });
     },

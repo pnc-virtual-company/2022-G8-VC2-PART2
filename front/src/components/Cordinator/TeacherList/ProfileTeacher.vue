@@ -8,10 +8,13 @@
   <widget-ViewProfileDetail>
     <template #img>
       <div v-if="storeTeacherData.profile_img !=null" class="image overflow-hidden">
-          <img class="h-auto w-full mx-auto" :src="'http://127.0.0.1:8000/storage/images/'+storeTeacherData.profile_img" alt="" />
+        <img class="h-auto w-full mx-auto" :src="'http://127.0.0.1:8000/storage/images/'+storeTeacherData.profile_img" alt="" />
+      </div>
+      <div v-else-if="storeTeacherData.gender == 'male'" class="image overflow-hidden">
+        <img class="h-auto w-full mx-auto" src="../../../assets/male_logo.jpg" alt="" />
       </div>
       <div v-else class="image overflow-hidden">
-        <img class="h-auto w-full mx-auto" src="../../../assets/male_logo.jpg" alt="" />
+        <img class="h-auto w-full mx-auto" src="../../../assets/female_logo.jpg" alt="" />
       </div>
     </template>
     <template #fullName>

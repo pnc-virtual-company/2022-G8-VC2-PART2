@@ -12,13 +12,13 @@
       <!-- Profile Card -->
       <div class="bg-white p-3 border-2 border-black-600 rounded-lg">
         <div v-if="storeData.profile_img !=null" class="image overflow-hidden">
-          <img class="h-48 w-full mx-auto" :src="'http://127.0.0.1:8000/storage/images/'+storeData.profile_img" alt="" />
+          <img class="h-48 w-48 mx-auto image--cover" :src="'http://127.0.0.1:8000/storage/images/'+storeData.profile_img" alt="" />
         </div>
         <div v-else-if="storeData.gender == 'male'" class="image overflow-hidden">
-          <img class="h-48 w-full mx-auto" src="../../../assets/male_logo.jpg" alt="" />
+          <img class="h-48 w-48 mx-auto image--cover" src="../../../assets/male_logo.jpg" alt="" />
         </div>
         <div v-else-if="storeData.gender == 'female'" class="image overflow-hidden">
-          <img class="h-48 w-full mx-auto" src="../../../assets/female_logo.jpg" alt="" />
+          <img class="h-48 w-48 mx-auto image--cover" src="../../../assets/female_logo.jpg" alt="" />
         </div>
         <h1
         class="text-gray-900 font-bold text-xl leading-8 flex justify-center"
@@ -127,6 +127,13 @@
   import { studentstore } from "@/store/coordinatorStore/StudentStore/StudentManagement"
   const storeData = studentstore()
 </script>
+<style scoped>
+.image--cover {
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+</style>
 
 
 

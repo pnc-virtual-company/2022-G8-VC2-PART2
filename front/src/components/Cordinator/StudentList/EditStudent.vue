@@ -52,7 +52,7 @@
                   'http://127.0.0.1:8000/storage/images/' +
                   store.profile_img
                 "
-                class="w-28 h-28 rounded-full m-auto mt-5"
+                class="image--cover w-28 h-28 rounded-full m-auto mt-5"
                 alt=""
               />
               <img
@@ -77,7 +77,7 @@
                 v-else-if="store.previewImage !== null"
                 :src="store.previewImage"
                 alt=""
-                class="w-28 h-28 rounded-full m-auto"
+                class="image--cover w-28 h-28 rounded-full m-auto"
               />
             </label>
             <input
@@ -184,4 +184,11 @@ defineProps({
   id: null,
 });
 </script>
+<style scoped>
+.image--cover {
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+</style>
  

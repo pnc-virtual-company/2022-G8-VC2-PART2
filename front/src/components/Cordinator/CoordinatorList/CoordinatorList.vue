@@ -1,7 +1,7 @@
 <template>
     <div>
       <!--  Pop up of confirm to delete  -->
-      <div class="container mx-auto">
+      <div class="container mt-5 mx-auto">
         <div class="flex justify-center">
           <div
             v-show="coordinatorData.isDelete"
@@ -33,51 +33,55 @@
         </div>
       </div>
       <!-- Show list all coordinator -->
-      <div class="container text-center w-5/5 h-screen overflow-y-scroll">
-        <div class="w-11/12 m-auto mt-5">
+      <div class="container text-center w-full max-h-screen">
+        <!-- <div class="w-11/12 m-auto mt-5">
           <h1 class="bg-sky-500 text-white font-bold text-2xl p-5 m-2 rounded-lg">
             Manage Coordinator
           </h1>
-        </div>
-        <div class="m-auto filter flex justify-end w-11/12 mt-5">
-          <!-- search by name and position -->
-          <input
-            v-model="coordinatorData.searchData"
-            type="text"
-            class="mt-2 mr-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search Name"
-          />
+        </div> -->
+        <div class="m-auto filter flex justify-between px-3 w-12/12  mt-5">
+          <div class="items-center ml-10 flex  w-3/6">
+            <!-- count number of coordinator -->
+            <h3>Coordinator Number: <strong>{{coordinatorData.coordinators.length}}</strong></h3>
+            <!-- search by name and position -->
+            <input
+              v-model="coordinatorData.searchData"
+              type="text"
+              class="ml-14 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Search Name"
+            />
+          </div>
           <!--   Button to create new teacher   -->
           <button
             @click="coordinatorData.onCreate()"
-            class="mt-2 bg-sky-500 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="flex items-center bg-sky-500 border border-gray-300 text-gray-900  rounded focus:ring-blue-500 focus:border-blue-500 block w-1/12 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-gray-50"
           >
-            Create Coordinator
+            <strong class="text-2xl items-center mx-2">+</strong> ADD
           </button>
         </div>
         <!--  display each card of teacher's list   -->
-        <div class="card m-auto bg-gray-100 mt-5 p-4 rounded w-11/12">
+        <div class="card m-auto bg-gray-100 mt-5 rounded w-12/12  overflow-y-scroll" style="height: 448px;">
           <table
             class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
           >
             <thead
-              class="text-xs text-gray-700 bg-gray-200 dark:bg-gray-700 dark:text-gray-400"
+              class="text-xs text-gray-700 bg-gray-200 dark:bg-gray-700 dark:text-gray-400 "
             >
               <tr>
-                <th class="py-3 px-6">Profile</th>
-                <th class="py-3 px-6">Name</th>
-                <th class="py-3 px-3">Email</th>
-                <th class="py-3 px-3">phone</th>
-                <th class="py-3 px-6">Actions</th>
+                <th class="py-4 px-6 text-base text-slate-500">Profile</th>
+                <th class="py-4 px-6 text-base text-slate-500">Name</th>
+                <th class="py-4 px-3 text-base text-slate-500">Email</th>
+                <th class="py-4 px-3 text-base text-slate-500">phone</th>
+                <th class="py-4 px-6 text-base text-slate-500"></th>
               </tr>
             </thead>
             <!-- place search here -->
             <tbody v-for="coordinator of coordinatorData.filterDataCoordinator" :key="coordinator">
-              <tr class="w-full bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-if="coordinator.id != userID">
+              <tr class="w-full bg-white border-b dark:bg-gray-800 dark:border-gray-700 " v-if="coordinator.id != userID">
                 <!-- coordinator profile image -->
-                <td class="py-4 px-2">
+                <td class="px-2">
                   <router-link class="flex" :to="{name:'coordinatordetail',path:'coordinatordetail',params:{id:coordinator.id}}">
-                    <div class="py-4 px-6 text-right">
+                    <div class="m-auto px-6 text-right mb-4">
                       <!-- <router-link class="flex" :to="{name:'coordinator',path:'coordinator',params:{id:coordinator.id}}"> -->
                         <img
                           v-if="coordinator.profile_img != null"
@@ -85,19 +89,19 @@
                             'http://127.0.0.1:8000/storage/images/' +
                             coordinator.profile_img
                           "
-                          class="w-12 h-12 rounded-full m-auto mt-5"
+                          class="image--cover w-14 h-14 rounded-full m-auto mt-5"
                           alt=""
                         />
                         <img
                           v-else-if="coordinator.gender == 'female'"
                           src="@/assets/female_logo.jpg"
-                          class="w-12 h-12 rounded-full m-auto mt-5"
+                          class="w-14 h-14 rounded-full m-auto mt-5"
                           alt=""
                         />
                         <img
                           v-else-if="coordinator.gender == 'male'"
                           src="@/assets/male_logo.jpg"
-                          class="w-12 h-12 rounded-full m-auto mt-5"
+                          class="w-14 h-14 rounded-full m-auto mt-5"
                           alt=""
                         />
                       <!-- </router-link> -->
@@ -105,21 +109,21 @@
                   </router-link>
                 </td>
                 <!-- coordinator first name and last name -->
-                <td class="py-4 px-2">
+                <td class="px-2">
                   <h1 class="">
                     {{ coordinator.first_name }} {{ coordinator.last_name }}
                   </h1>
                 </td>
                 <!-- coordinator email -->
-                <td class="py-4 px-2">
+                <td class="px-2">
                   {{ coordinator.email }}
                 </td>
                 <!-- coordinator phone -->
-                <td class="py-4 px-2">
+                <td class="px-2">
                   +885 {{ coordinator.phone }}
                 </td>
                 <!-- dropdown user action -->
-                <td class="py-4 px-2 flex justify-end">
+                <td class="px-2 flex justify-end">
                   <div>
                     <div class="relative">
                       <!-- Dropdown toggle button -->
@@ -188,3 +192,10 @@ export default {
   
 }
 </script>
+<style scoped>
+.image--cover {
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+</style>

@@ -13,7 +13,7 @@
             <h1 class="">Student Follow Up Management System </h1>
         </div>
         <div style="background-color:white;padding:50px;">
-            <h3> Dear Mr. {{$data["first_name"]}}  !  You are created in PNC teachers list</h3>
+            <h3> Dear Mr. {{$data["first_name"]}}  !  You are created in PNC coordinators list</h3>
             <h3>Your email: <strong>{{$data["email"]}}</strong></h3>
             <h3>Your password are: <strong>123456789</strong></h3>
             <div >

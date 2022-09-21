@@ -158,6 +158,7 @@ class UserController extends Controller
                 $updateStudent->update($validatedData);
                 $updateStudentID = Student::findOrFail($updateStudent['students']['id']);
                 $updateStudentID->studentNumber = $request->studentNumber;
+                $updateStudentID->status = $request->status;
                 $updateStudentID->class = $request->class;
                 $updateStudentID->batch = $request->batch;
                 $updateStudentID->ngo = $request->ngo;
@@ -310,5 +311,6 @@ class UserController extends Controller
         }
         return response()->json(['sms' => 'Password incorrect!'], 404);
     }
+   
    
 }
