@@ -12,7 +12,7 @@
             <!-- Profile Card -->
             <div class="bg-white p-3 border-2 border-black-600 rounded-lg">
                 <div v-if="coordinatorData.profile_img !=null" class="image overflow-hidden">
-                    <img class="h-48 w-full mx-auto" :src="'http://127.0.0.1:8000/storage/images/'+coordinatorData.profile_img" alt="" />
+                    <img class="h-48 w-48 w-full mx-auto image--cover" :src="'http://127.0.0.1:8000/storage/images/'+coordinatorData.profile_img" alt="" />
                 </div>
                 <div v-else-if="coordinatorData.gender == 'male'" class="image overflow-hidden">
                     <img class="h-48 w-full mx-auto" src="../../../assets/male_logo.jpg" alt="" />
@@ -100,6 +100,13 @@
     }
   }
 </script>
+<style scoped>
+.image--cover {
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+</style>
 
 
 

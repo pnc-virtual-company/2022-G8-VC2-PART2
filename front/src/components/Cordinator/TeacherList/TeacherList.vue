@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container text-center w-5/5 h-full mt-5">
     <!--  Pop up of confirm to delete  -->
     <div class="container mx-auto">
       <div class="flex justify-center">
@@ -33,38 +33,38 @@
       </div>
     </div>
     <!-- Show list all student -->
-    <div class="container text-center w-5/5 h-screen overflow-y-scroll">
-      <div class="w-11/12 m-auto mt-5">
-        <h1 class="bg-sky-500 text-white font-bold text-2xl p-5 m-2 rounded-lg">
-          Manage Teacher
-        </h1>
-      </div>
-      <div class="m-auto filter flex justify-around w-11/12 mt-5">
+    <div class="container text-center w-5/5">
+      <div class="m-auto filter items-center flex justify-between px-5 w-12/12 mt-5">
+      <div class="flex w-8/12 gap-5 items-center">
+        <span class="mr-5"><strong>Teacher Number: {{teacherStore.searchDataTeacher.length}}</strong></span>
         <!-- search by name and position -->
         <input
           type="text"
-          class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Search Name"
           v-model="teacherStore.search"
         />
         <!-- set label to search -->
         <select
           v-model="teacherStore.searchLabel"
-          class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-1/5 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
           <option selected value="position">Position</option>
           <option  value="name">Name</option>
         </select>
+      </div>
         <!--   Button to create new teacher   -->
-        <button
-          @click="teacherStore.onCreate()"
-          class="mt-2 bg-sky-500 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        >
-          Create Teacher
-        </button>
+        <widget-button @click="teacherStore.onCreate()">
+          <template v-slot> 
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-gray-200 font-bold w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v2.25A2.25 2.25 0 006 10.5zm0 9.75h2.25A2.25 2.25 0 0010.5 18v-2.25a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25V18A2.25 2.25 0 006 20.25zm9.75-9.75H18a2.25 2.25 0 002.25-2.25V6A2.25 2.25 0 0018 3.75h-2.25A2.25 2.25 0 0013.5 6v2.25a2.25 2.25 0 002.25 2.25z" />
+            </svg>
+            <h1 class="text-base text-gray-200"><strong>Create</strong></h1>
+          </template>
+        </widget-button>
       </div>
       <!--  display each card of teacher's list   -->
-      <div class="card m-auto bg-gray-100 mt-5 p-4 rounded w-11/12">
+      <div class="card m-auto bg-gray-100 mt-5 rounded w-12/12 overflow-y-scroll"  style="height: 435px;">
         <table
           class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
         >
@@ -72,12 +72,11 @@
             class="text-xs text-gray-700 bg-gray-200 dark:bg-gray-700 dark:text-gray-400"
           >
             <tr>
-              <th class="py-3 px-6">Profile</th>
-              <!-- <th class="py-3 px-6">ID</th> -->
-              <th class="py-3 px-6">Name</th>
-              <th class="py-3 px-2">Position</th>
-              <th class="py-3 px-3">Email</th>
-              <th class="py-3 px-6">Actions</th>
+              <th class="py-4 px-6 text-base text-slate-500">Profile</th>
+              <th class="py-4 px-6 text-base text-slate-500">Name</th>
+              <th class="py-4 px-6 text-base text-slate-500">Position</th>
+              <th class="py-4 px-6 text-base text-slate-500">Email</th>
+              <th class="py-4 px-6 text-base text-slate-500"></th>
             </tr>
           </thead>
           <!-- place search here -->
@@ -92,7 +91,7 @@
                         'http://127.0.0.1:8000/storage/images/' +
                         teacher.user.profile_img
                       "
-                      class="w-12 h-12 rounded-full m-auto mt-5"
+                      class="image--cover w-12 h-12 rounded-full m-auto mt-5"
                       alt=""
                     />
                     <img
@@ -207,3 +206,10 @@ export default {
   },
 };
 </script>
+<style scoped>
+.image--cover {
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+</style>

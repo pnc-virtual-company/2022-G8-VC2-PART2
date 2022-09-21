@@ -78,7 +78,7 @@
       </aside>
     </div>
     <nav class="w-full border-b-2 w-full">
-      <div class="px-6 py-3 shadow">
+      <div class="px-6 py-2 shadow">
         <div class="flex items-center justify-between">
           <div class="flex items-center justify-start">
             <label
@@ -116,7 +116,7 @@
           </div>
         </div>
       </div>
-      <main id="content" class="flex-1 p-6 lg:px-8">
+      <main id="content" class="flex-1">
         <router-view></router-view>
       </main>
     </nav>
