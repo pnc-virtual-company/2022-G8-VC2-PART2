@@ -22,7 +22,7 @@ export const studentstore = defineStore("student", {
     comments: [], //store comments
     isEditComment: false, //show edit comment form
     editCommentContent: '', //get old and new comment content
-    id: '', //store comment id
+
     previewImage: null,
     user_profile: null,
     profile_img: "",
@@ -170,7 +170,7 @@ export const studentstore = defineStore("student", {
      * 
      */
       if ((this.first_name != "" && this.last_name != "" && this.batch != "" && this.gender != "" &&
-        this.email != "" && this.phone != "" && this.ngo != "" && this.class != "" && this.id != "") && !this.uniqueEmail
+        this.email != "" && this.phone != "" && this.ngo != "" && this.class != "" && this.studentNumber != "") && !this.uniqueEmail
       ) {
         let student = new FormData();
         student.append("profile_img", this.profile_img);
