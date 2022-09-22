@@ -17,9 +17,8 @@
                         Welcome to our system you can login as student 
                         teacher and Coordinator
                       </p>
-                     
+                        <img src="@/assets/icon.jpg" alt="">
                     </div>
-                   
                   </div>
                   <div class="lg:w-6/12">
                     <div class=" md:mx-6 p-3">
