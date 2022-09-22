@@ -19,7 +19,14 @@ export const coordinatorstore = defineStore("coordinator", {
     gender:'male',
     coordinatorId:null,
     isDelete:false,
-    searchData:''
+    searchData:'',
+    //=============Validation variable on create user=============//
+    no_firstname:false,
+    no_lastname:false,
+    no_email:false,
+    no_phone:false,
+    uniqueEmail:false,
+
   }),
   
   getters: {
@@ -76,6 +83,20 @@ export const coordinatorstore = defineStore("coordinator", {
      * @todo create new coordinator
      */ 
     createCoordinator(){
+      /**
+     * @todo  unique Email.
+     * 
+     */
+     for(let email of this.coordinators){
+      if(email.email===this.email){
+         this.uniqueEmail=true
+      }
+    }
+    if(this.uniqueEmail){
+      toast.error("this email already created!",{position: POSITION.TOP_CENTER, timeout: 2500})
+    }
+
+    if((this.first_name!="" && this.last_name!="" && this.email && this.phone !=null) && !this.uniqueEmail){
       let coordinator = new FormData();
           coordinator.append("profile_img", this.profile_img);
           coordinator.append("first_name", this.first_name);
@@ -85,12 +106,48 @@ export const coordinatorstore = defineStore("coordinator", {
           coordinator.append("phone", this.phone);
           coordinator.append("password", 123456789);
           coordinator.append("role", 3)
+          /**
+           * @todo  equest email when created coordinator
+           * 
+           */
+          axios.post('/sendcoordinatormail',{email:this.email,first_name:this.first_name}).then(res=>{
+            console.log(res.data);
+          })
+
           axios.post(process.env.VUE_APP_API_URL + 'user', coordinator).then(() => {
             this.isCreate = false
             this.clearForm()
             this.getCoordinators()
             toast.success("Create coordinator successfull",{position: POSITION.TOP_CENTER, timeout: 2000})
-          })
+          });
+      }else{
+        if(this.uniqueEmail){
+          this.uniqueEmail = false
+      }else{
+        toast.error("Please enter in field!",{position: POSITION.TOP_CENTER, timeout: 2000})
+      }
+      if(this.first_name==""){
+         this.no_firstname=true;
+      }else{
+        this.no_firstname=false
+      }
+      if(this.last_name==""){
+        this.no_lastname=true;
+      }else{
+       this.no_lastname=false
+      }
+      if(this.email==""){
+        this.no_email=true;
+      }else{
+        this.no_email=false
+      }
+      if(this.phone==null){
+        this.no_phone=true;
+      }else{
+        this.no_phone=false
+      }
+    }
+
     },
 
     /**

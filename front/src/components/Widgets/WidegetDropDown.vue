@@ -35,7 +35,8 @@
     >
       <slot name="delete"></slot>
     </div>
-    <div @click="show=false" class= " flex justify-center px-4 py-2 text-sm text-indigo-100 hover:bg-indigo-400 hover:text-indigo-100"
+    <div @click="show=false"
+      class=" flex justify-center px-4 py-2 text-sm text-indigo-100 hover:bg-indigo-400 hover:text-indigo-100"
     >
       <slot name="add"></slot>
     </div>

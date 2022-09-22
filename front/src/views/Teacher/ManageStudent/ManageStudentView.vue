@@ -5,7 +5,7 @@
 import ManageStudentListVue from '@/components/Teacher/ManageStudentList.vue';
   export default {
   components:{
-    ManageStudentListVue
+    ManageStudentListVue  
 }
   }
   </script>

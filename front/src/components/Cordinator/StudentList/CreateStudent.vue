@@ -490,9 +490,7 @@
         <div class="flex mt-3">
           <select
             v-model="storeData.class"
-            class="
-              m-1
-              bg-gray-50
+            class="m-1 bg-gray-50
               border border-gray-300
               text-gray-900 text-sm
               rounded
@@ -505,9 +503,7 @@
               dark:placeholder-gray-400
               dark:text-white
               dark:focus:ring-blue-500
-              dark:focus:border-blue-500
-            "
-          >
+              dark:focus:border-blue-500">
             <option selected value="webb">sellect class</option>
             <option selected :value="'WEB ' + storeData.batch + ' A'">
               WEB {{ storeData.batch }} A

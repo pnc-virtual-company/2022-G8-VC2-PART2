@@ -6,12 +6,18 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\VerifyMailController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\DigitnumberController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\FollowupController;
 use App\Http\Controllers\PDFController;
+<<<<<<< HEAD
 use App\Http\Controllers\CommentController;
 
+=======
+use App\Http\Controllers\RessetpasswordController;
+>>>>>>> 0ffc1dd77b77104fa271225f2c5c86a8eff33c73
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -46,9 +52,13 @@ Route::apiResource('/teacher',TeacherController::class);
 Route::apiResource('/comment',CommentController::class);
 
 
-
-// send mail
-Route::post('/sendmail', [VerifyMailController::class, 'mailNotifyAction']);
+// send mail 
+Route::post('/sendstudentmail', [MailController::class, 'studentMail']);
+Route::post('/sendteachermail', [MailController::class, 'teacherMail']);
+Route::post('/sendfollowupstudentmail', [MailController::class, 'studentFollowupMail']);
+Route::post('/sendfollowupremovestudentmail', [MailController::class,'studentFollowupRemoveMail']);
+Route::post('/sendcoordinatormail', [MailController::class, 'coordinatorMail']);
+Route::post('/deletestudent', [MailController::class, 'deleteStudentList']);
 
 
 //forget password
@@ -58,6 +68,9 @@ Route::post('/forgetPassword', [UserController::class,'changePassword']);
 // reset coordinator password
 Route::put('/resetPaswordCoordinator/{id}', [UserController::class, 'ressePasswordCoordinator']);
 Route::post('/resetPaswordCoordinator/{id}', [UserController::class, 'compareOldPassword']);
+//resset password Teacher student
+Route::put('/ressetPassword/{id}',[RessetpasswordController::class,'ressePassword']);
+Route::post('/compareRessetPassword/{id}',[RessetpasswordController::class,'oldPassword']);
 
 // ---------set digit number to compare ---------
 Route::post('/digit',[DigitnumberController::class,'store']);
@@ -67,4 +80,8 @@ Route::get('/digit',[DigitnumberController::class,'index']);
 Route::put('/changeProfileImage/{id}',[PhotoController::class,'update']);
 Route::put('/updateStudentImage/{id}',[PhotoController::class,'updateStudentImage']);
 Route::put('/updateTeacherImage/{id}',[PhotoController::class,'updateTeacherImage']);
+
+// ---------- route for history ---------------
+Route::apiResource('/history',HistoryController::class);
+Route::apiResource('/followup',FollowupController::class);
 Route::get('/getAllStudentToPDF', [PDFController::class, 'getAllStudent']);

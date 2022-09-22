@@ -58,6 +58,11 @@ class User extends Authenticatable
         $student = $this->hasMany(History::class,"student_id");
         return [$tutor, $student];
     }
+    public function followups(){
+        $tutor = $this->hasMany(Followup::class,"tutor_id");
+        $student = $this->hasOne(Followup::class,"student_id");
+        return [$tutor, $student];
+    }
     public function teachers(){
         return $this->hasOne(Teacher::class,"user_id");
     }
