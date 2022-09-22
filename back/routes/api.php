@@ -6,10 +6,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\StudentMailController;
-use App\Http\Controllers\TeacherMailController;
-use App\Http\Controllers\StudentFollowupMailController;
-use App\Http\Controllers\CoordinatorMailController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\DigitnumberController;
 use App\Http\Controllers\PhotoController;
 /*
@@ -43,12 +40,13 @@ Route::apiResource('/student', StudentController::class);
 //-------------teacher routes-------------/
 Route::apiResource('/teacher',TeacherController::class);
 
-
-// send mail to create
-Route::post('/sendstudentmail', [StudentMailController::class, 'studentMail']);
-Route::post('/sendteachermail', [TeacherMailController::class, 'teacherMail']);
-Route::post('/sendfollowupstudentmail', [StudentFollowupMailController::class, 'studentFollowupMail']);
-Route::post('/sendcoordinatormail', [CoordinatorMailController::class, 'coordinatorMail']);
+// send mail 
+Route::post('/sendstudentmail', [MailController::class, 'studentMail']);
+Route::post('/sendteachermail', [MailController::class, 'teacherMail']);
+Route::post('/sendfollowupstudentmail', [MailController::class, 'studentFollowupMail']);
+Route::post('/sendfollowupremovestudentmail', [MailController::class,'studentFollowupRemoveMail']);
+Route::post('/sendcoordinatormail', [MailController::class, 'coordinatorMail']);
+Route::post('/deletestudent', [MailController::class, 'deleteStudentList']);
 
 
 //forget password

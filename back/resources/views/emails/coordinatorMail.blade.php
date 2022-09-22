@@ -7,7 +7,7 @@
 <body>
     <div style="margin:auto;background-color:#eeee;padding:20px; width:75%;">
         <div style="background-color:white;padding:5px;text-align:center;">
-            <img style="width: 20%;" src="https://o.remove.bg/downloads/ad76db0b-6971-4178-b806-64a3326f4ad2/366-3666562_passerelles-numeriques-cambodia-hd-png-download-removebg-preview.png" alt="">
+            <img style="width: 20%;" src="https://o.remove.bg/downloads/66d00770-6c22-4337-83af-f3447d9bf3c1/366-3666562_passerelles-numeriques-cambodia-hd-png-download-removebg-preview-removebg-preview.png" alt="">
         </div>
         <div style="background-color:#45AAF3;text-align:center;padding:10px;color:white;">
             <h1 class="">Student Follow Up Management System </h1>

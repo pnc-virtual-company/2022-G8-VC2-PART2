@@ -78,8 +78,13 @@ export const studentstore = defineStore("student", {
         * @todo add student to follow up list
         */
     async addToFollowup() {
-      this.isAddFollowup = true
-      axios.get("user/" + this.idStudentFollowup).then((res) => {
+      console.log("Added Successfully")
+      // this.isAddFollowup = true
+      /**
+      * @todo  equest email when created students 
+      */
+      axios.post('/sendfollowupstudentmail',{email:this.email,first_name:this.first_name});
+      axios.get("user/" + this.idStudentFollowup).then((res) =>{
         let student = new FormData();
         student.append("first_name", res.data.first_name);
         student.append("last_name", res.data.last_name);
@@ -94,16 +99,13 @@ export const studentstore = defineStore("student", {
         student.append("_method", 'PUT');
         student.append("status", 1);
         console.log(student);
-         /**
-         * @todo  equest email when created students 
-         */
-        axios.post('/sendfollowupstudentmail',{email:this.email,first_name:this.first_name});
-
         axios.post("user/" + this.idStudentFollowup, student);
-        alert('Added to follow up student successfully')
+
         this.onCancel();
 
+        this.getStudent()
       })
+      
     },
     isAddStudentFollowup(id) {
       this.isAddFollowup = true
@@ -122,7 +124,12 @@ export const studentstore = defineStore("student", {
       this.idStudentFollowup = id
     },
     removeFollowup() {
-      this.isAddFollowup = true
+      console.log("Delete Successfully")
+      // this.isAddFollowup = true
+      /**
+      * @todo  equest email when created students 
+      */
+      axios.post('/sendfollowupremovestudentmail',{email:this.email,first_name:this.first_name});
       axios.get("user/" + this.idStudentFollowup).then((res) => {
         let student = new FormData();
         student.append("first_name", res.data.first_name);
@@ -138,10 +145,9 @@ export const studentstore = defineStore("student", {
         student.append("_method", 'PUT');
         student.append("status", 0);
         console.log(student);
-        axios.post("user/" + this.idStudentFollowup, student);
-        alert('Remove from  follow up student successfully')
+        axios.post("user/" + this.idStudentFollowup,student);
         this.onCancel();
-
+        this.getStudent()
       })
     },
     /**
@@ -258,6 +264,7 @@ export const studentstore = defineStore("student", {
       this.index = index;
     },
     async onDeleteStudent(id) {
+      axios.post('/deletestudent',{email:this.email,first_name:this.first_name})
       await axios.delete("user/" + id).then(() => {
         this.isShow = false
         this.getStudent();
