@@ -71,16 +71,11 @@ class CommentController extends Controller
     {
         $validatedData = $request->validate(
             [
-                'commenter_id' => 'required',
-                'student_id' => 'required',
                 'paragraph' => 'required',
             ]
         );
         $updateComment = Comment::findOrFail($id);
-        $updateComment->commenter_id = $request->commenter_id;
-        $updateComment->student_id = $request->student_id;
         $updateComment->paragraph = $request->paragraph;
-
         $updateComment->save();
         return response()->json([
             'Message' => 'Comment Updated successfull',
