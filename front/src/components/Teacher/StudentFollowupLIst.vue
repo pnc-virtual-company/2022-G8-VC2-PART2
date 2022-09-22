@@ -1,7 +1,7 @@
 <template>
     <!-- ====================== filter on student list ==================== -->
     <div class="mt-5 ml-10 "><i class="fa-solid fa-user fa-2x"></i> <strong class="text-2x">STUDENTS FOLLOW UP LIST</strong></div>
-    <div class="flex justify-between">
+    <div class=" justify-between">
       <div class="flex justify-center align-items-center mt-5 ml-10">
         Students:
         <span class="ml-4"
@@ -30,7 +30,7 @@
     <!-- ============================ display list all student ========================== -->
     <div
       style="height: 75vh"
-      class="m-auto relative z-5 bg-gray-100 sm:rounded-sm overflow-y-scroll"
+      class="m-auto relative z-5 mt-5 bg-gray-100 sm:rounded-sm overflow-y-scroll"
     >
       <table
         class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
