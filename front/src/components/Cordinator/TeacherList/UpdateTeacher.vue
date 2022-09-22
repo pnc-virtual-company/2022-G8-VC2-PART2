@@ -41,7 +41,7 @@
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="w-6 h-6 cursor-pointer"
+                class="w-6 h-6"
               >
                 <path
                   stroke-linecap="round"
@@ -64,7 +64,7 @@
                   'http://127.0.0.1:8000/storage/images/' +
                   teacherStore.user_profile
                 "
-                class="w-28 h-28 rounded-full m-auto image--cover"
+                class="w-28 h-28 rounded-full m-auto"
                 alt=""
               />
               <img
@@ -89,11 +89,12 @@
                 v-else-if="teacherStore.previewImage !== null"
                 :src="teacherStore.previewImage"
                 alt=""
-                class="w-28 h-28 rounded-full m-auto image--cover"
+                class="w-28 h-28 rounded-full m-auto"
               />
             </label>
             <input
               type="file"
+              required
               @change="teacherStore.uploadImage"
               hidden
               id="image"
@@ -108,6 +109,7 @@
               type="text"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="First Name"
+              required
               v-model="teacherStore.first_name"
             />
             <!-- User last name -->
@@ -115,20 +117,43 @@
               type="text"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Last Name"
+              required
               v-model="teacherStore.last_name"
             />
           </div>
           <div class="flex mt-3">
-            <!-- user position -->
-            <input
-              type="text"
-              class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Position"
-              v-model="teacherStore.position"
-            />
+            <select
+            v-model="teacherStore.position"
+            class="
+              m-1
+              bg-gray-50
+              border border-gray-300
+              text-gray-900 text-sm
+              rounded
+              focus:ring-blue-500 focus:border-blue-500
+              block
+              w-full
+              p-2.5
+              dark:bg-gray-700
+              dark:border-gray-600
+              dark:placeholder-gray-400
+              dark:text-white
+              dark:focus:ring-blue-500
+              dark:focus:border-blue-500
+            "
+          >
+            <option value="WEB Trainer">WEB Trainer</option>
+            <option value="SNA Trainer">SNA Trainer</option>
+            <option value="English Trainer">English Trainer</option>
+            <option value="PL Trainer">PL Trainer</option>
+            <option value="Social Affair">Social Affair</option>
+            <option value="Other">Other</option>
+          
+          </select>
             <!-- user gender -->
             <select
               v-model="teacherStore.gender"
+              required
               id="countries"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
@@ -142,6 +167,7 @@
               type="text"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Email"
+              required
               v-model="teacherStore.email"
             />
             <!-- user phone number -->
@@ -154,6 +180,7 @@
                 type="number"
                 class="bg-gray-50 border border-gray-300 rounded-r text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Phone Numer"
+                required
                 v-model="teacherStore.phone"
               />
             </div>
@@ -194,10 +221,3 @@ defineProps({
   id: null,
 });
 </script>
-<style scoped>
-.image--cover {
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center;
-}
-</style>
