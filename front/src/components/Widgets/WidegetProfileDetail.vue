@@ -2,24 +2,24 @@
   <div class="container mx-auto p-5 md:flex md:justify-center">
     <div class="md:flex no-wrap md:-mx-2">
       <!-- Left Side -->
-      <div class="w-full md:w-3/12 m-4">
+      
+      <div class="w-full md:w-3/12 m-4 border-2 border-black-600  shadow-md">
         <!-- Profile Card -->
-        <div class="bg-white p-3 border-2 border-black-600 rounded-lg">
-          <div class="image  overflow-hidden">
+        <div class="bg-white  rounded-lg">
+          <div class="image mt-6 overflow-hidden">
             <slot name="img"></slot>
-            <img class="h-auto w-full mx-auto" src="" alt="" />
+            <img class="h-auto  w-full mx-auto" src="" alt="" />
           </div>
           <h1
-            class="text-gray-900 font-bold text-xl leading-8 flex justify-center"
+            class="text-gray-900 mt-5 mb-5 block text-2lx font-medium text-slate-70   text-xl leading-8 flex justify-center"
           >
             <slot name="fullName"></slot>
           </h1>
         </div>
       </div>
       <!-- End of profile card -->
-
       <!-- Right Side -->
-      <div class="w-full md:w-9/12 m-4 border-2 border-black-600 rounded-lg">
+      <div class="w-full shadow-md md:w-9/12 m-4 border-2 border-black-600 rounded-lg">
         <div class="bg-white rounded-sm p-5">
           <div
             class="flex items-center justify-between space-x-2 font-semibold text-gray-900 leading-8"
@@ -101,3 +101,4 @@
   </div>
 </template>
 <script setup></script>
+<style scoped></style>

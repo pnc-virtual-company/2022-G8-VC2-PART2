@@ -14,6 +14,7 @@
                   Do you want to add them to Follow up Student?
                 </h5>
                 <input
+
                   class="mt-5 p-5 text-lg"
                   required
                   type="text"
@@ -47,9 +48,11 @@
     <!-- ====================== filter on student list ==================== -->
     <div class="m-auto filter flex justify-around w-11/12 mt-5">
       <input
+          v-model="studentfollowupStore.searchByName"
+          @keydown.enter="studentfollowupStore.filterByName()"      
         type="text"
         class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Search Name"
+        placeholder="Search Student"
       />
       <select
         class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -79,7 +82,7 @@
           </tr>
         </thead>
 
-        <tbody v-for="student in studentfollowupStore.students" :key="student.id">
+        <tbody v-for="student in studentfollowupStore.filterByName" :key="student.id">
           <tr
             class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:border-gray-700"
           >
@@ -122,17 +125,17 @@
               <h1 class="">{{ student.studentNumber }}</h1>
             </td>
             <td class="py-3 px-6">
-              <h1 class="">
-                {{ student.user.first_name }}{{ student.user.last_name }}
+              <h1 class=" font-bold">
+                {{ student.user.first_name }} {{ student.user.last_name }}
               </h1>
             </td>
             <td class="py-3 px-6">
               {{ student.class }}
             </td>
-            <td class="py-4 px-5">
-              <div v-if="student.status ==1" class="followup text-red-600 font-bold">
-                  follow up
-              </div>
+            <td class="px-6">
+              <div v-if="student.status ==1" class="text-white bg-yellow-500 cursor-default font-medium rounded-lg text-sm px-2 py-1 w-20 ">follow up</div>
+              <div v-if="student.status==0"   class="text-white bg-sky-500 cursor-default font-medium rounded-lg text-sm px-2 py-1 w-32">None Follow Up</div>
+
             </td>
             <td class="py-3 px-2">
               <!--widget drop down menu  -->
@@ -147,7 +150,7 @@
                 </template>
                 <template #delete
                   ><router-link
-                  class="flex"
+                  class="hover:text-black"
                   :to="{
                     name: 'teacherViewStudentDetail',
                     path: 'teacherViewStudentDetail',
@@ -155,8 +158,8 @@
                   }"
                 >View Detail</router-link>
                 </template>
-                <template #add>
-                  <span @click="studentfollowupStore.isAddStudentFollowup(student.user.id)">Add follow up</span>
+                <template #add >
+                  <span @click="studentfollowupStore.isAddStudentFollowup(student.user.id)" class="text-black">Add follow up</span>
                 </template>
               </widget-DropDown>
               <!-- footer drop down -->
@@ -169,10 +172,8 @@
 </template>
 <script setup>
 import { studentfollowupstore } from "@/store/teacherStore/StudentStore/StudentManagement";
-
 import { onMounted } from "vue";
 const studentfollowupStore = studentfollowupstore();
-
 onMounted(() => {
   studentfollowupStore.getStudent();
 });

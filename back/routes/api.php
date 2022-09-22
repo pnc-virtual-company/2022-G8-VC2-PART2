@@ -9,6 +9,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\DigitnumberController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\PDFController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -39,6 +40,9 @@ Route::get('/getToken',[PostController::class,'index']);
 Route::apiResource('/student', StudentController::class);
 //-------------teacher routes-------------/
 Route::apiResource('/teacher',TeacherController::class);
+//-------------comment routes-------------/
+Route::apiResource('/comment',CommentController::class);
+
 
 // send mail 
 Route::post('/sendstudentmail', [MailController::class, 'studentMail']);
@@ -65,5 +69,4 @@ Route::get('/digit',[DigitnumberController::class,'index']);
 Route::put('/changeProfileImage/{id}',[PhotoController::class,'update']);
 Route::put('/updateStudentImage/{id}',[PhotoController::class,'updateStudentImage']);
 Route::put('/updateTeacherImage/{id}',[PhotoController::class,'updateTeacherImage']);
-
-
+Route::get('/getAllStudentToPDF', [PDFController::class, 'getAllStudent']);

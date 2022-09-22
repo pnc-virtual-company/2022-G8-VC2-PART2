@@ -5,6 +5,7 @@ import ProfileCoordinator from "@/components/Cordinator/ProfileCoordinator.vue";
 import ManageCoordinator from "@/views/Cordinator/ManageCoordinator/ManageCoordinator.vue";
 import ManageStudent from "@/views/Cordinator/ManageStudent/ManageStudent.vue";
 import StudentDetail from "@/components/Cordinator/StudentList/StudentDetail.vue";
+import StudentFollowupDetail from "@/components/Cordinator/StudentList/StudentFollowupDetail.vue";
 import ManageTeacher from "@/views/Cordinator/ManageTeacher/ManageTeacher.vue";
 import StudentFollowup from '@/views/Cordinator/StudentFollowup/StudentFollowupView.vue'
 import CoordinatorDetail from "@/components/Cordinator/CoordinatorList/CoordinatorDetail.vue";
@@ -23,6 +24,8 @@ import ManageStudentProfile from "@/components/Teacher/ManageStudentProfile.vue"
 // -------------------------Authentication--------------------------------------------
 import LoginAuthenticationVue from "@/components/authentication/LoginAuthentication.vue";
 import ForgetPasswordVue from "@/components/authentication/ForgetPassword.vue";
+import ResetCoordinatorPasswordVue from "@/components/Cordinator/CoordinatorList/ResetCoordinatorPassword.vue";
+import EditCoordinatorVue from "@/components/Cordinator/CoordinatorList/EditCoordinator.vue";
 
 // Route
 const routes = [
@@ -122,6 +125,16 @@ const routes = [
     component: CoordinatorViewVue,
     children: [
       {
+        path: "/resetCoordinatorPasswordVue",
+        name: "resetCoordinatorPasswordVue",
+        component: ResetCoordinatorPasswordVue,
+      },
+      {
+        path: "/editCoordinatorVue",
+        name: "editCoordinatorVue",
+        component: EditCoordinatorVue,
+      },
+      {
         path: "/managecoordinator",
         name: "managecoordinator",
         component: ManageCoordinator,
@@ -168,6 +181,12 @@ const routes = [
         path: "/coordinatordetail/:id",
         name: "coordinatordetail",
         component: CoordinatorDetail,
+        meta: { isCoordinator: true },
+      },
+      {
+        path: "/StudentFollowupDetail/:id",
+        name: "StudentFollowupDetail",
+        component: StudentFollowupDetail,
         meta: { isCoordinator: true },
       },
     ],

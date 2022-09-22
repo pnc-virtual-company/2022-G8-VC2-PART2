@@ -1,4 +1,5 @@
 <template>
+<div>
     <widget-title>
         <template v-slot>
             All List Teachers
@@ -20,7 +21,6 @@
             <th class="py-3 px-6">Email</th>
           </tr>
         </thead>
-
         <tbody  v-for:="teacher in teacherData.displayTeachers">
           <tr class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:border-gray-700" v-if="teacher.id!=teacherData.adminId">
             <td class="py-4 px-6">
@@ -57,8 +57,8 @@
         </tbody>
       </table>
     </div>
+</div>
 </template>
-
 <script setup>
     import { teacherstore } from "@/store/coordinatorStore/TeacherStore/TeacherManagement"
     import { onMounted } from "vue";

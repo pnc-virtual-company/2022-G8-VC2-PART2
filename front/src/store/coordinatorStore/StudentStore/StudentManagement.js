@@ -5,6 +5,7 @@ import { useToast, POSITION } from "vue-toastification";
 const toast = useToast();
 export const studentstore = defineStore("student", {
   state: () => ({
+    dataDeleteStudent:[],
     students: [],
     id: null,
     idStudentFollowup: null,
@@ -15,6 +16,13 @@ export const studentstore = defineStore("student", {
     isTrue: false,
     isEdit: false,
     isShow: false,
+    deleteStudent: false, //use in delete popup
+    deleteStudentId: null, //use in delete btn in student list
+    leaveComment: '', //variable to stor input from v-model in comment
+    comments: [], //store comments
+    isEditComment: false, //show edit comment form
+    editCommentContent: '', //get old and new comment content
+    id: '', //store comment id
     previewImage: null,
     user_profile: null,
     profile_img: "",
@@ -65,18 +73,17 @@ export const studentstore = defineStore("student", {
         (student.class).toLowerCase().includes(this.searchData.toLowerCase()))
       }
       return result;
-    }
+    },
   },
   actions: {
     async getStudent() {
-      axios.get("student").then((res) => {
-        this.students = res.data;
-        console.log(this.students)
-      });
+      const data = await axios.get("student");
+      this.students = data.data;
+      this.studentDetail();
     },
     /**
-        * @todo add student to follow up list
-        */
+      * @todo add student to follow up list
+      */
     async addToFollowup() {
       console.log("Added Successfully")
       // this.isAddFollowup = true
@@ -112,7 +119,7 @@ export const studentstore = defineStore("student", {
       this.idStudentFollowup = id
     },
     onCreate() {
-      this.clearForm()
+      this.clearForm();
       this.isTrue = true;
     },
     isOpen(id) {
@@ -266,9 +273,21 @@ export const studentstore = defineStore("student", {
     async onDeleteStudent(id) {
       axios.post('/deletestudent',{email:this.email,first_name:this.first_name})
       await axios.delete("user/" + id).then(() => {
-        this.isShow = false
+        this.isShow = false;
         this.getStudent();
       });
+    },
+    /**
+     * @todo  
+     */
+    async onDeleteManyStudent() {
+      if(this.dataDeleteStudent.length > 0){
+        this.dataDeleteStudent.forEach(id => {
+          axios.delete("user/" + id).then(() => {
+            this.getStudent();
+          });
+        });
+      }
     },
     onCancel() {
       this.clearForm()
@@ -277,6 +296,48 @@ export const studentstore = defineStore("student", {
       this.isTrue = false;
       this.isEdit = false;
     },
+    //Add comment============================================
+        addComment() {
+            let commentData = new FormData();
+            commentData.append('student_id', this.studentIdOnviewDetail)
+            commentData.append('commenter_id', sessionStorage.getItem('coordintor_id'), )
+            commentData.append('paragraph', this.leaveComment)
+            axios.post(process.env.VUE_APP_API_URL + "comment", commentData).then(() => {
+                this.getStudent();
+                this.getComment();
+                this.leaveComment = ''
+            });
+        },
+
+        // Get comment============================================
+        async getComment() {
+            const data = await axios.get("comment");
+            this.comments = data.data;
+            console.log(this.comments)
+        },
+        async deleteComment(id) {
+            await axios.delete("comment/" + id);
+            this.getComment();
+
+        },
+        async editComment() {
+            this.isEditComment = false
+            const data = await axios.put("comment/" + this.id, { paragraph: this.editCommentContent });
+            this.getStudent();
+            this.getComment();
+            console.log(data)
+
+        },
+        async editCommentClicked(oldUser_id, parag, id) {
+            if (sessionStorage.getItem('coordintor_id') == oldUser_id) {
+                this.isEditComment = true
+                this.editCommentContent = parag
+                this.id = id
+
+            }
+
+        },
+
     /**
      * @todo get student by id
      */
@@ -288,7 +349,7 @@ export const studentstore = defineStore("student", {
       this.last_name = data.data.last_name;
       this.email = data.data.email;
       this.gender = data.data.gender;
-      this.user_profile = data.data.profile_img
+      this.user_profile = data.data.profile_img;
       this.studentNumber = data.data.students.studentNumber;
       this.province = data.data.students.province;
       this.class = data.data.students.class;
@@ -296,10 +357,9 @@ export const studentstore = defineStore("student", {
       this.phone = data.data.phone;
       this.ngo = data.data.students.ngo;
       this.user_id = id;
-
     },
     /**
-     * @todo edit student 
+     * @todo edit student
      */
     async onEditStudent() {
       let student = new FormData();
@@ -337,7 +397,7 @@ export const studentstore = defineStore("student", {
       this.phone = ''
       this.ngo = ''
       this.province = ''
-      this.class = ''
+      this.class = 'webb'
       this.studentNumber = ''
       this.profile_img = ''
       this.previewImage = null
@@ -367,6 +427,7 @@ export const studentstore = defineStore("student", {
         this.ngo = res.data.ngo;
         this.province = res.data.province;
         this.profile_img = res.data.user.profile_img;
+        this.studentIdOnviewDetail = res.data.user_id
         this.getStudent()
       });
     },
@@ -400,14 +461,26 @@ export const studentstore = defineStore("student", {
       profileImage.append("profile_img", profile_img);
       profileImage.append("_method", "PUT");
       axios
-        .post("/updateStudentImage/" + sessionStorage.getItem("student_id"), profileImage)
+        .post(
+          "/updateStudentImage/" + sessionStorage.getItem("student_id"),
+          profileImage
+        )
         .then((response) => {
           console.log(response);
           this.getStudent();
-          this.getStudentToken()
+          this.getStudentToken();
+        });
+    },
+    onDownloadAllStudentAsPDF(){
+      axios.get('getAllStudentToPDF').then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        var fileLink = document.createElement('a');
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download', 'myPDF.pdf');
+        document.body.appendChild(fileLink);
+        fileLink.click();
+        console.log(response.data);
         });
     },
   },
 });
-
-

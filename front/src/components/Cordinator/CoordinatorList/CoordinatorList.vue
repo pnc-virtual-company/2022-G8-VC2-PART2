@@ -12,13 +12,27 @@
                 <h3 class="text-2xl">Are you sure to delete?</h3>
               </div>
               <div class="mt-10 flex justify-evenly">
+                <!-- Button cancel on user action delete -->
                 <button
-                  @click="coordinatorData.isDelete = false , coordinatorData.isDropdown = false"
+                  @click="coordinatorData.isDelete = false , coordinatorData.isDropdown = false, coordinatorData.isSelect='', coordinatorData.selectAll()"
                   class="px-6 py-2 text-blue-800 border border-blue-600 rounded"
                 >
                   No
                 </button>
+                <!-- Button delete for many coordinator -->
                 <button
+                  v-if="coordinatorData.dataDeleteCoordinator.length > 0"
+                  @click="
+                    coordinatorData.deleteManyCoordinator(),
+                      (coordinatorData.isDelete = false), coordinatorData.selectAll()
+                  "
+                  class="px-6 py-2 ml-2 text-blue-100 bg-sky-500 rounded"
+                >
+                  Yes
+                </button>
+                <!-- Button delete for each coordinator -->
+                <button
+                  v-else
                   @click="
                     coordinatorData.deleteCoordinator(),
                       (coordinatorData.isDelete = false)
@@ -27,6 +41,7 @@
                 >
                   Yes
                 </button>
+
               </div>
             </div>
           </div>
@@ -34,7 +49,18 @@
       </div>
       <!-- Show list all coordinator -->
       <div class="container text-center w-full max-h-screen">
-        <div class="m-auto filter items-center flex justify-between px-5 w-12/12 mt-5">
+
+        <!-- ====================== option delete many ======================= -->
+        <div v-if="coordinatorData.dataDeleteCoordinator.length > 0" class="ml-10 mt-5 flex items-center">
+          <span v-if="coordinatorData.dataDeleteCoordinator[coordinatorData.dataDeleteCoordinator.length-1] == 'all'" class="mr-8"><strong>Select Number: {{coordinatorData.dataDeleteCoordinator.length-1}}</strong></span>
+          <span v-else class="mr-8"><strong>Select Number: {{coordinatorData.dataDeleteCoordinator.length}}</strong></span>
+          <svg @click="coordinatorData.isDelete = true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="w-7 h-7 text-red-500">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+          </svg>
+        </div>
+
+        <!-- ======================= Option for user filter on coordinator ======================= -->
+        <div v-else class="m-auto filter items-center flex justify-between px-5 w-12/12 mt-5">
           <div class="items-center ml-1 flex  w-3/6">
             <!-- count number of coordinator -->
             <span><strong>Coordinator Number: {{coordinatorData.coordinators.length-1}}</strong></span>
@@ -46,7 +72,8 @@
               placeholder="Search Name"
             />
           </div>
-          <!--   Button to create new teacher   -->
+
+          <!--   Button to create new coordinator   -->
           <widget-button @click="coordinatorData.onCreate()">
             <template v-slot> 
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-gray-200 font-bold w-6 h-6">
@@ -56,7 +83,8 @@
             </template>
           </widget-button>
         </div>
-        <!--  display each card of teacher's list   -->
+
+        <!-- ======================= display each card of teacher's list ==========================  -->
         <div class="card m-auto bg-gray-100 mt-4 rounded w-12/12  overflow-y-scroll" style="height: 448px;">
           <table
             class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
@@ -65,7 +93,11 @@
               class="text-xs text-gray-700 bg-gray-200 dark:bg-gray-700 dark:text-gray-400 "
             >
               <tr>
-                <th class="py-4 px-6 text-base text-slate-500">Profile</th>
+                <th class="py-4 px-6 text-base text-slate-500 flex justify-around">
+                  <!-- option for user seleted all coordinator -->
+                  <input  value="all" v-model="coordinatorData.dataDeleteCoordinator" @click="coordinatorData.selectAll()" type="checkbox" id="delete" class="-ml-7">
+                  <span class="-ml-8">Profile</span>
+                </th>
                 <th class="py-4 px-6 text-base text-slate-500">Name</th>
                 <th class="py-4 px-3 text-base text-slate-500">Email</th>
                 <th class="py-4 px-3 text-base text-slate-500">phone</th>
@@ -76,7 +108,13 @@
             <tbody v-for="coordinator of coordinatorData.filterDataCoordinator" :key="coordinator">
               <tr class="w-full bg-white border-b dark:bg-gray-800 dark:border-gray-700 " v-if="coordinator.id != userID">
                 <!-- coordinator profile image -->
-                <td class="px-2">
+                <td class="px-2 flex justify-evenly">
+
+
+
+                  <!-- option for user select one coordinator -->
+                  <input  type="checkbox" id="delete" :value="coordinator.id"  v-model="coordinatorData.dataDeleteCoordinator">
+
                   <router-link class="flex" :to="{name:'coordinatordetail',path:'coordinatordetail',params:{id:coordinator.id}}">
                     <div class="m-auto px-6 text-right mb-4">
                       <!-- <router-link class="flex" :to="{name:'coordinator',path:'coordinator',params:{id:coordinator.id}}"> -->
