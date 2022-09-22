@@ -6,6 +6,9 @@ import axios from "@/axios-http";
 export const studentfollowupstore = defineStore("student", {
     state: () => ({
         students: [],
+        isAssign:false,
+        teachersData:[],
+        tutorId:null,
         id:null,
         idStudentFollowup:null,
         isAddFollowup:false,
@@ -31,6 +34,7 @@ export const studentfollowupstore = defineStore("student", {
         index: null,
         dialog: false,
         showDetail: false,
+        studentIDAssign:null
     }),
     actions: {
         /**
@@ -43,6 +47,12 @@ export const studentfollowupstore = defineStore("student", {
              });
         },
         onCancel() {
+            this.isAssign=false,
+            this.teachersData=[],
+            this.tutorId=null,
+            this.id=null,
+            this.idStudentFollowup=null,
+
             this.isAddFollowup = false,
             this.id=null,
             this.idStudentFollowup=null,
@@ -99,11 +109,42 @@ export const studentfollowupstore = defineStore("student", {
             this.isAddFollowup = true
             this.idStudentFollowup = id
         },
+
+
+        //========================                            =====================
+        //                         All with student follow up
+        //========================                            =====================
+        
+        /**
+         * @todo store Id student assign
+         */
+        storeIdStudentAssign(id){
+            this.studentIDAssign = id
+            this.isAssign = true
+            console.log(id);
+        },
         /**
          * @todo assign tutor for student follow up
          */
         assignTutor(){
-            
+            let assignData = {}
+            assignData['tutor_id'] = this.tutorId
+            assignData['student_id'] = this.studentIDAssign
+            console.log(assignData);
+            axios.post('followup', assignData).then((res)=>{
+                console.log(res.data);
+            })
+            this.onCancel()
+        },
+        /**
+         * @todo get all data of teacher
+         */
+        getTeachers(id){
+            axios.get('teacher').then((res)=>{
+                this.teachersData = res.data
+                console.log(res.data);
+            })
+            this.storeIdStudentAssign(id)
         }
     },
 

@@ -1,7 +1,7 @@
 <template>
     <div class="container text-center w-5/5 h-screen overflow-y-scroll">
       <!--  Pop up of confirm to add student into follow up list  -->
-      <div class="container mx-auto">
+      <!-- <div class="container mx-auto">
         <div class="flex justify-center">
           <div
             v-if="storeData.isAddFollowup"
@@ -35,11 +35,10 @@
                   </div>
                 </form>
               </div>
-              <div></div>
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- ====================== Title ==================== -->
       <widget-title>
         <template v-slot> Follow up History </template>
@@ -78,9 +77,8 @@
             </tr>
           </thead>
   
-          <tbody v-for="student in storeData.students" :key="student.id">
+          <tbody v-for="student in storeData.historyFollowupData" :key="student.id">
             <tr
-              v-if="student.status == 1"
               class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:border-gray-700"
             >
               <td>
@@ -119,11 +117,11 @@
                 </div>
               </td>
               <td class="py-3 px-2">
-                <h1 class="">{{ student.studentNumber }}</h1>
+                <h1 class="">{{ student.student_id }}</h1>
               </td>
               <td class="py-3 px-6">
                 <h1 class="">
-                  {{ student.user.first_name }}{{ student.user.last_name }}
+                  {{ student.data.first_name }}{{ student.data.last_name }}
                 </h1>
               </td>
               <td class="py-3 px-6">
@@ -195,4 +193,3 @@
     storeData.getStudent();
   });
   </script>
-  

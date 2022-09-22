@@ -6,6 +6,8 @@ const toast = useToast();
 export const studentstore = defineStore("student", {
   state: () => ({
     students: [],
+    historyFollowupData:[],
+    studentHistoryId:null,
     id: null,
     idStudentFollowup: null,
     show: false,
@@ -73,9 +75,15 @@ export const studentstore = defineStore("student", {
       this.students = data.data;
       this.studentDetail();
     },
+    getHistoryData(){
+      axios.get("history").then((res)=>{
+        console.log(res.data)
+        console.log(this.historyFollowupData)
+      })
+    },
     /**
-        * @todo add student to follow up list
-        */
+     * @todo add student to follow up list
+     */
     async addToFollowup() {
       this.isAddFollowup = true
       axios.get("user/" + this.idStudentFollowup).then((res) => {
@@ -94,8 +102,15 @@ export const studentstore = defineStore("student", {
         student.append("status", 1);
         console.log(student);
         axios.post("user/" + this.idStudentFollowup, student);
-        alert('Added to follow up student successfully')
+        this.getStudent()
         this.onCancel();
+        alert('Added to follow up student successfully')
+        // this.studentHistoryId = this.idStudentFollowup;
+        // let history = new FormData();
+        // history.append("tutor_id",6);
+        // history.append("student_id",this.studentHistoryId);
+        // axios.post("history",history);
+        // this.onCancel();
       })
     },
     isAddStudentFollowup(id) {
@@ -131,9 +146,10 @@ export const studentstore = defineStore("student", {
         student.append("_method", 'PUT');
         student.append("status", 0);
         axios.post("user/" + this.idStudentFollowup, student);
-        alert('Remove from  follow up student successfully')
         console.log(student);
         this.onCancel();
+        this.getStudent()
+        alert('Remove from  follow up student successfully')
 
       })
     },

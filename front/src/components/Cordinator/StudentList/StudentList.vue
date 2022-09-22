@@ -65,6 +65,7 @@
         </select>
 
       </div>
+      <button @click="storeData.getHistoryData()">get History</button>
       <!-- button -->
       <widget-button @click="storeData.onCreate()">
         <template v-slot> 
