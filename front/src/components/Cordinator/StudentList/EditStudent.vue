@@ -105,7 +105,7 @@
         </div>
         <div class="flex mt-3">
           <input
-            type="text"
+            type="number"
             class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Batch"
             v-model="store.batch"
@@ -154,12 +154,31 @@
           />
         </div>
         <div class="flex mt-3">
-          <input
-            type="text"
-            class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Class"
+          <select
             v-model="store.class"
-          />
+            class="
+              m-1
+              bg-gray-50
+              border border-gray-300
+              text-gray-900 text-sm
+              rounded
+              focus:ring-blue-500 focus:border-blue-500
+              block
+              w-full
+              p-2.5
+              dark:bg-gray-700
+              dark:border-gray-600
+              dark:placeholder-gray-400
+              dark:text-white
+              dark:focus:ring-blue-500
+              dark:focus:border-blue-500
+            "
+          >
+            <option selected value="webb">sellect class</option>
+            <option selected :value="'WEB '+store.batch+' A'">WEB {{ store.batch }} A</option>
+            <option :value="'WEB '+store.batch+' B'">WEB{{ store.batch }} B</option>
+            <option :value="'SNA '+store.batch">SNA {{ store.batch }}</option>
+          </select>
           <input
             type="text"
             class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
