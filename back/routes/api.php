@@ -32,7 +32,6 @@ Route::get('/getToken', [PostController::class, 'index']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', [UserController::class, 'signOut']);
 });
-Route::apiResource('/comment', CommentController::class);
 Route::apiResource('/user', UserController::class);
 Route::put('/updateteacher/{id}', [UserController::class, 'updateTeacher']);
 //-------------students routes-------------/
