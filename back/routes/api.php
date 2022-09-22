@@ -10,6 +10,7 @@ use App\Http\Controllers\VerifyMailController;
 use App\Http\Controllers\DigitnumberController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\RessetpasswordController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -53,6 +54,9 @@ Route::post('/forgetPassword', [UserController::class,'changePassword']);
 // reset coordinator password
 Route::put('/resetPaswordCoordinator/{id}', [UserController::class, 'ressePasswordCoordinator']);
 Route::post('/resetPaswordCoordinator/{id}', [UserController::class, 'compareOldPassword']);
+//resset password Teacher student
+Route::put('/ressetPassword/{id}',[RessetpasswordController::class,'ressePassword']);
+Route::post('/compareRessetPassword/{id}',[RessetpasswordController::class,'oldPassword']);
 
 // ---------set digit number to compare ---------
 Route::post('/digit',[DigitnumberController::class,'store']);

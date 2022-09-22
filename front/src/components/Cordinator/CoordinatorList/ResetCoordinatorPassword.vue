@@ -49,17 +49,17 @@
       </div >
         </template>
         <template #submit>
-          <button @click="resCoordinatoreStore.ressetPassword"
+          <button @click="resCoordinatoreStore.changePassword"
             class="px-2 text-white m-1 mt-3 py-2.5 bg-sky-500 font-medium text-xs leading-tight uppercase rounded shadow-md focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
           >
             Save
           </button>
         </template>
         <template #cencel>
-          <button 
+          <button @click="resCoordinatoreStore.clear"
             class="px-2 text-white m-1 mt-3 py-2.5 bg-sky-500 font-medium text-xs leading-tight uppercase rounded shadow-md focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
           >
-            Cencel
+            clear
           </button>
         </template>
       </widget-ResetPasswordVue>

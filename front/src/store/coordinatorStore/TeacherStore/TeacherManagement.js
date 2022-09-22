@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from "@/axios-http"
 import { useToast,POSITION  } from "vue-toastification";
-
+import router from "@/router";
 const toast = useToast();
 export const teacherstore = defineStore('teacher', {
   state: () => ({
@@ -27,7 +27,7 @@ export const teacherstore = defineStore('teacher', {
     user_id: null,
     dataEdit: {},
     displayTeachers:[],
-    adminId:sessionStorage.getItem("teacher_id"),
+    adminId:sessionStorage.getItem("user_id"),
 
     // ===============teacher validation==============
     no_firstname:false,
@@ -265,7 +265,7 @@ export const teacherstore = defineStore('teacher', {
     // get this data to TeacherProfile in Folder Teacher to get only one data
     */
     async getDatTeacherToPRofile(){
-        const data = await axios.get('user/'+sessionStorage.getItem('teacher_id'))
+        const data = await axios.get('user/'+sessionStorage.getItem('user_id'))
         if(data.data.role==2){
           this.profile_img = data.data.profile_img
           this.first_name = data.data.first_name
@@ -284,7 +284,7 @@ export const teacherstore = defineStore('teacher', {
       const profileImage = new FormData();
       profileImage.append("profile_img", profile_img);
       profileImage.append("_method", "PUT");
-      axios.post("/updateTeacherImage/" + sessionStorage.getItem("teacher_id"), profileImage)
+      axios.post("/updateTeacherImage/" + sessionStorage.getItem("user_id"), profileImage)
           this.getTeacher();
     },
     /**
@@ -307,11 +307,12 @@ export const teacherstore = defineStore('teacher', {
     async displayTeachersList(){
       const data = await axios.get('teacher')
       this.displayTeachers=data.data
-    }
-    
-
-      
-   
-
+    },
+    signOut(){
+      this.getTeacher()
+      sessionStorage.removeItem('user_id');
+      sessionStorage.removeItem('teacher_token');
+      router.push("/");
+},
   }
 });
