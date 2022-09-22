@@ -1,4 +1,5 @@
 <template>
+<div>
     <!-- getId -->
     <!-- send id to pinia -->
     <div class="hidden">
@@ -43,6 +44,7 @@
         {{ teacherData.created_at }}
       </template>
     </widget-ViewProfileDetail>
+</div>
   </template>
   <script setup>
   import { teacherstore } from "@/store/coordinatorStore/TeacherStore/TeacherManagement";

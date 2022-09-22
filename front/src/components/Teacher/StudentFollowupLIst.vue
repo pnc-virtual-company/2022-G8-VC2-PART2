@@ -109,13 +109,14 @@
     </div>
     <!-- ============================ display list all student ========================== -->
     <div
-      class="m-auto relative bg-gray-100 p-5 shadow-md w-11/12 sm:rounded-lg mt-3 h-screen overflow-y-scroll"
+      style="height: 75vh"
+      class="m-auto relative z-5 bg-gray-100 sm:rounded-sm overflow-y-scroll"
     >
       <table
         class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
       >
         <thead
-          class="text-xs text-gray-700 bg-gray-200 dark:bg-gray-700 dark:text-gray-400"
+          class="text-xs text-gray-700 bg-gray-200 bg-gray-400 dark:text-gray-400"
         >
           <tr>
             <th class="py-3 px-6">Profile</th>
@@ -125,10 +126,9 @@
             <th class="py-3 px-2">Assign Tutor</th>
           </tr>
         </thead>
-
-        <tbody v-for="student in studentfollowupStore.students" :key="student.id">
+        <tbody v-for="student in studentfollowupStore.filterByName" :key="student.id">
           <tr
-            v-if="student.status == 1 "
+            v-if="student.status == 1"
             class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:border-gray-700"
           >
             <td>
@@ -143,9 +143,7 @@
                 >
                   <img
                     v-if="student.user.profile_img != null"
-                    :src="
-                      'http://127.0.0.1:8000/storage/images/' +
-                      student.user.profile_img
+                    :src="'http://127.0.0.1:8000/storage/images/' +student.user.profile_img
                     "
                     class="w-12 h-12 rounded-full m-auto mt-5"
                     alt=""
@@ -167,11 +165,11 @@
               </div>
             </td>
             <td class="py-3 px-2">
-              <h1 class="">{{ student.studentNumber}}</h1>
+              <h1 class="">{{ student.studentNumber }}</h1>
             </td>
             <td class="py-3 px-6">
-              <h1 class="">
-                {{ student.user.first_name }}{{ student.user.last_name }}
+              <h1 class="font-bold">
+                {{ student.user.first_name }} {{ student.user.last_name }}
               </h1>
             </td>
             <td class="py-3 px-6">

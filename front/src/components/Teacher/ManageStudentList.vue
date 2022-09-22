@@ -1,6 +1,5 @@
 <template>
-  <div class="container text-center w-5/5 h-screen overflow-y-scroll">
-    <!--  Pop up of confirm to add student into follow up list  -->
+  <div class="container text-center  ">
     <div class="container mx-auto">
       <div class="flex justify-center">
         <div
@@ -14,6 +13,7 @@
                   Do you want to add them to Follow up Student?
                 </h5>
                 <input
+
                   class="mt-5 p-5 text-lg"
                   required
                   type="text"
@@ -40,34 +40,38 @@
         </div>
       </div>
     </div>
-    <!-- ====================== Title ==================== -->
-    <widget-title>
-      <template v-slot> Manage Student </template>
-    </widget-title>
-    <!-- ====================== filter on student list ==================== -->
-    <div class="m-auto filter flex justify-around w-11/12 mt-5">
-      <input
+    <div class="flex ml-10 mt-5"> <i class="fa-solid fa-user fa-2x"></i><span class="text-1xl mt-3 ml-2 font-bold ">STUDENTS LIST</span> </div>
+    <div class="flex justify-between">
+      <div class="flex justify-center align-items-center mt-9 ml-10 ">
+        Students: <span class="ml-4"><strong class="text-sky-500"> {{studentfollowupStore.students.length}} </strong> </span>
+      </div>
+      <div class="m-auto filter flex  flex justify-end w-11/12  mt-5">
+        <input
+          v-model="studentfollowupStore.searchByName"
+          @keydown.enter="studentfollowupStore.filterByName()"      
         type="text"
         class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Search Name"
+        placeholder="Search Student"
       />
-      <select
-        class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      >
-        <option selected value="WEBA">WEB 2022 A</option>
-        <option value="WEBB">WEB 2022 B</option>
-        <option value="SNA">SNA 2022</option>
-      </select>
+        <select
+          class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded  m-2 focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option selected value="WEBA">WEB 2022 A</option>
+          <option value="WEBB">WEB 2022 B</option>
+          <option value="SNA">SNA 2022</option>
+        </select>
+      </div>
     </div>
+  
     <!-- ============================ display list all student ========================== -->
-    <div
-      class="m-auto relative z-5 bg-gray-100 p-5 shadow-md w-11/12 sm:rounded-lg mt-3 h-screen overflow-y-scroll"
+    <div style="height:75vh"
+      class="m-auto relative z-5  bg-gray-100  sm:rounded-sm   overflow-y-scroll"
     >
       <table
         class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
       >
         <thead
-          class="text-xs text-gray-700 bg-gray-200 dark:bg-gray-700 dark:text-gray-400"
+          class="text-xs text-gray-700  bg-gray-300 dark:text-gray-400"
         >
           <tr>
             <th class="py-3 px-6">Profile</th>
@@ -79,12 +83,12 @@
           </tr>
         </thead>
 
-        <tbody v-for="student in studentfollowupStore.students" :key="student.id">
+        <tbody v-for="student in studentfollowupStore.filterByName" :key="student.id">
           <tr
-            class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:border-gray-700"
+            class="bg-gray-50 border-b dark:bg-gray-800 hover:bg-gray-50 dark:border-gray-700"
           >
             <td>
-              <div class="py-4 px-6 text-right">
+              <div class=" px-6 text-right">
                 <router-link
                   class="flex"
                   :to="{
@@ -99,7 +103,7 @@
                       'http://127.0.0.1:8000/storage/images/' +
                       student.user.profile_img
                     "
-                    class="w-12 h-12 rounded-full m-auto mt-5"
+                    class="image--cover"
                     alt=""
                   />
 
@@ -118,23 +122,23 @@
                 </router-link>
               </div>
             </td>
-            <td class="py-3 px-2">
+            <td class=" px-2 ">
               <h1 class="">{{ student.studentNumber }}</h1>
             </td>
-            <td class="py-3 px-6">
+            <td class=" px-6">
               <h1 class="">
                 {{ student.user.first_name }}{{ student.user.last_name }}
               </h1>
             </td>
-            <td class="py-3 px-6">
+            <td class=" px-6">
               {{ student.class }}
             </td>
-            <td class="py-4 px-5">
-              <div v-if="student.status ==1" class="followup text-red-600 font-bold">
-                  follow up
-              </div>
+            <td class="px-6">
+              <div v-if="student.status ==1" class="text-white bg-yellow-500 cursor-default font-medium rounded-lg text-sm px-2 py-1 w-20 ">follow up</div>
+              <div v-if="student.status==0"   class="text-white bg-sky-500 cursor-default font-medium rounded-lg text-sm px-2 py-1 w-32">None Follow Up</div>
+
             </td>
-            <td class="py-3 px-2">
+            <td class=" px-2">
               <!--widget drop down menu  -->
               <widget-DropDown>
                 <template #edit>
@@ -147,7 +151,7 @@
                 </template>
                 <template #delete
                   ><router-link
-                  class="flex"
+                  class="hover:text-black"
                   :to="{
                     name: 'teacherViewStudentDetail',
                     path: 'teacherViewStudentDetail',
@@ -155,8 +159,8 @@
                   }"
                 >View Detail</router-link>
                 </template>
-                <template #add>
-                  <span @click="studentfollowupStore.isAddStudentFollowup(student.user.id)">Add follow up</span>
+                <template #add >
+                  <span @click="studentfollowupStore.isAddStudentFollowup(student.user.id)" class="text-black">Add follow up</span>
                 </template>
               </widget-DropDown>
               <!-- footer drop down -->
@@ -169,11 +173,18 @@
 </template>
 <script setup>
 import { studentfollowupstore } from "@/store/teacherStore/StudentStore/StudentManagement";
-
 import { onMounted } from "vue";
 const studentfollowupStore = studentfollowupstore();
-
 onMounted(() => {
   studentfollowupStore.getStudent();
 });
 </script>
+<style scoped>
+  .image--cover {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    object-position: center;
+  }
+</style>

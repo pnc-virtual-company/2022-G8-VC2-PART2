@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
 import axios from "@/axios-http";
 import { useToast, POSITION } from "vue-toastification";
-
+import router from "@/router";
 const toast = useToast();
 export const studentstore = defineStore("student", {
   state: () => ({
+    dataDeleteStudent:[],
     students: [],
     historyFollowupData:[],
     studentHistoryId:null,
@@ -17,6 +18,12 @@ export const studentstore = defineStore("student", {
     isTrue: false,
     isEdit: false,
     isShow: false,
+    deleteStudent: false, //use in delete popup
+    deleteStudentId: null, //use in delete btn in student list
+    leaveComment: '', //variable to stor input from v-model in comment
+    comments: [], //store comments
+    isEditComment: false, //show edit comment form
+    editCommentContent: '', //get old and new comment content
     previewImage: null,
     user_profile: null,
     profile_img: "",
@@ -30,7 +37,7 @@ export const studentstore = defineStore("student", {
     phone: "",
     ngo: "",
     province: "",
-    searchOption:'name',
+    searchOption: "name",
     dialogDelete: false,
     user_id: null,
     index: null,
@@ -49,22 +56,26 @@ export const studentstore = defineStore("student", {
     no_ngo: false,
     uniqueEmail: false,
   }),
-
   getters: {
     // search name and studentNumber in students-----
     filterByName() {
       let result = "";
-      if (!this.searchData  ) {
+      if (!this.searchData) {
         return this.students;
-      } else if (this.searchData && this.searchOption == 'name') {
+      } else if (this.searchData && this.searchOption == "name") {
         result = this.students.filter((student) =>
-        (student.user.first_name+" "+student.user.last_name).toLowerCase().includes(this.searchData.toLowerCase()))
-      } else if (this.searchData && this.searchOption == 'id'){
+          (student.user.first_name + " " + student.user.last_name)
+            .toLowerCase()
+            .includes(this.searchData.toLowerCase())
+        );
+      } else if (this.searchData && this.searchOption == "id") {
         result = this.students.filter((student) =>
-        (student.studentNumber).includes(this.searchData))
-      }else if (this.searchData && this.searchOption == 'class'){
+          student.studentNumber.includes(this.searchData)
+        );
+      } else if (this.searchData && this.searchOption == "class") {
         result = this.students.filter((student) =>
-        (student.class).toLowerCase().includes(this.searchData.toLowerCase()))
+          student.class.toLowerCase().includes(this.searchData.toLowerCase())
+        );
       }
       return result;
     },
@@ -85,8 +96,13 @@ export const studentstore = defineStore("student", {
      * @todo add student to follow up list
      */
     async addToFollowup() {
-      this.isAddFollowup = true
-      axios.get("user/" + this.idStudentFollowup).then((res) => {
+      console.log("Added Successfully")
+      // this.isAddFollowup = true
+      /**
+      * @todo  equest email when created students 
+      */
+      axios.post('/sendfollowupstudentmail',{email:this.email,first_name:this.first_name});
+      axios.get("user/" + this.idStudentFollowup).then((res) =>{
         let student = new FormData();
         student.append("first_name", res.data.first_name);
         student.append("last_name", res.data.last_name);
@@ -98,39 +114,40 @@ export const studentstore = defineStore("student", {
         student.append("phone", res.data.phone);
         student.append("ngo", res.data.students.ngo);
         student.append("province", res.data.students.province);
-        student.append("_method", 'PUT');
+        student.append("_method", "PUT");
         student.append("status", 1);
         console.log(student);
         axios.post("user/" + this.idStudentFollowup, student);
-        this.getStudent()
+
         this.onCancel();
-        alert('Added to follow up student successfully')
-        // this.studentHistoryId = this.idStudentFollowup;
-        // let history = new FormData();
-        // history.append("tutor_id",6);
-        // history.append("student_id",this.studentHistoryId);
-        // axios.post("history",history);
-        // this.onCancel();
+
+        this.getStudent()
       })
+      
     },
     isAddStudentFollowup(id) {
-      this.isAddFollowup = true
-      this.idStudentFollowup = id
+      this.isAddFollowup = true;
+      this.idStudentFollowup = id;
     },
     onCreate() {
       this.clearForm();
       this.isTrue = true;
     },
     isOpen(id) {
-      this.show = !this.show
-      this.id = id
+      this.show = !this.show;
+      this.id = id;
     },
     isRemoveStudentFollowup(id) {
-      this.isAddFollowup = true
-      this.idStudentFollowup = id
+      this.isAddFollowup = true;
+      this.idStudentFollowup = id;
     },
     removeFollowup() {
-      this.isAddFollowup = true
+      console.log("Delete Successfully")
+      // this.isAddFollowup = true
+      /**
+      * @todo  equest email when created students 
+      */
+      axios.post('/sendfollowupremovestudentmail',{email:this.email,first_name:this.first_name});
       axios.get("user/" + this.idStudentFollowup).then((res) => {
         let student = new FormData();
         student.append("first_name", res.data.first_name);
@@ -143,14 +160,12 @@ export const studentstore = defineStore("student", {
         student.append("phone", res.data.phone);
         student.append("ngo", res.data.students.ngo);
         student.append("province", res.data.students.province);
-        student.append("_method", 'PUT');
+        student.append("_method", "PUT");
         student.append("status", 0);
-        axios.post("user/" + this.idStudentFollowup, student);
         console.log(student);
+        axios.post("user/" + this.idStudentFollowup,student);
         this.onCancel();
         this.getStudent()
-        alert('Remove from  follow up student successfully')
-
       })
     },
     /**
@@ -158,26 +173,37 @@ export const studentstore = defineStore("student", {
      * @return new data student
      */
     createStudent() {
-
-      /**
-       * @todo  unique Email.
-       * 
-       */
-      for (let email of this.students) {
-        if (email.user.email === this.email) {
-          this.uniqueEmail = true
+    /**
+     * @todo  unique Email.
+     * 
+     */
+      for(let email of this.students){
+        if(email.user.email===this.email){
+           this.uniqueEmail=true
         }
       }
       if (this.uniqueEmail) {
-        toast.error("this email already created!", { position: POSITION.TOP_CENTER, timeout: 2500 })
+        toast.error("this email already created!", {
+          position: POSITION.TOP_CENTER,
+          timeout: 2500,
+        });
       }
 
       /**
-     * @todo  validation create student.
-     * 
-     */
-      if ((this.first_name != "" && this.last_name != "" && this.batch != "" && this.gender != "" &&
-        this.email != "" && this.phone != "" && this.ngo != "" && this.class != "" && this.id != "") && !this.uniqueEmail
+       * @todo  validation create student.
+       *
+       */
+      if (
+        this.first_name != "" &&
+        this.last_name != "" &&
+        this.batch != "" &&
+        this.gender != "" &&
+        this.email != "" &&
+        this.phone != "" &&
+        this.ngo != "" &&
+        this.class != "" &&
+        this.id != "" &&
+        !this.uniqueEmail
       ) {
         let student = new FormData();
         student.append("profile_img", this.profile_img);
@@ -194,68 +220,67 @@ export const studentstore = defineStore("student", {
         student.append("password", 123456789);
         student.append("role", 1);
         student.append("status", 0);
+        /**
+         * @todo  equest email when created students
+         * 
+         */
+         axios.post('/sendstudentmail',{email:this.email,first_name:this.first_name})
         axios.post(process.env.VUE_APP_API_URL + "user", student).then(() => {
           this.isTrue = false;
           this.getStudent();
-          toast.success("Created successfully!", { position: POSITION.TOP_CENTER, timeout: 1000 })
-        });
-      } else {
-        if (this.uniqueEmail) {
-          this.uniqueEmail = false
-        } else {
-          toast.error("Please enter in field!", { position: POSITION.TOP_CENTER, timeout: 2000 })
-        }
+          toast.success("Created successfully!",{position: POSITION.TOP_CENTER, timeout: 1000})
+ 
+        })
         if (this.first_name == "") {
-          this.no_firstname = true
+          this.no_firstname = true;
         } else {
-          this.no_firstname = false
+          this.no_firstname = false;
         }
         if (this.last_name == "") {
-          this.no_lastname = true
+          this.no_lastname = true;
         } else {
-          this.no_lastname = false
+          this.no_lastname = false;
         }
         if (this.batch == "") {
-          this.no_batch = true
+          this.no_batch = true;
         } else {
-          this.no_batch = false
+          this.no_batch = false;
         }
         if (this.gender == "") {
-          this.no_gender = true
+          this.no_gender = true;
         } else {
-          this.no_gender = false
+          this.no_gender = false;
         }
         if (this.email == "") {
-          this.no_email = true
+          this.no_email = true;
         } else {
-          this.no_email = false
+          this.no_email = false;
         }
         if (this.phone == "") {
-          this.no_phone = true
+          this.no_phone = true;
         } else {
-          this.no_phone = false
+          this.no_phone = false;
         }
         if (this.ngo == "") {
-          this.no_ngo = true
+          this.no_ngo = true;
         } else {
-          this.no_ngo = false
+          this.no_ngo = false;
         }
         if (this.province == "") {
-          this.no_province = true
+          this.no_province = true;
         } else {
-          this.no_province = false
+          this.no_province = false;
         }
         if (this.class == "") {
-          this.no_class = true
+          this.no_class = true;
         } else {
-          this.no_class = false
+          this.no_class = false;
         }
         if (this.studentNumber == "") {
-          this.no_id = true
+          this.no_id = true;
         } else {
-          this.no_id = false
+          this.no_id = false;
         }
-
       }
     },
     showPopup(index) {
@@ -263,18 +288,72 @@ export const studentstore = defineStore("student", {
       this.index = index;
     },
     async onDeleteStudent(id) {
+      axios.post('/deletestudent',{email:this.email,first_name:this.first_name})
       await axios.delete("user/" + id).then(() => {
         this.isShow = false;
         this.getStudent();
       });
     },
+    /**
+     * @todo  
+     */
+    async onDeleteManyStudent() {
+      if(this.dataDeleteStudent.length > 0){
+        this.dataDeleteStudent.forEach(id => {
+          axios.delete("user/" + id).then(() => {
+            this.getStudent();
+          });
+        });
+      }
+    },
     onCancel() {
-      this.clearForm()
-      this.isAddFollowup = false,
-        this.isShow = false;
+      this.clearForm();
+      (this.isAddFollowup = false), (this.isShow = false);
       this.isTrue = false;
       this.isEdit = false;
     },
+    //Add comment============================================
+        addComment() {
+            let commentData = new FormData();
+            commentData.append('student_id', this.studentIdOnviewDetail)
+            commentData.append('commenter_id', sessionStorage.getItem('coordintor_id'), )
+            commentData.append('paragraph', this.leaveComment)
+            axios.post(process.env.VUE_APP_API_URL + "comment", commentData).then(() => {
+                this.getStudent();
+                this.getComment();
+                this.leaveComment = ''
+            });
+        },
+
+        // Get comment============================================
+        async getComment() {
+            const data = await axios.get("comment");
+            this.comments = data.data;
+            console.log(this.comments)
+        },
+        async deleteComment(id) {
+            await axios.delete("comment/" + id);
+            this.getComment();
+
+        },
+        async editComment() {
+            this.isEditComment = false
+            const data = await axios.put("comment/" + this.id, { paragraph: this.editCommentContent });
+            this.getStudent();
+            this.getComment();
+            console.log(data)
+
+        },
+        async editCommentClicked(oldUser_id, parag, id) {
+            if (sessionStorage.getItem('coordintor_id') == oldUser_id) {
+                this.isEditComment = true
+                this.editCommentContent = parag
+                this.id = id
+
+            }
+
+        },
+
     /**
      * @todo get student by id
      */
@@ -311,48 +390,51 @@ export const studentstore = defineStore("student", {
       student.append("phone", this.phone);
       student.append("ngo", this.ngo);
       student.append("province", this.province);
-      student.append("_method", 'PUT');
+      student.append("_method", "PUT");
       await axios.post("/user/" + this.user_id, student);
       //alert successful
-      toast.success("Update is successfull", { position: POSITION.TOP_CENTER, timeout: 2000 })
+      toast.success("Update is successfull", {
+        position: POSITION.TOP_CENTER,
+        timeout: 2000,
+      });
       this.isEdit = false;
-      this.clearForm()
+      this.clearForm();
       this.getStudent();
     },
     uploadImage(e) {
-      this.profile_img = e.target.files[0]
-      this.previewImage = URL.createObjectURL(this.profile_img)
+      this.profile_img = e.target.files[0];
+      this.previewImage = URL.createObjectURL(this.profile_img);
     },
     /**
      * @todo clea form create student
      */
     clearForm() {
-      this.first_name = ''
-      this.last_name = ''
-      this.email = ''
-      this.batch = ''
-      this.phone = ''
-      this.ngo = ''
-      this.province = ''
-      this.class = ''
-      this.studentNumber = ''
-      this.profile_img = ''
-      this.previewImage = null
-      this.no_firstname = false
-      this.no_lastname = false
-      this.no_batch = false
-      this.no_gender = false
-      this.no_email = false
-      this.no_phone = false
-      this.no_province = false
-      this.no_class = false
-      this.no_id = false
-      this.no_ngo = false
-      this.uniqueEmail = false
+      this.first_name = "";
+      this.last_name = "";
+      this.email = "";
+      this.batch = "";
+      this.phone = "";
+      this.ngo = "";
+      this.province = "";
+      this.class = "";
+      this.studentNumber = "";
+      this.profile_img = "";
+      this.previewImage = null;
+      this.no_firstname = false;
+      this.no_lastname = false;
+      this.no_batch = false;
+      this.no_gender = false;
+      this.no_email = false;
+      this.no_phone = false;
+      this.no_province = false;
+      this.no_class = false;
+      this.no_id = false;
+      this.no_ngo = false;
+      this.uniqueEmail = false;
     },
     /**
-       * @todo  create student detail
-       */
+     * @todo  create student detail
+     */
     studentDetail(id) {
       axios.get("student/" + id).then((res) => {
         this.first_name = res.data.user.first_name;
@@ -364,13 +446,14 @@ export const studentstore = defineStore("student", {
         this.ngo = res.data.ngo;
         this.province = res.data.province;
         this.profile_img = res.data.user.profile_img;
+        this.studentIdOnviewDetail = res.data.user_id
         this.getStudent()
       });
     },
     // get Data of student to put on Student Profile of Folder Teacher
     async getStudentToken() {
       await axios
-        .get("user/" + sessionStorage.getItem("student_id"))
+        .get("user/" + sessionStorage.getItem("user_id"))
         .then((res) => {
           if (res.data.id == res.data.students["user_id"]) {
             this.profile_img = res.data.profile_img;
@@ -388,8 +471,8 @@ export const studentstore = defineStore("student", {
     },
     async changeProfileImageStudent(event) {
       this.onUploadImageStudent(event.target.files[0]);
-      this.getStudent()
-      this.getStudentToken()
+      this.getStudent();
+      this.getStudentToken();
     },
     // uplaod image
     onUploadImageStudent(profile_img) {
@@ -398,7 +481,7 @@ export const studentstore = defineStore("student", {
       profileImage.append("_method", "PUT");
       axios
         .post(
-          "/updateStudentImage/" + sessionStorage.getItem("student_id"),
+          "/updateStudentImage/" + sessionStorage.getItem("user_id"),
           profileImage
         )
         .then((response) => {
@@ -407,16 +490,22 @@ export const studentstore = defineStore("student", {
           this.getStudentToken();
         });
     },
-    onDownloadAllStudentAsPDF(){
-      axios.get('getAllStudentToPDF').then((response) => {
+    onDownloadAllStudentAsPDF() {
+      axios.get("getAllStudentToPDF").then((response) => {
         var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-        var fileLink = document.createElement('a');
+        var fileLink = document.createElement("a");
         fileLink.href = fileURL;
-        fileLink.setAttribute('download', 'myPDF.pdf');
+        fileLink.setAttribute("download", "myPDF.pdf");
         document.body.appendChild(fileLink);
         fileLink.click();
         console.log(response.data);
-        });
+      });
+    },
+    signOutStudent() {
+      this.getStudent();
+      sessionStorage.removeItem("user_id");
+      sessionStorage.removeItem("student_token");
+      router.push("/");
     },
   },
 });

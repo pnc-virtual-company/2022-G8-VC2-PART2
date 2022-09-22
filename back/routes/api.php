@@ -6,12 +6,13 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\VerifyMailController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\DigitnumberController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\FollowupController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\RessetpasswordController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -42,10 +43,17 @@ Route::get('/getToken',[PostController::class,'index']);
 Route::apiResource('/student', StudentController::class);
 //-------------teacher routes-------------/
 Route::apiResource('/teacher',TeacherController::class);
+//-------------comment routes-------------/
+Route::apiResource('/comment',CommentController::class);
 
 
-// send mail
-Route::post('/sendmail', [VerifyMailController::class, 'mailNotifyAction']);
+// send mail 
+Route::post('/sendstudentmail', [MailController::class, 'studentMail']);
+Route::post('/sendteachermail', [MailController::class, 'teacherMail']);
+Route::post('/sendfollowupstudentmail', [MailController::class, 'studentFollowupMail']);
+Route::post('/sendfollowupremovestudentmail', [MailController::class,'studentFollowupRemoveMail']);
+Route::post('/sendcoordinatormail', [MailController::class, 'coordinatorMail']);
+Route::post('/deletestudent', [MailController::class, 'deleteStudentList']);
 
 
 //forget password
@@ -55,6 +63,9 @@ Route::post('/forgetPassword', [UserController::class,'changePassword']);
 // reset coordinator password
 Route::put('/resetPaswordCoordinator/{id}', [UserController::class, 'ressePasswordCoordinator']);
 Route::post('/resetPaswordCoordinator/{id}', [UserController::class, 'compareOldPassword']);
+//resset password Teacher student
+Route::put('/ressetPassword/{id}',[RessetpasswordController::class,'ressePassword']);
+Route::post('/compareRessetPassword/{id}',[RessetpasswordController::class,'oldPassword']);
 
 // ---------set digit number to compare ---------
 Route::post('/digit',[DigitnumberController::class,'store']);

@@ -48,7 +48,7 @@
       <li class="m-3"><router-link to="/followuphistory">Follow up Histories</router-link></li>
     </template>
     <!-- router of Coordinator for manage View profile of coordinator  -->
-    <template #viewProfile>
+    <!-- <template #viewProfile>
       <hr />
       
 
@@ -93,17 +93,32 @@
           <li class="rounded-sm px-3 py-1"><router-link to="/resetCoordinatorPasswordVue">Resset Password </router-link></li>
         </ul>
       </div>
-    </template>
+    </template> -->
+    <template #viewProfile>
+      <widget-SettingVue>
+       <template #setting>
+         <router-link to="/profilecoordinator"> Profile </router-link>
+       </template>
+       <template #changeSetting>
+         <router-link to="/editCoordinatorVue">Change Setting</router-link>
+       </template>
+       <template #ressetPassword>
+         <router-link to="/resetCoordinatorPasswordVue">Resset Password </router-link>
+       </template>
+       <template #signOut>
+        <button @click="store.signOutCoordinator">Sign Out </button>
+      </template>
+      </widget-SettingVue>
+   </template>
   </widget-navigation>
-
 </template>
 <script setup>
-
 import { userStore } from "@/store/coordinatorStore/coordinator/coordinator";
 import { onMounted } from "vue";
 const store = userStore();
 onMounted(() => {
   store.getUserData();
+
 });
 </script>
 <style scoped>

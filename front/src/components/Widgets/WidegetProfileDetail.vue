@@ -6,19 +6,18 @@
       <div class="w-full md:w-3/12 m-4 border-2 border-black-600  shadow-md">
         <!-- Profile Card -->
         <div class="bg-white  rounded-lg">
-          <div class="image mt-6 overflow-hidden">
+          <div class="image  overflow-hidden">
             <slot name="img"></slot>
             <img class="h-auto  w-full mx-auto" src="" alt="" />
           </div>
           <h1
-            class="text-gray-900 mt-5 mb-5 block text-2lx font-medium text-slate-70   text-xl leading-8 flex justify-center"
+            class="text-gray-900 mt-5 mb-5  text-2lx font-medium text-slate-70   text-xl leading-8 flex justify-center"
           >
             <slot name="fullName"></slot>
           </h1>
         </div>
       </div>
       <!-- End of profile card -->
-
       <!-- Right Side -->
       <div class="w-full shadow-md md:w-9/12 m-4 border-2 border-black-600 rounded-lg">
         <div class="bg-white rounded-sm p-5">

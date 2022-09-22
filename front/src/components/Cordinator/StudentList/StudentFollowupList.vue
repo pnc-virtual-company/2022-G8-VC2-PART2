@@ -1,5 +1,4 @@
 <template>
-  <div class="container text-center w-5/5 h-screen overflow-y-scroll">
     <!--  Pop up of confirm to add student into follow up list  -->
     <div class="container mx-auto">
       <div class="flex justify-center">
@@ -88,8 +87,8 @@
                 <router-link
                   class="flex"
                   :to="{
-                    name: 'teacherViewStudentDetail',
-                    path: 'teacherViewStudentDetail',
+                    name: 'StudentFollowupDetail',
+                    path: 'StudentFollowupDetail',
                     params: { id: student.id },
                   }"
                 >
@@ -185,7 +184,6 @@
         </tbody>
       </table>
     </div>
-  </div>
 </template>
 <script setup>
 import { studentstore } from "@/store/coordinatorStore/StudentStore/StudentManagement";

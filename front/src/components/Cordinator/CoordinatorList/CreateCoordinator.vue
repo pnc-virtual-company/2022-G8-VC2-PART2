@@ -17,7 +17,7 @@
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="w-6 h-6  cursor-pointer"
+                class="w-6 h-6  cursor-pointer hover:bg-red-500 hover:text-white"
               >
                 <path
                   stroke-linecap="round"
@@ -54,14 +54,31 @@
           </div>
 
         <!-- ==================== Form input user Info ===================== -->
+
           <div class="flex mt-3">
             <input
+              v-if="coordinatorData.no_firstname"
+              type="text"
+              class="m-1 bg-red-50 border border-red-500 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="First Name"
+              v-model="coordinatorData.first_name"
+            />
+            <input
+              v-else
               type="text"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="First Name"
               v-model="coordinatorData.first_name"
             />
             <input
+            v-if="coordinatorData.no_lastname"
+              type="text"
+              class="m-1 bg-red-50 border border-red-500 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Last Name"
+              v-model="coordinatorData.last_name"
+            />
+            <input
+              v-else
               type="text"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Last Name"
@@ -73,6 +90,14 @@
           <div class="flex mt-3">
             <!-- User email -->
             <input
+            v-if="coordinatorData.no_email || coordinatorData.uniqueEmail"
+              type="text"
+              class="m-1 bg-red-50 border border-red-500 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Email"
+              v-model="coordinatorData.email"
+            />
+            <input
+              v-else
               type="text"
               class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Email"
@@ -97,6 +122,14 @@
                 >+855</span
               >
               <input
+                v-if="coordinatorData.no_phone"
+                type="number"
+                class="bg-red-50 border border-red-500 rounded-r text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Phone Numer"
+                v-model="coordinatorData.phone"
+              />
+              <input
+                v-else
                 type="number"
                 class="bg-gray-50 border border-gray-300 rounded-r text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Phone Numer"
