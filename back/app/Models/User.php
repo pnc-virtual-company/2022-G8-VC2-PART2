@@ -50,8 +50,8 @@ class User extends Authenticatable
     ];
     public function comments(){
         $commenter = $this->hasMany(Comment::class,"commenter_id");
-        $student = $this->hasMany(Comment::class,"student_id");
-        return [$commenter, $students];
+        // $student = $this->hasMany(Comment::class,"student_id");
+        return $commenter;
     }
     public function histories(){
         $tutor = $this->hasMany(History::class,"tutor_id");

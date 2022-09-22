@@ -10,6 +10,8 @@ use App\Http\Controllers\VerifyMailController;
 use App\Http\Controllers\DigitnumberController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\CommentController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
