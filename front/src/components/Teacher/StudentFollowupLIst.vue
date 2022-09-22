@@ -1,9 +1,5 @@
 <template>
   <div class="container text-center w-5/5 h-screen overflow-y-scroll">
-    <!-- ====================== Title ==================== -->
-    <widget-title>
-      <template v-slot> Follow up Students </template>
-    </widget-title>
     <!-- ====================== filter on student list ==================== -->
     <div class="m-auto filter flex justify-around w-11/12 mt-5">
       <input
@@ -23,7 +19,7 @@
     </div>
     <!-- ============================ display list all student ========================== -->
     <div
-      class="m-auto relative bg-gray-100 p-5 shadow-md w-11/12 sm:rounded-lg mt-3 h-screen overflow-y-scroll"
+      class="m-auto relative bg-gray-100 shadow-md w-full mt-3 overflow-y-scroll" style="height: 457.4px;"
     >
       <table
         class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
