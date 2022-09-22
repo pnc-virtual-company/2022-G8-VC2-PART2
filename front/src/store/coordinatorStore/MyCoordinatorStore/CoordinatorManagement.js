@@ -167,7 +167,9 @@ export const coordinatorstore = defineStore("coordinator", {
         this.dataDeleteCoordinator = []
       }else{
         this.coordinators.forEach(coordinator => {
-          this.dataDeleteCoordinator.push(coordinator.id)
+          if(coordinator.id != sessionStorage.getItem('coordintor_id')){
+            this.dataDeleteCoordinator.push(coordinator.id)
+          }
         });
         this.dataDeleteCoordinator.push('all')
         console.log(this.dataDeleteCoordinator);
