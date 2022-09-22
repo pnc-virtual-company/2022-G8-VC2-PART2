@@ -76,7 +76,7 @@
         </div>
       </aside>
     </div>
-    <nav class="w-full border-b-2 w-full">
+    <nav class=" border-b-2 w-full">
       <div class="px-6 py-2 shadow">
         <div class="flex items-center justify-between">
           <div class="flex items-center justify-start">

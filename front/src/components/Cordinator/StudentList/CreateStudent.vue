@@ -70,7 +70,7 @@
           <!-- user class and id -->
           <div class="flex mt-3">
             <select
-            v-else
+          
             v-model="storeData.class"
             class="
               m-1
