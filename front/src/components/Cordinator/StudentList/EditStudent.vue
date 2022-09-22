@@ -94,20 +94,23 @@
             type="text"
             class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="First Name"
+            required
             v-model="store.first_name"
           />
           <input
             type="text"
             class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Last Name"
+            required
             v-model="store.last_name"
           />
         </div>
         <div class="flex mt-3">
           <input
-            type="text"
+            type="number"
             class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Batch"
+            required
             v-model="store.batch"
           />
           <select
@@ -124,6 +127,7 @@
             type="text"
             class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Email"
+            required
             v-model="store.email"
           />
           <div class="flex w-full m-1">
@@ -135,6 +139,7 @@
               type="text"
               class="bg-gray-50 border border-gray-300 rounded-r text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Phone Numer"
+              required
               v-model="store.phone"
             />
           </div>
@@ -144,26 +149,49 @@
             type="text"
             class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="NGO"
+            required
             v-model="store.ngo"
           />
           <input
             type="text"
             class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Province"
+            required
             v-model="store.province"
           />
         </div>
         <div class="flex mt-3">
-          <input
-            type="text"
-            class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Class"
+          <select
             v-model="store.class"
-          />
+            required
+            class="
+              m-1
+              bg-gray-50
+              border border-gray-300
+              text-gray-900 text-sm
+              rounded
+              focus:ring-blue-500 focus:border-blue-500
+              block
+              w-full
+              p-2.5
+              dark:bg-gray-700
+              dark:border-gray-600
+              dark:placeholder-gray-400
+              dark:text-white
+              dark:focus:ring-blue-500
+              dark:focus:border-blue-500
+            "
+          >
+            <option selected value="webb">sellect class</option>
+            <option selected :value="'WEB '+store.batch+' A'">WEB {{ store.batch }} A</option>
+            <option :value="'WEB '+store.batch+' B'">WEB{{ store.batch }} B</option>
+            <option :value="'SNA '+store.batch">SNA {{ store.batch }}</option>
+          </select>
           <input
             type="text"
             class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Student ID"
+            required
             v-model="store.studentNumber"
           />
         </div>
