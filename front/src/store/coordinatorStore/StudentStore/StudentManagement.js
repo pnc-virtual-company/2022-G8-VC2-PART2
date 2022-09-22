@@ -5,6 +5,7 @@ import router from "@/router";
 const toast = useToast();
 export const studentstore = defineStore("student", {
   state: () => ({
+    dataDeleteStudent:[],
     students: [],
     id: null,
     idStudentFollowup: null,
@@ -15,6 +16,12 @@ export const studentstore = defineStore("student", {
     isTrue: false,
     isEdit: false,
     isShow: false,
+    deleteStudent: false, //use in delete popup
+    deleteStudentId: null, //use in delete btn in student list
+    leaveComment: '', //variable to stor input from v-model in comment
+    comments: [], //store comments
+    isEditComment: false, //show edit comment form
+    editCommentContent: '', //get old and new comment content
     previewImage: null,
     user_profile: null,
     profile_img: "",
@@ -47,7 +54,6 @@ export const studentstore = defineStore("student", {
     no_ngo: false,
     uniqueEmail: false,
   }),
-
   getters: {
     // search name and studentNumber in students-----
     filterByName() {
@@ -272,12 +278,66 @@ export const studentstore = defineStore("student", {
         this.getStudent();
       });
     },
+    /**
+     * @todo  
+     */
+    async onDeleteManyStudent() {
+      if(this.dataDeleteStudent.length > 0){
+        this.dataDeleteStudent.forEach(id => {
+          axios.delete("user/" + id).then(() => {
+            this.getStudent();
+          });
+        });
+      }
+    },
     onCancel() {
       this.clearForm();
       (this.isAddFollowup = false), (this.isShow = false);
       this.isTrue = false;
       this.isEdit = false;
     },
+    //Add comment============================================
+        addComment() {
+            let commentData = new FormData();
+            commentData.append('student_id', this.studentIdOnviewDetail)
+            commentData.append('commenter_id', sessionStorage.getItem('coordintor_id'), )
+            commentData.append('paragraph', this.leaveComment)
+            axios.post(process.env.VUE_APP_API_URL + "comment", commentData).then(() => {
+                this.getStudent();
+                this.getComment();
+                this.leaveComment = ''
+            });
+        },
+
+        // Get comment============================================
+        async getComment() {
+            const data = await axios.get("comment");
+            this.comments = data.data;
+            console.log(this.comments)
+        },
+        async deleteComment(id) {
+            await axios.delete("comment/" + id);
+            this.getComment();
+
+        },
+        async editComment() {
+            this.isEditComment = false
+            const data = await axios.put("comment/" + this.id, { paragraph: this.editCommentContent });
+            this.getStudent();
+            this.getComment();
+            console.log(data)
+
+        },
+        async editCommentClicked(oldUser_id, parag, id) {
+            if (sessionStorage.getItem('coordintor_id') == oldUser_id) {
+                this.isEditComment = true
+                this.editCommentContent = parag
+                this.id = id
+
+            }
+
+        },
+
     /**
      * @todo get student by id
      */
@@ -370,7 +430,8 @@ export const studentstore = defineStore("student", {
         this.ngo = res.data.ngo;
         this.province = res.data.province;
         this.profile_img = res.data.user.profile_img;
-        this.getStudent();
+        this.studentIdOnviewDetail = res.data.user_id
+        this.getStudent()
       });
     },
     // get Data of student to put on Student Profile of Folder Teacher

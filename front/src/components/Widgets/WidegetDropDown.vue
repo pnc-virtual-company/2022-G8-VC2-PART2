@@ -1,4 +1,5 @@
 <template>
+<div>
   <!-- Dropdown toggle button -->
   <button
     @click.prevent="isOpen()"
@@ -22,29 +23,24 @@
 
   <div
     v-show="show"
-    class="absolute right-0 py-2 mt-2 rounded-md shadow-xl w-40"
+    class="absolute right-0 py-2 mt-2 rounded-md shadow-xl w-40 bg-white "
   >
-    <div
-      class=" flex justify-center px-4 py-2 text-sm text-black hover:bg-indigo-400 hover:text-indigo-100"
+    <div @click="show=false" class=" flex justify-center px-4 py-2 text-sm text-black hover:bg-indigo-400 hover:text-indigo-100"
     >
       <slot name="edit" ></slot>
     </div>
-    <div
-      class="block px-4 py-2 text-sm text-black hover:bg-indigo-400 hover:text-indigo-100 cursor-pointer"
-    >
+    <div @click="show=false" class="flex justify-center px-4 py-2 text-sm text-black hover:bg-indigo-400 hover:text-indigo-100 cursor-pointer">
       <slot name="delete"></slot>
     </div>
-    <div
-      class="block px-4 py-2 text-sm text-indigo-100 hover:bg-indigo-400 hover:text-indigo-100"
-    >
+    <div @click="show=false" class=" flex justify-center px-4 py-2 text-sm text-indigo-100 hover:bg-indigo-400 hover:text-indigo-100">
       <slot name="add"></slot>
     </div>
   </div>
+</div>
 </template>
 
 <script>
 import { ref } from "vue";
-
 export default {
   setup() {
     let show = ref(false);

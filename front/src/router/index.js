@@ -5,6 +5,7 @@ import ProfileCoordinator from "@/components/Cordinator/ProfileCoordinator.vue";
 import ManageCoordinator from "@/views/Cordinator/ManageCoordinator/ManageCoordinator.vue";
 import ManageStudent from "@/views/Cordinator/ManageStudent/ManageStudent.vue";
 import StudentDetail from "@/components/Cordinator/StudentList/StudentDetail.vue";
+import StudentFollowupDetail from "@/components/Cordinator/StudentList/StudentFollowupDetail.vue";
 import ManageTeacher from "@/views/Cordinator/ManageTeacher/ManageTeacher.vue";
 import StudentFollowup from '@/views/Cordinator/StudentFollowup/StudentFollowupView.vue'
 import CoordinatorDetail from "@/components/Cordinator/CoordinatorList/CoordinatorDetail.vue";
@@ -198,6 +199,12 @@ const routes = [
         path: "/coordinatordetail/:id",
         name: "coordinatordetail",
         component: CoordinatorDetail,
+        meta: { isCoordinator: true },
+      },
+      {
+        path: "/StudentFollowupDetail/:id",
+        name: "StudentFollowupDetail",
+        component: StudentFollowupDetail,
         meta: { isCoordinator: true },
       },
     ],
