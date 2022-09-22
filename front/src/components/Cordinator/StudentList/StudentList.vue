@@ -91,6 +91,11 @@
           class="text-xs text-gray-700 bg-gray-200 dark:bg-gray-700 dark:text-gray-400"
         >
           <tr>
+            <th class="py-4 px-6 text-base text-slate-500 flex justify-around">
+              <!-- option for user seleted all coordinator -->
+              <input  value="all" v-model="coordinatorData.dataDeleteCoordinator" @click="storeData.selectAll()" type="checkbox" id="delete" class="-ml-7">
+              <span class="-ml-8">Profile</span>
+            </th>
             <th class="py-4 px-6 text-base text-slate-500">Profile</th>
             <th class="py-4 px-6 text-base text-slate-500">ID</th>
             <th class="py-4 px-6 text-base text-slate-500">Name</th>

@@ -97,7 +97,7 @@ export const studentstore = defineStore("student", {
         axios.post("user/" + this.idStudentFollowup, student);
         alert('Added to follow up student successfully')
         this.onCancel();
-
+        this.getStudent()
       })
     },
     isAddStudentFollowup(id) {
@@ -415,6 +415,23 @@ export const studentstore = defineStore("student", {
         fileLink.click();
         console.log(response.data);
         });
+    },
+
+    /**
+     * @todo select all coordinator
+     */
+    selectAll(){
+      if(this.dataDeleteStudent.length > 0){
+        this.dataDeleteCoordinator = []
+      }else{
+        this.coordinators.forEach(coordinator => {
+          // if(coordinator.id != sessionStorage.getItem('coordintor_id')){
+            this.dataDeleteStudent.push(coordinator.id)
+          // }
+        });
+        this.dataDeleteCoordinator.push('all')
+        console.log(this.dataDeleteCoordinator);
+      }
     },
   },
 });
