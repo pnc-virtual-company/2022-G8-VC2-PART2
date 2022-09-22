@@ -5,6 +5,7 @@ import { useToast, POSITION } from "vue-toastification";
 const toast = useToast();
 export const studentstore = defineStore("student", {
   state: () => ({
+    dataDeleteStudent:[],
     students: [],
     id: null,
     idStudentFollowup: null,
@@ -74,8 +75,8 @@ export const studentstore = defineStore("student", {
       this.studentDetail();
     },
     /**
-        * @todo add student to follow up list
-        */
+      * @todo add student to follow up list
+      */
     async addToFollowup() {
       this.isAddFollowup = true
       axios.get("user/" + this.idStudentFollowup).then((res) => {
@@ -252,6 +253,18 @@ export const studentstore = defineStore("student", {
         this.isShow = false;
         this.getStudent();
       });
+    },
+    /**
+     * @todo  
+     */
+    async onDeleteManyStudent() {
+      if(this.dataDeleteStudent.length > 0){
+        this.dataDeleteStudent.forEach(id => {
+          axios.delete("user/" + id).then(() => {
+            this.getStudent();
+          });
+        });
+      }
     },
     onCancel() {
       this.clearForm()

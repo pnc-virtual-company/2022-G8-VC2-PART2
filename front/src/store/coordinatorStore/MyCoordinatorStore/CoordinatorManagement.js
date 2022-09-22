@@ -5,6 +5,8 @@ import { useToast,POSITION  } from "vue-toastification";
 const toast = useToast();
 export const coordinatorstore = defineStore("coordinator", {
   state: () => ({
+    isSelect:'',
+    dataDeleteCoordinator:[],
     coordinators: [],    
     profile_img:'',
     previewImage:null,
@@ -102,6 +104,24 @@ export const coordinatorstore = defineStore("coordinator", {
             });
           this.isDelete = false
     },
+
+    /**
+     * @todo to delete teacher by id
+     * @return all data of teacher after delete
+     */
+    deleteManyCoordinator() {
+      if(this.dataDeleteCoordinator.length > 0){
+        this.dataDeleteCoordinator.forEach(id => {
+          if(id != 'all'){
+            axios.delete(process.env.VUE_APP_API_URL + 'user/' + id).then(() => {
+              this.getCoordinators()
+            });
+            this.isDelete = false
+          }
+        });
+        toast.success("Delete coordinator successfull",{position: POSITION.TOP_CENTER, timeout: 2000})
+      }
+    },
     
     /**
      * @todo store preview user profile image
@@ -137,6 +157,23 @@ export const coordinatorstore = defineStore("coordinator", {
         this.profile_img = res.data.profile_img;
         this.getCoordinators()
       });
+    },
+
+    /**
+     * @todo select all coordinator
+     */
+    selectAll(){
+      if(this.dataDeleteCoordinator.length > 0){
+        this.dataDeleteCoordinator = []
+      }else{
+        this.coordinators.forEach(coordinator => {
+          if(coordinator.id != sessionStorage.getItem('coordintor_id')){
+            this.dataDeleteCoordinator.push(coordinator.id)
+          }
+        });
+        this.dataDeleteCoordinator.push('all')
+        console.log(this.dataDeleteCoordinator);
+      }
     },
   },
 });
