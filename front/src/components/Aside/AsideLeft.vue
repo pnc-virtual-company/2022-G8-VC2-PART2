@@ -1,5 +1,5 @@
 <template>
-  <div class="md:flex min-h-screen sm:min-h-screen lx:min-h-screen">
+  <div :class="{dark:darkTheme}" class="md:flex min-h-screen sm:min-h-screen lx:min-h-screen">
     <div class="md:flex" data-dev-hint="container">
       <input type="checkbox" id="menu-open" class="hidden" />
       <aside
@@ -38,39 +38,42 @@
             ><div class="profile_info">
               <slot name="img"></slot></div
           ></span>
-          <nav>
-            <!-- <a href="#" class="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white"> -->
-            <ul
-              class="flex  items-center space-x-2 transition duration-200 hover:bg-gray-700 hover:text-white"
-            >
-              <slot name="manageCoordinator"></slot>
-            </ul>
-            <ul
-              class="flex items-center space-x-2 transition duration-200 hover:bg-gray-700 hover:text-white"
-            >
-              <slot name="manageStudent"></slot>
-            </ul>
-            <ul
-              class="flex items-center space-x-2 transition duration-200 hover:bg-gray-700 hover:text-white"
-            >
-              <slot name="manageTeacher"></slot>
-            </ul>
-            <ul
-              class="flex items-center space-x-2 transition duration-200 hover:bg-gray-700 hover:text-white"
-            >
-              <slot name="manageStudentFollowUp"></slot>
-            </ul>
-            <ul
-              class="flex items-center space-x-2 transition duration-200 hover:bg-gray-700 hover:text-white"
-            >
-              <slot name="studentFollowUpHistory"></slot>
-            </ul>
-            <ul class="font-bold text-white">
-              <li class="m-3">
-                <slot name="viewProfile"></slot>
-              </li>
-            </ul>
-          </nav>
+          <div class="flex justify-center">
+
+            <nav>
+              <!-- <a href="#" class="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white"> -->
+              <ul
+                class="flex   items-center space-x-2 transition duration-200 hover:bg-gray-700 hover:text-white"
+              >
+                <slot name="manageCoordinator"></slot>
+              </ul>
+              <ul
+                class="flex items-center space-x-2 transition duration-200 hover:bg-gray-700 hover:text-white"
+              >
+                <slot name="manageStudent"></slot>
+              </ul>
+              <ul
+                class="flex items-center space-x-2 transition duration-200 hover:bg-gray-700 hover:text-white"
+              >
+                <slot name="manageTeacher"></slot>
+              </ul>
+              <ul
+                class="flex items-center space-x-2 transition duration-200 hover:bg-gray-700 hover:text-white"
+              >
+                <slot name="manageStudentFollowUp"></slot>
+              </ul>
+              <ul
+                class="flex items-center space-x-2 transition duration-200 hover:bg-gray-700 hover:text-white"
+              >
+                <slot name="studentFollowUpHistory"></slot>
+              </ul>
+              <ul class="font-bold text-white">
+                <li class="">
+                  <slot name="viewProfile"></slot>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
       </aside>
     </div>
@@ -119,11 +122,6 @@
     </nav>
   </div>
 </template>
-<script>
-export default {
-  components: {},
-};
-</script>
 <style scoped>
 #sidebar {
   --tw-translate-x: -100%;
@@ -151,3 +149,6 @@ export default {
   }
 }
 </style>
+<script>
+
+</script>
