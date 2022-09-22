@@ -6,7 +6,7 @@
       <div class="w-full md:w-3/12 m-4 border-2 border-black-600  shadow-md">
         <!-- Profile Card -->
         <div class="bg-white  rounded-lg">
-          <div class="image mt-6 overflow-hidden">
+          <div class="image  overflow-hidden">
             <slot name="img"></slot>
             <img class="h-auto  w-full mx-auto" src="" alt="" />
           </div>

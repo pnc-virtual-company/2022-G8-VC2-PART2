@@ -3,7 +3,7 @@
   <widget-navigation>
     <template #img>
       <div class="flex justify-center">
-        <router-link class="flex" to="/profilecoordinator">
+        <router-link class="flex" to="/ManageStudentProfile">
           <div>
             <img
               v-if="studentStore.profile_img != ''"
@@ -28,6 +28,20 @@
         >
       </li>
     </template>
+    <template #viewProfile>
+      <widget-SettingVue>
+       <template #setting>
+         <router-link to="/ManageStudentProfile"> Profile </router-link>
+       </template>
+       <template #ressetPassword>
+         <router-link to="/ressetPasswordStudent">Resset Password </router-link>
+       </template>
+       <template #signOut>
+        <button @click="studentStore.signOutStudent">Sign Out </button>
+      </template>
+      </widget-SettingVue>
+   </template>
+
   </widget-navigation>
 </template>
 <script setup>

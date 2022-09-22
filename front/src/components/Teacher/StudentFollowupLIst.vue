@@ -1,10 +1,15 @@
 <template>
-  <div class="container text-center w-5/5 h-screen overflow-y-scroll">
-    <!-- ====================== Title ==================== -->
-    <widget-title>
-      <template v-slot> Follow up Students </template>
-    </widget-title>
     <!-- ====================== filter on student list ==================== -->
+    <div class="mt-5 ml-10 "><i class="fa-solid fa-user fa-2x"></i> <strong class="text-2x">STUDENTS FOLLOW UP LIST</strong></div>
+    <div class="flex justify-between">
+      <div class="flex justify-center align-items-center mt-5 ml-10">
+        Students:
+        <span class="ml-4"
+          ><strong class="text-sky-500">
+            {{ studentfollowupStore.students.length }}
+          </strong>
+        </span>
+      </div>
     <div class="m-auto filter flex justify-around w-11/12 mt-5">
       <input
         v-model="studentfollowupStore.searchByName"
@@ -21,15 +26,17 @@
         <option value="SNA">SNA 2022</option>
       </select>
     </div>
+
     <!-- ============================ display list all student ========================== -->
     <div
-      class="m-auto relative bg-gray-100 p-5 shadow-md w-11/12 sm:rounded-lg mt-3 h-screen overflow-y-scroll"
+      style="height: 75vh"
+      class="m-auto relative z-5 bg-gray-100 sm:rounded-sm overflow-y-scroll"
     >
       <table
         class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
       >
         <thead
-          class="text-xs text-gray-700 bg-gray-200 dark:bg-gray-700 dark:text-gray-400"
+          class="text-xs text-gray-700 bg-gray-200 bg-gray-400 dark:text-gray-400"
         >
           <tr>
             <th class="py-3 px-6">Profile</th>
@@ -40,7 +47,7 @@
         </thead>
         <tbody v-for="student in studentfollowupStore.filterByName" :key="student.id">
           <tr
-            v-if="student.status == 1 "
+            v-if="student.status == 1"
             class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:border-gray-700"
           >
             <td>
@@ -55,9 +62,7 @@
                 >
                   <img
                     v-if="student.user.profile_img != null"
-                    :src="
-                      'http://127.0.0.1:8000/storage/images/' +
-                      student.user.profile_img
+                    :src="'http://127.0.0.1:8000/storage/images/' +student.user.profile_img
                     "
                     class="w-12 h-12 rounded-full m-auto mt-5"
                     alt=""
@@ -79,7 +84,7 @@
               </div>
             </td>
             <td class="py-3 px-2">
-              <h1 class="">{{ student.studentNumber}}</h1>
+              <h1 class="">{{ student.studentNumber }}</h1>
             </td>
             <td class="py-3 px-6">
               <h1 class="font-bold">

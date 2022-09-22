@@ -4,7 +4,9 @@
   <div class="hidden">
     {{ storeTeacherData.getData(this.$route.params.id)}}
   </div>
+  
   <!-- profile teacher -->
+  
   <widget-ViewProfileDetail>
     <template #img>
       <div v-if="storeTeacherData.profile_img !=null" class="flex justify-center">
@@ -48,7 +50,6 @@ const storeTeacherData = teacherstore();
     width: 150px;
     height: 150px;
     border-radius: 50%;
-  
     object-fit: cover;
     object-position: center;
   }

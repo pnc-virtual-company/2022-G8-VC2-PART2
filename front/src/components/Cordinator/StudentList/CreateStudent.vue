@@ -68,13 +68,15 @@
             <input v-else v-model="storeData.province"  type="text" class="m-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Province">
           </div>
           <!-- user class and id -->
+         <div>
+          
+         </div>
           <div class="flex mt-3">
+            <!-- v-else -->
             <select
           
             v-model="storeData.class"
-            class="
-              m-1
-              bg-gray-50
+            class="m-1 bg-gray-50
               border border-gray-300
               text-gray-900 text-sm
               rounded
@@ -87,9 +89,7 @@
               dark:placeholder-gray-400
               dark:text-white
               dark:focus:ring-blue-500
-              dark:focus:border-blue-500
-            "
-          >
+              dark:focus:border-blue-500">
             <option selected value="webb">sellect class</option>
             <option selected :value="'WEB '+storeData.batch+' A'">WEB {{ storeData.batch }} A</option>
             <option :value="'WEB '+storeData.batch+' B'">WEB{{ storeData.batch }} B</option>

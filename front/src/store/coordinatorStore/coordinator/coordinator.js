@@ -40,7 +40,7 @@ export const userStore = defineStore("user", {
     },
     async getUserData() {
       const data = await axios.get(
-        "/user/" + sessionStorage.getItem("coordintor_id")
+        "/user/" + sessionStorage.getItem("user_id")
       );
       this.profile_img = data.data.profile_img;
       this.first_name = data.data.first_name;
@@ -76,6 +76,12 @@ export const userStore = defineStore("user", {
         timeout: 2000,
       });
     },
+    signOutCoordinator(){
+      this.getUserData()
+      sessionStorage.removeItem('user_id');
+      sessionStorage.removeItem('coordinator_token');
+      router.push("/");
+},
     async login() {
       if (this.email != "" && this.password != "") {
         let loginInfo = { email: this.email, password: this.password };
@@ -92,13 +98,8 @@ export const userStore = defineStore("user", {
             if (res.data.sms == "coordinatorViewVue") {
               this.token = res.data["coordinator-token"];
               this.tokenId = res.data.data.id;
-              sessionStorage.setItem("coordintor_id", this.tokenId);
-              sessionStorage.setItem("coordintor_token", this.token);
-              axios.post("/sendTokenToDatabase", {
-                role: 3,
-                token_id: this.token,
-                token: this.tokenId,
-              });
+              sessionStorage.setItem("user_id", this.tokenId);
+              sessionStorage.setItem("coordinator_token", this.token);
               this.clearText();
               this.checkLoginSuccessul();
               router.push({ name: "managestudent", path: "/managestudent" });
@@ -109,13 +110,8 @@ export const userStore = defineStore("user", {
             if (res.data.sms == "teacherViewVue") {
               this.token = res.data["teacher-token"];
               this.tokenId = res.data.data.id;
-              sessionStorage.setItem("teacher_id", this.tokenId);
+              sessionStorage.setItem("user_id", this.tokenId);
               sessionStorage.setItem("teacher_token", this.token);
-              axios.post("/sendTokenToDatabase", {
-                role: 2,
-                token_id: this.token,
-                token: this.tokenId,
-              });
               this.clearText();
               this.checkLoginSuccessul();
               router.push({
@@ -131,15 +127,10 @@ export const userStore = defineStore("user", {
             if (res.data.sms == "studentViewVue") {
               this.token = res.data["student-token"];
               this.tokenId = res.data.data.id;
-              sessionStorage.setItem("student_id", this.tokenId);
+              sessionStorage.setItem("user_id", this.tokenId);
               sessionStorage.setItem("student_token", this.token);
-              axios.post("/sendTokenToDatabase", {
-                role: 1,
-                token_id: this.tokenId,
-                token: this.token,
-              });
               this.clearText();
-              this.getStudentToken();
+              this.getUserData();
               router.push("/ManageStudentProfile");
               this.checkLoginSuccessul();
             }
@@ -182,7 +173,7 @@ export const userStore = defineStore("user", {
           } else {
             this.isNotMath = true;
           }
-        }else if(this.email!=value.email){
+        } else if (this.email != value.email) {
           this.notExist = false;
         }
       }
@@ -209,8 +200,14 @@ export const userStore = defineStore("user", {
         });
       }
     },
-    // resset password coordinator
-    ressetPassword() {
+   
+    // resset password coordinator Teacher and Student
+    clear(){
+      this.newPassword='';
+      this.oldPassword='';
+      this.confirmPassword='';
+    },
+    changePassword() {
       this.isTrue = false;
       if (
         (this.newPassword != null && this.confirmPassword != null) ||
@@ -219,15 +216,13 @@ export const userStore = defineStore("user", {
         if (this.newPassword == this.confirmPassword) {
           axios
             .post(
-              "/resetPaswordCoordinator/" +
-                sessionStorage.getItem("coordintor_id"),
+              "/compareRessetPassword/" + sessionStorage.getItem("user_id"),
               { password: this.oldPassword, new_password: this.newPassword }
             )
             .then((response) => {
               if (response.data.sms == "Password updated!") {
                 axios.put(
-                  "/resetPaswordCoordinator/" +
-                    sessionStorage.getItem("coordintor_id"),
+                  "/ressetPassword/" + sessionStorage.getItem("user_id"),
                   {
                     password: this.newPassword,
                   }
@@ -265,7 +260,7 @@ export const userStore = defineStore("user", {
       coordinator.email = this.email;
       axios
         .put(
-          "update-coordinator/" + sessionStorage.getItem("coordintor_id"),
+          "update-coordinator/" + sessionStorage.getItem("user_id"),
           coordinator
         )
         .then(() => {
@@ -285,7 +280,10 @@ export const userStore = defineStore("user", {
       profileImage.append("profile_img", profile_img);
       profileImage.append("_method", "PUT");
       axios
-        .post("/changeProfileImage/" + sessionStorage.getItem("coordintor_id"), profileImage)
+        .post(
+          "/changeProfileImage/" + sessionStorage.getItem("user_id"),
+          profileImage
+        )
         .then((response) => {
           console.log(response);
           this.getUserData();

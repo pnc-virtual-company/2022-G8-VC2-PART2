@@ -1,7 +1,7 @@
 <template>
   <section >
     <div class="">
-      <router-view  />
+      <router-view/>
     </div>
   </section>
 </template>
