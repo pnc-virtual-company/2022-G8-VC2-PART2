@@ -12,6 +12,11 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\FollowupController;
 use App\Http\Controllers\PDFController;
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\CommentController;
+
+>>>>>>> 1cf82fdf5afc09e46861564eed553018adf3ddc5
 use App\Http\Controllers\RessetpasswordController;
 /*
 |--------------------------------------------------------------------------

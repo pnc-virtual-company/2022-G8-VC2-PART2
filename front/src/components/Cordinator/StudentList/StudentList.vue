@@ -13,13 +13,14 @@
             <div class="flex items-center justify-between">
               <form action="">
                 <h5 class="text-2xl">
-                  Do you want to add them to Follow up Student?
+                  Do you want to add this student to Follow up list?
                 </h5>
                 <input
                   class="mt-5 p-5 text-lg"
                   required
                   type="text"
                   placeholder="leave a comment  ..."
+                  v-model="storeData.leaveComment"
                 />
                 <div class="mt-10 flex justify-evenly">
                   <button
