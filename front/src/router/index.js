@@ -8,6 +8,7 @@ import StudentDetail from "@/components/Cordinator/StudentList/StudentDetail.vue
 import StudentFollowupDetail from "@/components/Cordinator/StudentList/StudentFollowupDetail.vue";
 import ManageTeacher from "@/views/Cordinator/ManageTeacher/ManageTeacher.vue";
 import StudentFollowup from '@/views/Cordinator/StudentFollowup/StudentFollowupView.vue'
+import FollowupHistory from '@/views/Cordinator/FollowupHistory/FollowupHistoryView.vue'
 import CoordinatorDetail from "@/components/Cordinator/CoordinatorList/CoordinatorDetail.vue";
 // --------------------------------------------------------------------------
 // --------------------------Teacher Route-------------------------//
@@ -18,6 +19,7 @@ import ProfileTeacher from "@/components/Cordinator/TeacherList/ProfileTeacher.v
 import ManageTeacherProfile from "@/components/Teacher/TeacherProfile.vue";
 import DisplayListTeacher from "@/components/Teacher/DisplayListTeacher.vue";
 import TeacherDetail from "@/components/Teacher/TeacherDetail.vue";
+import RessetPasswordTeacherVue from "@/components/Teacher/RessetPasswordTeacher.vue";
 // -------------------------Student Route------------------------------------
 import StudentViewVue from "@/views/Student/StudentView.vue";
 import ManageStudentProfile from "@/components/Teacher/ManageStudentProfile.vue";
@@ -26,6 +28,7 @@ import LoginAuthenticationVue from "@/components/authentication/LoginAuthenticat
 import ForgetPasswordVue from "@/components/authentication/ForgetPassword.vue";
 import ResetCoordinatorPasswordVue from "@/components/Cordinator/CoordinatorList/ResetCoordinatorPassword.vue";
 import EditCoordinatorVue from "@/components/Cordinator/CoordinatorList/EditCoordinator.vue";
+import RessetPasswordStudent from "@/components/Cordinator/StudentList/RessetPasswordStudent.vue"
 
 // Route
 const routes = [
@@ -94,6 +97,14 @@ const routes = [
           isTeacher: true,
         },
       },
+      {
+        path: "/ressetPasswordTeacherVue",
+        name: "ressetPasswordTeacherVue",
+        component: RessetPasswordTeacherVue,
+        meta: {
+          isTeacher: true,
+        },
+      },
     ],
     meta: {
       isTeacher: true,
@@ -109,6 +120,14 @@ const routes = [
         path: "/ManageStudentProfile",
         name: "ManageStudentProfile",
         component: ManageStudentProfile,
+        meta: {
+          isStudent: true,
+        },
+      },
+      {
+        path: "/ressetPasswordStudent",
+        name: "ressetPasswordStudent",
+        component: RessetPasswordStudent,
         meta: {
           isStudent: true,
         },
@@ -160,6 +179,12 @@ const routes = [
         meta: { isCoordinator: true },
       },
       {
+        path: "/followuphistory",
+        name: "followuphistory",
+        component: FollowupHistory,
+        meta: { isCoordinator: true },
+      },
+      {
         path: "/profilecoordinator",
         name: "profilecoordinator",
         component: ProfileCoordinator,
@@ -201,7 +226,7 @@ const router = createRouter({
 //manage route of coordinator
 ----------------------------*/
 router.beforeEach((to, from, next) => {
-  if (!sessionStorage.getItem("coordintor_token")) {
+  if (!sessionStorage.getItem("coordinator_token")) {
     if (!to.meta.isCoordinator) {
       next();
     } else {
@@ -209,7 +234,7 @@ router.beforeEach((to, from, next) => {
     }
   }
 
-  if (sessionStorage.getItem("coordintor_token")) {
+  if (sessionStorage.getItem("coordinator_token")) {
     if (to.meta.isCoordinator) {
       next();
     } else {
@@ -237,7 +262,6 @@ router.beforeEach((to, from, next) => {
       next("/ManageStudentProfile");
     }
   }
-
   next();
 });
 /*-----------------------
@@ -258,7 +282,6 @@ router.beforeEach((to, from, next) => {
       next("/teacherManageStudent");
     }
   }
-
   next();
 });
 

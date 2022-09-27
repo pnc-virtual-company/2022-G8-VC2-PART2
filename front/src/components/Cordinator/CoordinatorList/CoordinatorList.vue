@@ -63,7 +63,7 @@
         <div v-else class="m-auto filter items-center flex justify-between px-5 w-12/12 mt-5">
           <div class="items-center ml-1 flex  w-3/6">
             <!-- count number of coordinator -->
-            <span><strong>Coordinator Number: {{coordinatorData.coordinators.length}}</strong></span>
+            <span><strong>Coordinator Number: {{coordinatorData.coordinators.length-1}}</strong></span>
             <!-- search by name and position -->
             <input
               v-model="coordinatorData.searchData"

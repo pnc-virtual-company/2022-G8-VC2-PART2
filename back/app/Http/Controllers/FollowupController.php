@@ -1,14 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\History;
-use App\Models\Teacher;
 use App\Models\User;
-use App\Models\Student;
+use App\Models\Followup;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class HistoryController extends Controller
+class FollowupController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +14,10 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        $history= History::get();
+        $followup= Followup::get();
         $data=collect([]);
         $students=collect([]);
-        foreach($history as $his){
+        foreach($followup as $his){
                 $studentTeacher = collect([]);
                 $user =User::findOrFail( $his['tutor_id']);
                 $studentTeacher->push($user);
@@ -30,13 +27,7 @@ class HistoryController extends Controller
             }
             return response()->json(['data'=>$data]);
     }
-    public function show($id)
-    {
-        $user = History::findOrFail($id);
-        $data=  User::findOrFail($user['tutor_id']);
-        $student=  User::findOrFail($user['student_id']);
-        return response()->json(['teacher'=>$data,'student'=>$student]);
-    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -45,34 +36,35 @@ class HistoryController extends Controller
      */
     public function store(Request $request)
     {
-        $history =new History();
-        $history->tutor_id = $request->tutor_id;
-        $history->student_id = $request->student_id;
-        $history->save();
+        $followup =new Followup();
+        $followup->tutor_id = $request->tutor_id;
+        $followup->student_id = $request->student_id;
+        $followup->save();
         return response()->json([
-            'Message' => 'history Created successfull',
+            'Message' => 'followup Created successfull',
             'Status' => true,
         ], 200);
     }
 
-    
-
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\History  $history
+     * @param  \App\Models\Followup  $followup
      * @return \Illuminate\Http\Response
      */
-   
+    public function show(Followup $followup)
+    {
+        //
+    }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\History  $history
+     * @param  \App\Models\Followup  $followup
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, History $history)
+    public function update(Request $request, Followup $followup)
     {
         //
     }
@@ -80,17 +72,11 @@ class HistoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\History  $history
+     * @param  \App\Models\Followup  $followup
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Followup $followup)
     {
-        $history = History::findOrFail($id);
-        if ($history) {
-            $history->delete();
-            return response()->json(['sms' => $history], 201);
-        } else {
-            return  response()->json(['sms' => 'unsuccessful'], 404);
-        }
+        //
     }
 }

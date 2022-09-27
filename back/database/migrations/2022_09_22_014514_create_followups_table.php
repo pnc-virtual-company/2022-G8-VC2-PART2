@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('histories', function (Blueprint $table) {
+        Schema::create('followups', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tutor_id')->constrained('users')->onDelete('cascade')->nullable();
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('histories');
+        Schema::dropIfExists('followups');
     }
 };
