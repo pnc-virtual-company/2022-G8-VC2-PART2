@@ -182,10 +182,9 @@
           class="text-xs text-gray-700 bg-gray-200 dark:bg-gray-700 dark:text-gray-400"
         >
           <tr>
-            <th class="py-4 px-6 text-base text-slate-500 flex justify-around">
+            <th class="py-4 pl-7 text-base text-slate-500 flex justify-around">
               <!-- option for user seleted all coordinator -->
               <input v-if="storeData.students.length > 0" @click="storeData.selectAll()"  value="all" v-model="storeData.dataDeleteStudent" type="checkbox" id="delete" class="-ml-7">
-              <span class="-ml-8">Profile</span>
             </th>
             <th class="py-4 px-6 text-base text-slate-500">Profile</th>
             <th class="py-4 px-6 text-base text-slate-500">ID</th>
@@ -201,7 +200,6 @@
             class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:border-gray-700"
           >
             <td class="pb-5 px-2">
-              <div class="flex justify-evenly items-center text-right">
                 <!-- =============== get for delete many user ============== -->
                 <input
                   type="checkbox"
@@ -209,7 +207,9 @@
                   :value="student.user.id"
                   v-model="storeData.dataDeleteStudent"
                 />
-
+            </td>
+            <td class="pb-5 px-2">
+              <div class="flex justify-evenly items-center text-right">
                 <router-link
                   class="flex"
                   :to="{
