@@ -189,20 +189,11 @@ export const studentstore = defineStore("student", {
       }
 
       /**
-       * @todo  validation create student.
-       *
-       */
-      if (
-        this.first_name != "" &&
-        this.last_name != "" &&
-        this.batch != "" &&
-        this.gender != "" &&
-        this.email != "" &&
-        this.phone != "" &&
-        this.ngo != "" &&
-        this.class != "" &&
-        this.id != "" &&
-        !this.uniqueEmail
+     * @todo  validation create student.
+     * 
+     */
+      if ((this.first_name != "" && this.last_name != "" && this.batch != "" && this.gender != "" &&
+        this.email != "" && this.phone != "" && this.ngo != "" && this.class != "" && this.studentNumber != "") && !this.uniqueEmail
       ) {
         let student = new FormData();
         student.append("profile_img", this.profile_img);

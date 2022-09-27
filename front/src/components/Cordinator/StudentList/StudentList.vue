@@ -1,4 +1,6 @@
 <template>
+<div>
+
   <div class="container text-center w-5/5 h-full mt-5">
     <!--  Pop up of confirm to add student into follow up list  -->
     <div class="container mx-auto">
@@ -57,7 +59,6 @@
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-4/12 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Search Student"
         />
-        <!-- ====================== select option search ===================== -->
         <select
           v-model="storeData.searchOption"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-3/12 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -66,6 +67,7 @@
           <option value="id">STUDENT ID</option>
           <option value="class">CLASS ROOM</option>
         </select>
+      </div>
         <!-- ====================== option delete many ======================= -->
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -107,10 +109,10 @@
       <CreateStudent></CreateStudent>
     </div>
     <!-- ============================ display list all student ========================== -->
+    
     <div
       class="m-auto relative bg-gray-100 shadow-md w-full mt-3 overflow-y-scroll"
-      style="height: 457.4px"
-    >
+      style="height: 457.4px">
       <table
         class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
       >
@@ -235,7 +237,8 @@
         </tbody>
       </table>
     </div>
-  </div>
+</div>
+
 </template>
 <script setup>
 import CreateStudent from "./CreateStudent.vue";

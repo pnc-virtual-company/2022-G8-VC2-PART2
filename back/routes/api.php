@@ -12,7 +12,12 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\FollowupController;
 use App\Http\Controllers\PDFController;
+<<<<<<< HEAD
+use App\Http\Controllers\CommentController;
+
+=======
 use App\Http\Controllers\RessetpasswordController;
+>>>>>>> 0ffc1dd77b77104fa271225f2c5c86a8eff33c73
 /*
 |--------------------------------------------------------------------------
 | API Routes

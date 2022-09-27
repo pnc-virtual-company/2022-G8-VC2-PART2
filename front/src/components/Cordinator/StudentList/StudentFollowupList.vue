@@ -122,7 +122,7 @@
             </td>
             <td class="py-3 px-6">
               <h1 class="">
-                {{ student.user.first_name }}{{ student.user.last_name }}
+                {{ student.user.first_name }} {{ student.user.last_name }}
               </h1>
             </td>
             <td class="py-3 px-6">
