@@ -321,6 +321,9 @@ export const studentstore = defineStore("student", {
             toast.success("Delete coordinator successfull",{position: POSITION.TOP_CENTER, timeout: 2000})
           }
         },
+        /**
+         * @todo cancel on any user action
+         */
         onCancel() {
             this.clearForm();
             (this.isAddFollowup = false), (this.isShow = false);

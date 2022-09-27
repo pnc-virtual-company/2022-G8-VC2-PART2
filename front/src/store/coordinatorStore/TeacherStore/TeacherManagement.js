@@ -5,6 +5,7 @@ import router from "@/router";
 const toast = useToast();
 export const teacherstore = defineStore('teacher', {
   state: () => ({
+    dataDeleteTeacher:[], //use for delete many teacher at the same time
     teachers: [],
     isEditOpen: false,
     id: null,
@@ -12,6 +13,7 @@ export const teacherstore = defineStore('teacher', {
     isTrue: false,
     isShow: true,
     isEdit: false,
+    isDelete:false, //pop up for delete users
     previewImage: null,
     user_profile: null,
     profile_img: '',
@@ -85,7 +87,6 @@ export const teacherstore = defineStore('teacher', {
       this.isShow = false;
       console.log('clicked on onCreate Button')
     },
-
     /**
      * @todo cancel on user action edit and delete
      */
@@ -103,7 +104,6 @@ export const teacherstore = defineStore('teacher', {
       this.id = id
       console.log('isOpen id = ' + id)
     },
-
     /**
      * @todo create new teacher
      * @return new data teacher
@@ -184,7 +184,6 @@ export const teacherstore = defineStore('teacher', {
         }
       }
     },
-
     /**
      * @todo to delete teacher by id
      * @return all data of teacher after delete
@@ -221,7 +220,6 @@ export const teacherstore = defineStore('teacher', {
       this.isEditOpen = true;
       this.getTeacherData(id)
     },
-
     /**
      * @todo update teacher
      */
@@ -283,11 +281,16 @@ export const teacherstore = defineStore('teacher', {
           this.created_at = data.data.created_at
         }
     },
+    /**
+     * @todo change user profile
+     */
     async changeProfileTeacherImage(event) {
       this.onUploadTeacherImage(event.target.files[0]);
       this.getTeacher();
     },
-    // uplaod image
+    /**
+     * @todo upload user profile
+     */
     onUploadTeacherImage(profile_img) {
       const profileImage = new FormData();
       profileImage.append("profile_img", profile_img);
@@ -307,7 +310,6 @@ export const teacherstore = defineStore('teacher', {
       this.phone = null
       this.previewImage = null
     },
-
     /**
      * @todo Display all teacher list
      * @return see other teachers
@@ -316,11 +318,46 @@ export const teacherstore = defineStore('teacher', {
       const data = await axios.get('teacher')
       this.displayTeachers=data.data
     },
+    /**
+     * @todo remove data user from sessionStorage
+     * @result user login again
+     */
     signOut(){
       this.getTeacher()
       sessionStorage.removeItem('user_id');
       sessionStorage.removeItem('teacher_token');
       router.push("/");
-},
+    },
+    /**
+     * @todo get all list of student
+     */
+    selectAll(){
+      if(this.dataDeleteTeacher.length > 0){
+        this.dataDeleteTeacher = []
+      }else{
+        for (let teacher of this.teachers) {
+          this.dataDeleteTeacher.push(teacher.user.id)
+        }
+        this.dataDeleteTeacher.push('all')
+      }
+      console.log(this.dataDeleteTeacher);
+    },
+    /**
+     * @todo to delete teacher by id
+     * @return all data of teacher after delete
+     */
+    deleteManyTeachers() {
+      if(this.dataDeleteTeacher.length > 0){
+        this.dataDeleteTeacher.forEach(id => {
+          if(id != 'all'){
+            axios.delete(process.env.VUE_APP_API_URL + 'user/' + id).then(() => {
+              this.getTeacher()
+            });
+            this.isDelete = false
+          }
+        });
+        toast.success("Delete coordinator successfull",{position: POSITION.TOP_CENTER, timeout: 2000})
+      }
+    },
   }
 });

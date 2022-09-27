@@ -183,7 +183,7 @@
         >
           <tr>
             <th class="py-4 pl-7 text-base text-slate-500 flex justify-around">
-              <!-- option for user seleted all coordinator -->
+              <!-- option for user seleted all student -->
               <input v-if="storeData.students.length > 0" @click="storeData.selectAll()"  value="all" v-model="storeData.dataDeleteStudent" type="checkbox" id="delete" class="-ml-7">
             </th>
             <th class="py-4 px-6 text-base text-slate-500">Profile</th>
