@@ -17,6 +17,7 @@ export const studentstore = defineStore("student", {
     showDetail: false,
     isTrue: false,
     isEdit: false,
+    isDelete:false, //use when user click on delete student will show pop up
     isShow: false,
     deleteStudent: false, //use in delete popup
     deleteStudentId: null, //use in delete btn in student list
@@ -296,6 +297,50 @@ export const studentstore = defineStore("student", {
         });
       }
     },
+
+
+
+
+
+
+    /**
+     * @todo get all list of student
+     */
+     selectAll(){
+      if(this.dataDeleteStudent.length > 0){
+        this.dataDeleteStudent = []
+      }else{
+        for (let student of this.students) {
+          this.dataDeleteStudent.push(student.user.id)
+        }
+        this.dataDeleteStudent.push('all')
+      }
+      console.log(this.dataDeleteStudent);
+      console.log('hello world how are you?');
+    },
+    /**
+     * @todo to delete teacher by id
+     * @return all data of teacher after delete
+     */
+    deleteManyStudents() {
+      if(this.dataDeleteStudent.length > 0){
+        this.dataDeleteStudent.forEach(id => {
+          if(id != 'all'){
+            axios.delete(process.env.VUE_APP_API_URL + 'user/' + id).then(() => {
+              this.getStudent()
+            });
+            this.isDelete = false
+          }
+        });
+        toast.success("Delete coordinator successfull",{position: POSITION.TOP_CENTER, timeout: 2000})
+      }
+    },
+
+
+
+
+
+
     onCancel() {
       this.clearForm();
       (this.isAddFollowup = false), (this.isShow = false);
@@ -501,18 +546,18 @@ export const studentstore = defineStore("student", {
     /**
      * @todo select all coordinator
      */
-    selectAll(){
-      if(this.dataDeleteStudent.length > 0){
-        this.dataDeleteCoordinator = []
-      }else{
-        this.coordinators.forEach(coordinator => {
-          // if(coordinator.id != sessionStorage.getItem('coordintor_id')){
-            this.dataDeleteStudent.push(coordinator.id)
-          // }
-        });
-        this.dataDeleteCoordinator.push('all')
-        console.log(this.dataDeleteCoordinator);
-      }
-    },
+    // selectAll(){
+    //   if(this.dataDeleteStudent.length > 0){
+    //     this.dataDeleteCoordinator = []
+    //   }else{
+    //     this.coordinators.forEach(coordinator => {
+    //       // if(coordinator.id != sessionStorage.getItem('coordintor_id')){
+    //         this.dataDeleteStudent.push(coordinator.id)
+    //       // }
+    //     });
+    //     this.dataDeleteCoordinator.push('all')
+    //     console.log(this.dataDeleteCoordinator);
+    //   }
+    // },
   },
 });

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="storeData.isTrue" class="z-10">
+  <div v-if="storeData.isTrue" class="absolute z-10">
     <div
       class="
         mt-[-12]
