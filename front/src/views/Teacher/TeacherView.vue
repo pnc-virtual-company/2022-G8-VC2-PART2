@@ -33,19 +33,19 @@
       <!-- route that Teacher can manage student  -->
       <template #manageStudent>
         <li class="m-3">
-          <router-link to="/teacherManageStudent"> Manage Student</router-link>
+          <router-link active-class="active" to="/teacherManageStudent"> Manage Student</router-link>
         </li>
       </template>
       <!-- router that teacher can manage student follow up -->
       <template #manageStudentFollowUp>
         <li class="m-3">
-          <router-link to="/followupStudent">Student Follow up </router-link>
+          <router-link active-class="active" to="/followupStudent">Student Follow up </router-link>
         </li>
       </template>
       <!-- route that teacher can manage student follow up histories -->
       <template #studentFollowUpHistory>
         <li class="m-3">
-          <router-link to="followuphistoryInTeacher">Follow up Histories</router-link>
+          <router-link active-class="active" to="followuphistoryInTeacher">Follow up Histories</router-link>
         </li>
       </template>
       <!-- route link to account profile teacher -->
@@ -80,5 +80,9 @@ onMounted(()=>{
   
     object-fit: cover;
     object-position: center;
+  }
+  .active{
+  border-bottom: solid 2px white;
+ 
   }
 </style>

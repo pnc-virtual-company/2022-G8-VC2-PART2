@@ -485,9 +485,9 @@
             "
             placeholder="student ID"
           />
-          </div>
+          
         <!-- user class and id -->
-        <div class="flex mt-3">
+       
           <select
             v-model="storeData.class"
             class="m-1 bg-gray-50
