@@ -34,7 +34,8 @@ export const studentfollowupstore = defineStore("student", {
         dialog: false,
         searchByName:"",
         showDetail: false,
-        studentIDAssign:null
+        studentIDAssign:null,
+        historyFollowupData:[],
     }),
     getters:{
       // search name and studentNumber in teacher task 
@@ -56,10 +57,14 @@ export const studentfollowupstore = defineStore("student", {
         getStudent() {
              axios.get("student").then((res)=>{
                  this.students = res.data;
-                 console.log(this.students)
              });
+             this.getComment()
+        
         },
-        isOpenDetail(){
+        getHistoryData() {
+            axios.get("history").then((res) => {
+            this.historyFollowupData=res.data.data[0]
+            })
         },
         onCancel() {
             this.isAssign=false,
@@ -94,6 +99,7 @@ export const studentfollowupstore = defineStore("student", {
             this.index= null,
             this.dialog= false
         },
+        
         /**
          * @todo add student to follow up list
          */
@@ -168,7 +174,81 @@ export const studentfollowupstore = defineStore("student", {
                 // this.teachersData = res.data
                 console.log(res.data);
             })
+        },
+         /**
+         * @todo  create student detail
+         */
+          studentDetail(id) {
+            console.log(id);
+            axios.get("student/" + id).then((res) => {
+                this.first_name = res.data.user.first_name;
+                this.last_name = res.data.user.last_name;
+                this.gender = res.data.user.gender;
+                this.email = res.data.user.email;
+                this.class = res.data.class;
+                this.phone = res.data.user.phone;
+                this.ngo = res.data.ngo;
+                this.province = res.data.province;
+                this.profile_img = res.data.user.profile_img;
+                this.studentIdOnviewDetail = res.data.user_id
+                this.getStudent()
+            });
+        },
+         //Add comment============================================
+         addComment() {
+            let commentData = new FormData();
+            commentData.append('student_id', this.studentIdOnviewDetail)
+            commentData.append('commenter_id', sessionStorage.getItem('user_id'), )
+            commentData.append('paragraph', this.leaveComment)
+            console.log(this.leaveComment + this.studentIdOnviewDetail)
+            axios.post(process.env.VUE_APP_API_URL + "comment", commentData).then(() => {
+                this.getStudent();
+                this.getComment();
+                this.leaveComment = ''
+            });
+        },
+
+        // Get comment============================================
+        async getComment() {
+            const data = await axios.get("comment");
+            this.comments = data.data;
+            console.log(this.comments)
+        },
+        async deleteComment(id) {
+            await axios.delete("comment/" + id);
+            this.getStudent();
+            this.getComment();
+
+        },
+        async editComment() {
+            this.isEditComment = false
+            const data = await axios.put("comment/" + this.id, { paragraph: this.editCommentContent });
+            this.getStudent();
+            this.getComment();
+            console.log(data)
+
+        },
+        async editCommentClicked(oldUser_id, parag, id) {
+            if (sessionStorage.getItem('user_id') == oldUser_id) {
+                this.isEditComment = true
+                this.editCommentContent = parag
+                this.id = id
+
+            }
+
+        },
+        getIdTutor(id){
+            this.id=id
+             axios.put("user/" +id).then((res)=>{
+                 this.profile_img = res.data.profile_img;
+                 this.first_name = res.data.first_name;
+                 this.last_name = res.data.last_name;
+             });
+            this.getStudent()
+            console.log(id,'add ');
         }
+
+        
     },
 });
 

@@ -1,5 +1,6 @@
 <template>
-  <div class="container text-center w-5/5 h-screen overflow-y-scroll">
+
+  <div class="container text-center  ">
     <!--  Pop up of confirm to add student into follow up list  -->
     <div class="container mx-auto">
       <div class="flex justify-center">
@@ -82,6 +83,7 @@
       </div>
     </div>
     <!-- ====================== filter on student list ==================== -->
+    <div class="flex ml-10 mt-5"> <i class="fa-solid fa-user fa-2x"></i><span class="text-1xl mt-3 ml-2 font-bold ">STUDENTS FOLLOW UP LIST</span> </div>
     <div class="m-auto filter flex justify-between items-center w-12/12 mt-5">
       <div class="w-6/12 ">
         <select name="" id="" class=" ml-4 bg-sky-500 p-2 rounded text-base outline-none text-white">
@@ -90,10 +92,6 @@
           <option value="followup no tutor">Follow up no totur</option>
         </select>
       </div>
-
-      <button @click="studentfollowupStore.getFollowupwithTutor()">Click here</button>
-
-
       <div class="flex justify-around items-center">
         <input
           type="text"
@@ -111,14 +109,14 @@
     </div>
     <!-- ============================ display list all student ========================== -->
     <div
-      style="height: 75vh"
-      class="m-auto relative z-5 mt-5 bg-gray-100 sm:rounded-sm overflow-y-scroll"
+      style="height: 65vh "
+      class="m-auto relative z-5 mt-3 bg-gray-100 sm:rounded-sm overflow-y-scroll"
     >
       <table
         class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
       >
         <thead
-          class="text-xs text-gray-700 bg-gray-200 bg-gray-400 dark:text-gray-400"
+          class="text-xs text-gray-700 bg-gray-200  dark:text-gray-400"
         >
           <tr>
             <th class="py-3 px-6">Profile</th>
@@ -134,12 +132,12 @@
             class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:border-gray-700"
           >
             <td>
-              <div class="py-4 px-6 text-right">
+              <div class="text-right">
                 <router-link
                   class="flex"
                   :to="{
-                    name: 'teacherViewStudentDetail',
-                    path: 'teacherViewStudentDetail',
+                    name: 'manageStudentDetailVue',
+                    path: 'manageStudentDetailVue',
                     params: { id: student.id },
                   }"
                 >
@@ -147,7 +145,7 @@
                     v-if="student.user.profile_img != null"
                     :src="'http://127.0.0.1:8000/storage/images/' +student.user.profile_img
                     "
-                    class="w-12 h-12 rounded-full m-auto mt-5"
+                    class="w-12 h-12 rounded-full m-auto mt-2 mb-2"
                     alt=""
                   />
 
@@ -166,18 +164,18 @@
                 </router-link>
               </div>
             </td>
-            <td class="py-3 px-2">
+            <td class="">
               <h1 class="">{{ student.studentNumber }}</h1>
             </td>
-            <td class="py-3 px-6">
+            <td class="">
               <h1 class="font-bold">
                 {{ student.user.first_name }} {{ student.user.last_name }}
               </h1>
             </td>
-            <td class="py-3 px-6">
+            <td class="">
               {{ student.class }}
             </td>
-            <td class="py-3 px-6">
+            <td class="">
               <button @click="studentfollowupStore.getTeachers(student.user.id)" class="bg-sky-500 rounded text-white px-5 py-2">Assign</button>
             </td>
           </tr>

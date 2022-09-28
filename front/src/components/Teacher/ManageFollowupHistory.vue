@@ -1,7 +1,6 @@
 <template>
-
     <!--  Pop up of confirm to remove student from follow up list  -->
-    <div class="container mx-auto">
+    <div class="container ">
       <div class="flex justify-center">
         <div
           v-if="storeData.isAddFollowup"
@@ -34,26 +33,23 @@
         </div>
       </div>
     </div>
-    <!-- ====================== filter on student list ==================== -->
-    <div class="m-auto filter flex justify-around w-11/12 mt-5">
+    <div class="flex justify-end">
       <input
         type="text"
-        class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="m-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Search Name"
       />
       <select
-        class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="m-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       >
         <option selected value="WEBA">WEB 2022 A</option>
         <option value="WEBB">WEB 2022 B</option>
         <option value="SNA">SNA 2022</option>
       </select>
     </div>
-  
     <!-- ============================ display list all student ========================== -->
-    <div
-    style="height:70vh"
-      class="m-auto relative bg-gray-100 mt-3 overflow-y-scroll"
+    <div style="height:75vh"
+      class=" relative bg-gray-100    overflow-y-scroll"
     >
       <table
         class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
@@ -70,56 +66,59 @@
           </tr>
         </thead>
 
-        <tbody v-for="student in storeData.students" :key="student.id">
+        <tbody v-for="student in storeData.historyFollowupData" :key="student.id">
           <tr
-            v-if="student.status == 1"
-            class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:border-gray-700"
+          v-if="student.role == 1"
+          class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:border-gray-700"
           >
+        
             <td>
-              <div class=" text-right">
+
+              <div class=" text-right"  >
+                <div></div>
                 <router-link
                   class="flex"
                   :to="{
-                    name: 'StudentFollowupDetail',
-                    path: 'StudentFollowupDetail',
-                    params: { id: student.id },
+                    name: 'ManageStudentFollowUp',
+                    path: 'ManageStudentFollowUp',
+                    params: { id: student.students.id},
                   }"
                 >
-                  <img
-                    v-if="student.user.profile_img != null"
+                  <img 
+                    v-if="student.profile_img != null"
                     :src="
                       'http://127.0.0.1:8000/storage/images/' +
-                      student.user.profile_img
+                      student.profile_img
                     "
                     class="w-12 h-12 rounded-full m-auto mt-2 mb-2"
                     alt=""
                   />
 
                   <img
-                    v-else-if="student.user.gender == 'female'"
+                    v-else-if="student.gender == 'female'"
                     src="@/assets/female_logo.jpg"
                     class="w-12 h-12 rounded-full m-auto mt-2 mb-2"
                     alt=""
                   />
                   <img
-                    v-else-if="student.user.gender == 'male'"
+                    v-else-if="student.gender == 'male'"
                     src="@/assets/male_logo.jpg"
-                    class="w-12 h-12 rounded-full m-auto mt-2 mb-2"
+                    class="w-12 h-12 rounded-full m-auto mt-5"
                     alt=""
                   />
                 </router-link>
               </div>
             </td>
             <td class="">
-              <h1 class="">{{ student.studentNumber }}</h1>
+              <h1 class="">{{ student.students.studentNumber }}</h1>
             </td>
             <td class="">
               <h1 class="">
-                {{ student.user.first_name }} {{ student.user.last_name }}
+                {{ student.first_name }} {{ student.last_name }}
               </h1>
             </td>
             <td class="">
-              {{ student.class }}
+              {{ student.students.class }}
             </td>
             <td class="">
               <div>
@@ -149,25 +148,18 @@
                     v-show="storeData.show && storeData.id == student.id"
                     class="border-2 bg-white-500 absolute right-0 border-zinc-400 rounded-md shadow-xl w-40"
                   >
-                    <div
-                      @click="
-                        storeData.isRemoveStudentFollowup(student.user.id)
-                      "
-                      class="cursor-pointer block px-4 py-2 text-sm text-black hover:bg-slate-300 hover:text-black"
-                    >
-                      Remove from follow up
-                    </div>
+                  
                     <div
                       class=" cursor-pointer block px-4 py-2 text-sm text-black hover:bg-slate-300 hover:text-black"
-                    >
+                    @click="storeData.getIdTutor(student.role)">
                       <router-link
-                        :to="{
-                          name: 'studentdetail',
-                          path: 'studentdetail',
-                          params: { id: student.id },
+                      :to="{
+                          name: 'ManageStudentFollowUp',
+                          path: 'ManageStudentFollowUp',
+                          params: {id: student.students.id},
                         }"
-                        >View Detail</router-link
-                      >
+                        >View Detail
+                        </router-link >
                     </div>
                   </div>
                 </div>
@@ -179,10 +171,10 @@
     </div>
 </template>
 <script setup>
-import { studentstore } from "@/store/coordinatorStore/StudentStore/StudentManagement";
+import { studentfollowupstore } from "@/store/teacherStore/StudentStore/StudentManagement";
 import { onMounted } from "vue";
-const storeData = studentstore();
+const storeData = studentfollowupstore();
 onMounted(() => {
-  storeData.getStudent();
+  storeData.getHistoryData();
 });
 </script>

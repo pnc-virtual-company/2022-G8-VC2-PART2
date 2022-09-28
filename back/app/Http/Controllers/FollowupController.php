@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use App\Models\Followup;
 use Illuminate\Http\Request;
@@ -14,18 +15,18 @@ class FollowupController extends Controller
      */
     public function index()
     {
-        $followup= Followup::get();
-        $data=collect([]);
-        $students=collect([]);
-        foreach($followup as $his){
-                $studentTeacher = collect([]);
-                $user =User::findOrFail( $his['tutor_id']);
-                $studentTeacher->push($user);
-                $student =User::findOrFail( $his['student_id']);
-                $studentTeacher->push($student);
-                $data->push($studentTeacher);
-            }
-            return response()->json(['data'=>$data]);
+        $followup = Followup::get();
+        $data = collect([]);
+        foreach ($followup as $his) {
+            $studentTeacher = collect([]);
+            $user = User::findOrFail($his['tutor_id']);
+            $studentTeacher->push($user);
+            $student = User::findOrFail($his['student_id']);
+            $students = collect([]);
+            $studentTeacher->push($student);
+            $data->push($studentTeacher);
+        }
+        return response()->json(['data' => $data]);
     }
 
     /**
@@ -36,7 +37,7 @@ class FollowupController extends Controller
      */
     public function store(Request $request)
     {
-        $followup =new Followup();
+        $followup = new Followup();
         $followup->tutor_id = $request->tutor_id;
         $followup->student_id = $request->student_id;
         $followup->save();

@@ -93,7 +93,6 @@ export const studentstore = defineStore("student", {
             axios.get("history").then((res) => {
             this.historyFollowupData=res.data.data[0]
             })
-
         },
         /**
          * @todo add student to follow up list
@@ -458,6 +457,7 @@ export const studentstore = defineStore("student", {
          * @todo  create student detail
          */
         studentDetail(id) {
+            console.log(id);
             axios.get("student/" + id).then((res) => {
                 this.first_name = res.data.user.first_name;
                 this.last_name = res.data.user.last_name;
@@ -472,6 +472,7 @@ export const studentstore = defineStore("student", {
                 this.getStudent()
             });
         },
+
         // get Data of student to put on Student Profile of Folder Teacher
         async getStudentToken() {
             await axios

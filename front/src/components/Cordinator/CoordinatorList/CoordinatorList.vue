@@ -85,7 +85,9 @@
         </div>
 
         <!-- ======================= display each card of teacher's list ==========================  -->
-        <div class="card m-auto bg-gray-100 mt-4  w-12/12  overflow-y-scroll" style="height: 448px;">
+        <div 
+        
+        class="card m-auto bg-gray-100 mt-4  w-12/12  overflow-y-scroll" style="height: 448px;">
           <table
             class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
           >

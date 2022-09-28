@@ -45,7 +45,7 @@
       <!-- route that teacher can manage student follow up histories -->
       <template #studentFollowUpHistory>
         <li class="m-3">
-          <router-link active-class="active" to="">Follow up Histories</router-link>
+          <router-link active-class="active" to="followuphistoryInTeacher">Follow up Histories</router-link>
         </li>
       </template>
       <!-- route link to account profile teacher -->
