@@ -15,7 +15,7 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        return Teacher::with('user')->get();
+        return Teacher::with('user')->orderBy('id', 'DESC')->get();
     }
     public function show($id)
     {

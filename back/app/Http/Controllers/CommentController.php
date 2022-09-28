@@ -17,7 +17,7 @@ class CommentController extends Controller
     {
         //
         
-        return Comment::with('user.teachers')->get();
+        return Comment::with('user.teachers')->orderBy('id', 'DESC')->get();
     }
 
     /**
