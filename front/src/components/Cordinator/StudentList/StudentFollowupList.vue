@@ -33,10 +33,6 @@
         </div>
       </div>
     </div>
-    <!-- ====================== Title ==================== -->
-    <widget-title>
-      <template v-slot> Follow up Students </template>
-    </widget-title>
     <!-- ====================== filter on student list ==================== -->
     <div class="m-auto filter flex justify-around w-11/12 mt-5">
       <input

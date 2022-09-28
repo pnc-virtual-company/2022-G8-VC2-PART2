@@ -1,48 +1,5 @@
 <template>
     <div class="container text-center w-5/5 h-screen overflow-y-scroll">
-      <!--  Pop up of confirm to add student into follow up list  -->
-      <!-- <div class="container mx-auto">
-        <div class="flex justify-center">
-          <div
-            v-if="storeData.isAddFollowup"
-            class="absolute z-10 inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50"
-          >
-            <div class="max-w-2xl p-6 bg-white rounded-md shadow-xl">
-              <div class="flex items-center justify-between">
-                <form action="">
-                  <h5 class="text-2xl">
-                    Do you want to remove them to Follow up Student?
-                  </h5>
-                  <input
-                    class="mt-5 p-5 text-lg"
-                    required
-                    type="text"
-                    placeholder="leave a comment  ..."
-                  />
-                  <div class="mt-10 flex justify-evenly">
-                    <button
-                      @click="storeData.isAddFollowup = false"
-                      class="px-6 py-2 text-blue-800 border border-blue-600 rounded"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      @click.prevent="storeData.removeFollowup()"
-                      class="px-6 py-2 ml-2 text-blue-100 bg-sky-500 rounded"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!-- ====================== Title ==================== -->
-      <widget-title>
-        <template v-slot> Follow up History </template>
-      </widget-title>
       <!-- ====================== filter on student list ==================== -->
       <div class="m-auto filter flex justify-around w-11/12 mt-5">
         <input
