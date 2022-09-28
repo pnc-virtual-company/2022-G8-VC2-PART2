@@ -45,7 +45,7 @@
           ></span>
           <ul
             
-            class="flex justify-center mt-3 items-center  space-x-2 transition duration-200 hover:bg-gray-500 hover:text-white"          >
+            class=" onActive flex justify-center mt-3 items-center  space-x-2 transition duration-200 hover:bg-gray-500 hover:text-white"          >
             <slot name="manageCoordinator"></slot>
           </ul>
           <!-- <a href="#" class="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white"> -->
@@ -150,6 +150,7 @@
 }
 .active {
   background: rgb(0, 0, 0);
+  
 }
 
 
@@ -174,6 +175,7 @@ export default {
     },
     
   },
+
 };
 
 </script>

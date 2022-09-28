@@ -5,12 +5,7 @@
       relative
       bg-gray-100
       p-5
-      shadow-md
-      w-11/12
-      sm:rounded-lg
-      mt-3
-      h-screen
-      overflow-y-scroll
+
     "
   >
     <!-- profile teacher -->
@@ -51,7 +46,7 @@
     <div class="container mx-auto md:flex md:justify-center">
       <div class="md:flex no-wrap md:-mx-2 w-full">
         <!-- Left Side -->
-        <div class="w-full md:w-3/12 m-3">
+        <div class="w-full md:w-3/12 m-2">
           <!-- Profile Card -->
           <div class="bg-white p-3 border-2 border-black-600 rounded-lg">
             <div
@@ -145,7 +140,7 @@
                       <h4>Class</h4>
                       <h4>Province</h4>
                     </div>
-                    <div class="px-2 py-2">
+                    <div class="px-1 py-2">
                       <p>{{ storeData.first_name }}</p>
                       <p>{{ storeData.gender }}</p>
                       <p>{{ storeData.class }}</p>

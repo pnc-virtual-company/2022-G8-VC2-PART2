@@ -30,6 +30,7 @@ export const userStore = defineStore("user", {
     isNotMath: false,
     notExist: false,
   }),
+  // {headers:{ Authorization: `Bearer ${sessionStorage.getItem('user_token')}`}}
   getters: {},
   actions: {
     // clear Email and password
@@ -42,6 +43,7 @@ export const userStore = defineStore("user", {
       const data = await axios.get(
         "/user/" + sessionStorage.getItem("user_id")
       );
+      // console.log({headers:{ Authorization: `Bearer ${sessionStorage.getItem('user_token')}`}});
       this.profile_img = data.data.profile_img;
       this.first_name = data.data.first_name;
       this.last_name = data.data.last_name;
@@ -100,6 +102,7 @@ export const userStore = defineStore("user", {
               this.tokenId = res.data.data.id;
               sessionStorage.setItem("user_id", this.tokenId);
               sessionStorage.setItem("coordinator_token", this.token);
+              sessionStorage.setItem("user_token", this.token);
               this.clearText();
               this.checkLoginSuccessul();
               router.push({ name: "managestudent", path: "/managestudent" });
@@ -112,6 +115,7 @@ export const userStore = defineStore("user", {
               this.tokenId = res.data.data.id;
               sessionStorage.setItem("user_id", this.tokenId);
               sessionStorage.setItem("teacher_token", this.token);
+              sessionStorage.setItem("user_token", this.token);
               this.clearText();
               this.checkLoginSuccessul();
               router.push({
@@ -129,6 +133,7 @@ export const userStore = defineStore("user", {
               this.tokenId = res.data.data.id;
               sessionStorage.setItem("user_id", this.tokenId);
               sessionStorage.setItem("student_token", this.token);
+              sessionStorage.setItem("user_token", this.token);
               this.clearText();
               this.getUserData();
               router.push("/ManageStudentProfile");
@@ -284,8 +289,8 @@ export const userStore = defineStore("user", {
           "/changeProfileImage/" + sessionStorage.getItem("user_id"),
           profileImage
         )
-        .then((response) => {
-          console.log(response);
+        .then(() => {
+
           this.getUserData();
         });
     },

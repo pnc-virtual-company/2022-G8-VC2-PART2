@@ -50,7 +50,7 @@
     </div>
     <!-- ============================ display list all student ========================== -->
     <div
-      class="m-auto relative bg-gray-100 p-5 shadow-md w-11/12 sm:rounded-lg mt-3 h-screen overflow-y-scroll"
+      class="m-auto relative bg-gray-100  shadow-md w-12/12 mt-3 h-screen overflow-y-scroll"
     >
       <table
         class="w-full text-sm text-center text-gray-500 dark:text-gray-400"

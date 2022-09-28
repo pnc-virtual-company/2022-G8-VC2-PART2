@@ -258,6 +258,11 @@ class UserController extends Controller
             return response()->json(['sms' => 'Invalid role',]);
         }
     }
+    public function signOut()
+    {
+        $token=auth()->user()->tokens()->delete();
+        return response()->json(['sms' => 'Logout is successful']);
+    }
     // --------------ForgetPassword to new password----------------------------------
     public function forgetPassword(Request $request, $id)
     {
@@ -308,4 +313,5 @@ class UserController extends Controller
         }
         return response()->json(['sms' => 'Password incorrect!'], 404);
     }
+  
 }

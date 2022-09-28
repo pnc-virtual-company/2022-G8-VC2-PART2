@@ -47,7 +47,7 @@ Route::apiResource('/student', StudentController::class);
 Route::apiResource('/teacher',TeacherController::class);
 //-------------comment routes-------------/
 Route::apiResource('/comment',CommentController::class);
-Route::get('/commentById/{id}',[CommentController::class,'show']);
+
 
 // send mail 
 Route::post('/sendstudentmail', [MailController::class, 'studentMail']);

@@ -59,10 +59,6 @@ export const studentfollowupstore = defineStore("student", {
                  console.log(this.students)
              });
         },
-        // showPopup(index) {
-        //     this.dialog = true;
-        //     this.index = index;
-        // },
         isOpenDetail(){
         },
         onCancel() {

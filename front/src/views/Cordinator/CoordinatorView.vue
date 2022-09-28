@@ -132,11 +132,8 @@ onMounted(() => {
   object-fit: cover;
   object-position: center;
 }
-/* .active{
-  border-bottom:3px solid rgb(148, 144, 144);
-} */
 .active{
-  background-color:gray;
-  padding: 5px 10px;
+  border-bottom:2px solid white;
 }
+
 </style>
