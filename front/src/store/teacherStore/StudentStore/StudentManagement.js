@@ -54,7 +54,7 @@ export const studentfollowupstore = defineStore("student", {
          * @todo get data of students
          */
         getStudent() {
-             axios.get("student",{ Authorization: `Bearer ${sessionStorage.getItem('user_token')}`}).then((res)=>{
+             axios.get("student").then((res)=>{
                  this.students = res.data;
                  console.log(this.students)
              });

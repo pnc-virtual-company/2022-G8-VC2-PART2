@@ -41,7 +41,7 @@ export const userStore = defineStore("user", {
     },
     async getUserData() {
       const data = await axios.get(
-        "/user/" + sessionStorage.getItem("user_id"),
+        "/user/" + sessionStorage.getItem("user_id")
       );
       // console.log({headers:{ Authorization: `Bearer ${sessionStorage.getItem('user_token')}`}});
       this.profile_img = data.data.profile_img;
@@ -82,7 +82,6 @@ export const userStore = defineStore("user", {
       this.getUserData()
       sessionStorage.removeItem('user_id');
       sessionStorage.removeItem('coordinator_token');
-      axios.post("/sign-out")
       router.push("/");
 },
     async login() {
@@ -223,7 +222,7 @@ export const userStore = defineStore("user", {
           axios
             .post(
               "/compareRessetPassword/" + sessionStorage.getItem("user_id"),
-              { password: this.oldPassword, new_password: this.newPassword },{headers:{ Authorization: `Bearer ${sessionStorage.getItem('user_token')}`}}
+              { password: this.oldPassword, new_password: this.newPassword }
             )
             .then((response) => {
               if (response.data.sms == "Password updated!") {
@@ -231,7 +230,7 @@ export const userStore = defineStore("user", {
                   "/ressetPassword/" + sessionStorage.getItem("user_id"),
                   {
                     password: this.newPassword,
-                  },{headers:{ Authorization: `Bearer ${sessionStorage.getItem('user_token')}`}}
+                  }
                 );
                 this.clearText();
                 this.getUserData();

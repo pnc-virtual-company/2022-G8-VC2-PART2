@@ -267,7 +267,7 @@ export const teacherstore = defineStore('teacher', {
     // get this data to TeacherProfile in Folder Teacher to get only one data
     */
     async getDatTeacherToPRofile(){
-        const data = await axios.get('user/'+sessionStorage.getItem('user_id'),{ Authorization: `Bearer ${sessionStorage.getItem('user_token')}`})
+        const data = await axios.get('user/'+sessionStorage.getItem('user_id'))
         if(data.data.role==2){
           this.profile_img = data.data.profile_img
           this.first_name = data.data.first_name
@@ -291,7 +291,7 @@ export const teacherstore = defineStore('teacher', {
       const profileImage = new FormData();
       profileImage.append("profile_img", profile_img);
       profileImage.append("_method", "PUT");
-      axios.post("/updateTeacherImage/" + sessionStorage.getItem("user_id"), profileImage,{ Authorization: `Bearer ${sessionStorage.getItem('user_token')}`})
+      axios.post("/updateTeacherImage/" + sessionStorage.getItem("user_id"), profileImage)
           this.getTeacher();
     },
     /**
