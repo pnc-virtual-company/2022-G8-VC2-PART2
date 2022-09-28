@@ -17,4 +17,5 @@ class History extends Model
         $student = $this->belongsTo(User::class, 'student_id');
         return [$tutor, $student];
     }
+  
 }

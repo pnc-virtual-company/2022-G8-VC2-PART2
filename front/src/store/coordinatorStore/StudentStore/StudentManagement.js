@@ -88,7 +88,7 @@ export const studentstore = defineStore("student", {
         },
         getHistoryData() {
             axios.get("history").then((res) => {
-                console.log(res.data)
+                this.historyFollowupData = res.data.data[0]
                 console.log(this.historyFollowupData)
             })
         },
