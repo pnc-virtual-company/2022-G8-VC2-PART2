@@ -34,10 +34,6 @@
         </div>
       </div>
     </div>
-    <!-- ====================== Title ==================== -->
-    <widget-title>
-      <template v-slot> Follow up Students </template>
-    </widget-title>
     <!-- ====================== filter on student list ==================== -->
     <div class="m-auto filter flex justify-around w-11/12 mt-5">
       <input
@@ -56,7 +52,8 @@
   
     <!-- ============================ display list all student ========================== -->
     <div
-      class="m-auto relative bg-gray-100 p-5 shadow-md w-11/12 sm:rounded-lg mt-3 overflow-y-scroll"
+    style="height:70vh"
+      class="m-auto relative bg-gray-100 mt-3 overflow-y-scroll"
     >
       <table
         class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
@@ -79,7 +76,7 @@
             class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:border-gray-700"
           >
             <td>
-              <div class="py-4 px-6 text-right">
+              <div class=" text-right">
                 <router-link
                   class="flex"
                   :to="{
@@ -94,37 +91,37 @@
                       'http://127.0.0.1:8000/storage/images/' +
                       student.user.profile_img
                     "
-                    class="w-12 h-12 rounded-full m-auto mt-5"
+                    class="w-12 h-12 rounded-full m-auto mt-2 mb-2"
                     alt=""
                   />
 
                   <img
                     v-else-if="student.user.gender == 'female'"
                     src="@/assets/female_logo.jpg"
-                    class="w-12 h-12 rounded-full m-auto mt-5"
+                    class="w-12 h-12 rounded-full m-auto mt-2 mb-2"
                     alt=""
                   />
                   <img
                     v-else-if="student.user.gender == 'male'"
                     src="@/assets/male_logo.jpg"
-                    class="w-12 h-12 rounded-full m-auto mt-5"
+                    class="w-12 h-12 rounded-full m-auto mt-2 mb-2"
                     alt=""
                   />
                 </router-link>
               </div>
             </td>
-            <td class="py-3 px-2">
+            <td class="">
               <h1 class="">{{ student.studentNumber }}</h1>
             </td>
-            <td class="py-3 px-6">
+            <td class="">
               <h1 class="">
                 {{ student.user.first_name }} {{ student.user.last_name }}
               </h1>
             </td>
-            <td class="py-3 px-6">
+            <td class="">
               {{ student.class }}
             </td>
-            <td class="py-3 px-6">
+            <td class="">
               <div>
                 <div class="relative">
                   <!-- Dropdown toggle button -->

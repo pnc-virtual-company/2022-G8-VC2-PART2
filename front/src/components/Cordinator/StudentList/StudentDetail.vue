@@ -5,12 +5,7 @@
       relative
       bg-gray-100
       p-5
-      shadow-md
-      w-11/12
-      sm:rounded-lg
-      mt-3
-      h-screen
-      overflow-y-scroll
+
     "
   >
     <!-- profile teacher -->

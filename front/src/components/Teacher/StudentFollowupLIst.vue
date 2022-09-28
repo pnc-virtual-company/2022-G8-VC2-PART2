@@ -116,7 +116,7 @@
         class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
       >
         <thead
-          class="text-xs text-gray-700 bg-gray-200 bg-gray-400 dark:text-gray-400"
+          class="text-xs text-gray-700 bg-gray-200  dark:text-gray-400"
         >
           <tr>
             <th class="py-3 px-6">Profile</th>
