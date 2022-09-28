@@ -54,15 +54,11 @@ export const studentfollowupstore = defineStore("student", {
          * @todo get data of students
          */
         getStudent() {
-             axios.get("student").then((res)=>{
+             axios.get("student",{ Authorization: `Bearer ${sessionStorage.getItem('user_token')}`}).then((res)=>{
                  this.students = res.data;
                  console.log(this.students)
              });
         },
-        // showPopup(index) {
-        //     this.dialog = true;
-        //     this.index = index;
-        // },
         isOpenDetail(){
         },
         onCancel() {

@@ -63,10 +63,6 @@ export const teacherstore = defineStore('teacher', {
         return result;
       }
     },
-    
-
-    
-
   },
   actions: {
     /**
@@ -271,7 +267,7 @@ export const teacherstore = defineStore('teacher', {
     // get this data to TeacherProfile in Folder Teacher to get only one data
     */
     async getDatTeacherToPRofile(){
-        const data = await axios.get('user/'+sessionStorage.getItem('user_id'))
+        const data = await axios.get('user/'+sessionStorage.getItem('user_id'),{ Authorization: `Bearer ${sessionStorage.getItem('user_token')}`})
         if(data.data.role==2){
           this.profile_img = data.data.profile_img
           this.first_name = data.data.first_name
@@ -295,7 +291,7 @@ export const teacherstore = defineStore('teacher', {
       const profileImage = new FormData();
       profileImage.append("profile_img", profile_img);
       profileImage.append("_method", "PUT");
-      axios.post("/updateTeacherImage/" + sessionStorage.getItem("user_id"), profileImage)
+      axios.post("/updateTeacherImage/" + sessionStorage.getItem("user_id"), profileImage,{ Authorization: `Bearer ${sessionStorage.getItem('user_token')}`})
           this.getTeacher();
     },
     /**
@@ -340,7 +336,6 @@ export const teacherstore = defineStore('teacher', {
         }
         this.dataDeleteTeacher.push('all')
       }
-      console.log(this.dataDeleteTeacher);
     },
     /**
      * @todo to delete teacher by id

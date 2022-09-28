@@ -84,7 +84,7 @@ export const studentstore = defineStore("student", {
     },
     actions: {
         async getStudent() {
-            const data = await axios.get("student");
+            const data = await axios.get("student",{ Authorization: `Bearer ${sessionStorage.getItem('user_token')}`});
             this.students = data.data;
             this.studentDetail();
         },
@@ -475,13 +475,13 @@ export const studentstore = defineStore("student", {
                 this.profile_img = res.data.user.profile_img;
                 this.studentIdOnviewDetail = res.data.user_id
                 this.getStudent()
-            });
+            },{headers:{ Authorization: `Bearer ${sessionStorage.getItem('user_token')}`}});
         },
         // get Data of student to put on Student Profile of Folder Teacher
         async getStudentToken() {
             this.getCommentById()
             await axios
-                .get("user/" + sessionStorage.getItem("user_id"))
+                .get("user/" + sessionStorage.getItem("user_id"),{headers:{ Authorization: `Bearer ${sessionStorage.getItem('user_token')}`}})
                 .then((res) => {
                     if (res.data.id == res.data.students["user_id"]) {
                         this.profile_img = res.data.profile_img;
@@ -495,7 +495,7 @@ export const studentstore = defineStore("student", {
                         this.batch = res.data.students.batch;
                         this.ngo = res.data.students.ngo;
                     }
-                });
+                },{ Authorization: `Bearer ${sessionStorage.getItem('user_token')}`});
         },
         async changeProfileImageStudent(event) {
             this.onUploadImageStudent(event.target.files[0]);
@@ -510,7 +510,7 @@ export const studentstore = defineStore("student", {
             axios
                 .post(
                     "/updateStudentImage/" + sessionStorage.getItem("user_id"),
-                    profileImage
+                    profileImage,{headers:{ Authorization: `Bearer ${sessionStorage.getItem('user_token')}`}}
                 )
                 .then((response) => {
                     console.log(response);
@@ -533,6 +533,7 @@ export const studentstore = defineStore("student", {
             this.getStudent();
             sessionStorage.removeItem("user_id");
             sessionStorage.removeItem("student_token");
+            axios.post('sign-out',{headers:{ Authorization: `Bearer ${sessionStorage.getItem('user_token')}`}})
             router.push("/");
         },
   },
