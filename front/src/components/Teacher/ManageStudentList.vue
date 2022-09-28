@@ -51,7 +51,7 @@
           v-model="studentfollowupStore.searchByName"
           @keydown.enter="studentfollowupStore.filterByName()"      
         type="text"
-        class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class=" bg-gray-50 m-4 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Search Student"
       />
         <select
@@ -63,8 +63,9 @@
         </select>
       </div>
     </div>
+    
     <!-- ============================ display list all student ========================== -->
-    <div style="height:75vh"
+    <div style="height:65vh"
       class="m-auto relative z-5  bg-gray-100  sm:rounded-sm   overflow-y-scroll"
     >
       <table
@@ -88,7 +89,7 @@
             class="bg-gray-50 border-b dark:bg-gray-800 hover:bg-gray-50 dark:border-gray-700"
           >
             <td>
-              <div class=" px-6 text-right">
+              <div class="  text-right">
                 <router-link
                   class="flex"
                   :to="{
@@ -103,7 +104,7 @@
                       'http://127.0.0.1:8000/storage/images/' +
                       student.user.profile_img
                     "
-                    class="image--cover"
+                    class="image--cover w-12 h-12 rounded-full m-auto  mt-2 mb-2"
                     alt=""
                   />
                   <img

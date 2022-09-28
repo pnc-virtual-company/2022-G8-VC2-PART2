@@ -53,7 +53,7 @@
               class="image overflow-hidden"
             >
               <img
-                class="h-48 w-full mx-auto"
+                class="image--cover"
                 :src="
                   'http://127.0.0.1:8000/storage/images/' +
                   storeData.profile_img
@@ -501,3 +501,14 @@ onMounted(() => {
   storeData.getStudent();
 });
 </script> 
+<style scoped>
+  .image--cover {
+    width: 250px;
+    height: 180px;
+
+  
+    object-fit: cover;
+    object-position: center center center;
+
+  }
+</style>

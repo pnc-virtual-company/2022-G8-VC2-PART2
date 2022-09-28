@@ -34,7 +34,8 @@ export const studentfollowupstore = defineStore("student", {
         dialog: false,
         searchByName:"",
         showDetail: false,
-        studentIDAssign:null
+        studentIDAssign:null,
+        historyFollowupData:[],
     }),
     getters:{
       // search name and studentNumber in teacher task 
@@ -56,8 +57,14 @@ export const studentfollowupstore = defineStore("student", {
         getStudent() {
              axios.get("student").then((res)=>{
                  this.students = res.data;
-                 console.log(this.students)
              });
+             this.getComment()
+        
+        },
+        getHistoryData() {
+            axios.get("history").then((res) => {
+            this.historyFollowupData=res.data.data[0]
+            })
         },
         onCancel() {
             this.isAssign=false,
@@ -92,6 +99,7 @@ export const studentfollowupstore = defineStore("student", {
             this.index= null,
             this.dialog= false
         },
+        
         /**
          * @todo add student to follow up list
          */
@@ -229,6 +237,16 @@ export const studentfollowupstore = defineStore("student", {
             }
 
         },
+        getIdTutor(id){
+            this.id=id
+             axios.put("user/" +id).then((res)=>{
+                 this.profile_img = res.data.profile_img;
+                 this.first_name = res.data.first_name;
+                 this.last_name = res.data.last_name;
+             });
+            this.getStudent()
+            console.log(id,'add ');
+        }
 
         
     },

@@ -10,6 +10,7 @@ import ManageTeacher from "@/views/Cordinator/ManageTeacher/ManageTeacher.vue";
 import StudentFollowup from '@/views/Cordinator/StudentFollowup/StudentFollowupView.vue'
 import FollowupHistory from '@/views/Cordinator/FollowupHistory/FollowupHistoryView.vue'
 import CoordinatorDetail from "@/components/Cordinator/CoordinatorList/CoordinatorDetail.vue";
+
 // --------------------------------------------------------------------------
 // --------------------------Teacher Route-------------------------//
 import TeacherViewVue from "@/views/Teacher/TeacherView.vue";
@@ -21,6 +22,8 @@ import DisplayListTeacher from "@/components/Teacher/DisplayListTeacher.vue";
 import TeacherDetail from "@/components/Teacher/TeacherDetail.vue";
 import RessetPasswordTeacherVue from "@/components/Teacher/RessetPasswordTeacher.vue";
 import ManageStudentDetailVue from "@/components/Teacher/ManageStudentDetail.vue";
+import ManageFollowupHistoryVue from "@/components/Teacher/ManageFollowupHistory.vue";
+import ManageStudentFollowUp from "@/components/Teacher/ManageStudentFollowupDetail.vue"
 // -------------------------Student Route------------------------------------
 import StudentViewVue from "@/views/Student/StudentView.vue";
 import ManageStudentProfile from "@/components/Teacher/ManageStudentProfile.vue";
@@ -75,6 +78,12 @@ const routes = [
         },
       },
       {
+        path: "/ManageStudentFollowUp/:id",
+        name: "ManageStudentFollowUp",
+        component: ManageStudentFollowUp,
+        meta: { isTeacher: true },
+      },
+      {
         path: "/manageStudentDetailVue/:id",
         name: "manageStudentDetailVue",
         component: ManageStudentDetailVue,
@@ -105,6 +114,12 @@ const routes = [
         meta: {
           isTeacher: true,
         },
+      },
+      {
+        path: "/followuphistoryInTeacher",
+        name: "followuphistoryInTeacher",
+        component: ManageFollowupHistoryVue,
+        meta: { isTeacher: true },
       },
     ],
     meta: {

@@ -43,7 +43,6 @@ export const userStore = defineStore("user", {
       const data = await axios.get(
         "/user/" + sessionStorage.getItem("user_id")
       );
-      // console.log({headers:{ Authorization: `Bearer ${sessionStorage.getItem('user_token')}`}});
       this.profile_img = data.data.profile_img;
       this.first_name = data.data.first_name;
       this.last_name = data.data.last_name;
