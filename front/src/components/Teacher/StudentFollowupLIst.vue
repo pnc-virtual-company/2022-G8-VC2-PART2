@@ -172,41 +172,19 @@
                 </router-link>
               </div>
             </td>
-<<<<<<< HEAD
-
-            <td class="py-3 px-2">
-              <h1 class="">{{ student.studentNumber }}</h1>
-            </td>
-
-            <td class="py-3 px-6">
-=======
             <td class="">
               <h1 class="">{{ student.studentNumber }}</h1>
             </td>
             <td class="">
->>>>>>> 8e9e8db963aa559f764dfbcff69c24704456b00b
               <h1 class="font-bold">
                 {{ student.user.first_name }} {{ student.user.last_name }}
               </h1>
             </td>
-<<<<<<< HEAD
-
-            <td class="py-3 px-6">
-              {{ student.class }}
-            </td>
-
-            <td class="py-3 px-6">
-              <div class="hiden">
-                {{studentfollowupStore.checkIfHasTutor(student.user.id)}}
-              </div>
-              <button v-if="studentfollowupStore.isHasTutor" @click="studentfollowupStore.getTeachers(student.user.id)" class="bg-sky-500 rounded text-white px-5 py-2">Assign</button>
-=======
             <td class="">
               {{ student.class }}
             </td>
             <td class="">
               <button @click="studentfollowupStore.getTeachers(student.user.id)" class="bg-sky-500 rounded text-white px-5 py-2">Assign</button>
->>>>>>> 8e9e8db963aa559f764dfbcff69c24704456b00b
             </td>
           </tr>
         </tbody>

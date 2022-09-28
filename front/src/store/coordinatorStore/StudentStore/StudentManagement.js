@@ -481,7 +481,6 @@ export const studentstore = defineStore("student", {
                 console.log(res.data);
             });
         },
-<<<<<<< HEAD
         /**
          * @todo get more detail of tutor
          */
@@ -494,9 +493,6 @@ export const studentstore = defineStore("student", {
                 this.tutor_profile = tutor_data.profile_img
             })
         },
-=======
-
->>>>>>> 8e9e8db963aa559f764dfbcff69c24704456b00b
         // get Data of student to put on Student Profile of Folder Teacher
         async getStudentToken() {
             await axios

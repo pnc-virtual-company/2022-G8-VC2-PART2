@@ -71,12 +71,7 @@ export const studentfollowupstore = defineStore("student", {
              axios.get("student").then((res)=>{
                  this.students = res.data;
              });
-<<<<<<< HEAD
-            this.getFollowupWithTutor()
-=======
              this.getComment()
-        
->>>>>>> 8e9e8db963aa559f764dfbcff69c24704456b00b
         },
         getHistoryData() {
             axios.get("history").then((res) => {
@@ -193,22 +188,6 @@ export const studentfollowupstore = defineStore("student", {
                 this.followupWithTutor = myData
             })
         },
-<<<<<<< HEAD
-        /**
-         * 
-         */
-        checkIfHasTutor(id){
-            console.log(id);
-            this.followupWithTutor.forEach(followupId => {
-                if(id == followupId){
-                    this.hasTutor = false
-                }
-                console.log(followupId);
-            });
-            // console.log(id + 'where are you');
-        }
-
-=======
          /**
          * @todo  create student detail
          */
@@ -283,7 +262,6 @@ export const studentfollowupstore = defineStore("student", {
         }
 
         
->>>>>>> 8e9e8db963aa559f764dfbcff69c24704456b00b
     },
 });
 
