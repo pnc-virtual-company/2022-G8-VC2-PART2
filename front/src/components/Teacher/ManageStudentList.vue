@@ -42,19 +42,20 @@
     </div>
     <div class="flex ml-10 mt-5"> <i class="fa-solid fa-user fa-2x"></i><span class="text-1xl mt-3 ml-2 font-bold ">STUDENTS LIST</span> </div>
     <div class="flex justify-between">
-      <div class="flex justify-center align-items-center mt-9 ml-10 ">
+      <div class="flex justify-center  align-items-center mt-9 ml-10 ">
         Students: <span class="ml-4"><strong class="text-sky-500"> {{studentfollowupStore.students.length}} </strong> </span>
       </div>
-      <div class="m-auto filter flex  flex justify-end w-11/12  mt-5">
+      <div class=" flex ">
         <input
+        
           v-model="studentfollowupStore.searchByName"
           @keydown.enter="studentfollowupStore.filterByName()"      
         type="text"
-        class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Search Student"
       />
         <select
-          class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded  m-2 focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded  m-4 focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
           <option selected value="WEBA">WEB 2022 A</option>
           <option value="WEBB">WEB 2022 B</option>
@@ -62,7 +63,6 @@
         </select>
       </div>
     </div>
-  
     <!-- ============================ display list all student ========================== -->
     <div style="height:75vh"
       class="m-auto relative z-5  bg-gray-100  sm:rounded-sm   overflow-y-scroll"
@@ -92,8 +92,8 @@
                 <router-link
                   class="flex"
                   :to="{
-                    name: 'teacherViewStudentDetail',
-                    path: 'teacherViewStudentDetail',
+                    name: 'manageStudentDetailVue',
+                    path: 'manageStudentDetailVue',
                     params: { id: student.id },
                   }"
                 >
@@ -106,7 +106,6 @@
                     class="image--cover"
                     alt=""
                   />
-
                   <img
                     v-else-if="student.user.gender == 'female'"
                     src="@/assets/female_logo.jpg"
@@ -153,8 +152,8 @@
                   ><router-link
                   class="hover:text-black"
                   :to="{
-                    name: 'teacherViewStudentDetail',
-                    path: 'teacherViewStudentDetail',
+                    name: 'manageStudentDetailVue',
+                    path: 'manageStudentDetailVue',
                     params: { id: student.id },
                   }"
                 >View Detail</router-link>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container text-center w-5/5 h-screen overflow-y-scroll">
+  <div class="container text-center  ">
     <!--  Pop up of confirm to add student into follow up list  -->
     <div class="container mx-auto">
       <div class="flex justify-center">
@@ -90,10 +90,6 @@
           <option value="followup no tutor">Follow up no totur</option>
         </select>
       </div>
-
-      <button @click="studentfollowupStore.getFollowupwithTutor()">Click here</button>
-
-
       <div class="flex justify-around items-center">
         <input
           type="text"
@@ -111,8 +107,8 @@
     </div>
     <!-- ============================ display list all student ========================== -->
     <div
-      style="height: 75vh"
-      class="m-auto relative z-5 bg-gray-100 sm:rounded-sm overflow-y-scroll"
+      style="height: 75vh "
+      class="m-auto relative z-5 mt-3 bg-gray-100 sm:rounded-sm overflow-y-scroll"
     >
       <table
         class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
@@ -138,8 +134,8 @@
                 <router-link
                   class="flex"
                   :to="{
-                    name: 'teacherViewStudentDetail',
-                    path: 'teacherViewStudentDetail',
+                    name: 'manageStudentDetailVue',
+                    path: 'manageStudentDetailVue',
                     params: { id: student.id },
                   }"
                 >

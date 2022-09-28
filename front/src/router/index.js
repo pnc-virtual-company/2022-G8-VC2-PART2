@@ -20,6 +20,7 @@ import ManageTeacherProfile from "@/components/Teacher/TeacherProfile.vue";
 import DisplayListTeacher from "@/components/Teacher/DisplayListTeacher.vue";
 import TeacherDetail from "@/components/Teacher/TeacherDetail.vue";
 import RessetPasswordTeacherVue from "@/components/Teacher/RessetPasswordTeacher.vue";
+import ManageStudentDetailVue from "@/components/Teacher/ManageStudentDetail.vue";
 // -------------------------Student Route------------------------------------
 import StudentViewVue from "@/views/Student/StudentView.vue";
 import ManageStudentProfile from "@/components/Teacher/ManageStudentProfile.vue";
@@ -74,9 +75,9 @@ const routes = [
         },
       },
       {
-        path: "/teacherViewStudentDetail/:id",
-        name: "teacherViewStudentDetail",
-        component: StudentDetail,
+        path: "/manageStudentDetailVue/:id",
+        name: "manageStudentDetailVue",
+        component: ManageStudentDetailVue,
         meta: {
           isTeacher: true,
         },
