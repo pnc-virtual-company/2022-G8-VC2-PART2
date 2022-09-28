@@ -17,14 +17,15 @@ class HistoryController extends Controller
      */
     public function index()
     {
+
         $history= History::get();
         $data=collect([]);
-        $students=collect([]);
+        // $students=collect([]);
         foreach($history as $his){
                 $studentTeacher = collect([]);
-                $user =User::findOrFail( $his['tutor_id']);
+                $user =User::with('teachers')->findOrFail( $his['tutor_id']);
                 $studentTeacher->push($user);
-                $student =User::findOrFail( $his['student_id']);
+                $student =User::with('students')->findOrFail( $his['student_id']);
                 $studentTeacher->push($student);
                 $studentTeacher->push($his);
                 $data->push($studentTeacher);

@@ -56,8 +56,16 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        //
-        return Comment::findOrFail($id);
+        $comment =Comment::with('user.teachers')->get();
+        $collectComment = collect([]);
+        foreach($comment as $com){
+            if($com['student_id']==$id){
+                $collectComment->push($com);
+            }
+        }
+        return $collectComment;
+
+        
     }
 
     /**
