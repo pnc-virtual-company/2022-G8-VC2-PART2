@@ -17,7 +17,6 @@ class History extends Model
         $student = $this->belongsTo(User::class, 'student_id');
         return [$tutor, $student];
     }
-<<<<<<< HEAD
         /**
      * The attributes that should be cast.
      *
@@ -28,7 +27,4 @@ class History extends Model
         'created_at' => "datetime:Y-m-d",
         'updated_at' => "datetime:Y-m-d",
     ];
-=======
-  
->>>>>>> 65a5a8cf11f72fd5265d34e100f0f5a60de701cc
 }

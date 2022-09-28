@@ -190,7 +190,10 @@
             </td>
 
             <td class="py-3 px-6">
-              <button v-if="student.length != 3" @click="studentfollowupStore.getTeachers(student.user.id)" class="bg-sky-500 rounded text-white px-5 py-2">Assign</button>
+              <div class="hiden">
+                {{studentfollowupStore.checkIfHasTutor(student.user.id)}}
+              </div>
+              <button v-if="studentfollowupStore.isHasTutor" @click="studentfollowupStore.getTeachers(student.user.id)" class="bg-sky-500 rounded text-white px-5 py-2">Assign</button>
             </td>
           </tr>
         </tbody>

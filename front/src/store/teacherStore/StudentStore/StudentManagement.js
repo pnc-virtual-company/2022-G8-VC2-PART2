@@ -5,6 +5,7 @@ import axios from "@/axios-http";
 export const studentfollowupstore = defineStore("student", {
     state: () => ({
         followupWithTutor:[], //store all data of student follow up with tutor
+        hasTutor:true,
         students: [],
         isAssign: false,
         teachersData:[],
@@ -49,6 +50,17 @@ export const studentfollowupstore = defineStore("student", {
         } 
         return result;
       },
+    /**
+     * @todo find if the student in follow up has tutor
+     */
+    isHasTutor(){
+        // this.followupWithTutor.forEach(followupId => {
+        //     if(id == followupId){
+        //         return false
+        //     }
+        // });
+        return this.hasTutor
+    }
   },
     actions: {
         /**
@@ -57,8 +69,8 @@ export const studentfollowupstore = defineStore("student", {
         getStudent() {
              axios.get("student").then((res)=>{
                  this.students = res.data;
-                 console.log(this.students)
              });
+            this.getFollowupWithTutor()
         },
         // showPopup(index) {
         //     this.dialog = true;
@@ -164,30 +176,31 @@ export const studentfollowupstore = defineStore("student", {
             this.storeIdStudentAssign(id)
         },
         /**
-         * @todo get student follow up with tutor
-         */
-        getFollowupwithTutor(){
-            axios.get('followup').then((res)=>{
-                // this.teachersData = res.data
-                console.log(res.data);
-            })
-        },
-        /**
          * @todo get all student in follow up has tutor
          */
         getFollowupWithTutor(){
             axios.get('followup').then((res)=>{
+                let myData = []
                 for (let studentFollowup of res.data.data) {
-                    this.followupWithTutor.push(studentFollowup[1].id)
+                    myData.push(studentFollowup[1].id)
                 }
+                this.followupWithTutor = myData
             })
         },
         /**
-         * @todo find if the student in follow up has tutor
+         * 
          */
-        isHasTutor(id){
-            
+        checkIfHasTutor(id){
+            console.log(id);
+            this.followupWithTutor.forEach(followupId => {
+                if(id == followupId){
+                    this.hasTutor = false
+                }
+                console.log(followupId);
+            });
+            // console.log(id + 'where are you');
         }
+
     },
 });
 
