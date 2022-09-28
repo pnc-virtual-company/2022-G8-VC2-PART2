@@ -91,6 +91,8 @@
         </select>
       </div>
 
+      <button @click="studentfollowupStore.getFollowupwithTutor()">Click here</button>
+
 
       <div class="flex justify-around items-center">
         <input

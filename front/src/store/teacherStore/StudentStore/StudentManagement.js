@@ -163,6 +163,15 @@ export const studentfollowupstore = defineStore("student", {
                 console.log(res.data);
             })
             this.storeIdStudentAssign(id)
+        },
+        /**
+         * @todo get student follow up with tutor
+         */
+        getFollowupwithTutor(){
+            axios.get('followup').then((res)=>{
+                // this.teachersData = res.data
+                console.log(res.data);
+            })
         }
     },
 });

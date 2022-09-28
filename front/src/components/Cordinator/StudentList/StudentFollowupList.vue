@@ -1,5 +1,5 @@
 <template>
-    <!--  Pop up of confirm to add student into follow up list  -->
+    <!--  Pop up of confirm to remove student from follow up list  -->
     <div class="container mx-auto">
       <div class="flex justify-center">
         <div
@@ -10,14 +10,8 @@
             <div class="flex items-center justify-between">
               <form action="">
                 <h5 class="text-2xl">
-                  Do you want to remove them to Follow up Student?
+                  Do you want to remove this student from Follow up list?
                 </h5>
-                <input
-                  class="mt-5 p-5 text-lg"
-                  required
-                  type="text"
-                  placeholder="leave a comment  ..."
-                />
                 <div class="mt-10 flex justify-evenly">
                   <button
                     @click="storeData.isAddFollowup = false"
@@ -122,7 +116,7 @@
             </td>
             <td class="py-3 px-6">
               <h1 class="">
-                {{ student.user.first_name }}{{ student.user.last_name }}
+                {{ student.user.first_name }} {{ student.user.last_name }}
               </h1>
             </td>
             <td class="py-3 px-6">

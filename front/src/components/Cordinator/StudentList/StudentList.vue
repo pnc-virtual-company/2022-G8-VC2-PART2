@@ -1,6 +1,8 @@
 <template>
+<div>
   <div class="container text-center w-5/5 h-full mt-5">
-    <!--  Pop up of confirm to add student into follow up list  -->
+
+    <!-- ======================  Pop up of confirm to add student into follow up list  ===================== -->
     <div class="container mx-auto">
       <div class="flex justify-center">
         <div
@@ -11,13 +13,14 @@
             <div class="flex items-center justify-between">
               <form action="">
                 <h5 class="text-2xl">
-                  Do you want to add them to Follow up Student?
+                  Do you want to add this student to Follow up list?
                 </h5>
                 <input
                   class="mt-5 p-5 text-lg"
                   required
                   type="text"
                   placeholder="leave a comment  ..."
+                  v-model="storeData.leaveComment"
                 />
                 <div class="mt-10 flex justify-evenly">
                   <button
@@ -40,8 +43,57 @@
         </div>
       </div>
     </div>
-    <div
-      class="m-auto filter items-center flex justify-between px-5 w-12/12 mt-5"
+
+    <!-- ====================== Pop up of delete student account ===================== -->
+    <div v-show="storeData.isDelete" class="mt-[-12] fixed w-full h-full inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 absolute z-10">
+        <div class="flex justify-center">
+          <div
+            class="absolute inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50"
+          >
+            <div class="max-w-2xl p-6 bg-white rounded-md shadow-xl">
+              <div class="flex items-center justify-between">
+                <h3 class="text-2xl">Are you sure to delete?</h3>
+              </div>
+              <div class="mt-10 flex justify-evenly">
+                <!-- Button cancel on user action delete -->
+                <button
+                  @click="storeData.isDelete = false , storeData.selectAll()"
+                  class="px-6 py-2 text-blue-800 border border-blue-600 rounded"
+                >
+                  No
+                </button>
+
+                <!-- Button delete for many coordinator -->
+                <button
+                  v-if="storeData.dataDeleteStudent.length > 0"
+                  @click="
+                    storeData.deleteManyStudents(),
+                    storeData.selectAll()
+                  "
+                  class="px-6 py-2 ml-2 text-blue-100 bg-sky-500 rounded"
+                >
+                  Yes
+                </button>
+
+                <!-- Button delete for each student -->
+                <button
+                  v-else
+                  @click="
+                    storeData.onDeleteStudent()
+                  "
+                  class="px-6 py-2 ml-2 text-blue-100 bg-sky-500 rounded"
+                >
+                  Yes
+                </button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+    <!-- ====================== option for filter on student data ====================== -->
+    <div v-if="storeData.dataDeleteStudent.length == 0" class="m-auto filter items-center flex justify-between px-5 w-12/12 mt-5"
     >
       <div class="flex w-8/12 gap-5 items-center">
         <span class="mr-5"
@@ -57,7 +109,6 @@
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-4/12 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Search Student"
         />
-        <!-- ====================== select option search ===================== -->
         <select
           v-model="storeData.searchOption"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-3/12 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -66,24 +117,9 @@
           <option value="id">STUDENT ID</option>
           <option value="class">CLASS ROOM</option>
         </select>
-        <!-- ====================== option delete many ======================= -->
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="{1.5}"
-          stroke="currentColor"
-          class="w-7 h-7 text-red-500"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-          />
-        </svg>
       </div>
-      <button @click="storeData.getHistoryData()">get History</button>
-      <!-- button -->
+
+      <!-- button create student -->
       <widget-button @click="storeData.onCreate()">
         <template v-slot>
           <svg
@@ -103,14 +139,42 @@
           <h1 class="text-base text-gray-200"><strong>Create</strong></h1>
         </template>
       </widget-button>
-      <!-- pop up create students -->
-      <CreateStudent></CreateStudent>
     </div>
-    <!-- ============================ display list all student ========================== -->
-    <div
+
+    <!-- ====================== option delete many students ======================= -->
+    <div v-else class="flex mx-7 gap-10 mt-8">
+      <div>
+        <strong v-if="storeData.dataDeleteStudent[storeData.dataDeleteStudent.length-1] == 'all'">Select Number: {{storeData.dataDeleteStudent.length - 1}}</strong>
+        <strong v-else>Select Number: {{storeData.dataDeleteStudent.length}}</strong>
+      </div>
+      <div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="{1.5}"
+          stroke="currentColor"
+          class="w-7 h-7 text-red-500 cursor-pointer"
+          @click="storeData.isDelete=true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <!-- <button @click="storeData.getHistoryData()">get History</button> -->
+    <!-- ====================== pop up create students ======================== -->
+    <CreateStudent></CreateStudent>
+  </div>
+
+  <!-- ============================ display list all student ========================== -->
+  <div
       class="m-auto relative bg-gray-100 shadow-md w-full mt-3 overflow-y-scroll"
-      style="height: 457.4px"
-    >
+      style="height: 457.4px">
       <table
         class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
       >
@@ -118,6 +182,10 @@
           class="text-xs text-gray-700 bg-gray-200 dark:bg-gray-700 dark:text-gray-400"
         >
           <tr>
+            <th class="py-4 pl-7 text-base text-slate-500 flex justify-around">
+              <!-- option for user seleted all student -->
+              <input v-if="storeData.students.length > 0" @click="storeData.selectAll()"  value="all" v-model="storeData.dataDeleteStudent" type="checkbox" id="delete" class="-ml-7">
+            </th>
             <th class="py-4 px-6 text-base text-slate-500">Profile</th>
             <th class="py-4 px-6 text-base text-slate-500">ID</th>
             <th class="py-4 px-6 text-base text-slate-500">Name</th>
@@ -132,7 +200,6 @@
             class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:border-gray-700"
           >
             <td class="pb-5 px-2">
-              <div class="flex justify-evenly items-center text-right">
                 <!-- =============== get for delete many user ============== -->
                 <input
                   type="checkbox"
@@ -140,7 +207,9 @@
                   :value="student.user.id"
                   v-model="storeData.dataDeleteStudent"
                 />
-
+            </td>
+            <td class="pb-5 px-2">
+              <div class="flex justify-evenly items-center text-right">
                 <router-link
                   class="flex"
                   :to="{
@@ -229,8 +298,9 @@
           </tr>
         </tbody>
       </table>
-    </div>
   </div>
+</div>
+
 </template>
 <script setup>
 import CreateStudent from "./CreateStudent.vue";
