@@ -23,29 +23,29 @@
     </template>
     <!-- route of Coordinator for manage coordinator -->
     <template #manageCoordinator>
-        <li class="m-3 ">
-          <router-link to="/managecoordinator"> Manage Coordinator</router-link>
+        <li class="m-3" >
+          <router-link active-class="active"  to="/managecoordinator" > Manage Coordinator</router-link>
         </li>
     </template>
     <!-- route of Coordinator for manage student -->
     <template #manageStudent>
-      <li class="m-3">
-        <router-link to="/managestudent"> Manage Student</router-link>
+      <li class="m-3 ">
+        <router-link active-class="active" to="/managestudent"> Manage Student</router-link>
       </li>
     </template>
     <!-- router of Coordinator for manage Teacher  -->
     <template #manageTeacher>
       <li class="m-3">
-        <router-link to="/manageteacher"> Manage Teacher</router-link>
+        <router-link active-class="active" to="/manageteacher"> Manage Teacher</router-link>
       </li>
     </template>
     <!-- router of Coordinator for manage Student Follow Up  -->
     <template #manageStudentFollowUp>
-      <li class="m-3"><router-link to="/studentfollowup">Student Follow up</router-link></li>
+      <li class="m-3"><router-link active-class="active"  to="/studentfollowup">Student Follow up</router-link></li>
     </template>
     <!-- router of Coordinator for manage Follow Up Histories  -->
     <template #studentFollowUpHistory>
-      <li class="m-3"><router-link to="/followuphistory">Follow up Histories</router-link></li>
+      <li class="m-3"><router-link active-class="active" to="/followuphistory">Follow up Histories</router-link></li>
     </template>
     <!-- router of Coordinator for manage View profile of coordinator  -->
     <!-- <template #viewProfile>
@@ -97,13 +97,13 @@
     <template #viewProfile>
       <widget-SettingVue>
        <template #setting>
-         <router-link to="/profilecoordinator"> Profile </router-link>
+         <router-link  to="/profilecoordinator"> Profile </router-link>
        </template>
        <template #changeSetting>
-         <router-link to="/editCoordinatorVue">Change Setting</router-link>
+         <router-link  to="/editCoordinatorVue">Change Setting</router-link>
        </template>
        <template #ressetPassword>
-         <router-link to="/resetCoordinatorPasswordVue">Resset Password </router-link>
+         <router-link  to="/resetCoordinatorPasswordVue">Resset Password </router-link>
        </template>
        <template #signOut>
         <button @click="store.signOutCoordinator">Sign Out </button>
@@ -131,5 +131,12 @@ onMounted(() => {
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
+}
+/* .active{
+  border-bottom:3px solid rgb(148, 144, 144);
+} */
+.active{
+  background-color:gray;
+  padding: 5px 10px;
 }
 </style>

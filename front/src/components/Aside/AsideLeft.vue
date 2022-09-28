@@ -44,29 +44,30 @@
               <slot name="img"></slot></div
           ></span>
           <ul
-            class="flex justify-center mt-3 items-center space-x-2 transition duration-200 hover:bg-gray-700 hover:text-white"
-          >
+            
+            class="flex justify-center mt-3 items-center  space-x-2 transition duration-200 hover:bg-gray-500 hover:text-white"          >
             <slot name="manageCoordinator"></slot>
           </ul>
           <!-- <a href="#" class="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white"> -->
           <ul
-            class="flex justify-center  items-center transition duration-200 hover:bg-gray-700 hover:text-white"
+        
+            class="flex justify-center  items-center transition duration-200 hover:bg-gray-500 hover:text-white"  
           >
             <slot name="manageStudent"></slot>
           </ul>
           <ul
-            class="flex justify-center  items-center transition duration-200 hover:bg-gray-700 hover:text-white"
+            class="flex justify-center  items-center transition duration-200 hover:bg-gray-500 hover:text-white" 
           >
          
             <slot name="manageTeacher"></slot>
           </ul>
           <ul
-            class="flex justify-center  items-center transition duration-200 hover:bg-gray-500 hover:text-white"
+            class="flex justify-center  items-center transition duration-200 hover:bg-gray-500 hover:text-white" 
           >
             <slot name="manageStudentFollowUp"></slot>
           </ul>
           <ul
-            class="flex  justify-center   items-center space-x-2 transition duration-200 hover:bg-gray-500 hover:text-white"
+            class="flex  justify-center   items-center space-x-2 transition duration-200 hover:bg-gray-500 hover:text-white" 
           >
             <slot name="studentFollowUpHistory"></slot>
           </ul>
@@ -150,6 +151,8 @@
 .active {
   background: rgb(0, 0, 0);
 }
+
+
 </style>
 <script>
 
@@ -157,12 +160,20 @@ export default {
   data() {
     return {
       isDark: false,
+      isManageCoordinator:false,
+      isManageStudent:false,
+      isManageTeacher:false,
+      isStudentFollowup:false,
+      isFollowupHistory:false,
+
     };
   },
   methods: {
     darkMode() {
       this.isDark = !this.isDark;
     },
+    
   },
 };
+
 </script>
