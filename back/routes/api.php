@@ -9,6 +9,8 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\DigitnumberController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\FollowupController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\RessetpasswordController;
 /*
@@ -73,4 +75,8 @@ Route::get('/digit',[DigitnumberController::class,'index']);
 Route::put('/changeProfileImage/{id}',[PhotoController::class,'update']);
 Route::put('/updateStudentImage/{id}',[PhotoController::class,'updateStudentImage']);
 Route::put('/updateTeacherImage/{id}',[PhotoController::class,'updateTeacherImage']);
+
+// ---------- route for history ---------------
+Route::apiResource('/history',HistoryController::class);
+Route::apiResource('/followup',FollowupController::class);
 Route::get('/getAllStudentToPDF', [PDFController::class, 'getAllStudent']);

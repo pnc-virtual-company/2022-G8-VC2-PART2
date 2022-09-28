@@ -7,6 +7,8 @@ export const studentstore = defineStore("student", {
   state: () => ({
     dataDeleteStudent:[],
     students: [],
+    historyFollowupData:[],
+    studentHistoryId:null,
     id: null,
     idStudentFollowup: null,
     show: false,
@@ -83,6 +85,12 @@ export const studentstore = defineStore("student", {
       const data = await axios.get("student");
       this.students = data.data;
       this.studentDetail();
+    },
+    getHistoryData(){
+      axios.get("history").then((res)=>{
+        console.log(res.data)
+        console.log(this.historyFollowupData)
+      })
     },
     /**
      * @todo add student to follow up list
