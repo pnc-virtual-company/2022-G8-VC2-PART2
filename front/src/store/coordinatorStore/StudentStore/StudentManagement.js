@@ -17,11 +17,13 @@ export const studentstore = defineStore("student", {
         showDetail: false,
         isTrue: false,
         isEdit: false,
+        isDelete:false, //use when user click on delete student will show pop up
         isShow: false,
         deleteStudent: false, //use in delete popup
         deleteStudentId: null, //use in delete btn in student list
         leaveComment: '', //variable to stor input from v-model in comment
         comments: [], //store comments
+        commentById:[],
         isEditComment: false, //show edit comment form
         editCommentContent: '', //get old and new comment content
         previewImage: null,
@@ -96,8 +98,6 @@ export const studentstore = defineStore("student", {
          * @todo add student to follow up list
          */
         async addToFollowup() {
-            console.log("Added Successfully")
-                // this.isAddFollowup = true
                 /**
                  * @todo  equest email when created students 
                  */
@@ -117,7 +117,6 @@ export const studentstore = defineStore("student", {
                 student.append("province", res.data.students.province);
                 student.append("_method", "PUT");
                 student.append("status", 1);
-                console.log(student);
                 axios.post("user/" + this.idStudentFollowup, student);
                 this.onCancel();
                 this.getStudent()
@@ -142,8 +141,6 @@ export const studentstore = defineStore("student", {
             this.idStudentFollowup = id;
         },
         removeFollowup() {
-            console.log("Delete Successfully")
-                // this.isAddFollowup = true
                 /**
                  * @todo  equest email when created students 
                  */
@@ -162,7 +159,6 @@ export const studentstore = defineStore("student", {
                 student.append("province", res.data.students.province);
                 student.append("_method", "PUT");
                 student.append("status", 0);
-                console.log(student);
                 axios.post("user/" + this.idStudentFollowup, student);
                 this.onCancel();
                 this.getStudent()
@@ -296,6 +292,39 @@ export const studentstore = defineStore("student", {
                 });
             }
         },
+        /**
+         * @todo get all list of student
+         */
+        selectAll(){
+          if(this.dataDeleteStudent.length > 0){
+            this.dataDeleteStudent = []
+          }else{
+            for (let student of this.students) {
+              this.dataDeleteStudent.push(student.user.id)
+            }
+            this.dataDeleteStudent.push('all')
+          }
+        },
+        /**
+         * @todo to delete teacher by id
+         * @return all data of teacher after delete
+         */
+        deleteManyStudents() {
+          if(this.dataDeleteStudent.length > 0){
+            this.dataDeleteStudent.forEach(id => {
+              if(id != 'all'){
+                axios.delete(process.env.VUE_APP_API_URL + 'user/' + id).then(() => {
+                  this.getStudent()
+                });
+                this.isDelete = false
+              }
+            });
+            toast.success("Delete coordinator successfull",{position: POSITION.TOP_CENTER, timeout: 2000})
+          }
+        },
+        /**
+         * @todo cancel on any user action
+         */
         onCancel() {
             this.clearForm();
             (this.isAddFollowup = false), (this.isShow = false);
@@ -322,6 +351,12 @@ export const studentstore = defineStore("student", {
             this.comments = data.data;
             console.log(this.comments)
         },
+        async getCommentById(){
+            const data =await axios.get("commentById/"+sessionStorage.getItem('user_id'))
+              this.commentById=data.data;
+              this.getComment()
+          }
+          ,
         async deleteComment(id) {
             await axios.delete("comment/" + id);
             this.getStudent();
@@ -444,6 +479,7 @@ export const studentstore = defineStore("student", {
         },
         // get Data of student to put on Student Profile of Folder Teacher
         async getStudentToken() {
+            this.getCommentById()
             await axios
                 .get("user/" + sessionStorage.getItem("user_id"))
                 .then((res) => {
@@ -499,5 +535,5 @@ export const studentstore = defineStore("student", {
             sessionStorage.removeItem("student_token");
             router.push("/");
         },
-    },
+  },
 });
