@@ -17,4 +17,14 @@ class History extends Model
         $student = $this->belongsTo(User::class, 'student_id');
         return [$tutor, $student];
     }
+        /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'created_at' => "datetime:Y-m-d",
+        'updated_at' => "datetime:Y-m-d",
+    ];
 }

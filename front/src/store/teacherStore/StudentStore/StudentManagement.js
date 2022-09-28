@@ -4,8 +4,9 @@ import axios from "@/axios-http";
 // const toast = useToast();
 export const studentfollowupstore = defineStore("student", {
     state: () => ({
+        followupWithTutor:[], //store all data of student follow up with tutor
         students: [],
-        isAssign:false,
+        isAssign: false,
         teachersData:[],
         tutorId:null,
         id:null,
@@ -148,10 +149,8 @@ export const studentfollowupstore = defineStore("student", {
             let assignData = {}
             assignData['tutor_id'] = this.tutorId
             assignData['student_id'] = this.studentIDAssign
-            console.log(assignData);
-            axios.post('followup', assignData).then((res)=>{
-                console.log(res.data);
-            })
+            axios.post('followup', assignData)
+            axios.post('history', assignData)
             this.onCancel()
         },
         /**
@@ -172,6 +171,22 @@ export const studentfollowupstore = defineStore("student", {
                 // this.teachersData = res.data
                 console.log(res.data);
             })
+        },
+        /**
+         * @todo get all student in follow up has tutor
+         */
+        getFollowupWithTutor(){
+            axios.get('followup').then((res)=>{
+                for (let studentFollowup of res.data.data) {
+                    this.followupWithTutor.push(studentFollowup[1].id)
+                }
+            })
+        },
+        /**
+         * @todo find if the student in follow up has tutor
+         */
+        isHasTutor(id){
+            
         }
     },
 });

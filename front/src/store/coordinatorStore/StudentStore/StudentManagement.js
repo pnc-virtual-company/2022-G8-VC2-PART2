@@ -5,6 +5,7 @@ import router from "@/router";
 const toast = useToast();
 export const studentstore = defineStore("student", {
     state: () => ({
+        dataHistory:[], // all history data of student follow up
         dataDeleteStudent: [],
         students: [],
         historyFollowupData: [],
@@ -56,6 +57,12 @@ export const studentstore = defineStore("student", {
         no_id: false,
         no_ngo: false,
         uniqueEmail: false,
+        // ******* tutor information ********//
+        followup_id:'',
+        tutor_firstname:'',
+        tutor_lastname:'',
+        tutor_id:'',
+        tutor_profile:null
     }),
     getters: {
         // search name and studentNumber in students-----
@@ -467,8 +474,22 @@ export const studentstore = defineStore("student", {
                 this.province = res.data.province;
                 this.profile_img = res.data.user.profile_img;
                 this.studentIdOnviewDetail = res.data.user_id
+                this.tutorDetail(res.data.user.id)
                 this.getStudent()
+                console.log(res.data);
             });
+        },
+        /**
+         * @todo get more detail of tutor
+         */
+        tutorDetail(id){
+            axios.get("followup/" + id).then((res) => {
+                // this.tutor_firstname = res.
+                let tutor_data = res.data[0].tutor_id
+                this.tutor_firstname = tutor_data.first_name
+                this.tutor_lastname = tutor_data.last_name
+                this.tutor_profile = tutor_data.profile_img
+            })
         },
         // get Data of student to put on Student Profile of Folder Teacher
         async getStudentToken() {
@@ -527,5 +548,14 @@ export const studentstore = defineStore("student", {
             sessionStorage.removeItem("student_token");
             router.push("/");
         },
+        /**
+         * @todo get all data histories
+         */
+        getHistories(){
+            axios.get('history').then((res)=>{
+                this.dataHistory = res.data.data
+                console.log(this.dataHistory);
+            })
+        }
   },
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Teacher;
 use App\Models\Followup;
 use Illuminate\Http\Request;
 
@@ -23,6 +24,7 @@ class FollowupController extends Controller
                 $studentTeacher->push($user);
                 $student =User::findOrFail( $his['student_id']);
                 $studentTeacher->push($student);
+                $studentTeacher->push($his['id']);
                 $data->push($studentTeacher);
             }
             return response()->json(['data'=>$data]);
@@ -52,9 +54,36 @@ class FollowupController extends Controller
      * @param  \App\Models\Followup  $followup
      * @return \Illuminate\Http\Response
      */
-    public function show(Followup $followup)
-    {
-        //
+    // public function show(Followup $followup)
+    // {
+    //     $followup= Followup::get();
+    //     $data=collect([]);
+    //     $students=collect([]);
+    //     foreach($followup as $his){
+    //             $studentTeacher = collect([]);
+    //             $user =User::findOrFail( $his['tutor_id']);
+    //             $studentTeacher->push($user);
+    //             $student =User::findOrFail( $his['student_id']);
+    //             $studentTeacher->push($student);
+    //             $studentTeacher->push($his['id']);
+    //             $data->push($studentTeacher);
+    //         }
+    //         return response()->json(['data'=>$data]);
+    // }
+    // public function show($id)
+    // {
+    //     $user = History::findOrFail($id);
+    //     $data=  User::findOrFail($user['tutor_id']);
+    //     // $student=  User::findOrFail($user['student_id']);
+    //     return response()->json(['teacher'=>$data,'student'=>$student]);
+    // }
+
+    public function show($id)
+    {        
+        $tutor = Followup::where('student_id', $id)->get();
+        $tutor[0]['tutor_id'] = User::findOrFail($tutor[0]['tutor_id']);
+        $tutor[0]['student_id'] = User::findOrFail($tutor[0]['student_id']);
+        return $tutor;
     }
 
     /**

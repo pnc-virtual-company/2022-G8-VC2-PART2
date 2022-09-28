@@ -26,6 +26,7 @@ class HistoryController extends Controller
                 $studentTeacher->push($user);
                 $student =User::findOrFail( $his['student_id']);
                 $studentTeacher->push($student);
+                $studentTeacher->push($his);
                 $data->push($studentTeacher);
             }
             return response()->json(['data'=>$data]);

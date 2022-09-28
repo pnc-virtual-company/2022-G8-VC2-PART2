@@ -93,9 +93,11 @@
               class="text-xs text-gray-700 bg-gray-200 dark:bg-gray-700 dark:text-gray-400 "
             >
               <tr>
-                <th class="py-4 px-6 text-base text-slate-500 flex justify-around">
+                <th class="py-4 pl-6">
                   <!-- option for user seleted all coordinator -->
                   <input  value="all" v-model="coordinatorData.dataDeleteCoordinator" @click="coordinatorData.selectAll()" type="checkbox" id="delete" class="-ml-7">
+                </th>
+                <th class="py-4 px-3 text-base text-slate-500 flex justify-around">
                   <span class="-ml-8">Profile</span>
                 </th>
                 <th class="py-4 px-6 text-base text-slate-500">Name</th>
@@ -107,13 +109,13 @@
             <!-- place search here -->
             <tbody v-for="coordinator of coordinatorData.filterDataCoordinator" :key="coordinator">
               <tr class="w-full bg-white border-b dark:bg-gray-800 dark:border-gray-700 " v-if="coordinator.id != userID">
-                <!-- coordinator profile image -->
-                <td class="px-2 flex justify-evenly">
-
-
-
+                <!-- select all users -->
+                <td class="">
                   <!-- option for user select one coordinator -->
                   <input  type="checkbox" id="delete" :value="coordinator.id"  v-model="coordinatorData.dataDeleteCoordinator">
+                </td>
+                <!-- coordinator profile image -->
+                <td class="px-2 flex justify-evenly">
 
                   <router-link class="flex" :to="{name:'coordinatordetail',path:'coordinatordetail',params:{id:coordinator.id}}">
                     <div class="m-auto px-6 text-right mb-4">

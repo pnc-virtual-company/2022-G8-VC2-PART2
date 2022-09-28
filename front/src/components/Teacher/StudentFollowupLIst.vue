@@ -37,31 +37,38 @@
 
 
                 <div>
-                  <div v-for="tutor of studentfollowupStore.teachersData" :key="tutor">
-                    <div class="items-center justify-left flex ">
+                  <div class="items-center justify-left flex mt-3" v-for="tutor of studentfollowupStore.teachersData" :key="tutor">
+                    <div class="mr-5">
                       <input type="radio" name="tutor" :value="tutor.user.id" v-model="studentfollowupStore.tutorId">
-                      <img
-                          v-if="tutor.user.profile_img != null"
-                          :src="
-                            'http://127.0.0.1:8000/storage/images/' +
-                            tutor.user.profile_img
-                          "
-                          class="image--cover w-8 h-8 rounded-full m-auto mt-5"
-                          alt=""
+                    </div>
+                    <div class="items-center justify-left flex">
+                      <div class="-mt-5 mr-3">
+
+                        <img
+                            v-if="tutor.user.profile_img != null"
+                            :src="
+                              'http://127.0.0.1:8000/storage/images/' +
+                              tutor.user.profile_img
+                            "
+                            class="image--cover w-8 h-8 rounded-full m-auto mt-5"
+                            alt=""
+                          />
+                        <img
+                            v-else-if="tutor.user.gender == 'female'"
+                            src="@/assets/female_logo.jpg"
+                            class="w-8 h-8 rounded-full m-auto mt-5"
+                            alt=""
+                          />
+                        <img
+                            v-else-if="tutor.user.gender == 'male'"
+                            src="@/assets/male_logo.jpg"
+                            class="w-8 h-8 rounded-full m-auto mt-5"
+                            alt=""
                         />
-                      <img
-                          v-else-if="tutor.user.gender == 'female'"
-                          src="@/assets/female_logo.jpg"
-                          class="w-8 h-8 rounded-full m-auto mt-5"
-                          alt=""
-                        />
-                      <img
-                          v-else-if="tutor.user.gender == 'male'"
-                          src="@/assets/male_logo.jpg"
-                          class="w-8 h-8 rounded-full m-auto mt-5"
-                          alt=""
-                      />
-                      <p>{{tutor.user.first_name}} {{tutor.user.last_name}}</p>
+                      </div>
+                      <div>
+                        <p>{{tutor.user.first_name}} {{tutor.user.last_name}}</p>
+                      </div>
                     </div>
 
                   </div>
@@ -114,6 +121,7 @@
       style="height: 75vh"
       class="m-auto relative z-5 bg-gray-100 sm:rounded-sm overflow-y-scroll"
     >
+    <button class="bg-green-500" @click="studentfollowupStore.getFollowupWithTutor()">Click Here</button>
       <table
         class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
       >
@@ -125,7 +133,7 @@
             <th class="py-3 px-6">ID</th>
             <th class="py-3 px-6">Name</th>
             <th class="py-3 px-2">Class</th>
-            <th class="py-3 px-2">Assign Tutor</th>
+            <th class="py-3 px-2">Tutor</th>
           </tr>
         </thead>
         <tbody v-for="student in studentfollowupStore.filterByName" :key="student.id">
@@ -166,19 +174,23 @@
                 </router-link>
               </div>
             </td>
+
             <td class="py-3 px-2">
               <h1 class="">{{ student.studentNumber }}</h1>
             </td>
+
             <td class="py-3 px-6">
               <h1 class="font-bold">
                 {{ student.user.first_name }} {{ student.user.last_name }}
               </h1>
             </td>
+
             <td class="py-3 px-6">
               {{ student.class }}
             </td>
+
             <td class="py-3 px-6">
-              <button @click="studentfollowupStore.getTeachers(student.user.id)" class="bg-sky-500 rounded text-white px-5 py-2">Assign</button>
+              <button v-if="student.length != 3" @click="studentfollowupStore.getTeachers(student.user.id)" class="bg-sky-500 rounded text-white px-5 py-2">Assign</button>
             </td>
           </tr>
         </tbody>

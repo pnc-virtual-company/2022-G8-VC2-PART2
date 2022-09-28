@@ -78,8 +78,8 @@
         </button>
       </div>
 
-      <!-- ====================== option delete many students ======================= -->
-      <div v-else class="flex mx-7 gap-10 mt-8">
+      <!-- ====================== option delete many teacher ======================= -->
+      <div v-else class="flex mx-6 mb-7 gap-10 mt-8">
         <div>
           <strong v-if="teacherStore.dataDeleteTeacher[teacherStore.dataDeleteTeacher.length-1] == 'all'">Select Number: {{teacherStore.dataDeleteTeacher.length - 1}}</strong>
           <strong v-else>Select Number: {{teacherStore.dataDeleteTeacher.length}}</strong>
