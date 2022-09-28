@@ -30,6 +30,7 @@
           <thead
             class="text-xs text-gray-700 bg-gray-200 dark:bg-gray-700 dark:text-gray-400"
           >
+<<<<<<< HEAD
             <tr>
               <th class="py-3 px-6">Profile</th>
               <th class="py-3 px-6">ID</th>
@@ -92,11 +93,33 @@
               <!-- <td class="py-3 px-6">
                 <div>
                   <div class="relative">
+=======
+            <td>
+              <div class="py-4 px-6 text-right">
+                <router-link
+                  class="flex"
+                  :to="{
+                    name: 'StudentFollowupDetail',
+                    path: 'StudentFollowupDetail',
+                    params: { id: student.students.id },
+                  }"
+                >
+                  <img
+                    v-if="student.profile_img != null"
+                    :src="
+                      'http://127.0.0.1:8000/storage/images/' +
+                      student.profile_img
+                    "
+                    class="w-12 h-12 rounded-full m-auto mt-5"
+                    alt=""
+                  />
+>>>>>>> 5ab71939d43a0a0f69d1a6e446ed1c0a8dd973ac
 
                     <button
                       @click.prevent="storeData.isOpen(student[index])"
                       class="flex items-center p-2 text-black-100"
                     >
+<<<<<<< HEAD
                       <svg
                         class="w-6 h-6 mt-4"
                         fill="none"
@@ -112,6 +135,34 @@
                         ></path>
                       </svg>
                     </button>
+=======
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+                      ></path>
+                    </svg>
+                  </button>
+                  <!-- Dropdown menu -->
+                  <div
+                    v-show="storeData.show && storeData.id == student.id"
+                    class="border-2 bg-white-500 absolute right-0 border-zinc-400 rounded-md shadow-xl w-40"
+                  >
+                  
+                    <div
+                      class=" cursor-pointer block px-4 py-2 text-sm text-black hover:bg-slate-300 hover:text-black"
+                    >
+                      <router-link
+                        :to="{
+                          name: 'StudentFollowupDetail',
+                          path: 'StudentFollowupDetail',
+                          params: {id: student.students.id},
+                        }"
+                        >View Detail
+                        </router-link >
+                    </div>
+>>>>>>> 5ab71939d43a0a0f69d1a6e446ed1c0a8dd973ac
                   </div>
                 </div>
               </td> -->

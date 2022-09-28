@@ -72,10 +72,6 @@ export const studentfollowupstore = defineStore("student", {
              });
             this.getFollowupWithTutor()
         },
-        // showPopup(index) {
-        //     this.dialog = true;
-        //     this.index = index;
-        // },
         isOpenDetail(){
         },
         onCancel() {

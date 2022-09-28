@@ -63,10 +63,6 @@ export const teacherstore = defineStore('teacher', {
         return result;
       }
     },
-    
-
-    
-
   },
   actions: {
     /**
@@ -340,7 +336,6 @@ export const teacherstore = defineStore('teacher', {
         }
         this.dataDeleteTeacher.push('all')
       }
-      console.log(this.dataDeleteTeacher);
     },
     /**
      * @todo to delete teacher by id
