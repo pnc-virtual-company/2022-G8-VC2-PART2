@@ -86,6 +86,7 @@ class MailController extends UserController
       $data=[
         "email"=>$request->email,
         "first_name"=>$request->first_name,
+       
       ];
       try
     {

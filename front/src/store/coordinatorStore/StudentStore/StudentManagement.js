@@ -23,6 +23,7 @@ export const studentstore = defineStore("student", {
     deleteStudentId: null, //use in delete btn in student list
     leaveComment: "", //variable to stor input from v-model in comment
     comments: [], //store comments
+    commentById:[],
     isEditComment: false, //show edit comment form
     editCommentContent: "", //get old and new comment content
     previewImage: null,
@@ -86,6 +87,7 @@ export const studentstore = defineStore("student", {
       const data = await axios.get("student");
       this.students = data.data;
       this.studentDetail();
+      
     
     },
     getHistoryData() {
@@ -105,13 +107,12 @@ export const studentstore = defineStore("student", {
        */
       this.addComment();
       axios
-        .put("addToFollupStudent/" + this.idStudentFollowup, {
-          status: this.status,
-        })
-        .then(() => {
-          axios.get("user/" + this.idStudentFollowup).then((res) => {
-            this.email = res.data.email;
-            this.first_name = res.data.first_name;
+      .put("addToFollupStudent/" + this.idStudentFollowup, {
+        status: this.status,
+      })
+      .then(() => {
+        axios.get("user/" + this.idStudentFollowup).then((res) => {
+          axios.post('sendfollowupstudentmail',{email:res.data.email,first_name:res.data.first_name})
           });
           this.getStudent();
           this.onCancel();
@@ -149,8 +150,7 @@ export const studentstore = defineStore("student", {
         })
         .then(() => {
           axios.get("user/" + this.idStudentFollowup).then((res) => {
-            this.email = res.data.email;
-            this.first_name = res.data.first_name;
+            axios.post('sendfollowupremovestudentmail',{email:res.data.email,first_name:res.data.first_name})
           });
           console.log(this.idStudentFollowup, "remove", this.isAddFollowup);
           this.getStudent();
@@ -366,6 +366,11 @@ export const studentstore = defineStore("student", {
       this.comments = data.data;
       console.log(this.comments);
     },
+    async getCommentOfStudentById() {
+      const data = await axios.get("comment/"+sessionStorage.getItem('user_id'));
+      this.commentById = data.data;
+      console.log(this.commentById,sessionStorage.getItem('user_id'),'id comment student view');
+    },
     async deleteComment(id) {
       await axios.delete("comment/" + id);
       this.getStudent();
@@ -487,6 +492,7 @@ export const studentstore = defineStore("student", {
 
     // get Data of student to put on Student Profile of Folder Teacher
     async getStudentToken() {
+      this.getCommentOfStudentById()
       await axios
         .get("user/" + sessionStorage.getItem("user_id"))
         .then((res) => {

@@ -13,14 +13,19 @@
 - Launch php artisan key:generate
 - Launch php artisan storage:link ( to allow the image folder to be public)
 - Launch php artisan serve
-- Launch
+
+## Create User
+- Open Thunder Client 
+- Use Route  :  http://127.0.0.1:8000/api/user 
+- Use Method :  POST
+- Field Name:first_name, last_name, gender,phone,profile_img,role , email, password
 
 ## FRONT
-
 - Go to /front
 - Launch npm install
 - Run npm run serve to launch on developpment mode
-
+- Launch npm install --save vue-toastification@next
+- 
 # RUN PROJECT ON PRODUCTION
 
 ## First time :
@@ -48,3 +53,5 @@
 
     - Go to /front
     - Run npm run build
+## Slide Presentation(Canvas)
+  - https://www.canva.com/design/DAFFslSBu44/fU64odz9tGMWQI5aKS7BTQ/view?utm_content=DAFFslSBu44&utm_campaign=designshare&utm_medium=link&utm_source=publishpresent#1

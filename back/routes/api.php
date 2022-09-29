@@ -78,7 +78,6 @@ Route::get('/digit',[DigitnumberController::class,'index']);
 Route::put('/changeProfileImage/{id}',[PhotoController::class,'update']);
 Route::put('/updateStudentImage/{id}',[PhotoController::class,'updateStudentImage']);
 Route::put('/updateTeacherImage/{id}',[PhotoController::class,'updateTeacherImage']);
-
 // ---------- route for history ---------------
 Route::apiResource('/history',HistoryController::class);
 Route::apiResource('/followup',FollowupController::class);

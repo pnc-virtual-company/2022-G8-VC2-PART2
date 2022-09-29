@@ -39,28 +39,28 @@
                 class="m-auto image--cover"
                 alt=""
               />
-              <div class="flex justify-center">
-                <label for="profile_img">
-                  <img
-                    src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/camera-512.png"
-                    alt=""
-                    width="30"
-                    height="30"
-                  />
-                </label>
-                <input
-                  type="file"
-                  hidden="true"
-                  id="profile_img"
-                  @change="storeData.changeProfileImageStudent"
-                />
-              </div>
             </div>
             <div v-else class="image overflow-hidden">
               <img
                 class="h-auto w-full mx-auto"
                 src="../../assets/male_logo.jpg"
                 alt=""
+              />
+            </div>
+            <div class="flex justify-center">
+              <label for="profile_img">
+                <img
+                  src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/camera-512.png"
+                  alt=""
+                  width="30"
+                  height="30"
+                />
+              </label>
+              <input
+                type="file"
+                hidden="true"
+                id="profile_img"
+                @change="storeData.changeProfileImageStudent"
               />
             </div>
             <h1
@@ -181,10 +181,7 @@
       </tr>
     </thead>
     <tbody v-for="comment in storeData.commentById" :key="comment">
-      <tr
-       
-        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-      >
+      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
         <td class="py-3 px-2 text-center border border-slate-300">
           <p>
             {{ comment.created_at }}
@@ -195,9 +192,10 @@
           <div
             class="flex flex-row"
             v-if="
-            comment.user.teachers != null &&
-            (comment.user.teachers.position == 'WEB Trainer'  ||
-              comment.user.teachers.position == 'SNA Trainer')"
+              comment.user.teachers != null &&
+              (comment.user.teachers.position == 'WEB Trainer' ||
+                comment.user.teachers.position == 'SNA Trainer')
+            "
           >
             <p>
               <b>
@@ -247,9 +245,10 @@
         <td class="py-3 px-2 text-justify border border-slate-300">
           <div
             v-if="
-            (comment.user.teachers != null &&
-              comment.user.teachers.position == 'Social Affair') ||
-            comment.user.role == 3"
+              (comment.user.teachers != null &&
+                comment.user.teachers.position == 'Social Affair') ||
+              comment.user.role == 3
+            "
             class="flex flex-row"
           >
             <p>
