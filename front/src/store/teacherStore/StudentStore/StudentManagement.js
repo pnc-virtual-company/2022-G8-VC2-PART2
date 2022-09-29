@@ -67,7 +67,8 @@ export const studentfollowupstore = defineStore("student", {
     },
     getHistoryData() {
       axios.get("history").then((res) => {
-        this.historyFollowupData = res.data.data[0];
+        this.historyFollowupData = res.data.data;
+        console.log(res.data.data);
       });
     },
     onCancel() {
@@ -126,6 +127,7 @@ export const studentfollowupstore = defineStore("student", {
           this.onCancelData();
         });
     },
+   
     isAddStudentFollowup(id) {
         this.isAddFollowup = true;
         this.idStudentFollowup = id;

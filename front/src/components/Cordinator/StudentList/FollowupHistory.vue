@@ -100,10 +100,10 @@
                 </h1>
               </td>
               <td class="py-3 px-6">
-                {{ student[1].first_name}} {{student[1].last_name}}
+                {{ student.first_name}} {{student.last_name}}
               </td>
               <td class="py-3 px-6">
-                {{ student[2].created_at}}
+                {{ student.created_at}}
               </td>
               <!-- <td class="py-3 px-6">
                 <div>
@@ -142,6 +142,6 @@
   import { onMounted } from "vue";
   const storeData = studentstore();
   onMounted(() => {
-    storeData.getHistories();
+    storeData.getHistoryData();
   });
   </script>

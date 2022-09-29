@@ -86,11 +86,13 @@ export const studentstore = defineStore("student", {
       const data = await axios.get("student");
       this.students = data.data;
       this.studentDetail();
+    
     },
     getHistoryData() {
       this.getStudent();
       axios.get("history").then((res) => {
-        this.historyFollowupData = res.data.data[0];
+        this.historyFollowupData = res.data.data;
+        console.log(res.data.data);
       });
     },
     /**
