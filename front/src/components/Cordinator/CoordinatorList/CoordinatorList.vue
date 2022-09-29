@@ -87,7 +87,7 @@
         <!-- ======================= display each card of teacher's list ==========================  -->
         <div 
         
-        class="card m-auto bg-gray-100 mt-4  w-12/12  overflow-y-scroll" style="height: 448px;">
+        class="card m-auto bg-gray-100 mt-4  w-12/12  overflow-y-scroll" style="height: 437px;">
           <table
             class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
           >
@@ -118,7 +118,7 @@
                   <input  type="checkbox" id="delete" :value="coordinator.id"  v-model="coordinatorData.dataDeleteCoordinator">
 
                   <router-link class="flex" :to="{name:'coordinatordetail',path:'coordinatordetail',params:{id:coordinator.id}}">
-                    <div class="m-auto px-6 text-right mb-4">
+                    <div class="  text-right ">
                       <!-- <router-link class="flex" :to="{name:'coordinator',path:'coordinator',params:{id:coordinator.id}}"> -->
                         <img
                           v-if="coordinator.profile_img != null"
@@ -126,19 +126,19 @@
                             'http://127.0.0.1:8000/storage/images/' +
                             coordinator.profile_img
                           "
-                          class="image--cover w-14 h-14 rounded-full m-auto mt-5"
+                          class="image--cover mt-2 mb-2"
                           alt=""
                         />
                         <img
                           v-else-if="coordinator.gender == 'female'"
                           src="@/assets/female_logo.jpg"
-                          class="w-14 h-14 rounded-full m-auto mt-5"
+                          class="image--cover mt-2 mb-2"
                           alt=""
                         />
                         <img
                           v-else-if="coordinator.gender == 'male'"
                           src="@/assets/male_logo.jpg"
-                          class="w-14 h-14 rounded-full m-auto mt-5"
+                          class="image--cover mt-2 mb-2"
                           alt=""
                         />
                       <!-- </router-link> -->
@@ -146,22 +146,22 @@
                   </router-link>
                 </td>
                 <!-- coordinator first name and last name -->
-                <td class="px-2">
+                <td class="">
                   <h1 class="">
                     {{ coordinator.first_name }} {{ coordinator.last_name }}
                   </h1>
                 </td>
                 <!-- coordinator email -->
-                <td class="px-2">
+                <td class="">
                   {{ coordinator.email }}
                 </td>
                 <!-- coordinator phone -->
-                <td class="px-2">
+                <td class="">
                   +885 {{ coordinator.phone }}
                 </td>
                 <!-- dropdown user action -->
-                <td class="px-2 flex justify-end">
-                  <div>
+                <td class="">
+                  <div class="mb-2">
                     <div class="relative">
                       <!-- Dropdown toggle button -->
                       <button
@@ -230,9 +230,12 @@ export default {
 }
 </script>
 <style scoped>
-.image--cover {
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center;
-}
+  .image--cover {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    object-position: center;
+  }
+
 </style>

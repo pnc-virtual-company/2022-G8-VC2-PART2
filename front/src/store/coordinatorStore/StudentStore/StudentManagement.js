@@ -97,11 +97,11 @@ export const studentstore = defineStore("student", {
      * @todo add student to follow up list
      */
     async addToFollowup() {
+        this.onCancel();
       /**
        * @todo  equest email when created students
        */
       this.addComment();
-      this.isAddFollowup = true;
       axios
         .put("addToFollupStudent/" + this.idStudentFollowup, {
           status: this.status,
@@ -133,6 +133,7 @@ export const studentstore = defineStore("student", {
       this.idStudentFollowup = id;
     },
     removeFollowup() {
+        this.onCancel();
       /**
        * @todo  equest email when created students
        */
@@ -149,9 +150,9 @@ export const studentstore = defineStore("student", {
             this.email = res.data.email;
             this.first_name = res.data.first_name;
           });
-          this.onCancel();
           console.log(this.idStudentFollowup, "remove", this.isAddFollowup);
           this.getStudent();
+          this.onCancel();
         });
     },
     /**
@@ -279,12 +280,9 @@ export const studentstore = defineStore("student", {
       this.index = index;
     },
     async onDeleteStudent(id) {
-      axios.post("/deletestudent", {
-        email: this.email,
-        first_name: this.first_name,
-      });
       await axios.delete("user/" + id).then(() => {
         this.isShow = false;
+        axios.get('user')
         this.getStudent();
       });
     },

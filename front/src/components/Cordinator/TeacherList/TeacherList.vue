@@ -104,7 +104,7 @@
       </div>
 
       <!-- ====================== display each card of teacher's list ====================== -->
-      <div class="card m-auto bg-gray-100 mt-5 w-12/12 overflow-y-scroll"  style="height: 435px;">
+      <div class="card m-auto bg-gray-100 mt-5 w-12/12 overflow-y-scroll"  style="height: 425px;">
         <table
           class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
         >
@@ -136,7 +136,7 @@
                 />
               </td>
               <td>
-                <div class="py-4 px-6 text-right">
+                <div class=" text-right">
                   <router-link class="flex" :to="{name:'profileTeacher',path:'profileTeacher',params:{id:teacher.id}}">
                     <img
                       v-if="teacher.user.profile_img != null"
@@ -144,36 +144,36 @@
                         'http://127.0.0.1:8000/storage/images/' +
                         teacher.user.profile_img
                       "
-                      class="image--cover w-12 h-12 rounded-full m-auto mt-5"
+                      class="image--cover mt-2 mb-2"
                       alt=""
                     />
                     <img
                       v-else-if="teacher.user.gender == 'female'"
                       src="@/assets/female_logo.jpg"
-                      class="w-12 h-12 rounded-full m-auto mt-5"
+                      class="image--cover mt-2 mb-2"
                       alt=""
                     />
                     <img
                       v-else-if="teacher.user.gender == 'male'"
                       src="@/assets/male_logo.jpg"
-                      class="w-12 h-12 rounded-full m-auto mt-5"
+                      class="image--cover mt-2 mb-2"
                       alt=""
                     />
                   </router-link>
                 </div>
               </td>
-              <td class="py-3 px-6">
+              <td class="">
                 <h1 class="">
                   {{ teacher.user.first_name }} {{ teacher.user.last_name }}
                 </h1>
               </td>
-              <td class="py-3 px-6">
+              <td class="">
                 {{ teacher.position }}
               </td>
-              <td class="py-4 px-5">
+              <td class="">
                 {{ teacher.user.email }}
               </td>
-              <td class="py-3 px-2 flex justify-end">
+              <td class="flex justify-end">
                 <div>
                   <div class="relative">
                     <!-- Dropdown toggle button -->
@@ -260,9 +260,11 @@ export default {
 };
 </script>
 <style scoped>
-.image--cover {
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center;
-}
+  .image--cover {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    object-position: center;
+  }
 </style>

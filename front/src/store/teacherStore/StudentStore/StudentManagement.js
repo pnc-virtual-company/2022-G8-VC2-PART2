@@ -106,18 +106,71 @@ export const studentfollowupstore = defineStore("student", {
     /**
      * @todo add student to follow up list
      */
-    async addToFollowup() {
+     async addToFollowup() {
+        this.onCancelData();
+      /**
+       * @todo  equest email when created students
+       */
+      this.addComment();
       this.isAddFollowup = true;
-      let student = new FormData();
-      student.append("status", this.status);
-      axios.post("addToFollupStudent/" + this.idStudentFollowup, student);
-      console.log("hello");
-      this.onCancel();
-      this.getStudent()
+      axios
+        .put("addToFollupStudent/" + this.idStudentFollowup, {
+          status: this.status,
+        })
+        .then(() => {
+          axios.get("user/" + this.idStudentFollowup).then((res) => {
+            this.email = res.data.email;
+            this.first_name = res.data.first_name;
+          });
+          this.getStudent();
+          this.onCancelData();
+        });
     },
     isAddStudentFollowup(id) {
-      this.isAddFollowup = true;
-      this.idStudentFollowup = id;
+        this.isAddFollowup = true;
+        this.idStudentFollowup = id;
+        this.studentIdOnviewDetail = id;
+      },
+      onCreate() {
+       
+        this.isTrue = true;
+      },
+      isOpen(id) {
+        this.show = !this.show;
+        this.id = id;
+      },
+      isRemoveStudentFollowup(id) {
+        this.isAddFollowup = true;
+        this.idStudentFollowup = id;
+      },
+      onCancelData() {
+       
+        (this.isAddFollowup = false), (this.isShow = false);
+        this.isTrue = false;
+        this.isEdit = false;
+      },
+    removeFollowup() {
+        this.onCancelData();
+      /**
+       * @todo  equest email when created students
+       */
+      axios.post("/sendfollowupremovestudentmail", {
+        email: this.email,
+        first_name: this.first_name,
+      });
+      axios
+        .put("addToFollupStudent/" + this.idStudentFollowup, {
+          status: false,
+        })
+        .then(() => {
+          axios.get("user/" + this.idStudentFollowup).then((res) => {
+            this.email = res.data.email;
+            this.first_name = res.data.first_name;
+          });
+          console.log(this.idStudentFollowup, "remove", this.isAddFollowup);
+          this.getStudent();
+          this.onCancelData();
+        });
     },
 
     //========================                            =====================

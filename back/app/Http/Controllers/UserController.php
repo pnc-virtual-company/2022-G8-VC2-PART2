@@ -172,7 +172,7 @@ class UserController extends Controller
         }
     }
     public function addtoFollowUP(Request $request,$id){
-        $updateStudent = User::with('students')->findOrFail($id);
+        $updateStudent = User::with('students')->findOrFail($id); 
         if ($updateStudent['role'] == 1) {
             if ($updateStudent['students']['user_id'] == $id) {
                 $updateStudentID = Student::findOrFail($updateStudent['students']['id']);
