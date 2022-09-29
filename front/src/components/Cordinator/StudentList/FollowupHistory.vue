@@ -19,15 +19,6 @@
           <option value="SNA">SNA 2022</option>
         </select>
       </div>
-<<<<<<< HEAD
-      <!-- ============================ display list all student ========================== -->
-      <div
-
-        class="m-auto relative bg-gray-100 shadow-md w-12/12 sm:rounded-lg mt-5 h-screen overflow-y-scroll"
-      >
-        <table
-          class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
-=======
     </div>
 
     <!-- ====================== filter on student list ==================== -->
@@ -49,12 +40,8 @@
     <div
       class="m-auto relative bg-gray-100 p-5 shadow-md w-11/11  mt-3 h-screen overflow-y-scroll"
     >
-      <table
-        class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
-      >
-        <thead
-          class="text-xs text-gray-700 bg-gray-200 dark:bg-gray-700 dark:text-gray-400"
->>>>>>> 82ab8805941db4b76fffa037df31a92486be6e96
+        <table
+          class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
         >
           <thead
             class="text-xs text-gray-700 bg-gray-200 dark:bg-gray-700 dark:text-gray-400"
@@ -147,8 +134,8 @@
             </tr>
           </tbody>
         </table>
-      </div>
     </div>
+    <!-- </div> -->
   </template>
   <script setup>
   import { studentstore } from "@/store/coordinatorStore/StudentStore/StudentManagement";

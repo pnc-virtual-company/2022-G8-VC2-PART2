@@ -139,7 +139,7 @@ class UserController extends Controller
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'gender' => 'required',
-                // 'email' => 'required',
+                'email' => 'required',
                 'phone' => 'required'
             ]
         );
@@ -158,7 +158,6 @@ class UserController extends Controller
                 $updateStudent->update($validatedData);
                 $updateStudentID = Student::findOrFail($updateStudent['students']['id']);
                 $updateStudentID->studentNumber = $request->studentNumber;
-                $updateStudentID->status = $request->status;
                 $updateStudentID->class = $request->class;
                 $updateStudentID->batch = $request->batch;
                 $updateStudentID->ngo = $request->ngo;

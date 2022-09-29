@@ -118,7 +118,7 @@ export const coordinatorstore = defineStore("coordinator", {
             this.isCreate = false
             this.clearForm()
             this.getCoordinators()
-            toast.success("Create coordinator successfull",{position: POSITION.TOP_CENTER, timeout: 2000})
+            toast.success("Create coordinator successfull",{position: POSITION.TOP_CENTER, timeout: 1000})
           });
       }else{
         if(this.uniqueEmail){

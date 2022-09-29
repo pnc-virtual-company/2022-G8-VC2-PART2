@@ -28,6 +28,7 @@ export const studentstore = defineStore("student", {
         editCommentContent: '', //get old and new comment content
         previewImage: null,
         user_profile: null,
+        userStatus:null,
         profile_img: "",
         first_name: "",
         last_name: "",
@@ -401,6 +402,7 @@ export const studentstore = defineStore("student", {
             this.phone = data.data.phone;
             this.ngo = data.data.students.ngo;
             this.user_id = id;
+            this.userStatus = data.data.students.status;
         },
         /**
          * @todo edit student
@@ -418,6 +420,7 @@ export const studentstore = defineStore("student", {
             student.append("phone", this.phone);
             student.append("ngo", this.ngo);
             student.append("province", this.province);
+            student.append("status", this.status);
             student.append("_method", "PUT");
             await axios.post("/user/" + this.user_id, student);
             //alert successful
@@ -464,7 +467,6 @@ export const studentstore = defineStore("student", {
          * @todo  create student detail
          */
         studentDetail(id) {
-            console.log(id);
             axios.get("student/" + id).then((res) => {
                 this.first_name = res.data.user.first_name;
                 this.last_name = res.data.user.last_name;
