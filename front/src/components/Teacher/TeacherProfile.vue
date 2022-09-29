@@ -9,13 +9,16 @@
   </div>
   <widget-ViewProfileDetail>
     <template #img>
-      <img
-        :src="
-          'http://127.0.0.1:8000/storage/images/' + storeTeacherData.profile_img
-        "
-        class=" image--cover"
-        alt=""
-      />
+      <div class="flex justify-center">
+        <img
+          :src="
+            'http://127.0.0.1:8000/storage/images/' + storeTeacherData.profile_img
+          "
+          class=" image--cover "
+          alt=""
+        />
+
+      </div>
       <div class="flex justify-center"> 
         <label for="profile_img">
           <img 

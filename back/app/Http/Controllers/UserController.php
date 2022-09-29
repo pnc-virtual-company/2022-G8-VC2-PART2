@@ -24,7 +24,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::with(['teachers', 'students'])->get();
+        return User::with(['teachers', 'students'])->orderBy('id', 'DESC')->get();
     }
     
     /**
@@ -171,6 +171,17 @@ class UserController extends Controller
             }
         }
     }
+    public function addtoFollowUP(Request $request,$id){
+        $updateStudent = User::with('students')->findOrFail($id); 
+        if ($updateStudent['role'] == 1) {
+            if ($updateStudent['students']['user_id'] == $id) {
+                $updateStudentID = Student::findOrFail($updateStudent['students']['id']);
+                $updateStudentID->status = $request->status;
+                $updateStudentID->save();
+                return response()->json(['sms'=>$updateStudentID]);
+            }
+        }
+    } 
     public function updateTeacher(Request $request, $id)
     {
         $validatedData = $request->validate(
@@ -246,14 +257,20 @@ class UserController extends Controller
         }
         if ($user['role'] == 1) {
             $token = $user->createToken('student-token')->plainTextToken;
-            return response()->json(['sms' => 'studentViewVue', 'student-token' => $token, 'role' => $user['role'], 'data' => $user]);
-        } else if ($user['role'] == 2) {
+            return response()->json(['sms' => 'studentViewVue', 
+            'student-token' => $token, 'role' => $user['role'], 'data' => $user]);
+        } 
+        else if ($user['role'] == 2) {
             $token = $user->createToken('teacher-token')->plainTextToken;
-            return response()->json(['sms' => 'teacherViewVue', 'teacher-token' => $token, 'role' => $user['role'], 'data' => $user]);
-        } else if ($user['role'] == 3) {
+            return response()->json(['sms' => 'teacherViewVue', 
+            'teacher-token' => $token, 'role' => $user['role'], 'data' => $user]);
+        } 
+        else if ($user['role'] == 3) {
             $token = $user->createToken('coordinator-token')->plainTextToken;
-            return response()->json(['sms' => 'coordinatorViewVue','coordinator-token' => $token, 'role' => $user['role'], 'data' => $user]);
-        } else {
+            return response()->json(['sms' => 'coordinatorViewVue','coordinator-token'
+             => $token, 'role' => $user['role'], 'data' => $user]);
+        } 
+        else {
             return response()->json(['sms' => 'Invalid role',]);
         }
     }

@@ -173,8 +173,8 @@
 
   <!-- ============================ display list all student ========================== -->
   <div
-      class="m-auto relative bg-gray-100 shadow-md w-full mt-3 overflow-y-scroll"
-      style="height: 457.4px">
+      class="m-auto relative bg-gray-100 mt-3 overflow-y-scroll"
+      style="height: 440px">
       <table
         class="w-full text-sm text-center text-gray-500 dark:text-gray-400"
       >
@@ -208,7 +208,7 @@
                   v-model="storeData.dataDeleteStudent"
                 />
             </td>
-            <td class="pb-5 px-2">
+            <td class="">
               <div class="flex justify-evenly items-center text-right">
                 <router-link
                   class="flex"
@@ -224,36 +224,36 @@
                       'http://127.0.0.1:8000/storage/images/' +
                       student.user.profile_img
                     "
-                    class="w-14 h-14 rounded-full m-auto mt-5 image--cover"
+                    class=" mt-2 mb-2 image--cover"
                     alt=""
                   />
                   <img
                     v-else-if="student.user.gender == 'female'"
                     src="@/assets/female_logo.jpg"
-                    class="w-14 h-14 rounded-full m-auto mt-5"
+                    class="mt-2 mb-2 image--cover"
                     alt=""
                   />
                   <img
                     v-else-if="student.user.gender == 'male'"
                     src="@/assets/male_logo.jpg"
-                    class="w-14 h-14 rounded-full m-auto mt-5"
+                    class=" mt-2 mb-2 image--cover"
                     alt=""
                   />
                 </router-link>
               </div>
             </td>
-            <td class="px-2">
+            <td class="">
               <h1 class="">{{ student.studentNumber }}</h1>
             </td>
-            <td class="px-6">
+            <td class="">
               <h1 class="">
                 {{ student.user.first_name }} {{ student.user.last_name }}
               </h1>
             </td>
-            <td class="px-6">
+            <td class="">
               {{ student.class }}
             </td>
-            <td class="px-6">
+            <td class="">
               <!-- <strong><p v-if="student.status==0" class="text-sky-500">OUT FOLLOW UP</p></strong> -->
               <button
                 v-if="student.status == 1"
@@ -271,7 +271,7 @@
               </button>
               <!-- <strong><p v-if="student.status==1" style="color:#FFAD5C;">IN FOLLOW UP</p>   </strong> -->
             </td>
-            <td class="px-2">
+            <td class="">
               <!--widget drop down menu  -->
               <widget-DropDown>
                 <template #edit>
@@ -313,9 +313,11 @@ onMounted(() => {
 });
 </script>
 <style scoped>
-.image--cover {
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center;
-}
+  .image--cover {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    object-position: center;
+  }
 </style>

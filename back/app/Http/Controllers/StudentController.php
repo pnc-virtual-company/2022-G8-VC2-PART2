@@ -15,7 +15,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return Student::with('user')->get();
+        return Student::with('user')->orderBy('id', 'DESC')->get();
     }
     public function show($id)
     {

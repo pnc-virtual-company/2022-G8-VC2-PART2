@@ -63,20 +63,20 @@
             </div>
             <div
               v-else-if="storeData.gender == 'male'"
-              class="image overflow-hidden"
+              class=" flex justify-center"
             >
               <img
-                class="h-48 w-full mx-auto"
+                class="image--cover flex justify-center"
                 src="../../assets/male_logo.jpg"
                 alt=""
               />
             </div>
             <div
               v-else-if="storeData.gender == 'female'"
-              class="image overflow-hidden"
+              class="  flex justify-center"
             >
               <img
-                class="h-48 w-full mx-auto"
+                class=" image--cover"
                 src="../../assets/female_logo.jpg"
                 alt=""
               />

@@ -5,6 +5,7 @@
             <div class="xl:w-10/12">
               <div class="block shadow rounded-lg">
                 <div class="lg:flex lg:flex-wrap g-0">
+            
                     <div
                     class="lg:w-6/12 flex  items-center lg:rounded-r-lg rounded-b-lg lg:rounded-bl-none"
                     style="
@@ -79,10 +80,10 @@
                         </div>
                         <div class="text-center pt-1 mb-12 pb-1">
                           <button
-                            class="px-6 py-2.5 bg-sky-500 font-medium text-xs leading-tight uppercase rounded shadow-md   focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
+                            class="px-6 py-2.5 bg-sky-500 font-medium text-xs text-white leading-tight uppercase rounded shadow-md   focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
                             type="submit"
                           >
-                            <strong>Login</strong>
+                            <strong >Login</strong>
                           </button>
                           <router-link to="/forgetPassword"><a class="text-gray-500" href="#!">Forgot password?</a></router-link>
                         </div>

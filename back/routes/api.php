@@ -43,6 +43,7 @@ Route::get('/coordinator',[UserController::class,'getCoordinators']);
 Route::get('/getToken',[PostController::class,'index']);
 //-------------students routes-------------/
 Route::apiResource('/student', StudentController::class);
+Route::put('/addToFollupStudent/{id}', [UserController::class,'addtoFollowUP']);
 //-------------teacher routes-------------/
 Route::apiResource('/teacher',TeacherController::class);
 //-------------comment routes-------------/
